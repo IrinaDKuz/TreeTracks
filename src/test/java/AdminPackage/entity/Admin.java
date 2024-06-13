@@ -10,6 +10,7 @@ public class Admin {
     Access offersPermission = new FullAccess();
     Access advertisersPermission = new FullAccess();
     Access advertisersDocumentsPermission = new FullAccess();
+
 // TODO отправлять API на разные варианты доступов чекбоксами фиг проставишь
 
     public Admin() {

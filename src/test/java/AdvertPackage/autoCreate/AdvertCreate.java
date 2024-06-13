@@ -25,7 +25,10 @@ public class AdvertCreate {
     public static Advert buildAdvert(ChromeDriver driver) throws Exception {
         Advert advert = new Advert();
         buildBrowserAdvertPrimaryInfo(advert.getAdvertPrimaryInfo(), driver);
-        buildBrowserAdvertContact(advert.getAdvertContact(), driver);
+      // buildBrowserAdvertContact(advert.getAdvertContact(), driver);
+       // buildBrowserAdvertRequisites(advert.getAdvertRequisites(), driver);
+
+      //  buildBrowserAdvertFilter(advert, driver);
         return advert;
     }
 }

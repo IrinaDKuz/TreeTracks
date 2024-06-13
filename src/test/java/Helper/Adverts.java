@@ -80,6 +80,15 @@ public class Adverts {
             "Scabiosa", "Sedum", "Statice", "Stephanotis", "Tithonia" };
 
 
+    public static final String[] REQUISITES_WORDS = {
+            "Account Number", "Routing Number", "SWIFT Code", "IBAN", "BIC",
+            "Bank Name", "Branch Name", "Branch Address", "Account Type", "Currency",
+            "Account Holder Name", "Tax ID", "VAT Number", "Company Name", "Company Address",
+            "Billing Address", "Shipping Address", "Invoice Number", "Purchase Order Number", "Due Date",
+            "Payment Terms", "Contact Number", "Email Address", "Website URL", "Customer ID",
+            "Supplier ID", "Transaction ID", "Payment Method", "Credit Card Number", "CVV"
+    };
+
     public static String generateName(int count, String[] array) {
         Random random = new Random();
         StringBuilder companyName = new StringBuilder();

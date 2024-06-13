@@ -1,25 +1,69 @@
 package SQL;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.Test;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-import static Helper.LeadTypes.getLeadTypeKeyFromValue;
-import static SQL.DatabaseTest.sqlQuery;
 import static SQL.DatabaseTest.sqlQueryList;
 
 public class AdvertSQL {
 
     @Test
+    public static void test() throws Exception {
+        getValueFromBDWhere("title", "payment_system", "id", "57");
+        //getRequisitesFromBDPaymentSystem(57);
+    }
+
     public static String getRandomValueFromBD(String parameter, String tableName) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + ";";
         List<String> emailList = sqlQueryList(sqlRequest, parameter);
         System.out.println(emailList.get(new Random().nextInt(emailList.size())));
         return emailList.get(new Random().nextInt(emailList.size()));
     }
+
+    public static String getValueFromBDWhere(String parameter, String tableName, String where, String whereValue ) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName  +
+                " WHERE " + where + " = " + whereValue + " ;";
+        return sqlQueryList(sqlRequest, parameter).getFirst();
+    }
+
+    public static String getRandomCurrencyFromBDPaymentSystem(int paymentSystemID) throws Exception {
+        String sqlRequest = "SELECT currency from payment_system WHERE id = '" + paymentSystemID + "';";
+        String currency = String.valueOf(sqlQueryList(sqlRequest, "currency"));
+        currency = currency.replace("[[", "").replace("]]", "")
+                .replace("\"", "");
+        String[] currencies = currency.split(", ");
+        String randomCurrency = currencies[new Random().nextInt(currencies.length)];
+        return randomCurrency;
+    }
+
+    public static List<String> getRequisitesFromBDPaymentSystem(int paymentSystemID) throws Exception {
+        String sqlRequest = "SELECT fields from payment_system WHERE id = '" + paymentSystemID + "';";
+        String fieldsString = String.valueOf(sqlQueryList(sqlRequest, "fields").getFirst());
+
+        List<Map<String, Object>> mapList;
+        List<String> titles = new ArrayList<>();
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            mapList = objectMapper
+                    .readValue(fieldsString, new TypeReference<>() {
+                    });
+
+            // Извлечение значений title и добавление их в список titles
+            for (Map<String, Object> map : mapList) {
+                if (map.containsKey("title")) {
+                    titles.add((String) map.get("title"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return titles;
+    }
+
 }
 
 

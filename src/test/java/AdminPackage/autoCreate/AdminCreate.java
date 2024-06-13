@@ -25,7 +25,7 @@ public class AdminCreate {
     public static Advert buildAdvert(ChromeDriver driver) throws Exception {
         Advert advert = new Advert();
         buildBrowserAdvertPrimaryInfo(advert.getAdvertPrimaryInfo(), driver);
-        buildBrowserAdvertContact(advert.getAdvertContact(), driver);
+       // buildBrowserAdvertContact(advert.getAdvertContact(), driver);
         return advert;
     }
 }

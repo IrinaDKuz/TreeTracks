@@ -18,6 +18,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static Helper.Path.contain;
+
 public class ActionsClass {
 
     private static final String ALLOWED_CHARACTERS_WITH_SPACES = "абвгдежзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" + "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "01234567890" + "@$!%*?&#/|\\~<>^{}[]():;" + "                         ";
@@ -45,10 +47,24 @@ public class ActionsClass {
         }
     }
 
-    public static boolean isElementPresent(WebDriver driver, By locator, Duration timeout) {
+    public static boolean isElementPresent(WebDriver driver, By locator) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, timeout);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            System.out.println(locator);
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean isElementPresentFast(WebDriver driver, By locator) {
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
             return true;
         } catch (Exception e) {
             return false;
@@ -291,19 +307,32 @@ public class ActionsClass {
         option.click();
     }
 
+    public static void enterTextByPlaceholder(String placeholder, String text, WebDriver driver) throws InterruptedException {
+        By by = By.xpath("//input[@placeholder='" + placeholder + "']");
+        waitClearAndSendKeys(by, text, driver);
+    }
+
+    public static void selectAutocompleteInputByText(String text, String value, WebDriver driver) throws InterruptedException {
+        By by = By.xpath("//div[contains(text(), '" + text + "')]/parent::div//input");
+        waitClearAndSendKeys(by, value, driver);
+        Thread.sleep(500);
+        new Actions(driver).sendKeys(Keys.ENTER).perform();
+    }
+
     public static void selectAutocompleteInput(String label, String value, WebDriver driver) throws InterruptedException {
         By by = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//input");
         waitClearAndSendKeys(by, value, driver);
         Thread.sleep(500);
         Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40);
         actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40).click().build().perform();
     }
 
     public static void selectAutocompleteInput(String label, String[] values, WebDriver driver) throws InterruptedException {
         By by = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//input");
         By crossBy = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//div[@class=' css-v7duua']");
-         while (isElementPresent(driver, crossBy, Duration.ofSeconds(3))) {
-            waitAndClick(crossBy, driver);
+        while (isElementPresentFast(driver, crossBy)) {
+            driver.findElement(crossBy).click();
         }
 
         for (String value : values) {
@@ -336,4 +365,19 @@ public class ActionsClass {
 
         return randomString.toString();
     }
+
+    public static String convertSnakeCaseToTitleCase(String snakeCase) {
+        StringBuilder titleCase = new StringBuilder();
+        String[] words = snakeCase.split("_");
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                titleCase.append(Character.toUpperCase(word.charAt(0)));
+                titleCase.append(word.substring(1).toLowerCase());
+                titleCase.append(" ");
+            }
+        }
+        return titleCase.toString().trim();
+    }
+
 }
