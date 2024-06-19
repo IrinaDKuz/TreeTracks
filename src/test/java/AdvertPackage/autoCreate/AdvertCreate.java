@@ -23,12 +23,18 @@ public class AdvertCreate {
     }
 
     public static Advert buildAdvert(ChromeDriver driver) throws Exception {
-        Advert advert = new Advert();
-        buildBrowserAdvertPrimaryInfo(advert.getAdvertPrimaryInfo(), driver);
-      // buildBrowserAdvertContact(advert.getAdvertContact(), driver);
-       // buildBrowserAdvertRequisites(advert.getAdvertRequisites(), driver);
-
-      //  buildBrowserAdvertFilter(advert, driver);
-        return advert;
+        Advert advert = null;
+        for (int i = 0; i < 5 ; i++) {
+            advert = new Advert();
+            editBrowserAdvertPrimaryInfo(advert.getAdvertPrimaryInfo(), driver);
+            //buildBrowserAdvertContact(advert.getAdvertContact(), driver);
+            //buildBrowserAdvertRequisites(advert.getAdvertRequisites(), driver);
+            buildBrowserAdvertPostback(advert.getAdvertPostback(), driver);
+            Thread.sleep(5000);
+            // buildBrowserAdvertNotes(advert.getAdvertNotes(), driver);
+            // buildBrowserAdvertFilter(advert, driver);
+        }
+            return advert;
+        
     }
 }

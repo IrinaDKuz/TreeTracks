@@ -1,9 +1,6 @@
 package AdvertPackage.autoCreate;
 
-import AdvertPackage.entity.Advert;
-import AdvertPackage.entity.AdvertContact;
-import AdvertPackage.entity.AdvertPrimaryInfo;
-import AdvertPackage.entity.AdvertRequisites;
+import AdvertPackage.entity.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -14,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 
 import static Helper.ActionsClass.*;
+import static Helper.Adverts.getRandomValue;
 import static Helper.MenuPage.*;
 import static Helper.Path.contain;
 
@@ -31,21 +29,24 @@ public class AdvertBuilder {
     public static final String TAG = "Tag";
 
 
-
-
-    public static void buildBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, ChromeDriver driver) throws InterruptedException {
+    public static void addNewBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, ChromeDriver driver) throws InterruptedException {
         menuItemClick(ADVERTISERS, driver);
+        waitAndClick(contain("button", ADD_ADVERT_BUTTON), driver);
+        fillBrowserAdvertPrimaryInfo(advertPrimaryInfo, driver);
+        waitAndClick(contain("button", "Create"), driver);
+    }
 
-        // TODO ниже пока Pандом Pандомыч
-        // waitAndClick(contain("button", ADD_ADVERT_BUTTON), driver);
+    public static void editBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, ChromeDriver driver) throws InterruptedException {
+        menuItemClick(ADVERTISERS, driver);
         Random random = new Random();
         int randomNumber = 5 + random.nextInt(46);
         waitAndClick(By.xpath("(//td//a//button)[" + randomNumber + "]"), driver);
+        fillBrowserAdvertPrimaryInfo(advertPrimaryInfo, driver);
+        waitAndClick(contain("button", "Save"), driver);
 
-        sendKeysByLabel(COMPANY, advertPrimaryInfo.getCompany(), driver);
-        sendKeysByLabel(COMPANY_LEGAL_NAME, advertPrimaryInfo.getCompanyLegalName(), driver);
-        sendKeysByLabel(SITE_URL, advertPrimaryInfo.getSiteUrl(), driver);
+    }
 
+    public static void fillBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, ChromeDriver driver) throws InterruptedException {
         selectAutocompleteInput(STATUS, advertPrimaryInfo.getStatus(), driver);
         selectAutocompleteInput(MODEL_TYPE, advertPrimaryInfo.getModelType(), driver);
         selectAutocompleteInput(MANAGER, advertPrimaryInfo.getManagerId(), driver);
@@ -54,29 +55,19 @@ public class AdvertBuilder {
         selectAutocompleteInput("GEO", advertPrimaryInfo.getGeo(), driver);
         selectAutocompleteInput("Categories", advertPrimaryInfo.getCategories(), driver);
         selectAutocompleteInput("Tags", advertPrimaryInfo.getTag(), driver);
-        selectAutocompleteInput("Allowed IPs", advertPrimaryInfo.getAllowedIp(), driver);
-        selectAutocompleteInput("Allowed sub account", advertPrimaryInfo.getAllowedSubAccount(), driver);
-        selectAutocompleteInput("Disallowed sub account", advertPrimaryInfo.getDisallowedSubAccount(), driver);
         selectAutocompleteInput(USER_REQUEST_SOURCE, advertPrimaryInfo.getUserRequestSourceId(), driver);
 
+        sendKeysByLabel(COMPANY, advertPrimaryInfo.getCompany(), driver);
+        sendKeysByLabel(COMPANY_LEGAL_NAME, advertPrimaryInfo.getCompanyLegalName(), driver);
+        sendKeysByLabel(SITE_URL, advertPrimaryInfo.getSiteUrl(), driver);
         sendKeysByLabel(USER_REQUEST_SOURCE_VALUE, advertPrimaryInfo.getUserRequestSourceValue(), driver);
         sendKeysToTextAreaByLabel(NOTE, advertPrimaryInfo.getNote(), driver);
 
-        WebElement checkbox = driver.findElement(By.id("forbidChangePostbackStatus"));
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
+       // TODO Ждать пару секунд сообщение об ошибке
 
-        waitAndClick(contain("button", "Save"), driver);
     }
 
     public static void buildBrowserAdvertContact(ArrayList<AdvertContact> advertContacts, ChromeDriver driver) throws InterruptedException {
-        // menuItemClick(ADVERTISERS, driver);
-        // TODO ниже пока Pандом Pандомыч
-        // waitAndClick(contain("button", ADD_ADVERT_BUTTON), driver);
-        // Random random = new Random();
-        // int randomNumber = 5 + random.nextInt(46);
-        // waitAndClick(By.xpath("(//td//a//button)[" + randomNumber +"]"), driver);
-
         waitAndClick(contain("a", "Contacts"), driver);
         Thread.sleep(3000);
         if (!isElementPresent(driver, contain("button", "Delete Contact"))) {
@@ -87,20 +78,12 @@ public class AdvertBuilder {
             sendKeysByLabel("Contact person", advertContact.getPerson(), driver);
             selectAutocompleteInput("Contact status", advertContact.getStatus(), driver);
             sendKeysByLabel("Email", advertContact.getEmail(), driver);
-            waitAndClick(contain("button", "Save Contacts"), driver);
+            waitAndClick(contain("button", "Save Contact"), driver);
         }
     }
 
 
-
     public static void buildBrowserAdvertRequisites(ArrayList<AdvertRequisites> advertRequisites, ChromeDriver driver) throws InterruptedException {
-         menuItemClick(ADVERTISERS, driver);
-        // TODO ниже пока Pандом Pандомыч
-        // waitAndClick(contain("button", ADD_ADVERT_BUTTON), driver);
-        Random random = new Random();
-        int randomNumber = 5 + random.nextInt(46);
-        waitAndClick(By.xpath("(//td//a//button)[" + randomNumber +"]"), driver);
-
         waitAndClick(contain("a", "Requisites"), driver);
         waitAndClick(contain("button", "+ Add New Requisite"), driver);
 
@@ -108,40 +91,61 @@ public class AdvertBuilder {
             selectAutocompleteInput("Payment method", advertRequisite.getPaymentSystemTitle(), driver);
             selectAutocompleteInput("Currency", advertRequisite.getCurrency(), driver);
 
-            for (Map.Entry<String, String> entry : advertRequisite.getRequisites().entrySet()) {
-                sendKeysByLabel((entry.getKey()), entry.getValue(), driver);
+            for (Map.Entry<Object, String> entry : advertRequisite.getRequisites().entrySet()) {
+                sendKeysByLabel((String) entry.getKey(), entry.getValue(), driver);
             }
             waitAndClick(contain("button", "Save"), driver);
+        }
+    }
+
+    public static void buildBrowserAdvertPostback(AdvertPostback advertPostback, ChromeDriver driver) throws InterruptedException {
+        waitAndClick(contain("a", "Postbacks"), driver);
+
+        selectAutocompleteInput("Allowed IPs", advertPostback.getAllowedIp(), driver);
+        selectAutocompleteInput("Allowed sub account", advertPostback.getAllowedSubAccount(), driver);
+        selectAutocompleteInput("Disallowed sub account", advertPostback.getDisallowedSubAccount(), driver);
+
+        if (advertPostback.getForbidChangePostbackStatus().equals(true)) {
+            WebElement checkbox = driver.findElement(By.id("forbidChangePostbackStatus"));
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
+        }
+    }
+
+    public static void buildBrowserAdvertNotes(ArrayList<AdvertNotes> advertNotes, ChromeDriver driver) throws InterruptedException {
+        waitAndClick(contain("a", "Notes"), driver);
+        waitAndClick(contain("button", "Add new note"), driver);
+
+        for (AdvertNotes advertNote : advertNotes) {
+
+            selectAutocompleteInput("Type", advertNote.getType(), driver);
+            if (advertNote.getLocation() != null) {
+                selectAutocompleteInput("Location", advertNote.getLocation(), driver);
+            }
+            sendKeysToTextAreaByLabel("Text", advertNote.getText(), driver);
         }
     }
 
     public static void buildBrowserAdvertFilter(Advert advert, ChromeDriver driver) throws InterruptedException {
         menuItemClick(ADVERTISERS, driver);
 
-        // TODO ниже пока Pандом Pандомыч
         selectAutocompleteInputByText("Sales Manager", advert.getAdvertPrimaryInfo().getSalesManager(), driver);
         selectAutocompleteInputByText("Account Manager", advert.getAdvertPrimaryInfo().getAccountManager(), driver);
-
         enterTextByPlaceholder("Site Url", advert.getAdvertPrimaryInfo().getSiteUrl(), driver);
-
         selectAutocompleteInputByText("Geo", advert.getAdvertPrimaryInfo().getGeo()[0], driver);
-
         selectAutocompleteInputByText("Categories", advert.getAdvertPrimaryInfo().getCategories()[0], driver);
-
         selectAutocompleteInputByText(MODEL_TYPE, advert.getAdvertPrimaryInfo().getModelType(), driver);
         selectAutocompleteInputByText(STATUS, advert.getAdvertPrimaryInfo().getStatus(), driver);
-
         enterTextByPlaceholder(NOTE, advert.getAdvertPrimaryInfo().getNote(), driver);
         enterTextByPlaceholder(COMPANY_LEGAL_NAME, advert.getAdvertPrimaryInfo().getCompanyLegalName(), driver);
-
         selectAutocompleteInputByText(MANAGER, advert.getAdvertPrimaryInfo().getManagerId(), driver);
-        //RT
-        //RV
         enterTextByPlaceholder("Contact", advert.getAdvertContact().getFirst().getEmail(), driver);
         selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSourceId(), driver);
         enterTextByPlaceholder(USER_REQUEST_SOURCE_VALUE, advert.getAdvertPrimaryInfo().getUserRequestSourceValue(), driver);
         selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTag()[0], driver);
         enterTextByPlaceholder("Person", advert.getAdvertContact().getFirst().getPerson(), driver);
+        selectAutocompleteInputByText("Requsite Type", advert.getAdvertRequisites().getFirst().getPaymentSystemTitle(), driver);
+        enterTextByPlaceholder("Requsite Value", getRandomValue(advert.getAdvertRequisites().getFirst().getRequisites()).toString(),driver);
         waitAndClick(contain("button", "Show results"), driver);
     }
 }

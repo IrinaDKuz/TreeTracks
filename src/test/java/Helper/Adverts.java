@@ -22,13 +22,19 @@ public class Adverts {
         put(95, affiliateKey_95);
     }};
 
-    public final static Map<Integer, String> MODEL_TYPES_MAP = new HashMap<Integer, String>() {{
+    public final static Map<Object, String> MODEL_TYPES_MAP = new HashMap<>() {{
         put(1, "Cpa");
         put(2, "RevShare");
         put(3, "Other");
     }};
 
-    public final static Map<Integer, String> STATUS_MAP = new HashMap<Integer, String>() {
+    public final static Map<Object, String> NOTES_TYPES_MAP = new HashMap<>() {{
+        put(1, "Call");
+        put(2, "Conference");
+        put(3, "Meeting");
+    }};
+
+    public final static Map<Object, String> STATUS_MAP = new HashMap<>() {
         {
             put(1, "In Work");
             put(2, "Find Contact");
@@ -40,7 +46,7 @@ public class Adverts {
             put(8, "Decline");
         }};
 
-    public final static Map<Integer, String> PERSON_STATUS_MAP = new HashMap<Integer, String>() {
+    public final static Map<Object, String> PERSON_STATUS_MAP = new HashMap<Object, String>() {
         {
             put(1, "Active");
             put(2, "Disable");
@@ -89,17 +95,31 @@ public class Adverts {
             "Supplier ID", "Transaction ID", "Payment Method", "Credit Card Number", "CVV"
     };
 
+
+    public static final String[] DESCRIPTION_WORDS = {
+            "Intelligent", "Kind", "Honest", "Brave", "Creative",
+            "Loyal", "Empathetic", "Generous", "Hardworking", "Ambitious",
+            "Optimistic", "Punctual", "Friendly", "Caring", "Patient",
+            "Adaptable", "Confident", "Diligent", "Enthusiastic", "Humorous",
+            "Polite", "Sincere", "Thoughtful", "Trustworthy", "Versatile",
+            "Warm-hearted", "Charismatic", "Dependable", "Determined", "Energetic",
+            "Fair", "Forgiving", "Helpful", "Imaginative", "Independent",
+            "Meticulous", "Open-minded", "Organized", "Passionate", "Perceptive",
+            "Persistent", "Practical", "Rational", "Reliable", "Respectful",
+            "Resourceful", "Self-disciplined", "Sociable", "Supportive", "Tolerant"
+    };
+
     public static String generateName(int count, String[] array) {
         Random random = new Random();
-        StringBuilder companyName = new StringBuilder();
+        StringBuilder name = new StringBuilder();
         for (int i = 0; i < count; i++) {
             String randomWord = array[random.nextInt(array.length)];
-            companyName.append(randomWord);
+            name.append(randomWord);
             if (i < count - 1) {
-                companyName.append(" ");
+                name.append(" ");
             }
         }
-        return companyName.toString();
+        return name.toString();
     }
 
     public static String generateCompanyUrl(String companyName) {
@@ -131,14 +151,14 @@ public class Adverts {
     }
 
 
-    public static String getRandomValue(Map<Integer, String> map) {
+    public static Object getRandomValue(Map<Object, String> map) {
         Object[] keys = map.keySet().toArray();
         return map.get(getRandomKey(keys));
     }
 
-    public static Integer getRandomKey(Object[] keys) {
+    public static Object getRandomKey(Object[] keys) {
         // Выбираем случайный ключ из массива ключей
-        return (Integer) keys[new Random().nextInt(keys.length)];
+        return keys[new Random().nextInt(keys.length)];
     }
 
     public static Integer getKeyFromValue(String value, Map<Integer, String> map) {

@@ -5,17 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertGetFromBD.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertRequisites.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertNotes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertNotesAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostbackAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminCreate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminContentFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminContentFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminGeneral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertRequisites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertRequisites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Buttons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,11 +55,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.ActionsClass.PairwiseTestGenerationContentFilter.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "TestNG.AdminPermissionsAPI.executor": "Run",
+    "TestNG.AdvertAPI.advertEdit.executor": "Run",
+    "TestNG.AdvertCreate.executor": "Run",
     "TestNG.AdvertCreate.test.executor": "Run",
+    "TestNG.AdvertNotesAPI.executor": "Run",
+    "TestNG.AdvertPostbackAPI.executor": "Run",
     "TestNG.AdvertSQL.getManager.executor": "Run",
     "TestNG.AdvertSQL.test.executor": "Run",
     "git-widget-placeholder": "main",
@@ -69,7 +85,23 @@
       <recent name="Advert.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.AdvertCreate.test">
+  <component name="RunManager">
+    <configuration name="ActionsClass.PairwiseTestGenerationContentFilter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Helper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Helper" />
+      <option name="MAIN_CLASS_NAME" value="Helper.ActionsClass" />
+      <option name="METHOD_NAME" value="PairwiseTestGenerationContentFilter" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AdminPermissionsAPI" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
@@ -87,6 +119,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AdvertAPI.advertEdit" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="AdvertPackage.entity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="AdvertPackage.entity" />
+      <option name="MAIN_CLASS_NAME" value="AdvertPackage.entity.AdvertAPI" />
+      <option name="METHOD_NAME" value="advertEdit" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AdvertCreate.test" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
@@ -98,24 +148,6 @@
       <option name="PACKAGE_NAME" value="Advert.autoCreate" />
       <option name="MAIN_CLASS_NAME" value="AdvertPackage.autoCreate.AdvertCreate" />
       <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AdvertSQL.getManager" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SQL.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="SQL" />
-      <option name="MAIN_CLASS_NAME" value="SQL.AdvertSQL" />
-      <option name="METHOD_NAME" value="getManager" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -144,9 +176,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="TestNG.AdvertCreate.test" />
+        <item itemvalue="TestNG.AdvertAPI.advertEdit" />
+        <item itemvalue="JUnit.ActionsClass.PairwiseTestGenerationContentFilter" />
         <item itemvalue="TestNG.AdvertSQL.test" />
         <item itemvalue="TestNG.AdminPermissionsAPI" />
-        <item itemvalue="TestNG.AdvertSQL.getManager" />
       </list>
     </recent_temporary>
   </component>
@@ -165,19 +198,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java</url>
-          <line>331</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java</url>
-          <line>37</line>
+          <line>44</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java</url>
+          <line>147</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

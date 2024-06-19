@@ -2,7 +2,9 @@ package AdvertPackage.entity;
 
 import static Helper.Adverts.*;
 import static Helper.Adverts.generateName;
+import static Helper.GeoAndLang.GEO_ARRAY;
 import static SQL.AdvertSQL.getRandomValueFromBD;
+import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
 public class AdvertPrimaryInfo {
     String status;
@@ -16,13 +18,9 @@ public class AdvertPrimaryInfo {
     String[] geo;
     String[] categories;
     String[] tag;
-    String[] allowedIp;
-    String[] allowedSubAccount;
-    String[] disallowedSubAccount;
     String userRequestSourceId;
     String userRequestSourceValue;
     String note;
-    Boolean forbidChangePostbackStatus;
 
     String address1;
     String address2;
@@ -40,29 +38,26 @@ public class AdvertPrimaryInfo {
     String zip_code;
 
     public AdvertPrimaryInfo() throws Exception {
-        this.status = getRandomValue(STATUS_MAP);
+        this.status = (String) getRandomValue(STATUS_MAP);
         this.company = generateName(3, COMPANY_WORDS);
         this.companyLegalName = generateName(4, COMPANY_WORDS);
         this.siteUrl = generateCompanyUrl(this.company);
-        this.modelType = getRandomValue(MODEL_TYPES_MAP);
+        this.modelType = getRandomValue(MODEL_TYPES_MAP).toString();
         this.managerId = getRandomValueFromBD("email", "admin");
         this.salesManager = getRandomValueFromBD("email", "admin");
         this.accountManager = getRandomValueFromBD("email", "admin");
 
         //TODO: из-за непонятных стран пока не понятно как реализовывать
-        this.geo = new String[]{"Albania", "Armenia", "Austria"};
+        this.geo = new String[]{generateName(1, GEO_ARRAY),
+                generateName(1, GEO_ARRAY), generateName(1, GEO_ARRAY)};
 
         // TODO надо брать рандомно из БД из-за языков пока не понятно как реализовывать
-        this.categories = new String[]{"Forex"};
+        this.categories = new String[]{getRandomValueFromBDWhere("title", "category", "lang", "'general'")};
 
         this.tag = new String[]{generateName(1, COMPANY_WORDS), generateName(1, COMPANY_WORDS)};
-        this.allowedIp = new String[]{ generateIPAddress(), generateIPAddress()};
-        this.disallowedSubAccount = new String[]{"Sub 1", "Sub 3", "Sub 4"};
-        this.allowedSubAccount = new String[]{"Sub 8", "Sub 5", "Sub 2"};
         this.userRequestSourceId = getRandomValueFromBD("name", "user_request_source");
         this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
         this.note = generateName(10, COMPANY_WORDS);
-        this.forbidChangePostbackStatus = true;
     }
 
     public String getStatus() {
@@ -153,30 +148,6 @@ public class AdvertPrimaryInfo {
         this.tag = tag;
     }
 
-    public String[] getAllowedIp() {
-        return allowedIp;
-    }
-
-    public void setAllowedIp(String[] allowedIp) {
-        this.allowedIp = allowedIp;
-    }
-
-    public String[] getAllowedSubAccount() {
-        return allowedSubAccount;
-    }
-
-    public void setAllowedSubAccount(String[] allowedSubAccount) {
-        this.allowedSubAccount = allowedSubAccount;
-    }
-
-    public String[] getDisallowedSubAccount() {
-        return disallowedSubAccount;
-    }
-
-    public void setDisallowedSubAccount(String[] disallowedSubAccount) {
-        this.disallowedSubAccount = disallowedSubAccount;
-    }
-
     public String getUserRequestSourceId() {
         return userRequestSourceId;
     }
@@ -200,14 +171,5 @@ public class AdvertPrimaryInfo {
     public void setNote(String note) {
         this.note = note;
     }
-
-    public Boolean getForbidChangePostbackStatus() {
-        return forbidChangePostbackStatus;
-    }
-
-    public void setForbidChangePostbackStatus(Boolean forbidChangePostbackStatus) {
-        this.forbidChangePostbackStatus = forbidChangePostbackStatus;
-    }
-
 
 }

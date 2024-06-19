@@ -1,5 +1,6 @@
 package Helper;
 
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,9 +13,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +21,7 @@ import static Helper.Path.contain;
 
 public class ActionsClass {
 
-    private static final String ALLOWED_CHARACTERS_WITH_SPACES = "абвгдежзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" + "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "01234567890" + "@$!%*?&#/|\\~<>^{}[]():;" + "                         ";
+    private static final String CHARACTERS = "абвгдежзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" + "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "01234567890" + "@$!%*?&#/|\\~<>^{}[]():;";
 
 
     public static int getRandomInt() {
@@ -359,8 +358,8 @@ public class ActionsClass {
         SecureRandom random = new SecureRandom();
 
         for (int i = 0; i < length; i++) {
-            int randomIndex = random.nextInt(ALLOWED_CHARACTERS_WITH_SPACES.length());
-            randomString.append(ALLOWED_CHARACTERS_WITH_SPACES.charAt(randomIndex));
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            randomString.append(CHARACTERS.charAt(randomIndex));
         }
 
         return randomString.toString();
@@ -380,4 +379,7 @@ public class ActionsClass {
         return titleCase.toString().trim();
     }
 
+    public static Boolean getRandomBoolean() {
+        return Math.random() < 0.5;
+    }
 }

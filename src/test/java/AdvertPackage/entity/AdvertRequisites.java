@@ -10,7 +10,7 @@ public class AdvertRequisites {
     String currency;
     int paymentSystemId;
     String paymentSystemTitle;
-    Map<String, String> requisites = new HashMap<>();
+    Map<Object, String> requisites = new HashMap<>();
 
     public AdvertRequisites() throws Exception {
         this.paymentSystemId = Integer.parseInt(getRandomValueFromBD("id", "payment_system"));
@@ -52,11 +52,11 @@ public class AdvertRequisites {
         this.paymentSystemTitle = paymentSystemTitle;
     }
 
-    public Map<String, String> getRequisites() {
+    public Map<Object, String> getRequisites() {
         return requisites;
     }
 
-    public void setRequisites(Map<String, String> requisites) {
+    public void setRequisites(Map<Object, String> requisites) {
         this.requisites = requisites;
     }
 

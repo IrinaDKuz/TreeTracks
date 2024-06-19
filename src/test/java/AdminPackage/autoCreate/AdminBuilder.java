@@ -38,9 +38,6 @@ public class AdminBuilder {
         selectAutocompleteInput("GEO", advertPrimaryInfo.getGeo(), driver);
         selectAutocompleteInput("Categories", advertPrimaryInfo.getCategories(), driver);
         selectAutocompleteInput("Tags", advertPrimaryInfo.getTag(), driver);
-        selectAutocompleteInput("Allowed IPs", advertPrimaryInfo.getAllowedIp(), driver);
-        selectAutocompleteInput("Allowed sub account", advertPrimaryInfo.getAllowedSubAccount(), driver);
-        selectAutocompleteInput("Disallowed sub account", advertPrimaryInfo.getDisallowedSubAccount(), driver);
         selectAutocompleteInput("User Request Source", advertPrimaryInfo.getUserRequestSourceId(), driver);
 
         sendKeysByLabel("User Request Source Value", advertPrimaryInfo.getUserRequestSourceValue(), driver);

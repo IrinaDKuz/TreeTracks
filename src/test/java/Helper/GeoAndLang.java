@@ -50,9 +50,50 @@ public class GeoAndLang {
         return currency[new Random().nextInt(currency.length)];
     }
 
-
-
     public static String[] currency = {"Usd", "Eur", "Rub"};
+
+    public static String[] GEO_ARRAY = {
+            "Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
+            "Antigua and barbuda", "Argentina", "Armenia", "Australia", "Austria",
+            "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
+            "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
+            "Bolivia", "Bosnia and herzegovina", "Botswana", "Brazil", "Brunei",
+            "Bulgaria", "Burkina faso", "Burundi", "Cote divoire", "Cabo verde",
+            "Cambodia", "Cameroon", "Canada", "Central african republic", "Chad",
+            "Chile", "China", "Colombia", "Comoros", "Costa rica",
+            "Croatia", "Cuba", "Cyprus", "Czechia", "Democratic republic of the congo",
+            "Denmark", "Djibouti", "Dominica", "Dominican republic", "Ecuador",
+            "Egypt", "El salvador", "Equatorial guinea", "Eritrea", "Estonia",
+            "Eswatini", "Ethiopia", "Fiji", "Finland", "France",
+            "Gabon", "Gambia", "Georgia", "Germany", "Ghana",
+            "Greece", "Grenada", "Guatemala", "Guinea", "Guinea bissau",
+            "Guyana", "Haiti", "Holy see", "Honduras", "Hongkong",
+            "Hungary", "Iceland", "India", "Indonesia", "Iran",
+            "Iraq", "Ireland", "Israel", "Italy", "Jamaica",
+            "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati",
+            "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon",
+            "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania",
+            "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives",
+            "Mali", "Malta", "Marshall islands", "Mauritania", "Mauritius",
+            "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia",
+            "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia",
+            "Nauru", "Nepal", "Netherlands", "New zealand", "Nicaragua",
+            "Niger", "Nigeria", "North korea", "North macedonia", "Norway",
+            "Oman", "Pakistan", "Palau", "Palestine state", "Panama",
+            "Papua new guinea", "Paraguay", "Peru", "Philippines", "Poland",
+            "Portugal", "Qatar", "Romania", "Russia", "Rwanda",
+            "Saint kitts and nevis", "Saint lucia", "Saint vincent and the grenadines", "Samoa", "San marino",
+            "Sao tome and principe", "Saudi arabia", "Senegal", "Serbia", "Seychelles",
+            "Sierra leone", "Singapore", "Slovakia", "Slovenia", "Solomon islands",
+            "Somalia", "South africa", "South korea", "South sudan", "Spain",
+            "Sri lanka", "Sudan", "Suriname", "Sweden", "Switzerland",
+            "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor leste",
+            "Togo", "Tonga", "Trinidad and tobago", "Tunisia", "Turkey",
+            "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United arab emirates",
+            "United kingdom", "United states of america", "Uruguay", "Uzbekistan", "Vanuatu",
+            "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+    };
+
 
     // lang
     public static Map<String, String> lang_map = Stream.of(new String[][]{

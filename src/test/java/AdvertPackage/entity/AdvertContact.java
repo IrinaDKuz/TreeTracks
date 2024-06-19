@@ -24,7 +24,7 @@ public class AdvertContact {
 
     public AdvertContact() {
         this.person = generateName(2, CONTACT_WORDS);
-        this.status = getRandomValue(PERSON_STATUS_MAP);
+        this.status = (String) getRandomValue(PERSON_STATUS_MAP);
         this.email = generateEmail(this.person);
         this.messenger = new Messenger();
     }

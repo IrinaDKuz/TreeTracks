@@ -25,5 +25,7 @@ public class Buttons {
     public static final By I_INFO = By.xpath("//i[@class='fas fa-eye']");
     public static final By I_EDIT = By.xpath("//i[@class='fas fa-edit']");
 
-
+    public static final By ERROR_UNKNOWN = By.xpath("//strong[text()='unknown error...']");
+    public static final By ERROR_VALIDATION = By.xpath("//strong[text()='Error Validation']");
+    public static final By SUCCESS = By.xpath("//strong[contains(text(), 'success')]");
 }

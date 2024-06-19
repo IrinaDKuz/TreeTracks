@@ -1,5 +1,7 @@
 package AdminPackage.entity;
 
+import static Helper.ActionsClass.getRandomBoolean;
+
 public class AdminPermissions {
 
     public static class Access {
@@ -16,6 +18,15 @@ public class AdminPermissions {
             this.delete = delete;
             this.export = export;
         }
+
+        public Access() {
+            this.view = getRandomBoolean();
+            this.create = getRandomBoolean();
+            this.edit = getRandomBoolean();
+            this.delete = getRandomBoolean();
+            this.export = getRandomBoolean();
+        }
+
     }
 
     public static class FullAccess extends Access {

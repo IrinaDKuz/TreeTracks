@@ -18,9 +18,8 @@ public class AdvertSQL {
 
     public static String getRandomValueFromBD(String parameter, String tableName) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + ";";
-        List<String> emailList = sqlQueryList(sqlRequest, parameter);
-        System.out.println(emailList.get(new Random().nextInt(emailList.size())));
-        return emailList.get(new Random().nextInt(emailList.size()));
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
     }
 
     public static String getValueFromBDWhere(String parameter, String tableName, String where, String whereValue ) throws Exception {
@@ -28,6 +27,15 @@ public class AdvertSQL {
                 " WHERE " + where + " = " + whereValue + " ;";
         return sqlQueryList(sqlRequest, parameter).getFirst();
     }
+
+
+    public static String getRandomValueFromBDWhere(String parameter, String tableName, String where, String whereValue ) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName  +
+                " WHERE " + where + " = " + whereValue + " ;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
 
     public static String getRandomCurrencyFromBDPaymentSystem(int paymentSystemID) throws Exception {
         String sqlRequest = "SELECT currency from payment_system WHERE id = '" + paymentSystemID + "';";

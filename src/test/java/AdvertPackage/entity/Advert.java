@@ -7,11 +7,18 @@ public class Advert {
     AdvertPrimaryInfo advertPrimaryInfo;
     ArrayList<AdvertContact> advertContact = new ArrayList<>();
     ArrayList<AdvertRequisites> advertRequisites = new ArrayList<>();
+    AdvertPostback advertPostback;
+
+
+
+    ArrayList<AdvertNotes> advertNotes = new ArrayList<>();
 
     public Advert() throws Exception {
         this.advertPrimaryInfo = new AdvertPrimaryInfo();
         this.advertContact.add(new AdvertContact());
         this.advertRequisites.add(new AdvertRequisites());
+        this.advertPostback = new AdvertPostback();
+        this.advertNotes.add(new AdvertNotes());
     }
 
     public int getId() {
@@ -47,6 +54,20 @@ public class Advert {
     }
 
     public void setAdvertFromBD() {
+    }
 
+    public AdvertPostback getAdvertPostback() {
+        return advertPostback;
+    }
+
+    public void setAdvertPostback(AdvertPostback advertPostback) {
+        this.advertPostback = advertPostback;
+    }
+    public ArrayList<AdvertNotes> getAdvertNotes() {
+        return advertNotes;
+    }
+
+    public void setAdvertNotes(ArrayList<AdvertNotes> advertNotes) {
+        this.advertNotes = advertNotes;
     }
 }
