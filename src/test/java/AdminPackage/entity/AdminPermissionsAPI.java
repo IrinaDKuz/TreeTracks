@@ -7,10 +7,16 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import static Helper.Adverts.*;
+import static Helper.Adverts.DESCRIPTION_WORDS;
+import static SQL.AdvertSQL.getRandomValueFromBD;
+
 public class AdminPermissionsAPI {
 
     static int adminId = 97;
     static String rowName = "offers";
+
+    static JsonObject jsonAdminPermissions = new JsonObject();
 
     static String jsonAllTrueBody = "{\"permissions\":" +
             "{\"admin\":{\"view\":true,\"create\":true,\"edit\":true,\"delete\":true,\"export\":true}," +
@@ -68,16 +74,6 @@ public class AdminPermissionsAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(jsonAllTrueBody, JsonObject.class);
 
-        JsonObject adminPermissions = jsonObject.getAsJsonObject("permissions")
-                .getAsJsonObject(rowName);
-
-        adminPermissions.addProperty("view", false);
-        adminPermissions.addProperty("create", false);
-        adminPermissions.addProperty("edit", false);
-        adminPermissions.addProperty("delete", false);
-        adminPermissions.addProperty("export", false);
-
-
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -91,4 +87,92 @@ public class AdminPermissionsAPI {
         String responseBody = response.getBody().asString();
         System.out.println("Ответ: " + responseBody);
     }
+
+    public static JsonObject initializeJsonAdminPermissions1(AdminPermissions adminPermissions) {
+// записать доступы в Админа
+       // set
+        return null;
+    }
+
+    public static JsonObject initializeJsonAdminPermissions(AdminPermissions adminPermissions) {
+        JsonObject jsonAdminPermissions = new JsonObject();
+        JsonObject permissions = new JsonObject();
+
+// Создаем json для отправки по АPI по данным Админа
+     JsonObject admin = createPermissionObject(true, true, true, true, true);
+        JsonObject adminLog = createPermissionObject(true, false, false, false, false);
+        JsonObject advertPrimaryInfo = createPermissionObject(true, false, true, true, true);
+        JsonObject advertContact = createPermissionObject(true, true, true, true, true);
+        JsonObject advertRequisites = createPermissionObject(true, true, true, true, true);
+        JsonObject advertPostback = createPermissionObject(true, false, true, true, false);
+        JsonObject advertDocument = createPermissionObject(true, true, true, true, true);
+
+
+        // TODO : 123
+        AdminPermissions.Access advertNoteAccess = adminPermissions.getAdvertNotePermission();
+        JsonObject advertNote = createPermissionObject(advertNoteAccess.getView(),
+                advertNoteAccess.getCreate(),
+                advertNoteAccess.getEdit(),
+                advertNoteAccess.getDelete(),
+                advertNoteAccess.getExport());
+        JsonObject offers = createPermissionObject(true, true, true, true, true);
+        JsonObject affiliates = createPermissionObject(true, true, true, true, true);
+        JsonObject affiliatesLog = createPermissionObject(true, false, false, false, true);
+        JsonObject billingAdvertisers = createPermissionObject(true, true, true, true, true);
+        JsonObject billingPartners = createPermissionObject(true, true, true, true, true);
+        JsonObject settings = createPermissionObject(true, true, true, true, false);
+        JsonObject settingsTrackingDomains = createPermissionObject(true, true, true, true, false);
+        JsonObject settingsTags = createPermissionObject(true, true, true, true, false);
+        JsonObject settingsUserRequestSource = createPermissionObject(true, true, true, true, false);
+        JsonObject contentFilter = createPermissionObject(true, true, true, true, false);
+
+        permissions.add("admin", admin);
+        permissions.add("admin_log", adminLog);
+        permissions.add("advert_primary_info", advertPrimaryInfo);
+        permissions.add("advert_contact", advertContact);
+        permissions.add("advert_requisites", advertRequisites);
+        permissions.add("advert_postback", advertPostback);
+        permissions.add("advert_document", advertDocument);
+        permissions.add("advert_note", advertNote);
+        permissions.add("offers", offers);
+        permissions.add("affiliates", affiliates);
+        permissions.add("affiliates_log", affiliatesLog);
+        permissions.add("billing_advertisers", billingAdvertisers);
+        permissions.add("billing_partners", billingPartners);
+        permissions.add("settings", settings);
+        permissions.add("settings_tracking_domains", settingsTrackingDomains);
+        permissions.add("settings_tags", settingsTags);
+        permissions.add("settings_user_request_source", settingsUserRequestSource);
+        permissions.add("content_filter", contentFilter);
+
+        jsonAdminPermissions.add("permissions", permissions);
+        return jsonAdminPermissions;
+    }
+
+    private static JsonObject createPermissionObject(boolean view, boolean create, boolean edit, boolean delete, boolean export) {
+        JsonObject permissionObject = new JsonObject();
+        permissionObject.addProperty("view", view);
+        permissionObject.addProperty("create", create);
+        permissionObject.addProperty("edit", edit);
+        permissionObject.addProperty("delete", delete);
+        permissionObject.addProperty("export", export);
+        return permissionObject;
+    }
+
+
+
+public static void changeApiPermission() {
+    Gson gson = new Gson();
+    JsonObject jsonObject = gson.fromJson(jsonAllTrueBody, JsonObject.class);
+
+    JsonObject adminPermissions = jsonObject.getAsJsonObject("permissions")
+            .getAsJsonObject(rowName);
+
+    adminPermissions.addProperty("view", false);
+    adminPermissions.addProperty("create", false);
+    adminPermissions.addProperty("edit", false);
+    adminPermissions.addProperty("delete", false);
+    adminPermissions.addProperty("export", false);
+
+}
 }

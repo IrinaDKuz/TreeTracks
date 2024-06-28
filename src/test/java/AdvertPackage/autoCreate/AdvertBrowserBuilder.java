@@ -3,6 +3,7 @@ package AdvertPackage.autoCreate;
 import AdvertPackage.entity.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -11,11 +12,12 @@ import java.util.Map;
 import java.util.Random;
 
 import static Helper.ActionsClass.*;
+import static Helper.Adverts.STATUS_MAP;
 import static Helper.Adverts.getRandomValue;
 import static Helper.MenuPage.*;
-import static Helper.Path.contain;
+import static Helper.Path.*;
 
-public class AdvertBuilder {
+public class AdvertBrowserBuilder {
     public static final String ADD_ADVERT_BUTTON = "+ Add new Advertiser";
     public static final String COMPANY = "Company";
     public static final String COMPANY_LEGAL_NAME = "Company Legalname";
@@ -43,7 +45,6 @@ public class AdvertBuilder {
         waitAndClick(By.xpath("(//td//a//button)[" + randomNumber + "]"), driver);
         fillBrowserAdvertPrimaryInfo(advertPrimaryInfo, driver);
         waitAndClick(contain("button", "Save"), driver);
-
     }
 
     public static void fillBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, ChromeDriver driver) throws InterruptedException {
@@ -63,25 +64,52 @@ public class AdvertBuilder {
         sendKeysByLabel(USER_REQUEST_SOURCE_VALUE, advertPrimaryInfo.getUserRequestSourceValue(), driver);
         sendKeysToTextAreaByLabel(NOTE, advertPrimaryInfo.getNote(), driver);
 
-       // TODO Ждать пару секунд сообщение об ошибке
+        // TODO Ждать пару секунд сообщение об ошибке
 
     }
 
     public static void buildBrowserAdvertContact(ArrayList<AdvertContact> advertContacts, ChromeDriver driver) throws InterruptedException {
         waitAndClick(contain("a", "Contacts"), driver);
         Thread.sleep(3000);
-        if (!isElementPresent(driver, contain("button", "Delete Contact"))) {
-            waitAndClick(contain("button", "Add Contact Person"), driver);
-        }
+
         for (AdvertContact advertContact : advertContacts) {
             //TODO переделать для списка
-            sendKeysByLabel("Contact person", advertContact.getPerson(), driver);
-            selectAutocompleteInput("Contact status", advertContact.getStatus(), driver);
-            sendKeysByLabel("Email", advertContact.getEmail(), driver);
-            waitAndClick(contain("button", "Save Contact"), driver);
+            waitAndClick(contain("button", "Add Contact Person"), driver);
+            fillBrowserAdvertContactInfo("", "Disable", advertContact.getEmail(), driver);
+            // Проверяем ошибку
+            Thread.sleep(3000);
+
+            driver.navigate().refresh();
+            waitAndClick(contain("button", "Add Contact Person"), driver);
+            fillBrowserAdvertContactInfo(advertContact.getPerson(), "Disable", "", driver);
+            Thread.sleep(3000);
+            // Проверяем ошибку
+            driver.navigate().refresh();
+            waitAndClick(contain("button", "Add Contact Person"), driver);
+            fillBrowserAdvertContactInfo(advertContact.getPerson(), advertContact.getStatus(), advertContact.getEmail(), driver);
+            // Проверяем, что ошибки нет, успешное добавление
+            // Проверяем запись в БД
+            Thread.sleep(3000);
+            // редактируем созданную сущность
+            waitAndClick(forEditDeleteButtons("div", advertContact.getPerson(), "Edit"), driver);
+            fillBrowserAdvertContactInfo(advertContact.getPerson() + "edit",
+                    getRandomValue(STATUS_MAP).toString(), advertContact.getEmail() + "edit", driver);
+            Thread.sleep(3000);
+            // Удаляем созданную сущность
+            waitAndClick(forEditDeleteButtons("div", advertContact.getPerson(), "Delete"), driver);
+            // Сообщение с подтверждением
         }
     }
 
+    public static void fillBrowserAdvertContactInfo(String contactPersonValue,
+                                                    String contactStatusValue,
+                                                    String contactEmailValue,
+                                                    WebDriver driver) throws InterruptedException {
+        sendKeysByLabel("Contact person", contactPersonValue, driver);
+        //selectAutocompleteInput("Contact status", contactStatusValue, driver);
+        sendKeysByLabel("Email", contactEmailValue, driver);
+        waitAndClick(contain("button", "Save Contact"), driver);
+    }
 
     public static void buildBrowserAdvertRequisites(ArrayList<AdvertRequisites> advertRequisites, ChromeDriver driver) throws InterruptedException {
         waitAndClick(contain("a", "Requisites"), driver);
@@ -117,7 +145,6 @@ public class AdvertBuilder {
         waitAndClick(contain("button", "Add new note"), driver);
 
         for (AdvertNotes advertNote : advertNotes) {
-
             selectAutocompleteInput("Type", advertNote.getType(), driver);
             if (advertNote.getLocation() != null) {
                 selectAutocompleteInput("Location", advertNote.getLocation(), driver);
@@ -132,8 +159,8 @@ public class AdvertBuilder {
         selectAutocompleteInputByText("Sales Manager", advert.getAdvertPrimaryInfo().getSalesManager(), driver);
         selectAutocompleteInputByText("Account Manager", advert.getAdvertPrimaryInfo().getAccountManager(), driver);
         enterTextByPlaceholder("Site Url", advert.getAdvertPrimaryInfo().getSiteUrl(), driver);
-        selectAutocompleteInputByText("Geo", advert.getAdvertPrimaryInfo().getGeo()[0], driver);
-        selectAutocompleteInputByText("Categories", advert.getAdvertPrimaryInfo().getCategories()[0], driver);
+        selectAutocompleteInputByText("Geo", advert.getAdvertPrimaryInfo().getGeo().getFirst(), driver);
+        selectAutocompleteInputByText("Categories", advert.getAdvertPrimaryInfo().getCategories().getFirst(), driver);
         selectAutocompleteInputByText(MODEL_TYPE, advert.getAdvertPrimaryInfo().getModelType(), driver);
         selectAutocompleteInputByText(STATUS, advert.getAdvertPrimaryInfo().getStatus(), driver);
         enterTextByPlaceholder(NOTE, advert.getAdvertPrimaryInfo().getNote(), driver);
@@ -142,10 +169,10 @@ public class AdvertBuilder {
         enterTextByPlaceholder("Contact", advert.getAdvertContact().getFirst().getEmail(), driver);
         selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSourceId(), driver);
         enterTextByPlaceholder(USER_REQUEST_SOURCE_VALUE, advert.getAdvertPrimaryInfo().getUserRequestSourceValue(), driver);
-        selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTag()[0], driver);
+        selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTag().getFirst(), driver);
         enterTextByPlaceholder("Person", advert.getAdvertContact().getFirst().getPerson(), driver);
         selectAutocompleteInputByText("Requsite Type", advert.getAdvertRequisites().getFirst().getPaymentSystemTitle(), driver);
-        enterTextByPlaceholder("Requsite Value", getRandomValue(advert.getAdvertRequisites().getFirst().getRequisites()).toString(),driver);
+        enterTextByPlaceholder("Requsite Value", getRandomValue(advert.getAdvertRequisites().getFirst().getRequisites()).toString(), driver);
         waitAndClick(contain("button", "Show results"), driver);
     }
 }

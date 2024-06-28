@@ -15,8 +15,7 @@ public class AdvertGetFromBD {
     }
 
     public static Advert buildAdvert() throws Exception {
-        Advert advert = null;
-        advert.setAdvertFromBD();
+        Advert advert = new Advert(1032);
         return advert;
     }
 }

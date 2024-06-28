@@ -1,11 +1,9 @@
 package AdminPackage.autoCreate;
 
 import AdminPackage.entity.Admin;
-import AdvertPackage.entity.Advert;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-import static AdvertPackage.autoCreate.AdvertBuilder.*;
 import static Helper.Auth.*;
 
 /***
@@ -19,14 +17,14 @@ public class AdminCreate {
     @Test
     public static void test() throws Exception {
         ChromeDriver driver = getDriver();
-        auth(driver);
+        //auth(driver);
         Admin admin = buildAdmin(driver);
     }
 
     public static Admin buildAdmin(ChromeDriver driver) throws Exception {
         Admin admin = new Admin();
 
-        addNewBrowserAdminGeneral(admin.getAdminGeneral(), driver);
+       // addNewBrowserAdminGeneral(admin.getAdminGeneral(), driver);
        // buildBrowserAdvertContact(advert.getAdvertContact(), driver);
         return admin;
     }

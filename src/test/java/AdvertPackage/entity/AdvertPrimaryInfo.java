@@ -1,10 +1,14 @@
 package AdvertPackage.entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static Helper.Adverts.*;
 import static Helper.Adverts.generateName;
 import static Helper.GeoAndLang.GEO_ARRAY;
-import static SQL.AdvertSQL.getRandomValueFromBD;
-import static SQL.AdvertSQL.getRandomValueFromBDWhere;
+import static SQL.AdvertSQL.*;
 
 public class AdvertPrimaryInfo {
     String status;
@@ -15,9 +19,9 @@ public class AdvertPrimaryInfo {
     String managerId;
     String salesManager;
     String accountManager;
-    String[] geo;
-    String[] categories;
-    String[] tag;
+    List<String> geo;
+    List<String> categories;
+    List<String> tag;
     String userRequestSourceId;
     String userRequestSourceValue;
     String note;
@@ -46,18 +50,51 @@ public class AdvertPrimaryInfo {
         this.managerId = getRandomValueFromBD("email", "admin");
         this.salesManager = getRandomValueFromBD("email", "admin");
         this.accountManager = getRandomValueFromBD("email", "admin");
+        this.geo = new ArrayList<>(Arrays.asList(
+                generateName(1, GEO_ARRAY),
+                generateName(1, GEO_ARRAY),
+                generateName(1, GEO_ARRAY)));
+        this.categories = new ArrayList<>(Arrays.asList(
+                getRandomValueFromBDWhere("title", "category",
+                        "lang", "'general'")));
 
-        //TODO: из-за непонятных стран пока не понятно как реализовывать
-        this.geo = new String[]{generateName(1, GEO_ARRAY),
-                generateName(1, GEO_ARRAY), generateName(1, GEO_ARRAY)};
+        this.tag = new ArrayList<>(Arrays.asList(
+                generateName(1, COMPANY_WORDS),
+                generateName(1, COMPANY_WORDS)));
 
-        // TODO надо брать рандомно из БД из-за языков пока не понятно как реализовывать
-        this.categories = new String[]{getRandomValueFromBDWhere("title", "category", "lang", "'general'")};
-
-        this.tag = new String[]{generateName(1, COMPANY_WORDS), generateName(1, COMPANY_WORDS)};
         this.userRequestSourceId = getRandomValueFromBD("name", "user_request_source");
         this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
         this.note = generateName(10, COMPANY_WORDS);
+    }
+
+    public AdvertPrimaryInfo(int id) throws Exception {
+        this.status = getValueFromAdvertPrimaryInfoBDWhere("status", id);
+        this.company = getValueFromAdvertPrimaryInfoBDWhere("company", id);
+        this.companyLegalName = getValueFromAdvertPrimaryInfoBDWhere("company_legalname", id);
+        this.siteUrl = getValueFromAdvertPrimaryInfoBDWhere("site_url", id);
+        this.modelType = getValueFromAdvertPrimaryInfoBDWhere("model_type", id);
+        this.managerId = getValueFromAdvertPrimaryInfoBDWhere("manager_id", id);
+        this.salesManager = getValueFromAdvertPrimaryInfoBDWhere("sales_manager", id);
+        this.accountManager = getValueFromAdvertPrimaryInfoBDWhere("account_manager", id);
+        this.geo = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("geo", id));
+        this.categories = getArrayFromBDWhere("category_id", "advert_category", "advert_id", String.valueOf(id));
+        this.tag = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("tag", id));
+        this.userRequestSourceId = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_id", id);
+        this.userRequestSourceValue = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_value", id);
+        this.note = getValueFromAdvertPrimaryInfoBDWhere("note", id);
+    }
+
+    private List<String> getArrayFromBDString(String stringFromBD) {
+        String[] tagsArray = stringFromBD.replace("[", "").replace("]", "").replace("\"", "").split(",\\s*");
+        return new ArrayList<>(Arrays.asList(tagsArray));
+    }
+
+    private String getValueFromAdvertPrimaryInfoBDWhere(String parameter, int id) throws Exception {
+        return getValueFromBDWhere(parameter, "advert", "id", String.valueOf(id));
+    }
+
+    private List<String> getArrayFromAdvertPrimaryInfoBDWhere(String parameter, int id) throws Exception {
+        return getArrayFromBDWhere(parameter, "advert", "id", String.valueOf(id));
     }
 
     public String getStatus() {
@@ -124,28 +161,62 @@ public class AdvertPrimaryInfo {
         this.accountManager = accountManager;
     }
 
-    public String[] getGeo() {
+    public List<String> getGeo() {
         return geo;
     }
 
-    public void setGeo(String[] geo) {
+    public void setGeo(List<String> geo) {
         this.geo = geo;
     }
 
-    public String[] getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(String[] categories) {
+    public void setCategories(List<String> categories) {
         this.categories = categories;
     }
 
-    public String[] getTag() {
+    public void addCategories(List<String> listCategories) {
+        if (categories.isEmpty())
+            categories = listCategories;
+        else {
+            for (String category : listCategories) {
+                if (!categories.contains(category)) {
+                    categories.add(category);
+                }
+            }
+        }
+    }
+
+    public void deleteCategories(List<String> listCategories) {
+        this.categories.removeAll(listCategories);
+    }
+
+    public List<String> getTag() {
         return tag;
     }
 
-    public void setTag(String[] tag) {
+    public void setTag(List<String> tag) {
         this.tag = tag;
+    }
+
+    public void addTag(List<String> tags) {
+        tag.remove("null");
+        if (tag.isEmpty()) {
+            tag = tags;
+        } else {
+            for (String tagToAdd : tags) {
+                if (!tag.contains(tagToAdd)) {
+                    tag.add(tagToAdd);
+                }
+            }
+        }
+    }
+
+
+    public void deleteTag(List<String> tags) {
+        this.tag.removeAll(tags);
     }
 
     public String getUserRequestSourceId() {
@@ -171,5 +242,4 @@ public class AdvertPrimaryInfo {
     public void setNote(String note) {
         this.note = note;
     }
-
 }

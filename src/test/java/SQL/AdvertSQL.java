@@ -22,20 +22,31 @@ public class AdvertSQL {
         return list.get(new Random().nextInt(list.size()));
     }
 
-    public static String getValueFromBDWhere(String parameter, String tableName, String where, String whereValue ) throws Exception {
-        String sqlRequest = "SELECT " + parameter + " from " + tableName  +
+    public static String getValueFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName +
                 " WHERE " + where + " = " + whereValue + " ;";
         return sqlQueryList(sqlRequest, parameter).getFirst();
     }
 
+    public static List<String> getArrayFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName +
+                " WHERE " + where + " = " + whereValue + " ;";
+        return sqlQueryList(sqlRequest, parameter);
+    }
 
-    public static String getRandomValueFromBDWhere(String parameter, String tableName, String where, String whereValue ) throws Exception {
-        String sqlRequest = "SELECT " + parameter + " from " + tableName  +
+    public static String getRandomValueFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName +
                 " WHERE " + where + " = " + whereValue + " ;";
         List<String> list = sqlQueryList(sqlRequest, parameter);
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public static String getRandomValueFromBDWhereMore(String parameter, String tableName, String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName +
+                " WHERE " + where + " > " + whereValue + " ;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
 
     public static String getRandomCurrencyFromBDPaymentSystem(int paymentSystemID) throws Exception {
         String sqlRequest = "SELECT currency from payment_system WHERE id = '" + paymentSystemID + "';";

@@ -1,8 +1,8 @@
 package Helper;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+
+import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
 public class Adverts {
     public static final String affiliateKey_73 = "d0a5b4521aa1bbcf3fec75b63c64ac79";
@@ -36,13 +36,13 @@ public class Adverts {
 
     public final static Map<Object, String> STATUS_MAP = new HashMap<>() {
         {
-            put(1, "In Work");
-            put(2, "Find Contact");
-            put(3, "Discussion");
-            put(4, "Integration");
-            put(5, "Active");
-            put(6, "Pause");
-            put(7, "Discussion");
+            put(1, "Search");
+            put(2, "In Work");
+            put(3, "Find Contact");
+            put(4, "Discussion");
+            put(5, "Integration");
+            put(6, "Active");
+            put(7, "Pause");
             put(8, "Decline");
         }};
 
@@ -120,6 +120,23 @@ public class Adverts {
             }
         }
         return name.toString();
+    }
+
+    public static List<String> generateNameList(int count, String[] array) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            list.add(generateName(1, array));
+        }
+        return list;
+    }
+
+
+    public static List<String> generateCategoryList(int count) throws Exception {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            list.add(getRandomValueFromBDWhere("id", "category", "lang", "'general'"));
+        }
+        return list;
     }
 
     public static String generateCompanyUrl(String companyName) {

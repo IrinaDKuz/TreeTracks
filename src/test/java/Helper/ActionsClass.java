@@ -327,7 +327,7 @@ public class ActionsClass {
         actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40).click().build().perform();
     }
 
-    public static void selectAutocompleteInput(String label, String[] values, WebDriver driver) throws InterruptedException {
+    public static void selectAutocompleteInput(String label, List<String> values, WebDriver driver) throws InterruptedException {
         By by = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//input");
         By crossBy = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//div[@class=' css-v7duua']");
         while (isElementPresentFast(driver, crossBy)) {

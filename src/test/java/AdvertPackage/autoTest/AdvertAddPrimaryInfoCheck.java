@@ -1,20 +1,27 @@
-package AdvertPackage.autoCreate;
+package AdvertPackage.autoTest;
 
 import AdvertPackage.entity.Advert;
+import AdvertPackage.entity.AdvertPrimaryInfo;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.*;
+
+import static API.Advert.AdvertAPI.advertBulkChange;
 import static AdvertPackage.autoCreate.AdvertBrowserBuilder.*;
+import static AdvertPackage.autoCreate.AdvertBrowserBuilder.buildBrowserAdvertFilter;
+import static Helper.Adverts.*;
 import static Helper.Auth.*;
+import static Helper.Auth.PASSWORD_ADMIN;
+import static SQL.AdvertSQL.getRandomValueFromBD;
+import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
 /***
- Тест создает сущность, заполняет табы
- - AdvertCreate
- - Primary Info, Contact
+ Тест создает новую сущность и проверяет все алерты
  */
 
-public class AdvertCreate {
-
+public class AdvertAddPrimaryInfoCheck {
     @Test
     public static void test() throws Exception {
         ChromeDriver driver = getDriver();
@@ -24,9 +31,9 @@ public class AdvertCreate {
 
     public static Advert buildAdvert(ChromeDriver driver) throws Exception {
         Advert advert = null;
-        for (int i = 0; i < 10 ; i++) {
+        for (int i = 0; i < 5 ; i++) {
             advert = new Advert();
-            editBrowserAdvertPrimaryInfo(advert.getAdvertPrimaryInfo(), driver);
+            addNewBrowserAdvertPrimaryInfo(advert.getAdvertPrimaryInfo(), driver);
             buildBrowserAdvertContact(advert.getAdvertContact(), driver);
             buildBrowserAdvertRequisites(advert.getAdvertRequisites(), driver);
             buildBrowserAdvertPostback(advert.getAdvertPostback(), driver);
@@ -34,7 +41,8 @@ public class AdvertCreate {
             buildBrowserAdvertNotes(advert.getAdvertNotes(), driver);
             buildBrowserAdvertFilter(advert, driver);
         }
-            return advert;
-        
+        return advert;
+
     }
+
 }

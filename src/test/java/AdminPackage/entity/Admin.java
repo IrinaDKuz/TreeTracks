@@ -1,20 +1,32 @@
 package AdminPackage.entity;
 
 import AdminPackage.entity.AdminPermissions.*;
+
 public class Admin {
+    public AdminGeneral adminGeneral;
+    public AdminPermissions adminPermissions;
+
     int id;
 
-    Access adminPermission;
-    Access adminLogPermission ;
-    Access dashboardPermission = new ViewAccess();
-    Access offersPermission = new FullAccess();
-    Access advertisersPermission = new FullAccess();
-    Access advertisersDocumentsPermission = new FullAccess();
 
-// TODO отправлять API на разные варианты доступов чекбоксами фиг проставишь
+    public Admin() throws Exception {
+        this.adminGeneral = new AdminGeneral();
+        this.adminPermissions = new AdminPermissions();
+    }
 
-    public Admin() {
-        this.adminPermission = new FullAccess();
-        this.adminLogPermission = new ViewAccess();
+    public AdminGeneral getAdminGeneral() {
+        return adminGeneral;
+    }
+
+    public void setAdminGeneral(AdminGeneral adminGeneral) {
+        this.adminGeneral = adminGeneral;
+    }
+
+    public AdminPermissions getAdminPermissions() {
+        return adminPermissions;
+    }
+
+    public void setAdminPermissions(AdminPermissions adminPermissions) {
+        this.adminPermissions = adminPermissions;
     }
 }

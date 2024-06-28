@@ -5,28 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertNotes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertNotesAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostbackAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminPermissionCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminPermissionCheckAdvert.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertAddPrimaryInfoCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertBulkCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Helper/CheckClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/SQL/AdminSQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBrowserBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminCreate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminContentFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminContentFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminGeneral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertGetFromBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertGetFromBD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertRequisites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertRequisites.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Buttons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Path.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Path.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,10 +62,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TestNG.AdminCreate.executor": "Run",
+    "TestNG.AdminPermissionCheck.executor": "Run",
     "TestNG.AdminPermissionsAPI.executor": "Run",
+    "TestNG.AdminSQL.executor": "Run",
     "TestNG.AdvertAPI.advertEdit.executor": "Run",
+    "TestNG.AdvertAddPrimaryInfoCheck.executor": "Run",
+    "TestNG.AdvertBulkCheck.executor": "Run",
+    "TestNG.AdvertBulkCheck.test.executor": "Run",
     "TestNG.AdvertCreate.executor": "Run",
     "TestNG.AdvertCreate.test.executor": "Run",
+    "TestNG.AdvertGetFromBD.executor": "Debug",
     "TestNG.AdvertNotesAPI.executor": "Run",
     "TestNG.AdvertPostbackAPI.executor": "Run",
     "TestNG.AdvertSQL.getManager.executor": "Run",
@@ -78,11 +88,11 @@
       <recent name="$PROJECT_DIR$/src/test/java/Advert" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="AdvertPackage.autoTest" />
+      <recent name="API.Advert" />
+      <recent name="AdminPackage.autoCreate" />
+      <recent name="SQL" />
       <recent name="AdvertPackage.entity" />
-      <recent name="AdvertPackage.autoCreate" />
-      <recent name="AdminPackage.entity" />
-      <recent name="Helper" />
-      <recent name="Advert.entity" />
     </key>
   </component>
   <component name="RunManager">
@@ -102,23 +112,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AdminPermissionsAPI" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="AdminPackage.entity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="AdminPackage.entity" />
-      <option name="MAIN_CLASS_NAME" value="AdminPackage.entity.AdminPermissionsAPI" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="AdvertAPI.advertEdit" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
@@ -130,6 +123,24 @@
       <option name="PACKAGE_NAME" value="AdvertPackage.entity" />
       <option name="MAIN_CLASS_NAME" value="AdvertPackage.entity.AdvertAPI" />
       <option name="METHOD_NAME" value="advertEdit" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdvertBulkCheck.test" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="AdvertPackage.autoTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="AdvertPackage.autoTest" />
+      <option name="MAIN_CLASS_NAME" value="AdvertPackage.autoTest.AdvertBulkCheck" />
+      <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -175,11 +186,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.AdvertBulkCheck.test" />
         <item itemvalue="TestNG.AdvertCreate.test" />
         <item itemvalue="TestNG.AdvertAPI.advertEdit" />
         <item itemvalue="JUnit.ActionsClass.PairwiseTestGenerationContentFilter" />
         <item itemvalue="TestNG.AdvertSQL.test" />
-        <item itemvalue="TestNG.AdminPermissionsAPI" />
       </list>
     </recent_temporary>
   </component>
@@ -199,15 +210,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java</url>
-          <line>44</line>
+          <line>50</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java</url>
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java</url>
           <line>147</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertGetFromBD.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="AdvertPackage.entity.AdvertPrimaryInfo" memberName="company" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

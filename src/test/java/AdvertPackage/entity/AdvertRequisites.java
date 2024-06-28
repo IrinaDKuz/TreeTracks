@@ -14,14 +14,9 @@ public class AdvertRequisites {
 
     public AdvertRequisites() throws Exception {
         this.paymentSystemId = Integer.parseInt(getRandomValueFromBD("id", "payment_system"));
-        System.out.println(this.paymentSystemId);
         this.paymentSystemTitle = getValueFromBDWhere("title", "payment_system",
                 "id", String.valueOf(this.paymentSystemId));
-        System.out.println(this.paymentSystemTitle);
-
         this.currency = getRandomCurrencyFromBDPaymentSystem(this.paymentSystemId);
-        System.out.println(this.currency);
-
         List<String> requisitesTitle = getRequisitesFromBDPaymentSystem(this.paymentSystemId);
         for (String title : requisitesTitle) {
             this.requisites.put(title, generateName(1, REQUISITES_WORDS) + new Random().nextInt(10000));
