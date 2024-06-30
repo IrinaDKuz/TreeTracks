@@ -19,16 +19,23 @@ public class Auth {
     public static final String PASSWORD_ADMIN = "password";
 
 
+    public static final String DEV_NODE = "http://admin.3tracks.link/";
+    public static final String PRE_STAGE_NODE = "http://newx.3tracks.online/";
+
+
+
+
+
     @Test
     public static void auth(WebDriver driver) throws InterruptedException {
-        driver.get("https://admin.3tracks.link/");
+        driver.get(DEV_NODE);
         waitAndSendKeys(By.xpath("//input[@type='email']"), EMAIL_ADMIN, driver);
         driver.findElement(By.xpath("//input[@type='password']")).sendKeys(PASSWORD_ADMIN);
         driver.findElement(By.xpath("//button[contains(text(), 'Sign in')]")).click();
     }
 
     public static void auth(WebDriver driver, String email, String password) throws InterruptedException {
-        driver.get("https://admin.3tracks.link/");
+        driver.get(PRE_STAGE_NODE);
         waitAndSendKeys(By.xpath("//input[@type='email']"), email, driver);
         driver.findElement(By.xpath("//input[@type='password']")).sendKeys(password);
         driver.findElement(By.xpath("//button[contains(text(), 'Sign in')]")).click();

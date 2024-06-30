@@ -5,32 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminPermissionCheck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminPermissionCheckAdvert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertAddPrimaryInfoCheck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertBulkCheck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Helper/CheckClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/SQL/AdminSQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/EmailAPI2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/GeneralAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Helper/API_Helper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Helper/Settings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBrowserBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminCreate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertGetFromBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertGetFromBD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertRequisites.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertRequisites.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Buttons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Path.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Path.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,80 +36,53 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.ActionsClass.PairwiseTestGenerationContentFilter.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TestNG.AdminCreate.executor": "Run",
-    "TestNG.AdminPermissionCheck.executor": "Run",
-    "TestNG.AdminPermissionsAPI.executor": "Run",
-    "TestNG.AdminSQL.executor": "Run",
-    "TestNG.AdvertAPI.advertEdit.executor": "Run",
-    "TestNG.AdvertAddPrimaryInfoCheck.executor": "Run",
-    "TestNG.AdvertBulkCheck.executor": "Run",
-    "TestNG.AdvertBulkCheck.test.executor": "Run",
-    "TestNG.AdvertCreate.executor": "Run",
-    "TestNG.AdvertCreate.test.executor": "Run",
-    "TestNG.AdvertGetFromBD.executor": "Debug",
-    "TestNG.AdvertNotesAPI.executor": "Run",
-    "TestNG.AdvertPostbackAPI.executor": "Run",
-    "TestNG.AdvertSQL.getManager.executor": "Run",
-    "TestNG.AdvertSQL.test.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks/src/test/java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.ActionsClass.PairwiseTestGenerationContentFilter.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TestNG.AdminCreate.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdminPermissionCheck.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdminPermissionsAPI.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdminSQL.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertAPI.advertEdit.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertAddPrimaryInfoCheck.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertBulkCheck.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertBulkCheck.test.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertCreate.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertCreate.test.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertGetFromBD.executor&quot;: &quot;Debug&quot;,
+    &quot;TestNG.AdvertNotesAPI.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertPostbackAPI.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertSQL.getManager.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AdvertSQL.test.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.Auth.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.EmailAPI.generalGet.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.EmailAPI.test.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.GeneralAPI.generalAdd.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/irina/IdeaProjects/TreeTracks/src/test/java/API/Settings/Content&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/API/Settings/Content" />
+      <recent name="$PROJECT_DIR$/src/test/java/API" />
       <recent name="$PROJECT_DIR$/src/test/java" />
       <recent name="$PROJECT_DIR$/src/test/java/Advert" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Helper" />
+      <recent name="API.Settings.System" />
       <recent name="AdvertPackage.autoTest" />
       <recent name="API.Advert" />
       <recent name="AdminPackage.autoCreate" />
-      <recent name="SQL" />
-      <recent name="AdvertPackage.entity" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="ActionsClass.PairwiseTestGenerationContentFilter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Helper.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Helper" />
-      <option name="MAIN_CLASS_NAME" value="Helper.ActionsClass" />
-      <option name="METHOD_NAME" value="PairwiseTestGenerationContentFilter" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AdvertAPI.advertEdit" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="AdvertPackage.entity.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="AdvertPackage.entity" />
-      <option name="MAIN_CLASS_NAME" value="AdvertPackage.entity.AdvertAPI" />
-      <option name="METHOD_NAME" value="advertEdit" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="AdvertBulkCheck.test" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
@@ -166,16 +119,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AdvertSQL.test" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="EmailAPI2.generalAdd" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="SQL.*" />
+          <option name="PATTERN" value="API.Settings.System.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="SQL" />
-      <option name="MAIN_CLASS_NAME" value="SQL.AdvertSQL" />
+      <option name="PACKAGE_NAME" value="API.Settings.System" />
+      <option name="MAIN_CLASS_NAME" value="API.Settings.System.EmailAPI2" />
+      <option name="METHOD_NAME" value="generalAdd" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GeneralAPI.generalGet" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="API.Settings.System.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="API.Settings.System" />
+      <option name="MAIN_CLASS_NAME" value="API.Settings.System.GeneralAPI" />
+      <option name="METHOD_NAME" value="generalGet" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GeneralAPI.test" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="API.Settings.System.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="API.Settings.System" />
+      <option name="MAIN_CLASS_NAME" value="API.Settings.System.GeneralAPI" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
@@ -187,10 +176,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="TestNG.AdvertBulkCheck.test" />
+        <item itemvalue="TestNG.GeneralAPI.test" />
+        <item itemvalue="TestNG.GeneralAPI.generalGet" />
+        <item itemvalue="TestNG.EmailAPI2.generalAdd" />
         <item itemvalue="TestNG.AdvertCreate.test" />
-        <item itemvalue="TestNG.AdvertAPI.advertEdit" />
-        <item itemvalue="JUnit.ActionsClass.PairwiseTestGenerationContentFilter" />
-        <item itemvalue="TestNG.AdvertSQL.test" />
       </list>
     </recent_temporary>
   </component>
