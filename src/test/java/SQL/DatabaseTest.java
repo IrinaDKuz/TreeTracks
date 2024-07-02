@@ -10,8 +10,13 @@ import java.util.Map;
 
 public class DatabaseTest {
 
+    static String URL_NEWX_DEV = "jdbc:mysql://213.166.69.125:3306/newx_dev";
+    static String URL_DEV = "jdbc:mysql://dev:DsHYtPp2V3UHQyNkti1e5ctj1CmCBMGF@159.69.222.11:3306/dev";
+
+
     @Test
     public void testSql() throws Exception {
+
 
         // Определение SQL-запроса
         String sql = "SELECT description FROM offer WHERE id = 7";
@@ -63,7 +68,7 @@ public class DatabaseTest {
 
 
     public static List<String> sqlQueryList(String sql, String parameter) throws SQLException {
-        String url = "jdbc:mysql://213.166.69.125:3306/newx_dev";
+        String url = URL_DEV;
         String username = "irinakuznetsova";
         String password = "MXahAZpkGFHC5VbfT7Usr853pjQcGpj4";
 
@@ -72,7 +77,7 @@ public class DatabaseTest {
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                        Object value = resultSet.getObject(parameter);
+                    Object value = resultSet.getObject(parameter);
                     resultList.add(String.valueOf(value));
                 }
             }

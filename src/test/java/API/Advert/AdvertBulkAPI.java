@@ -6,20 +6,13 @@ import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.checkerframework.checker.units.qual.K;
-import org.json.JSONObject;
-import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import static Helper.Adverts.*;
 import static Helper.Auth.authKeyAdmin;
-import static SQL.AdvertSQL.getRandomValueFromBD;
-import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
-public class AdvertAPI {
+public class AdvertBulkAPI {
 
     static int advertId = 1010;
     static String rowName = "offers";

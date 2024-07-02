@@ -2,6 +2,7 @@ package AdminPackage.entity;
 
 import static Helper.Adverts.*;
 import static Helper.Adverts.generateName;
+import static Helper.GeoAndLang.getRandomValue;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 
 public class AdminGeneral {
@@ -40,11 +41,11 @@ public class AdminGeneral {
     String zip_code;
 
     public AdminGeneral() throws Exception {
-        this.status = (String) getRandomValue(STATUS_MAP);
+        this.status = getRandomValue(STATUS_MAP);
         this.company = generateName(3, COMPANY_WORDS);
         this.companyLegalName = generateName(4, COMPANY_WORDS);
         this.siteUrl = generateCompanyUrl(this.company);
-        this.modelType = (String) getRandomValue(MODEL_TYPES_MAP);
+        this.modelType = getRandomValue(MODEL_TYPES_MAP);
         this.managerId = getRandomValueFromBD("email", "admin");
         this.salesManager = getRandomValueFromBD("email", "admin");
         this.accountManager = getRandomValueFromBD("email", "admin");

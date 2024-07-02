@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static Helper.ActionsClass.getRandomBoolean;
+import static Helper.ActionsClass.*;
 import static Helper.Adverts.*;
-import static SQL.AdvertSQL.getRandomValueFromBD;
-import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
 public class AdvertPostback {
 
@@ -15,12 +13,17 @@ public class AdvertPostback {
     List<String> allowedSubAccount;
     List<String> disallowedSubAccount;
     Boolean forbidChangePostbackStatus;
+    String securePostbackCode;
 
     public AdvertPostback() {
-        this.allowedIp =  new ArrayList<>(Arrays.asList(generateIPAddress(), generateIPAddress()));
+    }
+
+    public void fillAdvertPostbackWithRandomData() {
+        this.allowedIp = new ArrayList<>(Arrays.asList(generateIPAddress(), generateIPAddress()));
         this.disallowedSubAccount = new ArrayList<>(Arrays.asList("Sub 1", "Sub 3", "Sub 4"));
-        this.allowedSubAccount =  new ArrayList<>(Arrays.asList("Sub 8", "Sub 5", "Sub 2"));
+        this.allowedSubAccount = new ArrayList<>(Arrays.asList("Sub 8", "Sub 5", "Sub 2"));
         this.forbidChangePostbackStatus = getRandomBoolean();
+        this.securePostbackCode = generateRandomString(30);
     }
 
     public List<String> getAllowedIp() {
@@ -52,6 +55,14 @@ public class AdvertPostback {
 
     public void setForbidChangePostbackStatus(Boolean forbidChangePostbackStatus) {
         this.forbidChangePostbackStatus = forbidChangePostbackStatus;
+    }
+
+    public String getSecurePostbackCode() {
+        return securePostbackCode;
+    }
+
+    public void setSecurePostbackCode(String securePostbackCode) {
+        this.securePostbackCode = securePostbackCode;
     }
 
 }

@@ -1,6 +1,7 @@
 package AdminPackage.entity;
 
 import static Helper.Adverts.*;
+import static Helper.GeoAndLang.getRandomValue;
 
 public class AdminContentFilter {
     String contactID;
@@ -24,7 +25,7 @@ public class AdminContentFilter {
 
     public AdminContentFilter() {
         this.person = generateName(2, CONTACT_WORDS);
-        this.status = (String) getRandomValue(PERSON_STATUS_MAP);
+        this.status = getRandomValue(PERSON_STATUS_MAP);
         this.email = generateEmail(this.person);
         this.messenger = new Messenger();
     }

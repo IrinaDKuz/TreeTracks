@@ -1,6 +1,5 @@
 package Helper;
 
-import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,7 +20,8 @@ import static Helper.Path.contain;
 
 public class ActionsClass {
 
-    private static final String CHARACTERS = "абвгдежзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" + "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "01234567890" + "@$!%*?&#/|\\~<>^{}[]():;";
+    private static final String LETTERS_AND_CHARACTERS = "абвгдежзийклмнопрстуфхцчшщъыьэюя" + "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" + "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "01234567890" + "@$!%*?&#/|\\~<>^{}[]():;";
+    public static final String LETTERS_AND_NUMBERS = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "01234567890";
 
 
     public static int getRandomInt() {
@@ -358,8 +358,8 @@ public class ActionsClass {
         SecureRandom random = new SecureRandom();
 
         for (int i = 0; i < length; i++) {
-            int randomIndex = random.nextInt(CHARACTERS.length());
-            randomString.append(CHARACTERS.charAt(randomIndex));
+            int randomIndex = random.nextInt(LETTERS_AND_NUMBERS.length());
+            randomString.append(LETTERS_AND_NUMBERS.charAt(randomIndex));
         }
 
         return randomString.toString();

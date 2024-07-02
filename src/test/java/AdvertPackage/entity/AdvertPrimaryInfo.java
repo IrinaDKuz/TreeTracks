@@ -2,12 +2,11 @@ package AdvertPackage.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static Helper.Adverts.*;
 import static Helper.Adverts.generateName;
-import static Helper.GeoAndLang.GEO_ARRAY;
+import static Helper.GeoAndLang.*;
 import static SQL.AdvertSQL.*;
 
 public class AdvertPrimaryInfo {
@@ -17,12 +16,17 @@ public class AdvertPrimaryInfo {
     String siteUrl;
     String modelType;
     String managerId;
+    String manager;
+    String salesManagerId;
     String salesManager;
+    String accountManagerId;
     String accountManager;
+
     List<String> geo;
     List<String> categories;
     List<String> tag;
     String userRequestSourceId;
+    String userRequestSourceName;
     String userRequestSourceValue;
     String note;
 
@@ -41,41 +45,18 @@ public class AdvertPrimaryInfo {
     String updatedAt;
     String zip_code;
 
-    public AdvertPrimaryInfo() throws Exception {
-        this.status = (String) getRandomValue(STATUS_MAP);
-        this.company = generateName(3, COMPANY_WORDS);
-        this.companyLegalName = generateName(4, COMPANY_WORDS);
-        this.siteUrl = generateCompanyUrl(this.company);
-        this.modelType = getRandomValue(MODEL_TYPES_MAP).toString();
-        this.managerId = getRandomValueFromBD("email", "admin");
-        this.salesManager = getRandomValueFromBD("email", "admin");
-        this.accountManager = getRandomValueFromBD("email", "admin");
-        this.geo = new ArrayList<>(Arrays.asList(
-                generateName(1, GEO_ARRAY),
-                generateName(1, GEO_ARRAY),
-                generateName(1, GEO_ARRAY)));
-        this.categories = new ArrayList<>(Arrays.asList(
-                getRandomValueFromBDWhere("title", "category",
-                        "lang", "'general'")));
-
-        this.tag = new ArrayList<>(Arrays.asList(
-                generateName(1, COMPANY_WORDS),
-                generateName(1, COMPANY_WORDS)));
-
-        this.userRequestSourceId = getRandomValueFromBD("name", "user_request_source");
-        this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
-        this.note = generateName(10, COMPANY_WORDS);
+    public AdvertPrimaryInfo(){
     }
 
     public AdvertPrimaryInfo(int id) throws Exception {
         this.status = getValueFromAdvertPrimaryInfoBDWhere("status", id);
-        this.company = getValueFromAdvertPrimaryInfoBDWhere("company", id);
+        this.company = getValueFromAdvertPrimaryInfoBDWhere("name", id);
         this.companyLegalName = getValueFromAdvertPrimaryInfoBDWhere("company_legalname", id);
         this.siteUrl = getValueFromAdvertPrimaryInfoBDWhere("site_url", id);
         this.modelType = getValueFromAdvertPrimaryInfoBDWhere("model_type", id);
         this.managerId = getValueFromAdvertPrimaryInfoBDWhere("manager_id", id);
-        this.salesManager = getValueFromAdvertPrimaryInfoBDWhere("sales_manager", id);
-        this.accountManager = getValueFromAdvertPrimaryInfoBDWhere("account_manager", id);
+        this.salesManagerId = getValueFromAdvertPrimaryInfoBDWhere("sales_manager", id);
+        this.accountManagerId = getValueFromAdvertPrimaryInfoBDWhere("account_manager", id);
         this.geo = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("geo", id));
         this.categories = getArrayFromBDWhere("category_id", "advert_category", "advert_id", String.valueOf(id));
         this.tag = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("tag", id));
@@ -83,6 +64,66 @@ public class AdvertPrimaryInfo {
         this.userRequestSourceValue = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_value", id);
         this.note = getValueFromAdvertPrimaryInfoBDWhere("note", id);
     }
+
+    public void fillAdvertPrimaryInfoWithRandomDataForAPI() throws Exception {
+        this.status = getRandomKey(STATUS_MAP);
+        this.company = generateName(3, COMPANY_WORDS);
+        this.companyLegalName = generateName(4, COMPANY_WORDS);
+        this.siteUrl = generateCompanyUrl(this.company);
+        this.modelType = getRandomValue(MODEL_TYPES_MAP).toString();
+        this.managerId = getRandomValueFromBD("id", "admin");
+        this.salesManagerId = getRandomValueFromBD("id", "admin");
+        this.accountManagerId = getRandomValueFromBD("id", "admin");
+        this.geo = new ArrayList<>(Arrays.asList(
+                getGeoRandomKey(),
+                getGeoRandomKey(),
+                getGeoRandomKey()));
+
+        this.categories = new ArrayList<>(Arrays.asList(
+                getRandomValueFromBDWhere("id", "category",
+                        "lang", "'general'")));
+
+        this.tag = new ArrayList<>(Arrays.asList(
+                generateName(1, COMPANY_WORDS),
+                generateName(1, COMPANY_WORDS)));
+
+        this.userRequestSourceId = getRandomValueFromBD("id", "user_request_source");
+        this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
+        this.note = generateName(10, COMPANY_WORDS);
+    }
+
+    public void fillAdvertPrimaryInfoWithRandomDataForUI() throws Exception {
+        this.status = (String) getRandomValue(STATUS_MAP);
+        this.company = generateName(3, COMPANY_WORDS);
+        this.companyLegalName = generateName(4, COMPANY_WORDS);
+        this.siteUrl = generateCompanyUrl(this.company);
+        this.modelType = getRandomValue(MODEL_TYPES_MAP).toString();
+        this.manager = getRandomValueFromBD("name", "admin");
+        this.salesManager = getRandomValueFromBD("name", "admin");
+        this.accountManager = getRandomValueFromBD("name", "admin");
+
+        this.geo = new ArrayList<>(Arrays.asList(
+                generateName(1, GEO_ARRAY),
+                generateName(1, GEO_ARRAY),
+                generateName(1, GEO_ARRAY)));
+
+        this.categories = new ArrayList<>(Arrays.asList(
+                getRandomValueFromBDWhere("name", "category",
+                        "lang", "'general'")));
+
+        this.tag = new ArrayList<>(Arrays.asList(
+                generateName(1, COMPANY_WORDS),
+                generateName(1, COMPANY_WORDS)));
+
+        this.userRequestSourceName = getRandomValueFromBD("name", "user_request_source");
+        this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
+        this.note = generateName(10, COMPANY_WORDS);
+    }
+
+
+
+
+
 
     private List<String> getArrayFromBDString(String stringFromBD) {
         String[] tagsArray = stringFromBD.replace("[", "").replace("]", "").replace("\"", "").split(",\\s*");
@@ -145,20 +186,20 @@ public class AdvertPrimaryInfo {
         this.managerId = managerId;
     }
 
-    public String getSalesManager() {
-        return salesManager;
+    public String getSalesManagerId() {
+        return salesManagerId;
     }
 
-    public void setSalesManager(String salesManager) {
-        this.salesManager = salesManager;
+    public void setSalesManagerId(String salesManagerId) {
+        this.salesManagerId = salesManagerId;
     }
 
-    public String getAccountManager() {
-        return accountManager;
+    public String getAccountManagerId() {
+        return accountManagerId;
     }
 
-    public void setAccountManager(String accountManager) {
-        this.accountManager = accountManager;
+    public void setAccountManagerId(String accountManagerId) {
+        this.accountManagerId = accountManagerId;
     }
 
     public List<String> getGeo() {

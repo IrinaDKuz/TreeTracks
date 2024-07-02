@@ -30,7 +30,7 @@ public class AdminPermissionCheck {
 
     @Test
     public static void test() throws Exception {
-        ChromeDriver driver = getDriver();
+        WebDriver driver = getDriver();
         auth(driver, EMAIL_ADMIN, PASSWORD_ADMIN);
         Admin admin = new Admin();
 
@@ -40,7 +40,7 @@ public class AdminPermissionCheck {
     }
 
 
-    public static void checkAdminPermissions(ChromeDriver driver, Admin admin) throws Exception {
+    public static void checkAdminPermissions(WebDriver driver, Admin admin) throws Exception {
         //
         // TODO вынести в отдельный метод
         menuItemClick(ADVERTISERS, driver);

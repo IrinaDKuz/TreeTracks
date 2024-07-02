@@ -28,6 +28,7 @@ public class GeoAndLang {
         return map.get(getRandomKey(map));
     }
 
+
     public static <K, V> K getKeyFromValue(V value, Map<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             if (Objects.equals(value, entry.getValue())) {

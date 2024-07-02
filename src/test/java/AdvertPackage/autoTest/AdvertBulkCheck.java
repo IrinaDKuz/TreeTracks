@@ -7,8 +7,9 @@ import org.testng.annotations.Test;
 
 import java.util.*;
 
-import static API.Advert.AdvertAPI.advertBulkChange;
+import static API.Advert.AdvertBulkAPI.advertBulkChange;
 import static Helper.Adverts.*;
+import static Helper.GeoAndLang.getRandomValue;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -52,8 +53,8 @@ public class AdvertBulkCheck {
         System.out.println("id:" + advert.getId());
         System.out.println("Status:" + advert.getAdvertPrimaryInfo().getStatus());
         System.out.println("Manager:" + advert.getAdvertPrimaryInfo().getManagerId());
-        System.out.println("SalesManager:" + advert.getAdvertPrimaryInfo().getSalesManager());
-        System.out.println("AccountManager:" + advert.getAdvertPrimaryInfo().getAccountManager());
+        System.out.println("SalesManager:" + advert.getAdvertPrimaryInfo().getSalesManagerId());
+        System.out.println("AccountManager:" + advert.getAdvertPrimaryInfo().getAccountManagerId());
         System.out.println("Tags:" + advert.getAdvertPrimaryInfo().getTag());
         System.out.println("Category:" + advert.getAdvertPrimaryInfo().getCategories());
         System.out.println("_____________________________");
@@ -66,8 +67,8 @@ public class AdvertBulkCheck {
 
             Assert.assertEquals(advertPrimaryInfo.getStatus(), advertPrimaryInfo2.getStatus());
             Assert.assertEquals(advertPrimaryInfo.getManagerId(), advertPrimaryInfo2.getManagerId());
-            Assert.assertEquals(advertPrimaryInfo.getAccountManager(), advertPrimaryInfo2.getAccountManager());
-            Assert.assertEquals(advertPrimaryInfo.getSalesManager(), advertPrimaryInfo2.getSalesManager());
+            Assert.assertEquals(advertPrimaryInfo.getAccountManagerId(), advertPrimaryInfo2.getAccountManagerId());
+            Assert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfo2.getSalesManagerId());
             Collections.sort(advertPrimaryInfo.getTag());
             Collections.sort(advertPrimaryInfo2.getTag());
             System.out.println(advertPrimaryInfo.getTag());
@@ -100,7 +101,7 @@ public class AdvertBulkCheck {
         mapOfArrays.put("ids", ids);
 
         Map<String, String> mapOfStrings = new HashMap<>();
-        mapOfStrings.put("status", getRandomValue(STATUS_MAP).toString().toLowerCase().replace(" ", "_"));
+        mapOfStrings.put("status", getRandomValue(STATUS_MAP).toLowerCase().replace(" ", "_"));
         mapOfStrings.put("manager", getRandomValueFromBD("id", "admin"));
         mapOfStrings.put("accountManager", getRandomValueFromBD("id", "admin"));
         mapOfStrings.put("salesManager", getRandomValueFromBD("id", "admin"));
@@ -112,8 +113,8 @@ public class AdvertBulkCheck {
             advert.getAdvertPrimaryInfo().deleteTag(tagRemove);
             advert.getAdvertPrimaryInfo().setStatus(mapOfStrings.get("status"));
             advert.getAdvertPrimaryInfo().setManagerId(mapOfStrings.get("manager"));
-            advert.getAdvertPrimaryInfo().setAccountManager(mapOfStrings.get("accountManager"));
-            advert.getAdvertPrimaryInfo().setSalesManager(mapOfStrings.get("salesManager"));
+            advert.getAdvertPrimaryInfo().setAccountManagerId(mapOfStrings.get("accountManager"));
+            advert.getAdvertPrimaryInfo().setSalesManagerId(mapOfStrings.get("salesManager"));
             advert.getAdvertPrimaryInfo().addCategories(categoryAdd);
             advert.getAdvertPrimaryInfo().deleteCategories(categoryRemove);
         });

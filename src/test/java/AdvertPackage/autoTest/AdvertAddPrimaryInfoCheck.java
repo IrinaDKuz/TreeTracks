@@ -1,21 +1,13 @@
 package AdvertPackage.autoTest;
 
 import AdvertPackage.entity.Advert;
-import AdvertPackage.entity.AdvertPrimaryInfo;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import java.util.*;
-
-import static API.Advert.AdvertAPI.advertBulkChange;
 import static AdvertPackage.autoCreate.AdvertBrowserBuilder.*;
 import static AdvertPackage.autoCreate.AdvertBrowserBuilder.buildBrowserAdvertFilter;
-import static Helper.Adverts.*;
 import static Helper.Auth.*;
 import static Helper.Auth.PASSWORD_ADMIN;
-import static SQL.AdvertSQL.getRandomValueFromBD;
-import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
 /***
  Тест создает новую сущность и проверяет все алерты
@@ -24,12 +16,12 @@ import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 public class AdvertAddPrimaryInfoCheck {
     @Test
     public static void test() throws Exception {
-        ChromeDriver driver = getDriver();
+        WebDriver driver = getDriver();
         auth(driver, EMAIL_ADMIN, PASSWORD_ADMIN);
         Advert advert = buildAdvert(driver);
     }
 
-    public static Advert buildAdvert(ChromeDriver driver) throws Exception {
+    public static Advert buildAdvert(WebDriver driver) throws Exception {
         Advert advert = null;
         for (int i = 0; i < 5 ; i++) {
             advert = new Advert();

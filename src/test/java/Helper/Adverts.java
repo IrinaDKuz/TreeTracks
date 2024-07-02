@@ -5,51 +5,35 @@ import java.util.*;
 import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
 public class Adverts {
-    public static final String affiliateKey_73 = "d0a5b4521aa1bbcf3fec75b63c64ac79";
-    public static final String affiliateKey_86 = "ddafc4211beffcd86627f346ce3b0e45";
-    public static final String affiliateKey_87 = "728c1d0cfa05c465e22f7e2489554a03";
-    public static final String affiliateKey_88 = "636ee2ecb1c98fb7a441ab620e26e567";
-    public static final String affiliateKey_90 = "720481de6ec3c633e96a6fb53c3ae24d";
-    public static final String affiliateKey_95 = "bccea111d4fb548739c8218a738740d4";
 
-
-    public static Map<Integer, String> affiliatesKeys_map = new HashMap<Integer, String>() {{
-        put(73, affiliateKey_73);
-        put(86, affiliateKey_86);
-        put(87, affiliateKey_87);
-        put(88, affiliateKey_88);
-        put(90, affiliateKey_90);
-        put(95, affiliateKey_95);
+    public final static Map<String, String> MODEL_TYPES_MAP = new HashMap<>() {{
+        put("1", "Cpa");
+        put("2", "RevShare");
+        put("3", "Other");
     }};
 
-    public final static Map<Object, String> MODEL_TYPES_MAP = new HashMap<>() {{
-        put(1, "Cpa");
-        put(2, "RevShare");
-        put(3, "Other");
+    public final static Map<String, String> NOTES_TYPES_MAP = new HashMap<>() {{
+        put("1", "Call");
+       // put(2, "Conference");
+        put("2", "Meeting");
     }};
 
-    public final static Map<Object, String> NOTES_TYPES_MAP = new HashMap<>() {{
-        put(1, "Call");
-        put(2, "Conference");
-        put(3, "Meeting");
-    }};
-
-    public final static Map<Object, String> STATUS_MAP = new HashMap<>() {
+    public final static Map<String, String> STATUS_MAP = new HashMap<>() {
         {
-            put(1, "Search");
-            put(2, "In Work");
-            put(3, "Find Contact");
-            put(4, "Discussion");
-            put(5, "Integration");
-            put(6, "Active");
-            put(7, "Pause");
-            put(8, "Decline");
+            put("put_on_search", "Put on search");
+            put("assigned_to_sales_manager", "Assigned to Sales manager");
+            put("in_touch", "In touch");
+            put("discussion", "Discussion");
+            put("integration", "Integration");
+            put("active", "Active");
+            put("paused", "Paused");
+            put("declined", "Declined");
         }};
 
-    public final static Map<Object, String> PERSON_STATUS_MAP = new HashMap<Object, String>() {
+    public final static Map<String, String> PERSON_STATUS_MAP = new HashMap<String, String>() {
         {
-            put(1, "Active");
-            put(2, "Disable");
+            put("1", "Active");
+            put("2", "Disabled");
         }};
 
 
@@ -168,13 +152,7 @@ public class Adverts {
     }
 
 
-    public static Object getRandomValue(Map<Object, String> map) {
-        Object[] keys = map.keySet().toArray();
-        return map.get(getRandomKey(keys));
-    }
-
     public static Object getRandomKey(Object[] keys) {
-        // Выбираем случайный ключ из массива ключей
         return keys[new Random().nextInt(keys.length)];
     }
 

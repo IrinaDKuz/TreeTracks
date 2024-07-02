@@ -33,8 +33,8 @@ public class AdminBrowserBuilder {
         selectAutocompleteInput("Status", advertPrimaryInfo.getStatus(), driver);
         selectAutocompleteInput("Model Type", advertPrimaryInfo.getModelType(), driver);
         selectAutocompleteInput("Manager", advertPrimaryInfo.getManagerId(), driver);
-        selectAutocompleteInput("Sales Manager", advertPrimaryInfo.getSalesManager(), driver);
-        selectAutocompleteInput("Account Manager", advertPrimaryInfo.getAccountManager(), driver);
+        selectAutocompleteInput("Sales Manager", advertPrimaryInfo.getSalesManagerId(), driver);
+        selectAutocompleteInput("Account Manager", advertPrimaryInfo.getAccountManagerId(), driver);
         selectAutocompleteInput("GEO", advertPrimaryInfo.getGeo(), driver);
         selectAutocompleteInput("Categories", advertPrimaryInfo.getCategories(), driver);
         selectAutocompleteInput("Tags", advertPrimaryInfo.getTag(), driver);

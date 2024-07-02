@@ -17,6 +17,13 @@ import static Helper.Adverts.*;
 import static Helper.Auth.authKeyAdmin;
 import static Helper.Settings.*;
 
+/***
+ Тест проверяет работу API методов
+ - add/edit и get
+ во вкладке Settings - "General"
+ */
+
+
 public class GeneralAPI {
 
     static Map<String, Object> settingGeneralMap = new HashMap<>();
@@ -44,7 +51,6 @@ public class GeneralAPI {
         for (Map.Entry<String, Object> entry : settingGeneralMap.entrySet()) {
            if (entry.getValue() instanceof Boolean) {
                 settingGeneral.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                System.out.println(entry.getKey() + ":" + entry.getValue());
             } else {
                 settingGeneral.addProperty(entry.getKey(), (String) entry.getValue());
             }
@@ -57,8 +63,6 @@ public class GeneralAPI {
     public static void generalAddEdit() {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingGeneralBody(), JsonObject.class);
-
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
