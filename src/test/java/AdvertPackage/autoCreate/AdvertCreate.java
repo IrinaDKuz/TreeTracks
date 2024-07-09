@@ -3,6 +3,7 @@ package AdvertPackage.autoCreate;
 import AdvertPackage.entity.Advert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 
 import static AdvertPackage.autoCreate.AdvertBrowserBuilder.*;
@@ -14,13 +15,14 @@ import static Helper.Auth.*;
  - Primary Info,
  - Contact,
 
+
  */
 
 public class AdvertCreate {
 
     @Test
     public static void test() throws Exception {
-        //FirefoxDriver driver = (FirefoxDriver) getFireFoxDriver();
+        // FirefoxDriver driver = (FirefoxDriver) getFireFoxDriver();
         ChromeDriver driver = (ChromeDriver) getChromeDriver();
         auth(driver, EMAIL_FULL_ACCESS, PASSWORD_FULL_ACCESS);
 
@@ -45,6 +47,7 @@ public class AdvertCreate {
             Thread.sleep(5000);
             buildBrowserAdvertNotes(advert.getAdvertNotes(), driver);
             buildBrowserAdvertFilter(advert, driver);
+            Thread.sleep(50000);
         }
     }
 

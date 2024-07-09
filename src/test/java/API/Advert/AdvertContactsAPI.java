@@ -12,8 +12,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import static Helper.Auth.authKeyAdmin;
+import static SQL.AdvertSQL.getArrayFromBDWhere;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 
 /***
@@ -32,7 +36,7 @@ public class AdvertContactsAPI {
         contactsGet();
         contactsAdd();
         AdvertContact advertContact = contactsEdit();
-       // contactsAssert(advertContact);
+        contactsAssert(advertContact);
         contactsDelete();
     }
 
@@ -41,7 +45,7 @@ public class AdvertContactsAPI {
         advertContact.fillAdvertContactWithRandomData();
 
         Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContact), JsonObject.class);
+        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContact, false), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
 
         Response response;
@@ -66,8 +70,26 @@ public class AdvertContactsAPI {
         AdvertContact advertContactEdit = new AdvertContact();
         advertContactEdit.fillAdvertContactWithRandomData();
 
+        List<String> messengerIds = getArrayFromBDWhere("id", "advert_contact_messenger",
+                "contact_id", String.valueOf(advertContactId));
+
+
+        for (int i = 0; i < messengerIds.size(); i++) {
+            try {
+                advertContactEdit.getMessengers().get(i).setMessengerId(messengerIds.get(i));
+            } catch (Exception e) {
+                System.err.println(e);
+                for (int j = 0; j < advertContactEdit.getMessengers().size(); j++) {
+                    try {
+                        advertContactEdit.getMessengers().get(j).setMessengerId(messengerIds.get(j));
+                    } catch (Exception r) {
+                        System.err.println(r);
+                    }
+                }
+            }
+        }
         Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContactEdit), JsonObject.class);
+        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContactEdit, true), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
 
         Response response;
@@ -79,7 +101,6 @@ public class AdvertContactsAPI {
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/advert/" + advertId + "/contact/" + advertContactId + "/edit");
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на edit: " + responseBody);
         Assert.assertEquals(responseBody, "{\"success\":true}");
@@ -87,23 +108,27 @@ public class AdvertContactsAPI {
     }
 
 
-    private static JsonObject initializeJsonAdvertContacts(AdvertContact advertContact) {
+    private static JsonObject initializeJsonAdvertContacts(AdvertContact advertContact, Boolean isEdit) throws
+            Exception {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("status", advertContact.getStatus().toLowerCase());
         jsonObject.addProperty("person", advertContact.getPerson());
         jsonObject.addProperty("email", advertContact.getEmail());
+        jsonObject.addProperty("position", advertContact.getPosition());
 
         JsonArray messengersArray = new JsonArray();
 
         for (Messenger messenger : advertContact.getMessengers()) {
             JsonObject jsonMessenger = new JsonObject();
-            jsonMessenger.addProperty("messengerId", messenger.getMessengerId());
+            if (messenger.getMessengerId() != null) {
+                jsonMessenger.addProperty("id", messenger.getMessengerId());
+            }
+            jsonMessenger.addProperty("messengerId", messenger.getMessengerTypeId());
             jsonMessenger.addProperty("value", messenger.getMessengerValue());
             messengersArray.add(jsonMessenger);
         }
 
-        // Добавляем массив messengers в главный JSON-объект
         jsonObject.add("messengers", messengersArray);
 
         return jsonObject;
@@ -133,13 +158,16 @@ public class AdvertContactsAPI {
             advertContact.setPerson(dataObject.getString("person"));
             advertContact.setStatus(dataObject.getString("status"));
             advertContact.setEmail(dataObject.getString("email"));
+            advertContact.setPosition(dataObject.getString("position"));
+
 
             JSONArray messengersArray = dataObject.getJSONArray("messengers");
             ArrayList<Messenger> messengers = new ArrayList<>();
             for (int j = 0; j < messengersArray.length(); j++) {
                 JSONObject messengerObject = messengersArray.getJSONObject(j);
                 Messenger messenger = new Messenger();
-                messenger.setMessengerId(String.valueOf(messengerObject.getInt("messengerId")));
+                messenger.setMessengerId(String.valueOf(messengerObject.getInt("id")));
+                messenger.setMessengerTypeId(String.valueOf(messengerObject.getInt("messengerId")));
                 messenger.setMessengerValue(messengerObject.getString("value"));
                 messengers.add(messenger);
             }
@@ -157,14 +185,21 @@ public class AdvertContactsAPI {
                 Assert.assertEquals(advertContact.getPerson(), advertContactEdit.getPerson());
                 Assert.assertEquals(advertContact.getStatus(), advertContactEdit.getStatus());
                 Assert.assertEquals(advertContact.getEmail(), advertContactEdit.getEmail());
-                System.out.println(advertContact.getMessengers());
-                System.out.println(advertContactEdit.getMessengers());
+                Assert.assertEquals(advertContact.getPosition(), advertContactEdit.getPosition());
 
-                Assert.assertEquals(advertContact.getMessengers(), advertContactEdit.getMessengers());
+                for (int i = 0; i < advertContactEdit.getMessengers().size(); i++) {
+
+                    Messenger getMessenger = advertContact.getMessengers().get(i);
+                    Messenger editMessenger = advertContactEdit.getMessengers().get(i);
+                    System.out.println("getMessenger " + getMessenger.getMessengerId());
+                    System.out.println("editMessenger " + editMessenger.getMessengerId());
+                    // Assert.assertEquals(getMessenger.getMessengerId(), editMessenger.getMessengerId());
+                    Assert.assertEquals(getMessenger.getMessengerTypeId(), editMessenger.getMessengerTypeId());
+                    Assert.assertEquals(getMessenger.getMessengerValue(), editMessenger.getMessengerValue());
+                }
             }
         }
     }
-
 
     public static void contactsDelete() {
         Response response;

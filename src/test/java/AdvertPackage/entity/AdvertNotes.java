@@ -1,7 +1,9 @@
 package AdvertPackage.entity;
 
+import Helper.GeoAndLang;
+
 import static Helper.Adverts.*;
-import static Helper.GeoAndLang.getRandomValue;
+import static Helper.GeoAndLang.*;
 import static SQL.AdvertSQL.*;
 
 public class AdvertNotes {
@@ -12,6 +14,8 @@ public class AdvertNotes {
 
     String type;
     String location;
+    String locationId;
+
     String text;
     String adminTitle;
     String createdAt;
@@ -20,9 +24,20 @@ public class AdvertNotes {
     }
 
     public void fillAdvertNotesWithRandomData() throws Exception {
-        this.type = (String) getRandomValue(NOTES_TYPES_MAP);
-        if (this.type.equals("Conference")) {
+        this.type =  getRandomValue(NOTES_TYPES_MAP);
+        if (this.type.equals("Event")) {
             this.location = getRandomValueFromBD("name", "event");
+        }
+        this.text = generateName(20, DESCRIPTION_WORDS);
+    }
+
+    public void fillAdvertNotesWithRandomDataForAPI() throws Exception {
+        this.type = getRandomKey(NOTES_TYPES_MAP);
+        if (this.type.equals("event")) {
+            this.location = getRandomValueFromBD("name", "event");
+            this.locationId = getValueFromBDWhere("id", "event",
+                    "name",   this.location  );
+
         }
         this.text = generateName(20, DESCRIPTION_WORDS);
     }
@@ -75,5 +90,13 @@ public class AdvertNotes {
 
     public void setAdminTitle(String adminTitle) {
         this.adminTitle = adminTitle;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
     }
 }

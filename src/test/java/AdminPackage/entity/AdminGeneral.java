@@ -1,69 +1,44 @@
 package AdminPackage.entity;
 
-import static Helper.Adverts.*;
+import static Helper.ActionsClass.generateRandomString;
+import static Helper.Admin.*;
 import static Helper.Adverts.generateName;
-import static Helper.GeoAndLang.getRandomValue;
+import static Helper.GeoAndLang.*;
+import static Helper.Settings.generateRandomNumber;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 
 public class AdminGeneral {
     String status;
-    String company;
-    String companyLegalName;
-    String siteUrl;
-    String modelType;
-    String managerId;
-    String salesManager;
-    String accountManager;
-    String[] geo;
-    String[] categories;
-    String[] tag;
-    String[] allowedIp;
-    String[] allowedSubAccount;
-    String[] disallowedSubAccount;
-    String userRequestSourceId;
-    String userRequestSourceValue;
-    String note;
-    Boolean forbidChangePostbackStatus;
+    String roleId;
+    String roleName;
+    String email;
+    String password;
+    String firstName;
+    String lastName;
 
-    String address1;
-    String address2;
-    String city;
-    String country;
-    String createdAt;
-    String currency;
-    int id;
-    String offerCount;
-    String paymentMethod;
-    String registrationNumber;
-    String s2s;
-    String secure_postback_code;
-    String updatedAt;
-    String zip_code;
+    String skype;
+    String telegram;
+    String phone;
+    String workingHours;
 
-    public AdminGeneral() throws Exception {
-        this.status = getRandomValue(STATUS_MAP);
-        this.company = generateName(3, COMPANY_WORDS);
-        this.companyLegalName = generateName(4, COMPANY_WORDS);
-        this.siteUrl = generateCompanyUrl(this.company);
-        this.modelType = getRandomValue(MODEL_TYPES_MAP);
-        this.managerId = getRandomValueFromBD("email", "admin");
-        this.salesManager = getRandomValueFromBD("email", "admin");
-        this.accountManager = getRandomValueFromBD("email", "admin");
 
-        //TODO: из-за непонятных стран пока не понятно как реализовывать
-        this.geo = new String[]{"Albania", "Armenia", "Austria"};
+    public AdminGeneral() {
+    }
 
-        // TODO надо брать рандомно из БД из-за языков пока не понятно как реализовывать
-        this.categories = new String[]{"Forex"};
+    public void fillAdminGeneralWithRandomDataForAPI() throws Exception {
+        this.status = getRandomKey(ADMIN_STATUS_MAP);
+        this.roleId = getRandomValueFromBD("id", "role");
+        this.firstName = generateName(2, ANIMAL_WORDS);
+        this.lastName = generateName(2, ANIMAL_WORDS);
+        this.email = generateEmail(firstName + lastName);
+        this.password = generateRandomString(10);
+        this.skype = "Skype:" + firstName;
+        this.telegram = "@Telegram" + lastName;
+        this.phone = String.valueOf(generateRandomNumber(10));
+        this.workingHours = String.valueOf(generateRandomNumber(2));
+    }
 
-        this.tag = new String[]{generateName(1, COMPANY_WORDS), generateName(1, COMPANY_WORDS)};
-        this.allowedIp = new String[]{ generateIPAddress(), generateIPAddress()};
-        this.disallowedSubAccount = new String[]{"Sub 1", "Sub 3", "Sub 4"};
-        this.allowedSubAccount = new String[]{"Sub 8", "Sub 5", "Sub 2"};
-        this.userRequestSourceId = getRandomValueFromBD("name", "user_request_source");
-        this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
-        this.note = generateName(10, COMPANY_WORDS);
-        this.forbidChangePostbackStatus = true;
+    public void fillAdvertPrimaryInfoWithRandomDataForUI() throws Exception {
     }
 
     public String getStatus() {
@@ -74,141 +49,85 @@ public class AdminGeneral {
         this.status = status;
     }
 
-    public String getCompany() {
-        return company;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getCompanyLegalName() {
-        return companyLegalName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCompanyLegalName(String companyLegalName) {
-        this.companyLegalName = companyLegalName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getSiteUrl() {
-        return siteUrl;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSiteUrl(String siteUrl) {
-        this.siteUrl = siteUrl;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getModelType() {
-        return modelType;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setModelType(String modelType) {
-        this.modelType = modelType;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getManagerId() {
-        return managerId;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getSalesManager() {
-        return salesManager;
+    public String getSkype() {
+        return skype;
     }
 
-    public void setSalesManager(String salesManager) {
-        this.salesManager = salesManager;
+    public void setSkype(String skype) {
+        this.skype = skype;
     }
 
-    public String getAccountManager() {
-        return accountManager;
+    public String getTelegram() {
+        return telegram;
     }
 
-    public void setAccountManager(String accountManager) {
-        this.accountManager = accountManager;
+    public void setTelegram(String telegram) {
+        this.telegram = telegram;
     }
 
-    public String[] getGeo() {
-        return geo;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setGeo(String[] geo) {
-        this.geo = geo;
-    }
-
-    public String[] getCategories() {
-        return categories;
-    }
-
-    public void setCategories(String[] categories) {
-        this.categories = categories;
-    }
-
-    public String[] getTag() {
-        return tag;
-    }
-
-    public void setTag(String[] tag) {
-        this.tag = tag;
-    }
-
-    public String[] getAllowedIp() {
-        return allowedIp;
-    }
-
-    public void setAllowedIp(String[] allowedIp) {
-        this.allowedIp = allowedIp;
-    }
-
-    public String[] getAllowedSubAccount() {
-        return allowedSubAccount;
-    }
-
-    public void setAllowedSubAccount(String[] allowedSubAccount) {
-        this.allowedSubAccount = allowedSubAccount;
-    }
-
-    public String[] getDisallowedSubAccount() {
-        return disallowedSubAccount;
-    }
-
-    public void setDisallowedSubAccount(String[] disallowedSubAccount) {
-        this.disallowedSubAccount = disallowedSubAccount;
-    }
-
-    public String getUserRequestSourceId() {
-        return userRequestSourceId;
-    }
-
-    public void setUserRequestSourceId(String userRequestSourceId) {
-        this.userRequestSourceId = userRequestSourceId;
-    }
-
-    public String getUserRequestSourceValue() {
-        return userRequestSourceValue;
-    }
-
-    public void setUserRequestSourceValue(String userRequestSourceValue) {
-        this.userRequestSourceValue = userRequestSourceValue;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public Boolean getForbidChangePostbackStatus() {
-        return forbidChangePostbackStatus;
-    }
-
-    public void setForbidChangePostbackStatus(Boolean forbidChangePostbackStatus) {
-        this.forbidChangePostbackStatus = forbidChangePostbackStatus;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 
+    public String getWorkingHours() {
+        return workingHours;
+    }
+
+    public void setWorkingHours(String workingHours) {
+        this.workingHours = workingHours;
+    }
+
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 }

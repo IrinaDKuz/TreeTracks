@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getRandomValueFromBD;
+import static SQL.AdvertSQL.getRandomValueFromBDWhereMore;
 
 /***
  Тест проверяет работу API методов
@@ -39,8 +40,8 @@ public class AdvertNotesAPI {
     private static JsonObject initializeJsonAdvertNotes(AdvertNotes advertNotes) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", advertNotes.getType().toLowerCase());
-        if (advertNotes.getType().equalsIgnoreCase("conference")) {
-            jsonObject.addProperty("location", advertNotes.getLocation());
+        if (advertNotes.getType().equalsIgnoreCase("event")) {
+            jsonObject.addProperty("location", advertNotes.getLocationId());
         }
         jsonObject.addProperty("text", advertNotes.getText());
         return jsonObject;
@@ -48,7 +49,7 @@ public class AdvertNotesAPI {
 
     public static void notesAdd() throws Exception {
         AdvertNotes advertNotes = new AdvertNotes();
-        advertNotes.fillAdvertNotesWithRandomData();
+        advertNotes.fillAdvertNotesWithRandomDataForAPI();
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertNotes(advertNotes), JsonObject.class);
@@ -73,7 +74,7 @@ public class AdvertNotesAPI {
 
     public static AdvertNotes notesEdit() throws Exception {
         AdvertNotes advertNotesEdit = new AdvertNotes();
-        advertNotesEdit.fillAdvertNotesWithRandomData();
+        advertNotesEdit.fillAdvertNotesWithRandomDataForAPI();
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertNotes(advertNotesEdit), JsonObject.class);
@@ -121,7 +122,11 @@ public class AdvertNotesAPI {
             JSONObject admin = dataObject.getJSONObject("admin");
             advertNotes.setAdminTitle(admin.getString("title"));
 
-            advertNotes.setLocation(dataObject.isNull("location") ? null : dataObject.getString("location"));
+            if (dataObject.get("location") instanceof JSONObject locationObject) {
+                advertNotes.setLocationId(String.valueOf(locationObject.getInt("id")));
+                advertNotes.setLocation(locationObject.getString("title"));
+            }
+
             advertNotes.setText(dataObject.getString("text"));
             advertNotes.setType(dataObject.getString("type"));
             advertNotes.setCreatedAt(dataObject.getString("createdAt"));
@@ -137,6 +142,7 @@ public class AdvertNotesAPI {
                 System.out.println(advertNotes.getNotesId());
                 Assert.assertEquals(advertNotes.getType(), advertNotesEdit.getType().toLowerCase());
                 Assert.assertEquals(advertNotes.getText(), advertNotesEdit.getText());
+                Assert.assertEquals(advertNotes.getLocationId(), advertNotesEdit.getLocationId());
                 Assert.assertEquals(advertNotes.getLocation(), advertNotesEdit.getLocation());
             }
         }

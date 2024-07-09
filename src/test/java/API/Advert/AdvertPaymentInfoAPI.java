@@ -111,7 +111,7 @@ public class AdvertPaymentInfoAPI {
         return advertRequisitesEdit;
     }
 
-    public static ArrayList<AdvertRequisites> paymentGet() throws Exception {
+    public static ArrayList<AdvertRequisites> paymentGet() {
         ArrayList<AdvertRequisites> paymentList = new ArrayList<>();
         Response response;
         response = RestAssured.given()

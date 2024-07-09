@@ -2,9 +2,24 @@ package Helper;
 
 import java.util.*;
 
-import static SQL.AdvertSQL.getRandomValueFromBDWhere;
-
 public class Settings {
+
+    public final static Map<String, String> EMAIL_TYPE = new HashMap<>() {
+        {
+            put("system", "System");
+            put("announcements", "Announcements");
+            put("weekly_summaries", "Weekly summaries");
+        }
+    };
+
+    public final static Map<String, String> EMAIL_PROTOCOL = new HashMap<>() {
+        {
+            put("smtp_ssl", "SMTP + SSL");
+            put("smtp", "SMTP");
+            put("smtp_tsl", "SMTP + TSL");
+        }
+    };
+
     public static final String[] COUNTRY_LETTERS = {
             "af", "al", "dz", "ad", "ao", "ag", "ar", "am", "au", "at", "az", "bs", "bh", "bd", "bb", "by", "be", "bz", "bj", "bt",
             "bo", "ba", "bw", "br", "bn", "bg", "bf", "bi", "ci", "cv", "kh", "cm", "ca", "cf", "td", "cl", "cn", "co", "km", "cr",
@@ -36,7 +51,6 @@ public class Settings {
             "North Las Vegas", "Norfolk", "Chesapeake", "Garland", "Irving", "Hialeah",
             "Fremont", "Boise", "Richmond"
     };
-
 
     public static String generateUTC() {
         Random random = new Random();

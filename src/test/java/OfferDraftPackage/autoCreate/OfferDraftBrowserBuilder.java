@@ -1,4 +1,4 @@
-package AdminPackage.autoCreate;
+package OfferDraftPackage.autoCreate;
 
 import AdvertPackage.entity.AdvertContact;
 import AdvertPackage.entity.AdvertPrimaryInfo;
@@ -14,7 +14,7 @@ import static Helper.MenuPage.*;
 import static Helper.ActionsClass.*;
 import static Helper.Path.contain;
 
-public class AdminBrowserBuilder {
+public class OfferDraftBrowserBuilder {
     public static final String ADD_ADVERT_BUTTON = "+ Add new Advertiser";
 
     public static void buildBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, ChromeDriver driver) throws InterruptedException {

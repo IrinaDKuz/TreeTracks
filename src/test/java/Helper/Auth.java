@@ -11,7 +11,7 @@ import static Helper.ActionsClass.waitAndSendKeys;
 
 public class Auth {
     public static String authKeyTest = "Bearer ac9894e101da82b7175f02a315399145";
-    public static String authKeyAdmin = "Bearer 7450d86013c36fcd65deae8d34183fb4";
+    public static String authKeyAdmin = "Bearer 5125483436dc828dc8608f50b26390cb";
 
     public static final String EMAIL_TEST = "petrpetrovpp2023@gmail.com";
     public static final String PASSWORD_TEST = "petrPETRtest"; //TEST123
@@ -23,7 +23,7 @@ public class Auth {
     public static final String PASSWORD_ADMIN = "password";
 
 
-    public static final String DEV_NODE = "http://admin.3tracks.link/";
+    public static final String DEV_NODE = "https://admin.3tracks.link/";
     public static final String PRE_STAGE_NODE = "http://newx.3tracks.online/";
 
 

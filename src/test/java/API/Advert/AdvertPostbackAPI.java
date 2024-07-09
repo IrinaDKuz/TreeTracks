@@ -75,7 +75,7 @@ public class AdvertPostbackAPI {
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/advert/" + advertId + "/postback/edit");
-        // Получаем и выводим ответ
+
         String responseBody = response.getBody().asString();
         System.out.println("Ответ: " + responseBody);
         Assert.assertEquals(responseBody, "{\"success\":true}");

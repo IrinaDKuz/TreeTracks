@@ -31,11 +31,11 @@ public class Path {
     }
 
     public static By textIsEqual(String tag, String contain) {
-        return By.xpath("//" + tag + "[text()=" + '\"' + contain + '\"' +"]");
+        return By.xpath("//" + tag + "[text()=\""  + contain + "\"]");
     }
     public static By forEditDeleteButtons(String tag, String contain, String buttonName) {
-        return By.xpath("//" + tag + "[contains(text(),'" + contain +
-                        "')]/parent::div/parent::div/parent::div//button[contains(text(),'" + buttonName + "')]");
+        return By.xpath("//" + tag + "[contains(text(),\"" + contain +
+                        "\")]/parent::div/parent::div/parent::div//button[contains(text(),\"" + buttonName + "\")]");
     }
 
 }

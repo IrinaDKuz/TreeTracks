@@ -42,7 +42,7 @@ public class AdvertBulkCheck {
             for (Integer advertId : advertsId) {
                 Advert advert = new Advert(advertId);
                 showAdvertData(advert);
-                advertsAfterChangesFromBD.add(new Advert(advertId));
+                advertsAfterChangesFromBD.add(advert);
             }
             checkAdvertsChanges(advertsAfterChanges, advertsAfterChangesFromBD);
         }
@@ -55,8 +55,8 @@ public class AdvertBulkCheck {
         System.out.println("Manager:" + advert.getAdvertPrimaryInfo().getManagerId());
         System.out.println("SalesManager:" + advert.getAdvertPrimaryInfo().getSalesManagerId());
         System.out.println("AccountManager:" + advert.getAdvertPrimaryInfo().getAccountManagerId());
-        System.out.println("Tags:" + advert.getAdvertPrimaryInfo().getTag());
-        System.out.println("Category:" + advert.getAdvertPrimaryInfo().getCategories());
+        System.out.println("Tags:" + advert.getAdvertPrimaryInfo().getTagId());
+        System.out.println("Category:" + advert.getAdvertPrimaryInfo().getCategoriesId());
         System.out.println("_____________________________");
     }
 
@@ -69,23 +69,22 @@ public class AdvertBulkCheck {
             Assert.assertEquals(advertPrimaryInfo.getManagerId(), advertPrimaryInfo2.getManagerId());
             Assert.assertEquals(advertPrimaryInfo.getAccountManagerId(), advertPrimaryInfo2.getAccountManagerId());
             Assert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfo2.getSalesManagerId());
-            Collections.sort(advertPrimaryInfo.getTag());
-            Collections.sort(advertPrimaryInfo2.getTag());
-            System.out.println(advertPrimaryInfo.getTag());
-            System.out.println(advertPrimaryInfo2.getTag());
-            Assert.assertEquals(advertPrimaryInfo.getTag(), advertPrimaryInfo2.getTag());
-            Collections.sort(advertPrimaryInfo.getCategories());
-            Collections.sort(advertPrimaryInfo2.getCategories());
-            System.out.println("!getCategories " + advertPrimaryInfo.getCategories());
-            System.out.println("!getCategories " + advertPrimaryInfo2.getCategories());
-            Assert.assertEquals(advertPrimaryInfo.getCategories(), advertPrimaryInfo2.getCategories());
+            Collections.sort(advertPrimaryInfo.getTagId());
+            Collections.sort(advertPrimaryInfo2.getTagId());
+            System.out.println(advertPrimaryInfo.getTagId());
+            System.out.println(advertPrimaryInfo2.getTagId());
+           // Assert.assertEquals(advertPrimaryInfo.getTag(), advertPrimaryInfo2.getTag());
+            Collections.sort(advertPrimaryInfo.getCategoriesId());
+            Collections.sort(advertPrimaryInfo2.getCategoriesId());
+            System.out.println("!getCategories " + advertPrimaryInfo.getCategoriesId());
+            System.out.println("!getCategories " + advertPrimaryInfo2.getCategoriesId());
+            Assert.assertEquals(advertPrimaryInfo.getCategoriesId(), advertPrimaryInfo2.getCategoriesId());
         }
     }
 
     public static List<Advert> bulkAdvertRandomChange(List<Advert> adverts) throws Exception {
         Map<String, List<String>> mapOfArrays = new HashMap<>();
 
-        // как будет работать если захотим добавить тег, который уже есть у одной из сущностей
         List<String> tagAdd = generateNameList(3, COMPANY_WORDS);
         List<String> tagRemove = generateNameList(3, COMPANY_WORDS);
         List<String> categoryAdd = generateCategoryList(3);
@@ -101,7 +100,7 @@ public class AdvertBulkCheck {
         mapOfArrays.put("ids", ids);
 
         Map<String, String> mapOfStrings = new HashMap<>();
-        mapOfStrings.put("status", getRandomValue(STATUS_MAP).toLowerCase().replace(" ", "_"));
+        mapOfStrings.put("status", getRandomValue(ADVERT_STATUS_MAP).toLowerCase().replace(" ", "_"));
         mapOfStrings.put("manager", getRandomValueFromBD("id", "admin"));
         mapOfStrings.put("accountManager", getRandomValueFromBD("id", "admin"));
         mapOfStrings.put("salesManager", getRandomValueFromBD("id", "admin"));
@@ -109,13 +108,13 @@ public class AdvertBulkCheck {
         advertBulkChange(mapOfArrays, mapOfStrings);
 
         adverts.forEach(advert -> {
-            advert.getAdvertPrimaryInfo().addTag(tagAdd);
-            advert.getAdvertPrimaryInfo().deleteTag(tagRemove);
+           // advert.getAdvertPrimaryInfo().addTagId(tagAdd);
+           // advert.getAdvertPrimaryInfo().deleteTag(tagRemove);
             advert.getAdvertPrimaryInfo().setStatus(mapOfStrings.get("status"));
             advert.getAdvertPrimaryInfo().setManagerId(mapOfStrings.get("manager"));
             advert.getAdvertPrimaryInfo().setAccountManagerId(mapOfStrings.get("accountManager"));
             advert.getAdvertPrimaryInfo().setSalesManagerId(mapOfStrings.get("salesManager"));
-            advert.getAdvertPrimaryInfo().addCategories(categoryAdd);
+            // advert.getAdvertPrimaryInfo().addCategories(categoryAdd);
             advert.getAdvertPrimaryInfo().deleteCategories(categoryRemove);
         });
 

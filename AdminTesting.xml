@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<!--<suite name="unit tests" configfailurepolicy="continue" parallel="classes" thread-count="3">-->
+<!--<test name="unit test">-->
+
+<suite name="Admin Test Suite">
+
+ <!--       <groups>
+            <run>
+                <include name="smokeTest"/>
+            </run>
+        </groups>-->
+
+    <!-- <packages>-->
+    <!--       <package name="TestClases"></package>-->
+    <!--   </packages>&ndash;&gt;-->
+
+
+<!--           &lt;!&ndash; <parameter name="param" value="Вот это передаем"></parameter>&ndash;&gt;-->
+<!--            <packages>-->
+<!--                &lt;!&ndash;<package name="Affilate"/>&ndash;&gt;-->
+<!--                <package name="unit_tests"/>-->
+<!--&lt;!&ndash;                  <package name="calculatorCheck"></package>&ndash;&gt;-->
+<!--             </packages>-->
+<!--    &lt;!&ndash; &ndash;&gt;-->
+    <test verbose="2" preserve-order="true" name="System Settings API test">
+        <classes>
+            <class name="API.Admin.AdminGeneralAPI"/>
+            <class name="API.Admin.AdminListAPI"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Content Settings API test">
+        <classes>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="CRM Settings API test">
+        <classes>
+        </classes>
+    </test>
+</suite>

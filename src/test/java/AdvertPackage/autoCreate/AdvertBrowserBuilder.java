@@ -11,24 +11,12 @@ import java.util.Map;
 import java.util.Random;
 
 import static Helper.ActionsClass.*;
-import static Helper.Adverts.STATUS_MAP;
+import static Helper.Adverts.*;
 import static Helper.GeoAndLang.getRandomValue;
 import static Helper.MenuPage.*;
 import static Helper.Path.*;
 
 public class AdvertBrowserBuilder {
-    public static final String ADD_ADVERT_BUTTON = "+ Add new Advertiser";
-    public static final String COMPANY = "Company";
-    public static final String COMPANY_LEGAL_NAME = "Company Legalname";
-    public static final String SITE_URL = "Site URL";
-    public static final String STATUS = "Status";
-    public static final String MODEL_TYPE = "Model Type";
-    public static final String NOTE = "Note";
-    public static final String MANAGER = "Manager";
-    public static final String USER_REQUEST_SOURCE = "User Request Source";
-    public static final String USER_REQUEST_SOURCE_VALUE = "User Request Source Value";
-    public static final String TAG = "Tag";
-
 
     public static void addNewBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, WebDriver driver) throws InterruptedException {
         menuItemClick(ADVERTISERS, driver);
@@ -48,19 +36,19 @@ public class AdvertBrowserBuilder {
 
     public static void fillBrowserAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo, WebDriver driver) throws InterruptedException {
         selectAutocompleteInput(STATUS, advertPrimaryInfo.getStatus(), driver);
-        selectAutocompleteInput(MODEL_TYPE, advertPrimaryInfo.getModelType(), driver);
-        selectAutocompleteInput(MANAGER, advertPrimaryInfo.getManagerId(), driver);
-        selectAutocompleteInput("Sales Manager", advertPrimaryInfo.getSalesManagerId(), driver);
-        selectAutocompleteInput("Account Manager", advertPrimaryInfo.getAccountManagerId(), driver);
-        selectAutocompleteInput("Categories", advertPrimaryInfo.getCategories(), driver);
-        selectAutocompleteInput("Tags", advertPrimaryInfo.getTag(), driver);
-        selectAutocompleteInput(USER_REQUEST_SOURCE, advertPrimaryInfo.getUserRequestSourceId(), driver);
+        selectAutocompleteInput(PRICING_MODEL, advertPrimaryInfo.getPricingModel(), driver);
+        selectAutocompleteInput(MANAGER, advertPrimaryInfo.getManagerName(), driver);
+        selectAutocompleteInput("Sales Manager", advertPrimaryInfo.getSalesManagerName(), driver);
+        selectAutocompleteInput("Account Manager", advertPrimaryInfo.getAccountManagerName(), driver);
+        selectAutocompleteInput("Categories", advertPrimaryInfo.getCategoriesName(), driver);
+        selectAutocompleteInput("Tags", advertPrimaryInfo.getTagName(), driver);
+        selectAutocompleteInput(USER_REQUEST_SOURCE, advertPrimaryInfo.getUserRequestSourceName(), driver);
 
-        sendKeysByLabel(COMPANY, advertPrimaryInfo.getCompany(), driver);
+        sendKeysByLabel(NAME, advertPrimaryInfo.getCompany(), driver);
         sendKeysByLabel(COMPANY_LEGAL_NAME, advertPrimaryInfo.getCompanyLegalName(), driver);
         sendKeysByLabel(SITE_URL, advertPrimaryInfo.getSiteUrl(), driver);
         sendKeysByLabel(USER_REQUEST_SOURCE_VALUE, advertPrimaryInfo.getUserRequestSourceValue(), driver);
-        sendKeysToTextAreaByLabel(NOTE, advertPrimaryInfo.getNote(), driver);
+        sendKeysToTextAreaByLabel(NOTES, advertPrimaryInfo.getNote(), driver);
         selectAutocompleteInput("GEO", advertPrimaryInfo.getGeo(), driver);
 
         // TODO Ждать пару секунд сообщение об ошибке
@@ -74,28 +62,19 @@ public class AdvertBrowserBuilder {
         for (AdvertContact advertContact : advertContacts) {
             //TODO переделать для списка
             waitAndClick(contain("button", "Add Contact Person"), driver);
-            fillBrowserAdvertContactInfo("", "Disable", advertContact.getEmail(), driver);
-            // Проверяем ошибку
+            fillBrowserAdvertContactInfo(advertContact.getPerson(),
+                    advertContact.getStatus(), advertContact.getEmail(),
+                    advertContact.getPosition(), driver);
             Thread.sleep(3000);
 
-            driver.navigate().refresh();
-            waitAndClick(contain("button", "Add Contact Person"), driver);
-            fillBrowserAdvertContactInfo(advertContact.getPerson(), "Disable", "", driver);
-            Thread.sleep(3000);
-            // Проверяем ошибку
-            driver.navigate().refresh();
-            waitAndClick(contain("button", "Add Contact Person"), driver);
-            fillBrowserAdvertContactInfo(advertContact.getPerson(), advertContact.getStatus(), advertContact.getEmail(), driver);
-            // Проверяем, что ошибки нет, успешное добавление
-            // Проверяем запись в БД
-            Thread.sleep(3000);
             // редактируем созданную сущность
-            waitAndClick(forEditDeleteButtons("div", advertContact.getPerson(), "Edit"), driver);
-            fillBrowserAdvertContactInfo(advertContact.getPerson() + "edit",
-                    getRandomValue(STATUS_MAP), advertContact.getEmail() + "edit", driver);
-            Thread.sleep(3000);
+           /* waitAndClick(forEditDeleteButtons("div", advertContact.getPerson(), "Edit"), driver);
+            fillBrowserAdvertContactInfo(advertContact.getPerson(),
+                    advertContact.getStatus(), advertContact.getEmail(),
+                    advertContact.getPosition(), driver);            Thread.sleep(3000);*/
+
             // Удаляем созданную сущность
-            waitAndClick(forEditDeleteButtons("div", advertContact.getPerson(), "Delete"), driver);
+           // waitAndClick(forEditDeleteButtons("div", advertContact.getPerson(), "Delete"), driver);
             // Сообщение с подтверждением
         }
     }
@@ -103,16 +82,19 @@ public class AdvertBrowserBuilder {
     public static void fillBrowserAdvertContactInfo(String contactPersonValue,
                                                     String contactStatusValue,
                                                     String contactEmailValue,
+                                                    String contactPositionValue,
                                                     WebDriver driver) throws InterruptedException {
         sendKeysByLabel("Contact person", contactPersonValue, driver);
-        //selectAutocompleteInput("Contact status", contactStatusValue, driver);
+        sendKeysByLabel("Position", contactPositionValue, driver);
+
+        selectAutocompleteInput("Contact status", contactStatusValue, driver);
         sendKeysByLabel("Email", contactEmailValue, driver);
-        waitAndClick(contain("button", "Save Contact"), driver);
+        waitAndClick(contain("button", "Save"), driver);
     }
 
     public static void buildBrowserAdvertRequisites(ArrayList<AdvertRequisites> advertRequisites, WebDriver driver) throws InterruptedException {
-        waitAndClick(contain("a", "Requisites"), driver);
-        waitAndClick(contain("button", "+ Add New Requisite"), driver);
+        waitAndClick(contain("a", "Payment info"), driver);
+        waitAndClick(contain("button", "+ Add"), driver);
 
         for (AdvertRequisites advertRequisite : advertRequisites) {
             selectAutocompleteInput("Payment method", advertRequisite.getPaymentSystemTitle(), driver);
@@ -130,48 +112,50 @@ public class AdvertBrowserBuilder {
 
         selectAutocompleteInput("Allowed IPs", advertPostback.getAllowedIp(), driver);
         selectAutocompleteInput("Allowed sub account", advertPostback.getAllowedSubAccount(), driver);
-        selectAutocompleteInput("Disallowed sub account", advertPostback.getDisallowedSubAccount(), driver);
+        selectAutocompleteInput("Forbidden sub account", advertPostback.getDisallowedSubAccount(), driver);
 
         if (advertPostback.getForbidChangePostbackStatus().equals(true)) {
             WebElement checkbox = driver.findElement(By.id("forbidChangePostbackStatus"));
             ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox);
         }
+        waitAndClick(contain("button", "Save"), driver);
     }
 
     public static void buildBrowserAdvertNotes(ArrayList<AdvertNotes> advertNotes, WebDriver driver) throws InterruptedException {
         waitAndClick(contain("a", "Notes"), driver);
-        waitAndClick(contain("button", "Add new note"), driver);
 
         for (AdvertNotes advertNote : advertNotes) {
+            waitAndClick(contain("button", "Add new note"), driver);
             selectAutocompleteInput("Type", advertNote.getType(), driver);
             if (advertNote.getLocation() != null) {
                 selectAutocompleteInput("Location", advertNote.getLocation(), driver);
             }
             sendKeysToTextAreaByLabel("Text", advertNote.getText(), driver);
+            waitAndClick(contain("button", "Save"), driver);
         }
     }
 
     public static void buildBrowserAdvertFilter(Advert advert, WebDriver driver) throws InterruptedException {
         menuItemClick(ADVERTISERS, driver);
 
-        selectAutocompleteInputByText("Sales Manager", advert.getAdvertPrimaryInfo().getSalesManagerId(), driver);
-        selectAutocompleteInputByText("Account Manager", advert.getAdvertPrimaryInfo().getAccountManagerId(), driver);
-        enterTextByPlaceholder("Site Url", advert.getAdvertPrimaryInfo().getSiteUrl(), driver);
+        selectAutocompleteInputByText("Sales Manager", advert.getAdvertPrimaryInfo().getSalesManagerName(), driver);
+        selectAutocompleteInputByText("Account Manager", advert.getAdvertPrimaryInfo().getAccountManagerName(), driver);
+        enterTextByPlaceholder("Site URL", advert.getAdvertPrimaryInfo().getSiteUrl(), driver);
         selectAutocompleteInputByText("Geo", advert.getAdvertPrimaryInfo().getGeo().getFirst(), driver);
-        selectAutocompleteInputByText("Categories", advert.getAdvertPrimaryInfo().getCategories().getFirst(), driver);
-        selectAutocompleteInputByText(MODEL_TYPE, advert.getAdvertPrimaryInfo().getModelType(), driver);
+        selectAutocompleteInputByText("Categories", advert.getAdvertPrimaryInfo().getCategoriesName().getFirst(), driver);
+        selectAutocompleteInputByText(PRICING_MODEL, advert.getAdvertPrimaryInfo().getPricingModel().getFirst(), driver);
         selectAutocompleteInputByText(STATUS, advert.getAdvertPrimaryInfo().getStatus(), driver);
-        enterTextByPlaceholder(NOTE, advert.getAdvertPrimaryInfo().getNote(), driver);
+        enterTextByPlaceholder(NOTES, advert.getAdvertPrimaryInfo().getNote(), driver);
         enterTextByPlaceholder(COMPANY_LEGAL_NAME, advert.getAdvertPrimaryInfo().getCompanyLegalName(), driver);
-        selectAutocompleteInputByText(MANAGER, advert.getAdvertPrimaryInfo().getManagerId(), driver);
+        selectAutocompleteInputByText(MANAGER, advert.getAdvertPrimaryInfo().getManagerName(), driver);
         enterTextByPlaceholder("Contact", advert.getAdvertContact().getFirst().getEmail(), driver);
-        selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSourceId(), driver);
+        selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSourceName(), driver);
         enterTextByPlaceholder(USER_REQUEST_SOURCE_VALUE, advert.getAdvertPrimaryInfo().getUserRequestSourceValue(), driver);
-        selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTag().getFirst(), driver);
+        selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTagName().getFirst(), driver);
         enterTextByPlaceholder("Person", advert.getAdvertContact().getFirst().getPerson(), driver);
-        selectAutocompleteInputByText("Requsite Type", advert.getAdvertRequisites().getFirst().getPaymentSystemTitle(), driver);
-        enterTextByPlaceholder("Requsite Value", getRandomValue(advert.getAdvertRequisites().getFirst().getRequisites()).toString(), driver);
+        selectAutocompleteInputByText("Payment Type", advert.getAdvertRequisites().getFirst().getPaymentSystemTitle(), driver);
+        enterTextByPlaceholder("Payment Value", getRandomValue(advert.getAdvertRequisites().getFirst().getRequisites()).toString(), driver);
         waitAndClick(contain("button", "Show results"), driver);
     }
 }

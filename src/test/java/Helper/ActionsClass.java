@@ -197,9 +197,9 @@ public class ActionsClass {
     }
 
     public static String getCurrentDateAndTime() {
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd HH:mm:ss:SSS");
-        return dateFormat.format(currentDate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return dateFormat.format(new Date());
     }
 
     public static String getCurrentDateAndTimeSimp() {
@@ -213,6 +213,11 @@ public class ActionsClass {
         SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
         return dateFormat.format(currentDate);
     }
+
+
+
+
+
 
     public static String getFutureOrPastDate(int daysCount) {
         LocalDate newDate = LocalDate.now().plusDays(daysCount);
@@ -300,19 +305,19 @@ public class ActionsClass {
 
     public static void selectValueByValue(String label, String value, WebDriver driver) {
         System.out.println(value);
-        WebElement dropdown = driver.findElement(By.xpath("//label[contains(text(), '" + label + "')]/parent::div//div[@class=' css-b62m3t-container']"));
+        WebElement dropdown = driver.findElement(By.xpath("//label[contains(text(), \"" + label + "\")]/parent::div//div[@class=' css-b62m3t-container']"));
         dropdown.click();
-        WebElement option = driver.findElement(By.xpath("//div[text()='" + value + "']"));
+        WebElement option = driver.findElement(By.xpath("//div[text()=\"" + value + "\"]"));
         option.click();
     }
 
     public static void enterTextByPlaceholder(String placeholder, String text, WebDriver driver) throws InterruptedException {
-        By by = By.xpath("//input[@placeholder='" + placeholder + "']");
+        By by = By.xpath("//input[@placeholder=\"" + placeholder + "\"]");
         waitClearAndSendKeys(by, text, driver);
     }
 
     public static void selectAutocompleteInputByText(String text, String value, WebDriver driver) throws InterruptedException {
-        By by = By.xpath("//div[contains(text(), '" + text + "')]/parent::div//input");
+        By by = By.xpath("//div[contains(text(), \"" + text + "\")]/parent::div//input");
         waitClearAndSendKeys(by, value, driver);
         Thread.sleep(500);
         new Actions(driver).sendKeys(Keys.ENTER).perform();
@@ -343,7 +348,7 @@ public class ActionsClass {
     }
 
     public static void sendKeysByLabel(String label, String value, WebDriver driver) {
-        By by = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//input");
+        By by = By.xpath("//label[contains(text(), \"" + label + "\")]/parent::div//input");
         waitClearAndSendKeys(by, value, driver);
     }
 

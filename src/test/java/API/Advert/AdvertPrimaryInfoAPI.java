@@ -12,28 +12,32 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+import static API.Helper.deleteMethod;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getRandomValueFromBDWhereMore;
 
 /***
  Тест проверяет работу API методов
- - get, add/edit, проверка
+ - get, add/edit, delete, проверка
  во вкладке Адверт - "Primary Info"
  */
 
 public class AdvertPrimaryInfoAPI {
-
     static int advertId;
 
     @Test
     public static void test() throws Exception {
         advertId = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert", "id", "1000"));
         primaryInfoGet();
-        AdvertPrimaryInfo advertPrimaryInfo = primaryInfoEdit();
+        primaryInfoAddEdit(false);
+        AdvertPrimaryInfo advertPrimaryInfo = primaryInfoAddEdit(true);
         primaryInfoAssert(advertPrimaryInfo);
+        deleteMethod("advert", String.valueOf(advertId));
     }
 
     private static JsonObject initializeJsonAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo) {
@@ -47,18 +51,22 @@ public class AdvertPrimaryInfoAPI {
         advertObject.addProperty("accountManager", Integer.parseInt(advertPrimaryInfo.getAccountManagerId()));
         advertObject.addProperty("salesManager", Integer.parseInt(advertPrimaryInfo.getSalesManagerId()));
         advertObject.addProperty("siteUrl", advertPrimaryInfo.getSiteUrl());
-        advertObject.addProperty("pricingModel", advertPrimaryInfo.getModelType().toLowerCase());
         advertObject.addProperty("companyLegalname", advertPrimaryInfo.getCompanyLegalName());
         advertObject.addProperty("note", advertPrimaryInfo.getNote());
         advertObject.addProperty("userRequestSourceId", Integer.parseInt(advertPrimaryInfo.getUserRequestSourceId()));
         advertObject.addProperty("userRequestSourceValue", advertPrimaryInfo.getUserRequestSourceValue());
 
-        List<String> tagList = advertPrimaryInfo.getTag();
+        List<String> pricingModelList = advertPrimaryInfo.getPricingModel();
+        JsonArray pricingModelArray = new JsonArray();
+        pricingModelList.forEach(pricingModelArray::add);
+        advertObject.add("pricingModel", pricingModelArray);
+
+        List<Integer> tagList = advertPrimaryInfo.getTagId();
         JsonArray tagArray = new JsonArray();
         tagList.forEach(tagArray::add);
         advertObject.add("tag", tagArray);
 
-        List<String> categoriesList = advertPrimaryInfo.getCategories();
+        List<Integer> categoriesList = advertPrimaryInfo.getCategoriesId();
         JsonArray categoriesArray = new JsonArray();
         categoriesList.forEach(categoriesArray::add);
         advertObject.add("categories", categoriesArray);
@@ -72,7 +80,7 @@ public class AdvertPrimaryInfoAPI {
         return jsonObject;
     }
 
-    public static AdvertPrimaryInfo primaryInfoEdit() throws Exception {
+    public static AdvertPrimaryInfo primaryInfoAddEdit(Boolean isEdit) throws Exception {
         AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
         advertPrimaryInfo.fillAdvertPrimaryInfoWithRandomDataForAPI();
 
@@ -80,18 +88,20 @@ public class AdvertPrimaryInfoAPI {
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPrimaryInfo(advertPrimaryInfo), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
 
-        Response response;
-        response = RestAssured.given()
+        String path = isEdit ? "https://api.admin.3tracks.link/advert/" + advertId + "/edit" :
+                "https://api.admin.3tracks.link/advert/new";
+
+        Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
                 .header("Authorization", authKeyAdmin)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
-                .post("https://api.admin.3tracks.link/advert/" + advertId + "/edit");
+                .post(path);
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на edit: " + responseBody);
-        Assert.assertEquals(responseBody, "{\"success\":true}");
+        System.out.println("Ответ на add/edit: " + responseBody);
+        Assert.assertTrue(responseBody.contains("{\"success\":true"));
         return advertPrimaryInfo;
     }
 
@@ -113,18 +123,24 @@ public class AdvertPrimaryInfoAPI {
 
         AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
         advertPrimaryInfo.setStatus(data.getString("status"));
-        advertPrimaryInfo.setCompany(data.isNull("name") ? null :data.getString("name"));
-
-        advertPrimaryInfo.setCompanyLegalName(data.isNull("companyLegalname") ? null :data.getString("companyLegalname"));
+        advertPrimaryInfo.setCompany(data.isNull("name") ? null : data.getString("name"));
+        advertPrimaryInfo.setCompanyLegalName(data.isNull("companyLegalname") ? null : data.getString("companyLegalname"));
         // advertPrimaryInfo.setCompany(data.getString("registrationNumber"));
         advertPrimaryInfo.setSiteUrl(data.isNull("siteUrl") ? null : data.getString("siteUrl"));
-        advertPrimaryInfo.setModelType(data.getString("pricingModel"));
         advertPrimaryInfo.setManagerId(String.valueOf(data.isNull("managerId") ? null : data.getInt("managerId")));
         advertPrimaryInfo.setSalesManagerId(String.valueOf(data.isNull("salesManager") ? null : data.getInt("salesManager")));
         advertPrimaryInfo.setAccountManagerId(String.valueOf(data.isNull("accountManager") ? null : data.getInt("accountManager")));
         advertPrimaryInfo.setUserRequestSourceId(String.valueOf(data.isNull("userRequestSourceId") ? null : data.getInt("userRequestSourceId")));
         advertPrimaryInfo.setUserRequestSourceValue(data.isNull("userRequestSourceValue") ? null : data.getString("userRequestSourceValue"));
         advertPrimaryInfo.setNote(data.isNull("note") ? null : data.getString("note"));
+
+        if (data.get("pricingModel") instanceof JSONArray) {
+            JSONArray pricingModelArray = data.getJSONArray("pricingModel");
+            List<String> listArray = StreamSupport.stream(pricingModelArray.spliterator(), false)
+                    .map(Object::toString)
+                    .toList();
+            advertPrimaryInfo.setPricingModel(listArray);
+        } else advertPrimaryInfo.setPricingModel(null);
 
         if (data.get("geo") instanceof JSONArray) {
             JSONArray geoArray = data.getJSONArray("geo");
@@ -136,19 +152,23 @@ public class AdvertPrimaryInfoAPI {
 
         if (data.get("categories") instanceof JSONArray) {
             JSONArray categoriesArray = data.getJSONArray("categories");
-            List<String> listArray = StreamSupport.stream(categoriesArray.spliterator(), false)
-                    .map(Object::toString)
-                    .toList();
-            advertPrimaryInfo.setCategories(listArray);
-        } else advertPrimaryInfo.setCategories(null);
+            List<Integer> categoriesIdList = new ArrayList<>();
+            for (int i = 0; i < categoriesArray.length(); i++) {
+                int value = categoriesArray.getInt(i);
+                categoriesIdList.add(value);
+            }
+            advertPrimaryInfo.setCategoriesId(categoriesIdList);
+        } else advertPrimaryInfo.setCategoriesId(null);
 
         if (data.get("tag") instanceof JSONArray) {
             JSONArray tagArray = data.getJSONArray("tag");
-            List<String> listArray = StreamSupport.stream(tagArray.spliterator(), false)
-                    .map(Object::toString)
-                    .toList();
-            advertPrimaryInfo.setTag(listArray);
-        } else advertPrimaryInfo.setTag(null);
+            List<Integer> tagIdList = new ArrayList<>();
+            for (int i = 0; i < tagArray.length(); i++) {
+                int value = tagArray.getInt(i);
+                tagIdList.add(value);
+            }
+            advertPrimaryInfo.setTagId(tagIdList);
+        } else advertPrimaryInfo.setTagId(null);
 
         return advertPrimaryInfo;
     }
@@ -159,13 +179,19 @@ public class AdvertPrimaryInfoAPI {
         Assert.assertEquals(advertPrimaryInfo.getCompany(), advertPrimaryInfoEdit.getCompany());
         Assert.assertEquals(advertPrimaryInfo.getCompanyLegalName(), advertPrimaryInfoEdit.getCompanyLegalName());
         Assert.assertEquals(advertPrimaryInfo.getSiteUrl(), advertPrimaryInfoEdit.getSiteUrl());
-        Assert.assertEquals(advertPrimaryInfo.getModelType(), advertPrimaryInfoEdit.getModelType().toLowerCase());
         Assert.assertEquals(advertPrimaryInfo.getManagerId(), advertPrimaryInfoEdit.getManagerId());
         Assert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfoEdit.getSalesManagerId());
         Assert.assertEquals(advertPrimaryInfo.getAccountManagerId(), advertPrimaryInfoEdit.getAccountManagerId());
         Assert.assertEquals(advertPrimaryInfo.getGeo(), advertPrimaryInfoEdit.getGeo());
-        Assert.assertEquals(advertPrimaryInfo.getTag(), advertPrimaryInfoEdit.getTag());
-        Assert.assertEquals(advertPrimaryInfo.getCategories(), advertPrimaryInfoEdit.getCategories());
+        Assert.assertEquals(advertPrimaryInfo.getTagId(), advertPrimaryInfoEdit.getTagId());
+
+
+        Assert.assertEquals(advertPrimaryInfo.getPricingModel(), advertPrimaryInfoEdit.getPricingModel());
+        List<Integer> categoriesId = advertPrimaryInfo.getCategoriesId();
+        List<Integer> categoriesIdEdit = advertPrimaryInfoEdit.getCategoriesId();
+        Collections.sort(categoriesId);
+        Collections.sort(categoriesIdEdit);
+        Assert.assertEquals(categoriesId,categoriesIdEdit);
         Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceId(), advertPrimaryInfoEdit.getUserRequestSourceId());
         Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceValue(), advertPrimaryInfoEdit.getUserRequestSourceValue());
         Assert.assertEquals(advertPrimaryInfo.getNote(), advertPrimaryInfoEdit.getNote());

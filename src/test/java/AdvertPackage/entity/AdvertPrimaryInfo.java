@@ -1,8 +1,7 @@
 package AdvertPackage.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static Helper.Adverts.*;
 import static Helper.Adverts.generateName;
@@ -14,17 +13,29 @@ public class AdvertPrimaryInfo {
     String company;
     String companyLegalName;
     String siteUrl;
-    String modelType;
-    String managerId;
-    String manager;
-    String salesManagerId;
-    String salesManager;
-    String accountManagerId;
-    String accountManager;
 
+    String managerId;
+    String managerName;
+
+    String salesManagerId;
+    String salesManagerName;
+
+    String accountManagerId;
+    String accountManagerName;
+
+
+    List<String> pricingModel;
     List<String> geo;
-    List<String> categories;
-    List<String> tag;
+
+
+    List<Integer> categoriesId;
+    List<String> categoriesName;
+
+
+    List<Integer> tagId;
+    List<String> tagName;
+
+
     String userRequestSourceId;
     String userRequestSourceName;
     String userRequestSourceValue;
@@ -45,7 +56,7 @@ public class AdvertPrimaryInfo {
     String updatedAt;
     String zip_code;
 
-    public AdvertPrimaryInfo(){
+    public AdvertPrimaryInfo() {
     }
 
     public AdvertPrimaryInfo(int id) throws Exception {
@@ -53,24 +64,25 @@ public class AdvertPrimaryInfo {
         this.company = getValueFromAdvertPrimaryInfoBDWhere("name", id);
         this.companyLegalName = getValueFromAdvertPrimaryInfoBDWhere("company_legalname", id);
         this.siteUrl = getValueFromAdvertPrimaryInfoBDWhere("site_url", id);
-        this.modelType = getValueFromAdvertPrimaryInfoBDWhere("model_type", id);
+        this.pricingModel = Collections.singletonList(
+                getValueFromAdvertPrimaryInfoBDWhere("pricing_model", id));
         this.managerId = getValueFromAdvertPrimaryInfoBDWhere("manager_id", id);
         this.salesManagerId = getValueFromAdvertPrimaryInfoBDWhere("sales_manager", id);
         this.accountManagerId = getValueFromAdvertPrimaryInfoBDWhere("account_manager", id);
         this.geo = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("geo", id));
-        this.categories = getArrayFromBDWhere("category_id", "advert_category", "advert_id", String.valueOf(id));
-        this.tag = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("tag", id));
+        this.categoriesName = getArrayFromBDWhere("category_id", "advert_category", "advert_id", String.valueOf(id));
+        // ToDo: tag переделать на выбор из смежной таблицы
+        this.tagName = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("tag", id));
         this.userRequestSourceId = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_id", id);
         this.userRequestSourceValue = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_value", id);
         this.note = getValueFromAdvertPrimaryInfoBDWhere("note", id);
     }
 
     public void fillAdvertPrimaryInfoWithRandomDataForAPI() throws Exception {
-        this.status = getRandomKey(STATUS_MAP);
+        this.status = getRandomKey(ADVERT_STATUS_MAP);
         this.company = generateName(3, COMPANY_WORDS);
         this.companyLegalName = generateName(4, COMPANY_WORDS);
         this.siteUrl = generateCompanyUrl(this.company);
-        this.modelType = getRandomValue(MODEL_TYPES_MAP).toString();
         this.managerId = getRandomValueFromBD("id", "admin");
         this.salesManagerId = getRandomValueFromBD("id", "admin");
         this.accountManagerId = getRandomValueFromBD("id", "admin");
@@ -79,50 +91,49 @@ public class AdvertPrimaryInfo {
                 getGeoRandomKey(),
                 getGeoRandomKey()));
 
-        this.categories = new ArrayList<>(Arrays.asList(
-                getRandomValueFromBDWhere("id", "category",
-                        "lang", "'general'")));
-
-        this.tag = new ArrayList<>(Arrays.asList(
-                generateName(1, COMPANY_WORDS),
-                generateName(1, COMPANY_WORDS)));
-
+        this.pricingModel = Arrays.asList(getRandomKey(MODEL_TYPES_MAP));
+        this.categoriesId = getSomeValuesFromBDWhere("id", "category",
+                "lang", "general", 2)
+                .stream().map(Integer::valueOf).collect(Collectors.toList());
+        this.tagId = getSomeValuesFromBD("id", "advert_tag", 3)
+                .stream().map(Integer::valueOf).collect(Collectors.toList());
         this.userRequestSourceId = getRandomValueFromBD("id", "user_request_source");
         this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
         this.note = generateName(10, COMPANY_WORDS);
     }
 
     public void fillAdvertPrimaryInfoWithRandomDataForUI() throws Exception {
-        this.status = (String) getRandomValue(STATUS_MAP);
+        this.status = getRandomValue(ADVERT_STATUS_MAP);
         this.company = generateName(3, COMPANY_WORDS);
         this.companyLegalName = generateName(4, COMPANY_WORDS);
         this.siteUrl = generateCompanyUrl(this.company);
-        this.modelType = getRandomValue(MODEL_TYPES_MAP).toString();
-        this.manager = getRandomValueFromBD("name", "admin");
-        this.salesManager = getRandomValueFromBD("name", "admin");
-        this.accountManager = getRandomValueFromBD("name", "admin");
+        this.pricingModel = Arrays.asList(getRandomValue(MODEL_TYPES_MAP));
+
+        String managerName = getRandomValueFromBD("first_name", "admin");
+        this.managerName = managerName + " " +
+                getValueFromBDWhere("second_name", "admin",
+                        "first_name", managerName);
+        String salesManagerName = getRandomValueFromBD("first_name", "admin");
+        this.salesManagerName = salesManagerName + " " +
+                getValueFromBDWhere("second_name", "admin",
+                        "first_name", salesManagerName);
+        String accountManagerName = getRandomValueFromBD("first_name", "admin");
+        this.accountManagerName = accountManagerName + " " +
+                getValueFromBDWhere("second_name", "admin",
+                        "first_name", accountManagerName);
 
         this.geo = new ArrayList<>(Arrays.asList(
                 generateName(1, GEO_ARRAY),
                 generateName(1, GEO_ARRAY),
                 generateName(1, GEO_ARRAY)));
 
-        this.categories = new ArrayList<>(Arrays.asList(
-                getRandomValueFromBDWhere("name", "category",
-                        "lang", "'general'")));
-
-        this.tag = new ArrayList<>(Arrays.asList(
-                generateName(1, COMPANY_WORDS),
-                generateName(1, COMPANY_WORDS)));
-
+        this.categoriesName = getSomeValuesFromBDWhere("id", "category",
+                "lang", "general", 2);
+        this.tagName = getSomeValuesFromBD("name", "advert_tag", 3);
         this.userRequestSourceName = getRandomValueFromBD("name", "user_request_source");
         this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
         this.note = generateName(10, COMPANY_WORDS);
     }
-
-
-
-
 
 
     private List<String> getArrayFromBDString(String stringFromBD) {
@@ -170,14 +181,6 @@ public class AdvertPrimaryInfo {
         this.siteUrl = siteUrl;
     }
 
-    public String getModelType() {
-        return modelType;
-    }
-
-    public void setModelType(String modelType) {
-        this.modelType = modelType;
-    }
-
     public String getManagerId() {
         return managerId;
     }
@@ -210,54 +213,71 @@ public class AdvertPrimaryInfo {
         this.geo = geo;
     }
 
-    public List<String> getCategories() {
-        return categories;
+
+    public List<String> getPricingModel() {
+        return pricingModel;
     }
 
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
+    public void setPricingModel(List<String> pricingModel) {
+        this.pricingModel = pricingModel;
     }
 
-    public void addCategories(List<String> listCategories) {
-        if (categories.isEmpty())
-            categories = listCategories;
+    public List<Integer> getCategoriesId() {
+        return categoriesId;
+    }
+
+    public void setCategoriesId(List<Integer> categoriesId) {
+        this.categoriesId = categoriesId;
+    }
+
+    public void addCategories(List<Integer> listCategories) {
+        if (categoriesId.isEmpty())
+            categoriesId = listCategories;
         else {
-            for (String category : listCategories) {
-                if (!categories.contains(category)) {
-                    categories.add(category);
+            // Удаляем категории, которые были удалены из базы
+
+            Iterator<Integer> iterator = categoriesId.iterator();
+            while (iterator.hasNext()) {
+                Integer existCategory = iterator.next();
+                if (!isInDatabaseWhere("id", existCategory.toString(), "category", "lang", "general")) {
+                    iterator.remove(); // Безопасное удаление с помощью итератора
+                }
+            }
+            for (Integer category : listCategories) {
+                if (!categoriesId.contains(category)) {
+                    categoriesId.add(category);
                 }
             }
         }
     }
 
     public void deleteCategories(List<String> listCategories) {
-        this.categories.removeAll(listCategories);
+        this.categoriesId.removeAll(listCategories);
     }
 
-    public List<String> getTag() {
-        return tag;
+    public List<Integer> getTagId() {
+        return tagId;
     }
 
-    public void setTag(List<String> tag) {
-        this.tag = tag;
+    public void setTagId(List<Integer> tagId) {
+        this.tagId = tagId;
     }
 
-    public void addTag(List<String> tags) {
-        tag.remove("null");
-        if (tag.isEmpty()) {
-            tag = tags;
+    public void addTagId(List<Integer> tags) {
+        if (tagId.isEmpty()) {
+            tagId = tags;
         } else {
-            for (String tagToAdd : tags) {
-                if (!tag.contains(tagToAdd)) {
-                    tag.add(tagToAdd);
+            for (Integer tagToAdd : tags) {
+                if (!tagId.contains(tagToAdd)) {
+                    tagId.add(tagToAdd);
                 }
             }
         }
     }
 
 
-    public void deleteTag(List<String> tags) {
-        this.tag.removeAll(tags);
+    public void deleteTagId(List<String> tags) {
+        this.tagId.removeAll(tags);
     }
 
     public String getUserRequestSourceId() {
@@ -283,4 +303,55 @@ public class AdvertPrimaryInfo {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+    public String getSalesManagerName() {
+        return salesManagerName;
+    }
+
+    public void setSalesManagerName(String salesManagerName) {
+        this.salesManagerName = salesManagerName;
+    }
+
+    public String getAccountManagerName() {
+        return accountManagerName;
+    }
+
+    public void setAccountManagerName(String accountManagerName) {
+        this.accountManagerName = accountManagerName;
+    }
+
+    public String getUserRequestSourceName() {
+        return userRequestSourceName;
+    }
+
+    public void setUserRequestSourceName(String userRequestSourceName) {
+        this.userRequestSourceName = userRequestSourceName;
+    }
+
+    public List<String> getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(List<String> tagName) {
+        this.tagName = tagName;
+    }
+
+
+    public List<String> getCategoriesName() {
+        return categoriesName;
+    }
+
+    public void setCategoriesName(List<String> categoriesName) {
+        this.categoriesName = categoriesName;
+    }
+
+
 }

@@ -4,7 +4,7 @@ import java.util.*;
 
 import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
-public class Adverts {
+public class Offers {
 
     public static final String ADD_ADVERT_BUTTON = "+ Add new Advertiser";
     public static final String NAME = "Name";
@@ -19,30 +19,43 @@ public class Adverts {
     public static final String TAG = "Tag";
 
 
-    public final static Map<String, String> MODEL_TYPES_MAP = new HashMap<>() {{
-        put("cpa", "Cpa");
-        put("revshare", "RevShare");
-        put("other", "Other");
-        put("hybrid", "Hybrid");
+    public static final String[] OFFER_WORDS = {
+            "Exclusive", "Limited", "Discount", "Deal", "Promotion",
+            "Special", "Offer", "Save", "Free", "Bonus",
+            "Sale", "Gift", "Reward", "Bargain", "Best",
+            "Hot", "Amazing", "Incredible", "Unbeatable", "Huge",
+            "New", "Launch", "Limited-time", "Flash", "Instant",
+            "Cashback", "Prize", "Giveaway", "Sweepstake", "Contest",
+            "Referral", "Subscription", "Membership", "Access", "VIP",
+            "Premium", "Early-bird", "First", "Top", "Exclusive-access",
+            "Secret", "Hidden", "Limited-stock", "One-time", "No-brainer",
+            "Best-seller", "Top-rated", "Fan-favorite", "Must-have", "Essential",
+            "Bundle", "Package", "Combo", "Mega", "Ultimate",
+            "Supreme", "Extreme", "Powerful", "Effective", "Reliable",
+            "Trusted", "Verified", "Proven", "Guaranteed", "Risk-free",
+            "Secure", "Safe", "User-friendly", "Easy", "Convenient",
+            "Fast", "Quick", "Instant-access", "Immediate", "On-demand",
+            "24/7", "Support", "Customer", "Satisfaction", "Review",
+            "Feedback", "Rating", "Testimonial", "Recommendation", "Endorsement",
+            "Award-winning", "Certified", "Accredited", "Qualified", "Licensed",
+            "Expert", "Professional", "Specialist", "Authority", "Leader",
+            "Innovative", "Cutting-edge", "Advanced", "Modern", "Trendy"
+    };
 
-    }};
-
-    public final static Map<String, String> NOTES_TYPES_MAP = new HashMap<>() {{
-        put("call", "Call");
-        put("event", "Event");
-        put("meeting", "Meeting");
-    }};
-
-    public final static Map<String, String> ADVERT_STATUS_MAP = new HashMap<>() {
+    public final static Map<String, String> OFFER_STATUS_MAP = new HashMap<>() {
         {
-            put("put_on_search", "Put on search");
-            put("assigned_to_sales_manager", "Assigned to Sales manager");
-            put("in_touch", "In touch");
-            put("discussion", "Discussion");
-            put("integration", "Integration");
             put("active", "Active");
+            put("disabled", "Disabled");
             put("paused", "Paused");
-            put("declined", "Declined");
+        }};
+
+    public final static Map<String, String> OFFER_PRIVACY_LEVEL = new HashMap<>() {
+        {
+            put("public", "Public");
+            put("pre_moderation", "Pre Moderation");
+            put("private", "Private");
+            put("integration", "Integration");
+
         }};
 
     public final static Map<String, String> PERSON_STATUS_MAP = new HashMap<>() {
@@ -118,74 +131,5 @@ public class Adverts {
             "Resourceful", "Self-disciplined", "Sociable", "Supportive", "Tolerant"
     };
 
-    public static String generateName(int count, String[] array) {
-        Random random = new Random();
-        StringBuilder name = new StringBuilder();
-        for (int i = 0; i < count; i++) {
-            String randomWord = array[random.nextInt(array.length)];
-            name.append(randomWord);
-            if (i < count - 1) {
-                name.append(" ");
-            }
-        }
-        return name.toString();
-    }
 
-    public static List<String> generateNameList(int count, String[] array) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            list.add(generateName(1, array));
-        }
-        return list;
-    }
-
-
-    public static List<String> generateCategoryList(int count) throws Exception {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            list.add(getRandomValueFromBDWhere("id", "category", "lang", "general"));
-        }
-        return list;
-    }
-
-    public static String generateCompanyUrl(String companyName) {
-        Random random = new Random();
-        String url = companyName.toLowerCase().replaceAll("\\s+", "-");
-        url += "-" + random.nextInt(10000);
-        url += ".com";
-        return url;
-    }
-
-    public static String generateIPAddress() {
-        Random random = new Random();
-        StringBuilder ipAddress = new StringBuilder();
-        for (int i = 0; i < 4; i++) {
-            ipAddress.append(random.nextInt(256)); // Максимальное значение - 255
-            if (i < 3) {
-                ipAddress.append(".");
-            }
-        }
-        return ipAddress.toString();
-    }
-
-    public static String generateEmail(String companyName) {
-        Random random = new Random();
-        String emailPrefix = companyName.toLowerCase().replaceAll("\\s+", "");
-        String[] domains = {"gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "example.com"};
-        String domain = domains[random.nextInt(domains.length)];
-        return emailPrefix + "@" + domain;
-    }
-
-
-    public static Object getRandomKey(Object[] keys) {
-        return keys[new Random().nextInt(keys.length)];
-    }
-
-    public static Integer getKeyFromValue(String value, Map<Integer, String> map) {
-        for (int i = 1; i <= map.size(); i++) {
-            if (map.get(i).equals(value))
-                return i;
-        }
-        return null;
-    }
 }
