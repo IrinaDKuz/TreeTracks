@@ -5,44 +5,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AdminTesting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AdvertTesting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SettingsTesting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminGeneralAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertListAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsEmailAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsGeneralAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Helper/Offers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/autoCreate/OfferDraftBrowserBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferDraft.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferGeneral.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/SettingsPackage/entity/SettingsEmail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/SettingsPackage/entity/SettingsGeneral.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OfferTesting.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminFilterAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsCleanDoubleContactAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftGeneralAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainGeneralAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentAdvertTagAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentCategoryAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentGoalAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentMessengerAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentOfferTagAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertEdit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Info" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OfferMainPackage/autoCreate/OfferMainBrowserBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OfferMainPackage/autoCreate/OfferMainCreate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OfferMainPackage/entity/OfferMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OfferMainPackage/entity/OfferMainGeneral.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/SettingsPackage/entity/ContentCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/SettingsPackage/entity/ContentGoal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/SettingsPackage/entity/ContentMessenger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/SettingsPackage/entity/ContentTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/SettingsPackage/entity/ContentTrafficSource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdminTesting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AdminTesting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdvertTesting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AdvertTesting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SettingsTesting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SettingsTesting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/AdminGeneralAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminGeneralAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertListAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertNotesAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertNotesAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPaymentInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPaymentInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPostbackAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPostbackAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/System/GeneralAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBrowserBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/autoCreate/AdminBrowserBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminGeneral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/OfferDraft/OfferDraftAPI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/OfferDraft/OfferDraftList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsEmailAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsEmailAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertAddPrimaryInfoCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertAddPrimaryInfoCheck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertBulkCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertBulkCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertAPI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertNotes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertNotes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/API_Helper.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Path.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Path.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferGeneral.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,6 +92,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "TestNG./Users/irina/IdeaProjects/TreeTracks/AdminTesting.xml.executor": "Run",
     "TestNG./Users/irina/IdeaProjects/TreeTracks/AdvertTesting.xml.executor": "Run",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/OfferTesting.xml.executor": "Run",
     "TestNG./Users/irina/IdeaProjects/TreeTracks/SettingsTesting.xml.executor": "Run",
     "TestNG./Users/irina/IdeaProjects/TreeTracks/testNG.xml.executor": "Run",
     "TestNG.AdminCreate.executor": "Run",
@@ -92,6 +108,7 @@
     "TestNG.AdvertContactsAPI.executor": "Run",
     "TestNG.AdvertCreate.executor": "Run",
     "TestNG.AdvertCreate.test.executor": "Run",
+    "TestNG.AdvertEdit.executor": "Run",
     "TestNG.AdvertGetFromBD.executor": "Debug",
     "TestNG.AdvertListAPI.executor": "Run",
     "TestNG.AdvertNotesAPI.executor": "Run",
@@ -102,32 +119,41 @@
     "TestNG.AdvertSQL.test.executor": "Run",
     "TestNG.Auth.executor": "Run",
     "TestNG.ContactsAPI.executor": "Run",
+    "TestNG.ContentAdvertTagAPI.executor": "Run",
+    "TestNG.ContentCategoryAPI.executor": "Run",
+    "TestNG.ContentGoalAPI.executor": "Run",
+    "TestNG.ContentMessengerAPI.executor": "Run",
+    "TestNG.ContentOfferTagAPI.executor": "Run",
     "TestNG.EmailAPI.generalGet.executor": "Run",
     "TestNG.EmailAPI.test.executor": "Run",
     "TestNG.GeneralAPI.executor": "Run",
     "TestNG.GeneralAPI.generalAdd.executor": "Run",
+    "TestNG.OfferDraftAPI.executor": "Run",
+    "TestNG.OfferDraftGeneralAPI.executor": "Run",
+    "TestNG.OfferMainGeneralAPI.executor": "Run",
+    "TestNG.OfferMainList.executor": "Run",
     "TestNG.SettingsEmailAPI.executor": "Run",
     "TestNG.SettingsGeneralAPI.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks/src/test/java/API/OfferDraft",
+    "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks/src/test/java/API/Advert+",
     "settings.editor.selected.configurable": "preferences.editor"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/test/java/API/OfferDraft" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/test/java/API/Advert+" />
       <recent name="$PROJECT_DIR$/src/test/java" />
-      <recent name="$PROJECT_DIR$/src/test/java/Settings/entity" />
-      <recent name="$PROJECT_DIR$/src/test/java/API/Settings/Content" />
+      <recent name="$PROJECT_DIR$/src/test/java/API/OfferMain" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/test/java/API/OfferDraft" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Helper" />
-      <recent name="OfferDraftPackage.entity" />
-      <recent name="API.Admin" />
-      <recent name="API.Advert" />
+      <recent name="API.Settings.Content" />
       <recent name="SettingsPackage.entity" />
+      <recent name="API.AdvertPlus" />
+      <recent name="API.Admin" />
+      <recent name="API.Offer.OfferMain" />
     </key>
   </component>
   <component name="RunManager">
@@ -223,8 +249,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.AdvertSQL.test" />
         <item itemvalue="TestNG.AdvertBulkCheck.test" />
+        <item itemvalue="TestNG.AdvertSQL.test" />
         <item itemvalue="TestNG.SettingsGeneralAPI.test" />
         <item itemvalue="TestNG.SettingsGeneralAPI.generalGet" />
         <item itemvalue="TestNG.AdvertContactsAPI.generalAdd" />
@@ -247,7 +273,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/Advert.java</url>
-          <line>50</line>
+          <line>59</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -257,7 +283,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java</url>
-          <line>39</line>
+          <line>40</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -266,24 +292,54 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/SettingsPackage/entity/SettingsEmail.java</url>
           <line>21</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java</url>
-          <line>235</line>
-          <option name="timeStamp" value="23" />
+          <url>file://$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentCategoryAPI.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertListAPI.java</url>
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java</url>
+          <line>250</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java</url>
+          <line>284</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainGeneralAPI.java</url>
           <line>36</line>
-          <option name="timeStamp" value="25" />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainGeneralAPI.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentGoalAPI.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
@@ -294,6 +350,7 @@
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="AdvertPackage.entity.AdvertPrimaryInfo" memberName="company" />
+        <PinnedItemInfo parentTag="AdvertPackage.entity.AdvertPrimaryInfo" memberName="managerName" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

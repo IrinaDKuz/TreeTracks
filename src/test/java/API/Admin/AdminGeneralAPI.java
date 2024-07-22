@@ -17,6 +17,7 @@ import static Helper.Auth.authKeyAdmin;
  Тест проверяет работу API методов
  - get, add/edit, delete проверка
  во вкладке Админ - "General"
+ TODO: 100% DONE
  */
 
 public class AdminGeneralAPI {
@@ -29,10 +30,6 @@ public class AdminGeneralAPI {
         generalGet();
         AdminGeneral adminGeneral = generalAddEdit(true);
         generalAssert(adminGeneral);
-
-        // тут будут методы для вкладок
-
-
         deleteMethod("admin", String.valueOf(adminId));
     }
 
@@ -97,7 +94,6 @@ public class AdminGeneralAPI {
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/admin/" + adminId);
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на get: " + responseBody);
 

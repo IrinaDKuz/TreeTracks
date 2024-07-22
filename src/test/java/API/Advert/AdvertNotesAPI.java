@@ -107,7 +107,6 @@ public class AdvertNotesAPI {
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/notes");
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на get: " + responseBody);
 
@@ -120,11 +119,13 @@ public class AdvertNotesAPI {
             advertNotes.setNotesId(dataObject.getInt("id"));
 
             JSONObject admin = dataObject.getJSONObject("admin");
-            advertNotes.setAdminTitle(admin.getString("title"));
+            advertNotes.setAdminTitle(admin.getString("label"));
+            advertNotes.setAdminId(admin.getInt("value"));
+
 
             if (dataObject.get("location") instanceof JSONObject locationObject) {
-                advertNotes.setLocationId(String.valueOf(locationObject.getInt("id")));
-                advertNotes.setLocation(locationObject.getString("title"));
+                advertNotes.setLocationId(String.valueOf(locationObject.getInt("value")));
+                advertNotes.setLocation(locationObject.getString("label"));
             }
 
             advertNotes.setText(dataObject.getString("text"));

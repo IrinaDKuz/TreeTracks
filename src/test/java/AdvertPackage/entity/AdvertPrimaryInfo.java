@@ -23,18 +23,16 @@ public class AdvertPrimaryInfo {
     String accountManagerId;
     String accountManagerName;
 
-
     List<String> pricingModel;
     List<String> geo;
+    List<String> geoAbb = new ArrayList<>();
 
 
-    List<Integer> categoriesId;
-    List<String> categoriesName;
-
+    Set<Integer> categoriesId;
+    List<String> categoriesName = new ArrayList<>();
 
     List<Integer> tagId;
-    List<String> tagName;
-
+    List<String> tagName = new ArrayList<>();
 
     String userRequestSourceId;
     String userRequestSourceName;
@@ -59,84 +57,93 @@ public class AdvertPrimaryInfo {
     public AdvertPrimaryInfo() {
     }
 
-    public AdvertPrimaryInfo(int id) throws Exception {
+    public void fillAdvertPrimaryInfoFromBD(int id) throws Exception {
         this.status = getValueFromAdvertPrimaryInfoBDWhere("status", id);
         this.company = getValueFromAdvertPrimaryInfoBDWhere("name", id);
         this.companyLegalName = getValueFromAdvertPrimaryInfoBDWhere("company_legalname", id);
         this.siteUrl = getValueFromAdvertPrimaryInfoBDWhere("site_url", id);
         this.pricingModel = Collections.singletonList(
                 getValueFromAdvertPrimaryInfoBDWhere("pricing_model", id));
+
         this.managerId = getValueFromAdvertPrimaryInfoBDWhere("manager_id", id);
         this.salesManagerId = getValueFromAdvertPrimaryInfoBDWhere("sales_manager", id);
         this.accountManagerId = getValueFromAdvertPrimaryInfoBDWhere("account_manager", id);
         this.geo = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("geo", id));
         this.categoriesName = getArrayFromBDWhere("category_id", "advert_category", "advert_id", String.valueOf(id));
-        // ToDo: tag переделать на выбор из смежной таблицы
-        this.tagName = getArrayFromBDString(getValueFromAdvertPrimaryInfoBDWhere("tag", id));
+        this.categoriesId = getArrayFromBDWhere("category_id", "advert_category", "advert_id", String.valueOf(id))
+                .stream()
+                .map(Integer::valueOf)
+                .collect(Collectors.toSet());
+
+        this.tagId = getArrayFromBDWhere("advert_tag_id", "advert_tag_relation",
+                "advert_id", String.valueOf(id)).stream()
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
+
         this.userRequestSourceId = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_id", id);
         this.userRequestSourceValue = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_value", id);
         this.note = getValueFromAdvertPrimaryInfoBDWhere("note", id);
     }
 
-    public void fillAdvertPrimaryInfoWithRandomDataForAPI() throws Exception {
+    public void fillAdvertPrimaryInfoWithRandomData() throws Exception {
         this.status = getRandomKey(ADVERT_STATUS_MAP);
         this.company = generateName(3, COMPANY_WORDS);
         this.companyLegalName = generateName(4, COMPANY_WORDS);
         this.siteUrl = generateCompanyUrl(this.company);
-        this.managerId = getRandomValueFromBD("id", "admin");
-        this.salesManagerId = getRandomValueFromBD("id", "admin");
-        this.accountManagerId = getRandomValueFromBD("id", "admin");
-        this.geo = new ArrayList<>(Arrays.asList(
-                getGeoRandomKey(),
-                getGeoRandomKey(),
-                getGeoRandomKey()));
-
         this.pricingModel = Arrays.asList(getRandomKey(MODEL_TYPES_MAP));
-        this.categoriesId = getSomeValuesFromBDWhere("id", "category",
-                "lang", "general", 2)
-                .stream().map(Integer::valueOf).collect(Collectors.toList());
-        this.tagId = getSomeValuesFromBD("id", "advert_tag", 3)
-                .stream().map(Integer::valueOf).collect(Collectors.toList());
-        this.userRequestSourceId = getRandomValueFromBD("id", "user_request_source");
-        this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
-        this.note = generateName(10, COMPANY_WORDS);
-    }
 
-    public void fillAdvertPrimaryInfoWithRandomDataForUI() throws Exception {
-        this.status = getRandomValue(ADVERT_STATUS_MAP);
-        this.company = generateName(3, COMPANY_WORDS);
-        this.companyLegalName = generateName(4, COMPANY_WORDS);
-        this.siteUrl = generateCompanyUrl(this.company);
-        this.pricingModel = Arrays.asList(getRandomValue(MODEL_TYPES_MAP));
-
-        String managerName = getRandomValueFromBD("first_name", "admin");
+        this.managerId = getRandomValueFromBDWhere("id", "admin", "status", "enabled");
+        String managerName = getRandomValueFromBDWhere("first_name", "admin", "id", managerId);
         this.managerName = managerName + " " +
                 getValueFromBDWhere("second_name", "admin",
-                        "first_name", managerName);
-        String salesManagerName = getRandomValueFromBD("first_name", "admin");
-        this.salesManagerName = salesManagerName + " " +
-                getValueFromBDWhere("second_name", "admin",
-                        "first_name", salesManagerName);
-        String accountManagerName = getRandomValueFromBD("first_name", "admin");
+                        "id", managerId);
+        this.accountManagerId = getRandomValueFromBDWhere("id", "admin", "status", "enabled");
+        String accountManagerName = getRandomValueFromBDWhere("first_name", "admin", "id", accountManagerId);
         this.accountManagerName = accountManagerName + " " +
                 getValueFromBDWhere("second_name", "admin",
-                        "first_name", accountManagerName);
+                        "id", accountManagerId);
+
+        this.salesManagerId = getRandomValueFromBDWhere("id", "admin", "status", "enabled");
+        String salesManagerName = getRandomValueFromBDWhere("first_name", "admin", "id", salesManagerId);
+        this.salesManagerName = salesManagerName + " " +
+                getValueFromBDWhere("second_name", "admin",
+                        "id", salesManagerId);
+
+
+        // TODO: НУжно связать id с именами
 
         this.geo = new ArrayList<>(Arrays.asList(
-                generateName(1, GEO_ARRAY),
-                generateName(1, GEO_ARRAY),
-                generateName(1, GEO_ARRAY)));
+                getGeoRandomValue(),
+                getGeoRandomValue(),
+                getGeoRandomValue()));
 
-        this.categoriesName = getSomeValuesFromBDWhere("id", "category",
-                "lang", "general", 2);
-        this.tagName = getSomeValuesFromBD("name", "advert_tag", 3);
-        this.userRequestSourceName = getRandomValueFromBD("name", "user_request_source");
+        for (String geo : this.geo)
+            this.geoAbb.add(getKeyFromValue(geo, GEO_MAP));
+
+        this.categoriesId = getSomeValuesFromBDWhere("id", "category",
+                "lang", "general", 2).stream()
+                .map(Integer::valueOf)
+                .collect(Collectors.toSet());
+
+        for (int categoryID : this.categoriesId)
+            this.categoriesName.add(getValueFromBDWhere("title", "category",
+                    "id", String.valueOf(categoryID)));
+
+        this.tagId = getSomeValuesFromBD("id", "advert_tag", 3)
+                .stream().map(Integer::valueOf).collect(Collectors.toList());
+
+        for (int tagId : this.tagId)
+            this.tagName.add(getValueFromBDWhere("name", "advert_tag",
+                    "id", String.valueOf(tagId)));
+
+        this.userRequestSourceId = getRandomValueFromBD("id", "user_request_source");
+        this.userRequestSourceName = getRandomValueFromBDWhere("name", "user_request_source",
+                "id", this.userRequestSourceId);
         this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
         this.note = generateName(10, COMPANY_WORDS);
     }
 
-
-    private List<String> getArrayFromBDString(String stringFromBD) {
+    public static List<String> getArrayFromBDString(String stringFromBD) {
         String[] tagsArray = stringFromBD.replace("[", "").replace("]", "").replace("\"", "").split(",\\s*");
         return new ArrayList<>(Arrays.asList(tagsArray));
     }
@@ -222,20 +229,18 @@ public class AdvertPrimaryInfo {
         this.pricingModel = pricingModel;
     }
 
-    public List<Integer> getCategoriesId() {
+    public Set<Integer> getCategoriesId() {
         return categoriesId;
     }
 
-    public void setCategoriesId(List<Integer> categoriesId) {
+    public void setCategoriesId(Set<Integer> categoriesId) {
         this.categoriesId = categoriesId;
     }
 
-    public void addCategories(List<Integer> listCategories) {
+    public void addCategories(Set<Integer> listCategories) {
         if (categoriesId.isEmpty())
             categoriesId = listCategories;
         else {
-            // Удаляем категории, которые были удалены из базы
-
             Iterator<Integer> iterator = categoriesId.iterator();
             while (iterator.hasNext()) {
                 Integer existCategory = iterator.next();
@@ -251,7 +256,7 @@ public class AdvertPrimaryInfo {
         }
     }
 
-    public void deleteCategories(List<String> listCategories) {
+    public void deleteCategories(Set<Integer> listCategories) {
         this.categoriesId.removeAll(listCategories);
     }
 
@@ -269,14 +274,14 @@ public class AdvertPrimaryInfo {
         } else {
             for (Integer tagToAdd : tags) {
                 if (!tagId.contains(tagToAdd)) {
-                    tagId.add(tagToAdd);
+                    tagId.add(Integer.valueOf(tagToAdd));
                 }
             }
         }
     }
 
 
-    public void deleteTagId(List<String> tags) {
+    public void deleteTagId(Set<Integer> tags) {
         this.tagId.removeAll(tags);
     }
 
@@ -353,5 +358,12 @@ public class AdvertPrimaryInfo {
         this.categoriesName = categoriesName;
     }
 
+    public List<String> getGeoAbb() {
+        return geoAbb;
+    }
+
+    public void setGeoAbb(List<String> geoAbb) {
+        this.geoAbb = geoAbb;
+    }
 
 }

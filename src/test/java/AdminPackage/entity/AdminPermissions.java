@@ -39,7 +39,11 @@ public class AdminPermissions {
     Map<String, Access> advertAccessMap = new HashMap<>();
 
 
-    public AdminPermissions() throws Exception {
+    public AdminPermissions() {
+    }
+
+    public void fillAdminPermissions() throws Exception {
+
         advertAccessMap.put("advert_primary_info", advertPrimaryInfoPermission);
         advertAccessMap.put("advert_contact", advertContactPermission);
         advertAccessMap.put("advert_requisites", advertRequisitesPermission);

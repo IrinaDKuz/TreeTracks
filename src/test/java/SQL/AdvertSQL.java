@@ -45,9 +45,8 @@ public class AdvertSQL {
                                             String tableName, String where, String whereValue ) {
         String sqlRequest = "SELECT " + parameter + " from " + tableName +
                 " WHERE " + parameter + " = " + value +
-                " AND " + where + " = " + whereValue + " ;";
+                " AND " + where + " = '" + whereValue + "' ;";
         try {
-            sqlQueryList(sqlRequest, parameter);
             return !sqlQueryList(sqlRequest, parameter).isEmpty();
         } catch (SQLException sqlException) {
             return false;
@@ -62,8 +61,15 @@ public class AdvertSQL {
     }
 
     public static List<String> getArrayFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName +
+                " WHERE LOWER(" + where + ") = LOWER('" + whereValue + "');";
+        return sqlQueryList(sqlRequest, parameter);
+    }
+
+
+    public static List<String> getArrayFromBDWhereIsLike(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName +
-                " WHERE " + where + " = '" + whereValue + "';";
+                " WHERE " + where + " LIKE '%" + whereValue + "%';";
         return sqlQueryList(sqlRequest, parameter);
     }
 
@@ -95,10 +101,31 @@ public class AdvertSQL {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public static String getLastValueFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName +
+                " WHERE " + where + " = '" + whereValue + "' ORDER BY id DESC LIMIT 1;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.getFirst();
+    }
+
+    public static String getLastValueFromBD(String parameter, String tableName) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName +
+                " ORDER BY " + parameter +" DESC LIMIT 1;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.getFirst();
+    }
+
+    public static String getLastValueFromBDWhereAdvertExist(String parameter, String tableName) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName +
+                " JOIN advert ON advert.id = " + tableName + ".advert_id" +
+                " ORDER BY " + parameter +" DESC LIMIT 1;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.getFirst();
+    }
 
     public static String getRandomValueFromBDWhereNotNull(String parameter, String tableName, String where) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName +
-                " WHERE " + where + " IS NOT NULL AND " + where + " != '[]' ;";
+                " WHERE " + where + " IS NOT NULL AND !(" + where + " = '[]' OR TRIM(" + where + ") = '[]');" ;
         List<String> list = sqlQueryList(sqlRequest, parameter);
         return list.get(new Random().nextInt(list.size()));
     }

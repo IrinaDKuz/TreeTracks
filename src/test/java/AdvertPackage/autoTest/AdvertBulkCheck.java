@@ -4,13 +4,17 @@ import AdvertPackage.entity.Advert;
 import AdvertPackage.entity.AdvertPrimaryInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static API.Advert.AdvertBulkAPI.advertBulkChange;
+import static Helper.ActionsClass.getSomeValuesFromArray;
 import static Helper.Adverts.*;
 import static Helper.GeoAndLang.getRandomValue;
 import static SQL.AdvertSQL.*;
+import static SQL.AdvertSQL.getSomeValuesFromBD;
 
 /***
  Берем несколько рандомных сущностей из БД
@@ -61,39 +65,47 @@ public class AdvertBulkCheck {
     }
 
     private static void checkAdvertsChanges(List<Advert> advertsAfterChanges, List<Advert> advertsAfterChangesFromBD) {
+        SoftAssert softAssert = new SoftAssert();
+
         for (int i = 0; i < advertsAfterChanges.size(); i++) {
             AdvertPrimaryInfo advertPrimaryInfo = advertsAfterChanges.get(i).getAdvertPrimaryInfo();
             AdvertPrimaryInfo advertPrimaryInfo2 = advertsAfterChangesFromBD.get(i).getAdvertPrimaryInfo();
-
-            Assert.assertEquals(advertPrimaryInfo.getStatus(), advertPrimaryInfo2.getStatus());
-            Assert.assertEquals(advertPrimaryInfo.getManagerId(), advertPrimaryInfo2.getManagerId());
-            Assert.assertEquals(advertPrimaryInfo.getAccountManagerId(), advertPrimaryInfo2.getAccountManagerId());
-            Assert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfo2.getSalesManagerId());
+            softAssert.assertEquals(advertPrimaryInfo.getStatus(), advertPrimaryInfo2.getStatus());
+            softAssert.assertEquals(advertPrimaryInfo.getManagerId(), advertPrimaryInfo2.getManagerId());
+            softAssert.assertEquals(advertPrimaryInfo.getAccountManagerId(), advertPrimaryInfo2.getAccountManagerId());
+            softAssert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfo2.getSalesManagerId());
             Collections.sort(advertPrimaryInfo.getTagId());
             Collections.sort(advertPrimaryInfo2.getTagId());
             System.out.println(advertPrimaryInfo.getTagId());
             System.out.println(advertPrimaryInfo2.getTagId());
-           // Assert.assertEquals(advertPrimaryInfo.getTag(), advertPrimaryInfo2.getTag());
-            Collections.sort(advertPrimaryInfo.getCategoriesId());
-            Collections.sort(advertPrimaryInfo2.getCategoriesId());
+            softAssert.assertEquals(advertPrimaryInfo.getTagId(), advertPrimaryInfo2.getTagId());
             System.out.println("!getCategories " + advertPrimaryInfo.getCategoriesId());
             System.out.println("!getCategories " + advertPrimaryInfo2.getCategoriesId());
-            Assert.assertEquals(advertPrimaryInfo.getCategoriesId(), advertPrimaryInfo2.getCategoriesId());
+            softAssert.assertEquals(advertPrimaryInfo.getCategoriesId(), advertPrimaryInfo2.getCategoriesId());
         }
+
+        softAssert.assertAll();
     }
 
     public static List<Advert> bulkAdvertRandomChange(List<Advert> adverts) throws Exception {
         Map<String, List<String>> mapOfArrays = new HashMap<>();
 
-        List<String> tagAdd = generateNameList(3, COMPANY_WORDS);
-        List<String> tagRemove = generateNameList(3, COMPANY_WORDS);
-        List<String> categoryAdd = generateCategoryList(3);
-        List<String> categoryRemove = generateCategoryList(3);
+        List<String> tag = getArrayFromBD("id", "advert_tag");
+        List<String> tagAdd = getSomeValuesFromBD("id", "advert_tag", 2);
+        tag.removeAll(tagAdd);
+        List<String> tagRemove = getSomeValuesFromArray(tag, 2);
 
+        List<String> category = getArrayFromBDWhere("id", "category",
+                "lang", "general");
+        List<String> categoryAdd = getSomeValuesFromBDWhere("id", "category", "lang",
+                "general", 2);
+        category.removeAll(categoryAdd);
+        List<String> categoryRemove = getSomeValuesFromArray(category, 2);
+
+        mapOfArrays.put("categoryRemove", categoryRemove);
         mapOfArrays.put("tagAdd", tagAdd);
         mapOfArrays.put("tagRemove", tagRemove);
         mapOfArrays.put("categoryAdd", categoryAdd);
-        mapOfArrays.put("categoryRemove", categoryRemove);
 
         List<String> ids = new ArrayList<>();
         adverts.forEach(advert -> ids.add(String.valueOf(advert.getId())));
@@ -108,14 +120,22 @@ public class AdvertBulkCheck {
         advertBulkChange(mapOfArrays, mapOfStrings);
 
         adverts.forEach(advert -> {
-           // advert.getAdvertPrimaryInfo().addTagId(tagAdd);
-           // advert.getAdvertPrimaryInfo().deleteTag(tagRemove);
+            advert.getAdvertPrimaryInfo().addTagId(tagAdd.stream()
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toList()));
+            advert.getAdvertPrimaryInfo().deleteTagId(tagRemove.stream()
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toSet()));
             advert.getAdvertPrimaryInfo().setStatus(mapOfStrings.get("status"));
             advert.getAdvertPrimaryInfo().setManagerId(mapOfStrings.get("manager"));
             advert.getAdvertPrimaryInfo().setAccountManagerId(mapOfStrings.get("accountManager"));
             advert.getAdvertPrimaryInfo().setSalesManagerId(mapOfStrings.get("salesManager"));
-            // advert.getAdvertPrimaryInfo().addCategories(categoryAdd);
-            advert.getAdvertPrimaryInfo().deleteCategories(categoryRemove);
+            advert.getAdvertPrimaryInfo().addCategories(categoryAdd.stream()
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toSet()));
+            advert.getAdvertPrimaryInfo().deleteCategories(categoryRemove.stream()
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toSet()));
         });
 
         return adverts;

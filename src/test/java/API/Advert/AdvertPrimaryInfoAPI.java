@@ -12,9 +12,7 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.StreamSupport;
 
 import static API.Helper.deleteMethod;
@@ -66,12 +64,12 @@ public class AdvertPrimaryInfoAPI {
         tagList.forEach(tagArray::add);
         advertObject.add("tag", tagArray);
 
-        List<Integer> categoriesList = advertPrimaryInfo.getCategoriesId();
+        Set<Integer> categoriesList = advertPrimaryInfo.getCategoriesId();
         JsonArray categoriesArray = new JsonArray();
         categoriesList.forEach(categoriesArray::add);
         advertObject.add("categories", categoriesArray);
 
-        List<String> geoList = advertPrimaryInfo.getGeo();
+        List<String> geoList = advertPrimaryInfo.getGeoAbb();
         JsonArray geoArray = new JsonArray();
         geoList.forEach(geoArray::add);
         advertObject.add("geo", geoArray);
@@ -82,7 +80,7 @@ public class AdvertPrimaryInfoAPI {
 
     public static AdvertPrimaryInfo primaryInfoAddEdit(Boolean isEdit) throws Exception {
         AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
-        advertPrimaryInfo.fillAdvertPrimaryInfoWithRandomDataForAPI();
+        advertPrimaryInfo.fillAdvertPrimaryInfoWithRandomData();
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPrimaryInfo(advertPrimaryInfo), JsonObject.class);
@@ -147,12 +145,12 @@ public class AdvertPrimaryInfoAPI {
             List<String> listArray = StreamSupport.stream(geoArray.spliterator(), false)
                     .map(Object::toString)
                     .toList();
-            advertPrimaryInfo.setGeo(listArray);
-        } else advertPrimaryInfo.setGeo(null);
+            advertPrimaryInfo.setGeoAbb(listArray);
+        } else advertPrimaryInfo.setGeoAbb(null);
 
         if (data.get("categories") instanceof JSONArray) {
             JSONArray categoriesArray = data.getJSONArray("categories");
-            List<Integer> categoriesIdList = new ArrayList<>();
+            Set<Integer> categoriesIdList = new HashSet<>();
             for (int i = 0; i < categoriesArray.length(); i++) {
                 int value = categoriesArray.getInt(i);
                 categoriesIdList.add(value);
@@ -182,15 +180,15 @@ public class AdvertPrimaryInfoAPI {
         Assert.assertEquals(advertPrimaryInfo.getManagerId(), advertPrimaryInfoEdit.getManagerId());
         Assert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfoEdit.getSalesManagerId());
         Assert.assertEquals(advertPrimaryInfo.getAccountManagerId(), advertPrimaryInfoEdit.getAccountManagerId());
-        Assert.assertEquals(advertPrimaryInfo.getGeo(), advertPrimaryInfoEdit.getGeo());
+        System.out.println(advertPrimaryInfo.getGeoAbb());
+        System.out.println(advertPrimaryInfoEdit.getGeoAbb());
+        Assert.assertEquals(advertPrimaryInfo.getGeoAbb(), advertPrimaryInfoEdit.getGeoAbb());
         Assert.assertEquals(advertPrimaryInfo.getTagId(), advertPrimaryInfoEdit.getTagId());
 
 
         Assert.assertEquals(advertPrimaryInfo.getPricingModel(), advertPrimaryInfoEdit.getPricingModel());
-        List<Integer> categoriesId = advertPrimaryInfo.getCategoriesId();
-        List<Integer> categoriesIdEdit = advertPrimaryInfoEdit.getCategoriesId();
-        Collections.sort(categoriesId);
-        Collections.sort(categoriesIdEdit);
+        Set<Integer> categoriesId = advertPrimaryInfo.getCategoriesId();
+        Set<Integer> categoriesIdEdit = advertPrimaryInfoEdit.getCategoriesId();
         Assert.assertEquals(categoriesId,categoriesIdEdit);
         Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceId(), advertPrimaryInfoEdit.getUserRequestSourceId());
         Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceValue(), advertPrimaryInfoEdit.getUserRequestSourceValue());

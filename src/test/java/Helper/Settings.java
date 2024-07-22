@@ -52,6 +52,43 @@ public class Settings {
             "Fremont", "Boise", "Richmond"
     };
 
+    public static final String[] CATEGORIES_WORDS = {
+            "Sports Betting", "Casino Games", "Poker", "Slot Machines", "Roulette",
+            "Blackjack", "Bingo", "Lottery", "Online Gambling", "Offline Betting",
+            "Virtual Sports", "E-sports Betting", "Live Dealer Games", "Craps", "Keno",
+            "Fantasy Sports", "Scratch Cards", "Arcade Games", "Social Gambling", "High Stakes",
+            "Low Stakes", "Sportsbook", "Horse Racing", "Greyhound Racing", "Cockfighting",
+            "Betting Exchanges", "Spread Betting", "Binary Options", "Financial Betting", "Political Betting",
+            "Novelty Betting", "In-play Betting", "Daily Fantasy Sports", "Virtual Reality Gambling", "Skill Games",
+            "Multiplayer Games", "Mobile Gambling", "Bitcoin Gambling", "Cryptocurrency Betting", "Provably Fair Games",
+            "Blockchain Gambling", "Crypto Casinos", "Social Casinos", "Gamification", "Interactive Gaming",
+            "Simulated Reality", "Futures Betting", "Asian Handicap", "Point Spread", "Over/Under Betting",
+            "Proposition Bets", "Video Poker", "Baccarat", "Backgammon", "Monopoly Slots",
+            "Wheel of Fortune", "Sic Bo", "Pachinko", "Mahjong Betting", "Election Betting",
+            "Award Show Betting", "Stock Market Betting", "Weather Betting", "Chess Betting", "Bridge Tournaments",
+            "Online Tournaments", "Offline Tournaments", "Tote Betting", "Exotic Bets", "Virtual Horse Racing",
+            "Competitive Gaming", "Dota 2 Betting", "League of Legends Betting", "Counter-Strike Betting", "Fortnite Betting",
+            "Apex Legends Betting", "Call of Duty Betting", "PUBG Betting", "FIFA Betting", "Madden NFL Betting",
+            "NBA 2K Betting", "Rocket League Betting", "Street Fighter Betting", "Super Smash Bros Betting", "Tekken Betting",
+            "Pokemon Betting", "Magic: The Gathering Betting", "World of Warcraft Betting", "StarCraft Betting", "Warhammer Betting"
+    };
+
+    public static final String[] GOALS_WORDS = {"Aixam", "Arrinera", "Aspark", "BAC", "Bitter", "Bizzarrini", "Bowler",
+            "Brilliance", "Bufori", "Caterham", "Chatenet", "Cisitalia", "Donkervoort", "Eagle", "Faraday Future",
+            "Fornasari", "Ginetta", "Gumpert", "Hispano Suiza", "Hommell", "Joss", "Karma", "KTM",
+            "Laraki", "Lucid", "Mastretta", "Melkus", "Morgan", "Mosler", "Noble", "Panoz", "PGO", "Qoros", "Rimac",
+            "Rinspeed", "Rossion", "Saleen", "Scuderia Cameron Glickenhaus", "Shelby SuperCars (SSC)", "Sin Cars",
+            "Spania GTA", "Spyker", "Techrules", "Tramontana", "Tushek", "Vencer", "Venturi", "Wiesmann", "Zagato"
+    };
+
+    public static final String[] MESSENGERS_WORDS = {"WhatsApp", "Facebook Messenger", "WeChat", "Viber", "Telegram",
+            "Line", "Signal", "Snapchat", "Kik", "iMessage", "Google Hangouts", "Skype", "Discord", "Slack", "Threema",
+            "Wire", "GroupMe", "Zalo", "Tango", "BBM(BlackBerry Messenger)", "Hike", "IMO", "KakaoTalk", "Nimbuzz",
+            "Wickr", "Yammer", "Chomp SMS", "Messenger Lite", "Google Messages", "Chare", "ICQ", "Tox", "Element(Riot)",
+            "Jabber(XMPP)", "JioChat", "Yandex.Messenger", "Voxer", "VoIP", "Kaizala", "RumbleTalk", "Dust",
+            "Trillian", "Paltalk", "Mattermost", "Microsoft Teams", "Cisco Webex Teams", "Flock", "Spike", "Troop Messenger"
+    };
+
     public static String generateUTC() {
         Random random = new Random();
         String sign = random.nextBoolean() ? "+" : "-";

@@ -1,0 +1,55 @@
+AdvertListAPI.java -  проверяет только base поля, добавить payment и contact
++ добпвить Edit Advert для вкладок реквизиты ноты постбеки
+
+AdvertBulkCheck.java - может падать их-за сортировки в массивах
+
+
+
+settingCategoryId = Integer.parseInt(getLastValueFromBDWhere("id", "category",
+                "lang", "general"));
+
+
+Set<Integer> tagRemove = getSomeValuesFromArray(tag, 2).stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toSet());
+
+private static Set<String> removeDeletedAdverts(Set<String> ids) {
+ids.removeIf(id -> !isInDatabase("id", id, "adverts"));
+return ids;  }
+
+
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName +
+                " WHERE LOWER(" + where + ") = LOWER('" + whereValue + "');";
+        return sqlQueryList(sqlRequest, parameter);
+    }
+
+    sendKeysByLabel
+    selectAutocompleteInput
+
+
+
+        public static void selectAutocompleteInput(String label, String value, int number, WebDriver driver) throws InterruptedException {
+            By by = By.xpath("(//label[contains(text(), '" + label + "')]/parent::div//input)[" + number + "]");
+            waitClearAndSendKeys(by, value, driver);
+            Thread.sleep(500);
+            Actions actions = new Actions(driver);
+            actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40);
+            actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40).click().build().perform();
+        }
+
+
+           public static void sendKeysByLabel(String label, String value, WebDriver driver) {
+                By by = By.xpath("//label[contains(text(), \"" + label + "\")]/parent::div//input");
+                waitClearAndSendKeys(by, value, driver);
+            }
+
+
+
+        private static Set<String> removeDeletedAdverts(Set<String> ids) {
+            ids.removeIf(id -> !isInDatabase("id", id, "advert"));
+            return ids;
+        }
+
+
+
+    else Assert.fail();

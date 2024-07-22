@@ -18,6 +18,8 @@ public class AdvertNotes {
 
     String text;
     String adminTitle;
+    Integer adminId;
+
     String createdAt;
 
     public AdvertNotes() {
@@ -98,5 +100,12 @@ public class AdvertNotes {
 
     public void setLocationId(String locationId) {
         this.locationId = locationId;
+    }
+    public Integer getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 }

@@ -1,6 +1,5 @@
-package API.Advert;
+package API.Offer.OfferDraft;
 
-import AdvertPackage.entity.AdvertNotes;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -16,40 +15,35 @@ import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 
 /***
- Тест проверяет работу API методов Адвертов
+ Тест проверяет работу API методов Админов
  - getList, filters,
  */
 
-// TODO: реализовать geo, Categories, Payment Type, Contact,
-//  User Request Source, User Request Source Value, Tag, Person
+// TODO: реализовать Messengers
 
-public class AdvertListAPI {
+public class OfferDraftList {
+    static List<String> contactMethods = Arrays.asList("phone", "telegram", "skype");
 
-    public final static Map<String, String> generalAdvertFields = new HashMap<>() {{
-        put("manager_id", "managerId[]");
-        put("sales_manager", "salesManager[]");
-        put("account_manager", "accountManager[]");
-        put("site_url", "siteUrl");
-        //put("geo", "geo[]"); // гео пока вручную
-        put("pricing_model", "pricingModel[]");
-        put("note", "note");
-        put("company_legalname", "companyLegalname");
-        put("status", "status[]");
+    public final static Map<String, String> adminFields = new HashMap<>() {{
+        put("status", "status");
+        put("email", "email");
+        put("first_name", "firstName");
+        put("second_name", "secondName");
+       // put(contactMethods.get(new Random().nextInt(contactMethods.size())), "messengers");
     }};
-
 
     @Test
     public static void test() throws Exception {
 
-        for (Map.Entry<String, String> entry : generalAdvertFields.entrySet()) {
-            String id = getRandomValueFromBDWhereNotNull("id", "advert", entry.getKey());
-            String value = getValueFromBDWhere(entry.getKey(), "advert", "id", id);
-            List<String> ids = getArrayFromBDWhere("id", "advert", entry.getKey(), value);
-            filterAdverts(entry.getValue(), value, ids);
+        for (Map.Entry<String, String> entry : adminFields.entrySet()) {
+            String id = getRandomValueFromBDWhereNotNull("id", "admin", entry.getKey());
+            String value = getValueFromBDWhere(entry.getKey(), "admin", "id", id);
+            List<String> ids = getArrayFromBDWhere("id", "admin", entry.getKey(), value);
+            filterAdmins(entry.getValue(), value, ids);
         }
     }
 
-    private static void filterAdverts(String paramName, String paramValue, List<String> ids) {
+    private static void filterAdmins(String paramName, String paramValue, List<String> ids) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", 1);
         params.put("limit", 2000);
@@ -64,15 +58,14 @@ public class AdvertListAPI {
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .params(params)
-                .get("https://api.admin.3tracks.link/advert");
+                .get("https://api.admin.3tracks.link/admin");
 
         String responseBody = response.getBody().asString();
-      //  System.out.println("Ответ на get: " + responseBody);
 
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataArray = jsonObject.getJSONObject("data");
-        JSONArray adverts = dataArray.getJSONArray("adverts");
+        JSONArray adverts = dataArray.getJSONArray("admin");
 
         List<String> filterIdList = new ArrayList<>();
         for (int i = 0; i < adverts.length(); i++) {

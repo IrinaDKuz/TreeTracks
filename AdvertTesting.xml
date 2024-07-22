@@ -31,7 +31,8 @@
             <class name="API.Advert.AdvertPaymentInfoAPI"/>
             <class name="API.Advert.AdvertPostbackAPI"/>
             <class name="API.Advert.AdvertNotesAPI"/>
-            <class name="API.Advert.AdvertListAPI"/>
+            <class name="API.Advert.AdvertFilterAPI"/>
+
         </classes>
     </test>
 
@@ -44,6 +45,7 @@
     <test verbose="2" preserve-order="true" name="Advert create UI test">
         <classes>
             <class name="AdvertPackage.autoCreate.AdvertCreate"/>
+            <class name="AdvertPackage.autoCreate.AdvertEdit"/>
         </classes>
     </test>
 </suite>

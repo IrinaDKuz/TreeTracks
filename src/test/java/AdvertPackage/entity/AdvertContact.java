@@ -78,7 +78,7 @@ public class AdvertContact {
         this.position = generateName(1, JOB_WORDS);
 
         ArrayList<Messenger> messengers = new ArrayList<>();
-        for (int i = 0; i <= new Random().nextInt(5) + 1; i++) {
+        for (int i = 0; i <= new Random().nextInt(3) + 1; i++) {
             Messenger messenger = new Messenger();
             messenger.generateMessenger();
             messengers.add(messenger);

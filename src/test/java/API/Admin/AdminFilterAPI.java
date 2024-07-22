@@ -1,4 +1,4 @@
-package API.OfferDraft;
+package API.Admin;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -16,12 +16,12 @@ import static SQL.AdvertSQL.*;
 
 /***
  Тест проверяет работу API методов Админов
- - getList, filters,
+ - filters,
+TODO: 100% DONE
  */
 
-// TODO: реализовать Messengers
 
-public class OfferDraftList {
+public class AdminFilterAPI {
     static List<String> contactMethods = Arrays.asList("phone", "telegram", "skype");
 
     public final static Map<String, String> adminFields = new HashMap<>() {{
@@ -29,15 +29,14 @@ public class OfferDraftList {
         put("email", "email");
         put("first_name", "firstName");
         put("second_name", "secondName");
-       // put(contactMethods.get(new Random().nextInt(contactMethods.size())), "messengers");
+        put(contactMethods.get(new Random().nextInt(contactMethods.size())), "messenger");
     }};
 
     @Test
     public static void test() throws Exception {
 
         for (Map.Entry<String, String> entry : adminFields.entrySet()) {
-            String id = getRandomValueFromBDWhereNotNull("id", "admin", entry.getKey());
-            String value = getValueFromBDWhere(entry.getKey(), "admin", "id", id);
+            String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "admin", entry.getKey());
             List<String> ids = getArrayFromBDWhere("id", "admin", entry.getKey(), value);
             filterAdmins(entry.getValue(), value, ids);
         }
@@ -61,15 +60,14 @@ public class OfferDraftList {
                 .get("https://api.admin.3tracks.link/admin");
 
         String responseBody = response.getBody().asString();
-
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataArray = jsonObject.getJSONObject("data");
-        JSONArray adverts = dataArray.getJSONArray("admin");
+        JSONArray admins = dataArray.getJSONArray("admin");
 
         List<String> filterIdList = new ArrayList<>();
-        for (int i = 0; i < adverts.length(); i++) {
-            JSONObject dataObject = adverts.getJSONObject(i);
+        for (int i = 0; i < admins.length(); i++) {
+            JSONObject dataObject = admins.getJSONObject(i);
             filterIdList.add(String.valueOf(dataObject.getInt("id")));
         }
 

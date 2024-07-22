@@ -29,7 +29,6 @@ public class SettingsEmailAPI {
 
     @Test
     public static void test() throws Exception {
-        emailGet();
         emailAddEdit("add");
         settingEmailId = Integer.parseInt(getRandomValueFromBD("id", "mail_server"));
         SettingsEmail settingsEmail = emailAddEdit(settingEmailId + "/edit");
@@ -68,7 +67,7 @@ public class SettingsEmailAPI {
                     .post("https://api.admin.3tracks.link/setting/email/" + method);
             String responseErrorBody = responseError.getBody().asString();
 
-            System.out.println("Ответ на add/edit (ошибка): " + responseErrorBody);
+            System.out.println("Ответ(ошибка): на " + method + " : "+ responseErrorBody);
             JSONObject jsonResponseError = new JSONObject(responseErrorBody);
             JSONObject error = (JSONObject) jsonResponseError.getJSONArray("error").get(0);
             Assert.assertEquals(error.getString("msg"), EMAIL_TYPE_ERROR);
@@ -84,7 +83,7 @@ public class SettingsEmailAPI {
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/setting/email/" + method);
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на add/edit: " + responseBody);
+        System.out.println("Ответ на " + method + " : " + responseBody);
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return settingsEmail;
     }
@@ -122,7 +121,6 @@ public class SettingsEmailAPI {
 
 
     public static void emailAssert(SettingsEmail settingsEmailEdit) {
-        // ниже упрощенный, но работающий метод возможно его нужно будет поменять и расписать все поля
         ArrayList<SettingsEmail> settingsEmails = emailGet();
         for (SettingsEmail settingsEmail : settingsEmails) {
             if (settingsEmail.getEmailId() == settingEmailId){

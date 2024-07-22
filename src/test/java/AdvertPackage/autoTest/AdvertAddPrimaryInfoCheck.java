@@ -26,9 +26,9 @@ public class AdvertAddPrimaryInfoCheck {
         for (int i = 0; i < 5 ; i++) {
             advert = new Advert();
             addNewBrowserAdvertPrimaryInfo(advert.getAdvertPrimaryInfo(), driver);
-            buildBrowserAdvertContact(advert.getAdvertContact(), driver);
-            buildBrowserAdvertRequisites(advert.getAdvertRequisites(), driver);
-            buildBrowserAdvertPostback(advert.getAdvertPostback(), driver);
+            addBrowserAdvertContact(advert.getAdvertContact(), driver);
+            addBrowserAdvertRequisites(advert.getAdvertRequisites(), driver);
+            addBrowserAdvertPostback(advert.getAdvertPostback(), driver);
             Thread.sleep(5000);
             buildBrowserAdvertNotes(advert.getAdvertNotes(), driver);
             buildBrowserAdvertFilter(advert, driver);

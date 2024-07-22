@@ -1,5 +1,7 @@
 package Helper;
 
+import AdvertPackage.entity.AdvertPrimaryInfo;
+
 import java.util.*;
 
 import static SQL.AdvertSQL.getRandomValueFromBDWhere;
@@ -12,11 +14,21 @@ public class Adverts {
     public static final String SITE_URL = "Site URL";
     public static final String STATUS = "Status";
     public static final String PRICING_MODEL = "Pricing model";
-    public static final String NOTES = "Notes";
+    public static final String GEO = "GEO";
     public static final String MANAGER = "Manager";
+
+    public static final String SALES_MANAGER = "Sales Manager";
+    public static final String ACCOUNT_MANAGER = "Account Manager";
+    public static final String CATEGORIES = "Categories";
     public static final String USER_REQUEST_SOURCE = "User Request Source";
     public static final String USER_REQUEST_SOURCE_VALUE = "User Request Source Value";
     public static final String TAG = "Tag";
+    public static final String TAGS = "Tags";
+
+
+    public static final String CONTACTS = "Contacts";
+    public static final String PAYMENT_INFO = "Payment info";
+    public static final String NOTES = "Notes";
 
 
     public final static Map<String, String> MODEL_TYPES_MAP = new HashMap<>() {{
@@ -43,13 +55,15 @@ public class Adverts {
             put("active", "Active");
             put("paused", "Paused");
             put("declined", "Declined");
-        }};
+        }
+    };
 
     public final static Map<String, String> PERSON_STATUS_MAP = new HashMap<>() {
         {
             put("1", "Active");
             put("2", "Disabled");
-        }};
+        }
+    };
 
 
     public static final String[] COMPANY_WORDS = {"Tech", "Global", "Future", "Innovative", "Smart", "Digital", "Creative",
@@ -82,7 +96,7 @@ public class Adverts {
             "Jacob's Ladder", "Lantana", "Lobelia", "Lupine", "Mallow",
             "Mimosa", "Monkshood", "Nasturtium", "Nemesia", "Nigella",
             "Passionflower", "Penstemon", "Phlox", "Plumeria", "Salvia",
-            "Scabiosa", "Sedum", "Statice", "Stephanotis", "Tithonia" };
+            "Scabiosa", "Sedum", "Statice", "Stephanotis", "Tithonia"};
 
 
     public static final String[] JOB_WORDS = {
@@ -118,6 +132,25 @@ public class Adverts {
             "Resourceful", "Self-disciplined", "Sociable", "Supportive", "Tolerant"
     };
 
+
+    public static void showAdvertPrimaryInfoInformation(AdvertPrimaryInfo advertPrimaryInfo) {
+        System.out.println(NAME + ": " + advertPrimaryInfo.getCompany());
+        System.out.println(COMPANY_LEGAL_NAME + ": " + advertPrimaryInfo.getCompanyLegalName());
+        System.out.println(STATUS + ": " + advertPrimaryInfo.getStatus());
+        System.out.println(SITE_URL + ": " + advertPrimaryInfo.getSiteUrl());
+        System.out.println(PRICING_MODEL + ": " + advertPrimaryInfo.getPricingModel());
+
+        System.out.println(MANAGER + ": " + advertPrimaryInfo.getManagerId() + ": " + advertPrimaryInfo.getManagerName());
+        System.out.println(SALES_MANAGER + ": " + advertPrimaryInfo.getSalesManagerId() + ": " + advertPrimaryInfo.getSalesManagerName());
+        System.out.println(ACCOUNT_MANAGER + ": " + advertPrimaryInfo.getAccountManagerId() + ": " + advertPrimaryInfo.getSalesManagerName());
+
+        System.out.println(CATEGORIES + ": " + advertPrimaryInfo.getCategoriesId() + ": " + advertPrimaryInfo.getCategoriesName());
+        System.out.println(TAGS + ": " + advertPrimaryInfo.getTagId() + ": " + advertPrimaryInfo.getTagName());
+        System.out.println(USER_REQUEST_SOURCE + ": " + advertPrimaryInfo.getUserRequestSourceId() + ": " + advertPrimaryInfo.getUserRequestSourceName());
+        System.out.println(USER_REQUEST_SOURCE_VALUE + ": " + advertPrimaryInfo.getUserRequestSourceValue());
+        System.out.println(NOTES + ": " + advertPrimaryInfo.getNote());
+    }
+
     public static String generateName(int count, String[] array) {
         Random random = new Random();
         StringBuilder name = new StringBuilder();
@@ -140,7 +173,7 @@ public class Adverts {
     }
 
 
-    public static List<String> generateCategoryList(int count) throws Exception {
+    public static List<String> generateCategoryList(int count, List<String> listOfAll) throws Exception {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             list.add(getRandomValueFromBDWhere("id", "category", "lang", "general"));

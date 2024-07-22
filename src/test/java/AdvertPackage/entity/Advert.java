@@ -1,10 +1,11 @@
 package AdvertPackage.entity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Advert {
     int id;
-    AdvertPrimaryInfo advertPrimaryInfo;
+    AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
     ArrayList<AdvertContact> advertContact = new ArrayList<>();
     ArrayList<AdvertRequisites> advertRequisites = new ArrayList<>();
     AdvertPostback advertPostback;
@@ -12,16 +13,24 @@ public class Advert {
 
     public Advert() throws Exception {
         this.advertPrimaryInfo = new AdvertPrimaryInfo();
-        this.advertContact.add(new AdvertContact());
-        this.advertRequisites.add(new AdvertRequisites());
+
+        for (int i = 0; i <= new Random().nextInt(5) + 1; i++)
+            this.advertContact.add(new AdvertContact());
+
+        for (int i = 0; i <= new Random().nextInt(5) + 1; i++)
+            this.advertRequisites.add(new AdvertRequisites());
+
         this.advertPostback = new AdvertPostback();
-        this.advertNotes.add(new AdvertNotes());
+        for (int i = 0; i <= new Random().nextInt(5) + 1; i++)
+
+            this.advertNotes.add(new AdvertNotes());
     }
 
     public Advert(int id) throws Exception {
         this.id = id;
-        this.advertPrimaryInfo = new AdvertPrimaryInfo(id);
-        //this.advertContact.add(new AdvertContact(id));
+        this.advertPrimaryInfo.fillAdvertPrimaryInfoFromBD(id);
+      //  AdvertContact advertContact = new AdvertContact();
+       // advertContact.fillAdvertContactFromBD();
         //this.advertRequisites.add(new AdvertRequisites(id));
         //this.advertPostback = new AdvertPostback(id);
         //this.advertNotes.add(new AdvertNotes(id));

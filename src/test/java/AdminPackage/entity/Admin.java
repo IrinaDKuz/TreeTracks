@@ -5,7 +5,6 @@ import AdminPackage.entity.AdminPermissions.*;
 public class Admin {
     public AdminGeneral adminGeneral;
     public AdminPermissions adminPermissions;
-
     int id;
 
 
@@ -29,4 +28,13 @@ public class Admin {
     public void setAdminPermissions(AdminPermissions adminPermissions) {
         this.adminPermissions = adminPermissions;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

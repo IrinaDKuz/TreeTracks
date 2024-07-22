@@ -94,7 +94,12 @@ public class ActionsClass {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        element.click();
+        try {
+            element.click();
+        } catch (ElementClickInterceptedException e) {
+            scrollDown(driver, 1000);
+            element.click();
+        }
     }
 
     public static void imgWaitAndClick(By by, WebDriver driver) {
@@ -125,14 +130,8 @@ public class ActionsClass {
         element.sendKeys(text);
     }
 
-    public static void waitClearAndSendKeys(By by, String text, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        WebElement sendKeysElement = driver.findElement(by);
-        wait.until(ExpectedConditions.visibilityOf(sendKeysElement));
-        sendKeysElement.clear();
-        sendKeysElement.sendKeys(text);
+    public static void sendKeysTORefactor(By by, String text, WebDriver driver) {
+        driver.findElement(by).sendKeys(text);
     }
 
     public static void waitClearAndSendKeys(WebElement element, String text, WebDriver driver) {
@@ -144,10 +143,13 @@ public class ActionsClass {
         element.sendKeys(text);
     }
 
-
-    public static void clearAndSendKeys(By by, String text, WebDriver driver) {
-        driver.findElement(by).clear();
-        driver.findElement(by).sendKeys(text);
+    public static void waitClearAndSendKeys(By by, String text, WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        WebElement element = driver.findElement(by);
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.clear();
+        element.sendKeys(text);
     }
 
     public static String getExpressionInBrackets(String inputString) {
@@ -177,6 +179,23 @@ public class ActionsClass {
         }
     }
 
+
+    public static List<String> getSomeValuesFromArray(List<String> list, int count) {
+        if (count >= list.size()) {
+            return new ArrayList<>(list);
+        }
+        List<String> copy = new ArrayList<>(list);
+        Collections.shuffle(copy);
+        return new ArrayList<>(copy.subList(0, count));
+    }
+
+    public static void acceptModalDialog(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement modalDialog = driver.findElement(By.className("modal-content"));
+        wait.until(ExpectedConditions.visibilityOf(modalDialog));
+        modalDialog.findElement(contain("button","Accept")).click();
+    }
+
     public static void checkSystemMassage(WebDriver driver, String expectedMessage) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -190,9 +209,7 @@ public class ActionsClass {
 
     public static String getCurrentDate() {
         Date currentDate = new Date();
-        // Создаем объект SimpleDateFormat для форматирования даты
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        // Преобразуем текущую дату в строку с выбранным форматом
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMSSS");
         return dateFormat.format(currentDate);
     }
 
@@ -214,14 +231,9 @@ public class ActionsClass {
         return dateFormat.format(currentDate);
     }
 
-
-
-
-
-
     public static String getFutureOrPastDate(int daysCount) {
-        LocalDate newDate = LocalDate.now().plusDays(daysCount);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDateTime newDate = LocalDateTime.now().plusDays(daysCount);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return newDate.format(formatter);
     }
 
@@ -313,20 +325,30 @@ public class ActionsClass {
 
     public static void enterTextByPlaceholder(String placeholder, String text, WebDriver driver) throws InterruptedException {
         By by = By.xpath("//input[@placeholder=\"" + placeholder + "\"]");
-        waitClearAndSendKeys(by, text, driver);
+        sendKeysTORefactor(by, text, driver);
     }
 
     public static void selectAutocompleteInputByText(String text, String value, WebDriver driver) throws InterruptedException {
         By by = By.xpath("//div[contains(text(), \"" + text + "\")]/parent::div//input");
-        waitClearAndSendKeys(by, value, driver);
+        sendKeysTORefactor(by, value, driver);
         Thread.sleep(500);
         new Actions(driver).sendKeys(Keys.ENTER).perform();
     }
 
+
+    public static void selectAutocompleteInput(String label, String value, int number, WebDriver driver) throws InterruptedException {
+        By by = By.xpath("(//label[contains(text(), '" + label + "')]/parent::div//input)[" + number + "]");
+        sendKeysTORefactor(by, value, driver);
+        Thread.sleep(500);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40);
+        actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40).click().build().perform();
+    }
+
     public static void selectAutocompleteInput(String label, String value, WebDriver driver) throws InterruptedException {
         By by = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//input");
-        waitClearAndSendKeys(by, value, driver);
-        Thread.sleep(500);
+        sendKeysTORefactor(by, value, driver);
+        Thread.sleep(1000);
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40);
         actions.moveToElement(driver.findElement(by)).moveByOffset(0, 40).click().build().perform();
@@ -336,9 +358,8 @@ public class ActionsClass {
         By by = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//input");
         By crossBy = By.xpath("//label[contains(text(), '" + label + "')]/parent::div//div[@class=' css-v7duua']");
         while (isElementPresentFast(driver, crossBy)) {
-            driver.findElement(crossBy).click();
+            scrollAndClick(crossBy, driver);
         }
-
         for (String value : values) {
             waitAndSendKeys(by, value, driver);
             Thread.sleep(500);
@@ -348,6 +369,11 @@ public class ActionsClass {
     }
 
     public static void sendKeysByLabel(String label, String value, WebDriver driver) {
+        By by = By.xpath("//label[contains(text(), \"" + label + "\")]/parent::div//input");
+        sendKeysTORefactor(by, value, driver);
+    }
+
+    public static void clearAndSendKeysByLabel(String label, String value, WebDriver driver) {
         By by = By.xpath("//label[contains(text(), \"" + label + "\")]/parent::div//input");
         waitClearAndSendKeys(by, value, driver);
     }
@@ -387,4 +413,7 @@ public class ActionsClass {
     public static Boolean getRandomBoolean() {
         return Math.random() < 0.5;
     }
+
+
+
 }

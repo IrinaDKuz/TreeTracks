@@ -1,4 +1,4 @@
-package OfferDraftPackage.entity;
+package OfferMainPackage.entity;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,7 +11,7 @@ import static Helper.GeoAndLang.getRandomKey;
 import static Helper.Offers.*;
 import static SQL.AdvertSQL.*;
 
-public class OfferGeneral {
+public class OfferMainGeneral {
     Integer advertId;
     List<Integer> categoriesId;
     List<String> categoriesName;
@@ -56,7 +56,7 @@ public class OfferGeneral {
         }
     }
 
-    public OfferGeneral() {
+    public OfferMainGeneral() {
     }
 
     public void fillOfferGeneralWithRandomDataForAPI() throws Exception {

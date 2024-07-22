@@ -17,11 +17,11 @@ public class GeoAndLang {
     }
 
     public static String getGeoRandomValue() {
-        return getRandomValue(geo_map);
+        return getRandomValue(GEO_MAP);
     }
 
     public static String getGeoRandomKey() {
-        return getRandomKey(geo_map);
+        return getRandomKey(GEO_MAP);
     }
 
     public static String getRandomValue(Map<String, String> map) {
@@ -289,7 +289,7 @@ public class GeoAndLang {
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
 
-    public static Map<String, String> geo_map = Stream.of(new String[][]
+    public static Map<String, String> GEO_MAP = Stream.of(new String[][]
 
             {
                     {"all", "All"},
