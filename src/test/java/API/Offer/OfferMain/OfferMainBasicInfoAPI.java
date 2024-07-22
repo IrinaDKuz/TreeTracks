@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import static Helper.Auth.authKeyAdmin;
-import static SQL.AdvertSQL.getRandomValueFromBD;
 
 /***
  Тест проверяет работу API методов
@@ -26,12 +25,12 @@ import static SQL.AdvertSQL.getRandomValueFromBD;
 
 //TODO доделать get, edit, delete
 
-public class OfferMainGeneralAPI {
+public class OfferMainBasicInfoAPI {
     static int offerId;
 
     @Test
     public static void test() throws Exception {
-        offerId = 31;
+        offerId = 37;
                 //Integer.parseInt(getRandomValueFromBD("id", "offer"));
         System.out.println(offerId);
         generalGet();
@@ -135,21 +134,50 @@ public class OfferMainGeneralAPI {
                 .header("Authorization", authKeyAdmin)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .get("https://api.admin.3tracks.link/offer/" + offerId + "/edit?tab=general");
+                .get("https://api.admin.3tracks.link/offer/" + offerId + "/basic-info");
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на get: " + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
+        JSONObject offer = data.getJSONObject("offer");
 
         OfferGeneral offerGeneral = new OfferGeneral();
-        offerGeneral.setStatus(data.getString("status"));
-        offerGeneral.setTitle(data.isNull("email") ? null : data.getString("title"));
-        offerGeneral.setStatusNotice(data.isNull("statusNotice") ? null : data.getBoolean("statusNotice"));
+        offerGeneral.setOfferId(offer.getInt("id"));
+        offerGeneral.setTitle(offer.getString("title"));
+        offerGeneral.setStatus(offer.getString("status"));
+        offerGeneral.setPrivacyLevel(offer.getString("privacyLevel"));
+        offerGeneral.setNotes(offer.isNull("notes") ? null : data.getString("notes"));
+        offerGeneral.setReconciliation(offer.isNull("reconciliation") ? null : data.getString("reconciliation"));
+        offerGeneral.setPayouts(offer.isNull("payouts") ? null : data.getString("payouts"));
+        offerGeneral.setReleaseDate(offer.isNull("releaseDate") ? null : data.getString("releaseDate"));
+        offerGeneral.setStopDate(offer.isNull("stopDate") ? null : data.getString("stopDate"));
+        offerGeneral.setSendBeforeStoping(offer.isNull("sendBeforeStopping") ? null : data.getInt("sendBeforeStopping"));
 
-        JSONArray role = data.getJSONArray("kpi");
+        offerGeneral.setTop(offer.isNull("statusNotice") ? null : data.getBoolean("statusNotice"));
+        offerGeneral.setStatusNotice(offer.isNull("statusNotice") ? null : data.getBoolean("statusNotice"));
+
+        JSONArray kpiArray = jsonObject.optJSONArray("kpi");
+        if (kpiArray != null) {
+            for (int i = 0; i < kpiArray.length(); i++) {
+                JSONObject kpiItem = kpiArray.getJSONObject(i);
+                offerGeneral.setKpi();
+
+                String lang = kpiItem.optString("lang", "unknown");
+                String text = kpiItem.optString("text", "no text");
+                System.out.println("Lang: " + lang);
+                System.out.println("Text: " + text);
+            }
+
+
+
+
+        JSONArray kpiArray = offer.getJSONArray("kpi");
         //offerGeneral.setRoleId(String.valueOf(role.isNull("value") ? null : role.getInt("value")));
+
+
+
         return offerGeneral;
     }
 

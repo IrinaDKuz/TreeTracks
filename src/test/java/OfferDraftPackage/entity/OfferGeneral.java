@@ -12,6 +12,7 @@ import static Helper.Offers.*;
 import static SQL.AdvertSQL.*;
 
 public class OfferGeneral {
+    Integer offerId;
     Integer advertId;
     List<Integer> categoriesId;
     List<String> categoriesName;
@@ -250,5 +251,13 @@ public class OfferGeneral {
 
     public void setTrafficSourceId(List<Integer> trafficSourceId) {
         this.trafficSourceId = trafficSourceId;
+    }
+
+    public Integer getOfferId() {
+        return offerId;
+    }
+
+    public void setOfferId(Integer offerId) {
+        this.offerId = offerId;
     }
 }

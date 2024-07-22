@@ -17,7 +17,7 @@ public class Admin {
             "Echidna", "Fossa", "Gerenuk", "Hyrax", "Ibis",
             "Jerboa", "Kinkajou", "Loris", "Mara", "Numbat",
             "Okapi", "Pangolin", "Quokka", "Ratel", "Saiga",
-            "Tarsier", "Uakari", "Vicuña", "Wombat", "Xerus",
+            "Tarsier", "Uakari", "Vicuna", "Wombat", "Xerus",
             "Yapok", "Zebu", "Aye-aye", "Basilisk", "Cuscus",
             "Dhole", "Eland", "Falanouc", "Galago", "Hartebeest",
             "Indri", "Jackal", "Kudu", "Lynx", "Muntjac",

@@ -183,13 +183,16 @@ public class AdvertPrimaryInfoAPI {
         System.out.println(advertPrimaryInfo.getGeoAbb());
         System.out.println(advertPrimaryInfoEdit.getGeoAbb());
         Assert.assertEquals(advertPrimaryInfo.getGeoAbb(), advertPrimaryInfoEdit.getGeoAbb());
-        Assert.assertEquals(advertPrimaryInfo.getTagId(), advertPrimaryInfoEdit.getTagId());
-
+        List<Integer> tags = advertPrimaryInfo.getTagId();
+        List<Integer> tagsEdit = advertPrimaryInfoEdit.getTagId();
+        Collections.sort(tags);
+        Collections.sort(tagsEdit);
+        Assert.assertEquals(tags, tagsEdit);
 
         Assert.assertEquals(advertPrimaryInfo.getPricingModel(), advertPrimaryInfoEdit.getPricingModel());
         Set<Integer> categoriesId = advertPrimaryInfo.getCategoriesId();
         Set<Integer> categoriesIdEdit = advertPrimaryInfoEdit.getCategoriesId();
-        Assert.assertEquals(categoriesId,categoriesIdEdit);
+        Assert.assertEquals(categoriesId, categoriesIdEdit);
         Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceId(), advertPrimaryInfoEdit.getUserRequestSourceId());
         Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceValue(), advertPrimaryInfoEdit.getUserRequestSourceValue());
         Assert.assertEquals(advertPrimaryInfo.getNote(), advertPrimaryInfoEdit.getNote());
