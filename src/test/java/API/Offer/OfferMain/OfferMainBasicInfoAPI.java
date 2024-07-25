@@ -1,21 +1,19 @@
 package API.Offer.OfferMain;
 
-import OfferDraftPackage.entity.OfferGeneral;
+import OfferDraftPackage.entity.OfferBasicInfo;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.List;
-import java.util.Map;
-
+import static API.Helper.*;
+import static API.Offer.OfferDraft.OfferDraftBasicInfoAPI.*;
 import static Helper.Auth.authKeyAdmin;
+import static SQL.AdvertSQL.getRandomValueFromBD;
 
 /***
  Тест проверяет работу API методов
@@ -23,96 +21,34 @@ import static Helper.Auth.authKeyAdmin;
  для вкладки General Offer Main
  */
 
-//TODO доделать get, edit, delete
+//TODO: 99% Done (осталось logo)
 
 public class OfferMainBasicInfoAPI {
-    static int offerId;
+    static int offerMainId;
 
     @Test
     public static void test() throws Exception {
-        offerId = 37;
-                //Integer.parseInt(getRandomValueFromBD("id", "offer"));
-        System.out.println(offerId);
-        generalGet();
-        OfferGeneral offerGeneral = generalEdit();
-        generalAssert(offerGeneral);
+        offerMainId = 38;
+        Integer.parseInt(getRandomValueFromBD("id", "offer"));
+        System.out.println(offerMainId);
+        basicInfoGetShow();
+
+        OfferBasicInfo offerBasicInfoEdit = basicInfoEdit();
+        basicInfoAssert(basicInfoGet(false), offerBasicInfoEdit);
+       // deleteMethod("offer", String.valueOf(offerMainId)); // Не должно быть удаления Main Offer
     }
 
-    private static JsonObject initializeJsonOfferGeneral(OfferGeneral offerGeneral) {
-        JsonObject jsonObject = new JsonObject();
-        JsonObject offerObject = new JsonObject();
-        offerObject.addProperty("title", offerGeneral.getTitle());
-        offerObject.addProperty("status", offerGeneral.getStatus());
-        offerObject.addProperty("advertId", offerGeneral.getAdvertId());
-        offerObject.addProperty("statusNotice", offerGeneral.getStatusNotice());
-        offerObject.addProperty("privacyLevel", offerGeneral.getPrivacyLevel());
-        offerObject.addProperty("isTop", offerGeneral.isTop());
-        offerObject.addProperty("releaseDate", offerGeneral.getReleaseDate());
-        offerObject.addProperty("stopDate", offerGeneral.getStopDate());
-        offerObject.addProperty("sendBeforeStoping", offerGeneral.getSendBeforeStoping());
-        offerObject.addProperty("notes", offerGeneral.getNotes());
-        offerObject.addProperty("reconciliation", offerGeneral.getReconciliation());
-        offerObject.addProperty("payouts", offerGeneral.getPayouts());
-
-        List<Integer> tagList = offerGeneral.getTagId();
-        JsonArray tagArray = new JsonArray();
-       // tagList.forEach(tagArray::add);
-        offerObject.add("tag", tagArray);
-
-        List<Integer> categoryList = offerGeneral.getCategoriesId();
-        JsonArray categoryArray = new JsonArray();
-       // categoryList.forEach(categoryArray::add);
-        offerObject.add("category", categoryArray);
-
-        List<Integer> trafficSourceList = offerGeneral.getTrafficSourceId();
-        JsonArray trafficSourceArray = new JsonArray();
-       // trafficSourceList.forEach(trafficSourceArray::add);
-       // trafficSourceList.add(2)
-        offerObject.add("trafficSource", trafficSourceArray);
-
-        JsonArray descriptionArray = new JsonArray();
-        for (Map.Entry<String, String> entry : offerGeneral.getDescription().getTemplateMap().entrySet()) {
-            JsonObject descriptionObject = new JsonObject();
-            descriptionObject.addProperty("lang", entry.getKey());
-            descriptionObject.addProperty("text", entry.getValue());
-            descriptionArray.add(descriptionObject);
-        }
-
-        JsonArray kpiArray = new JsonArray();
-        for (Map.Entry<String, String> entry : offerGeneral.getKpi().getTemplateMap().entrySet()) {
-            JsonObject kpiObject = new JsonObject();
-            kpiObject.addProperty("lang", entry.getKey());
-            kpiObject.addProperty("text", entry.getValue());
-            kpiArray.add(kpiObject);
-        }
-
-        JsonArray paidGoalArray = new JsonArray();
-        for (Map.Entry<String, String> entry : offerGeneral.getPaidGoal().getTemplateMap().entrySet()) {
-            JsonObject paidGoalObject = new JsonObject();
-            paidGoalObject.addProperty("lang", entry.getKey());
-            paidGoalObject.addProperty("text", entry.getValue());
-            paidGoalArray.add(paidGoalObject);
-        }
-
-        offerObject.add("kpi", kpiArray);
-        offerObject.add("description", descriptionArray);
-        offerObject.add("paidGoal", paidGoalArray);
-
-        jsonObject.add("offer", offerObject);
-        jsonObject.addProperty("tab", "general");
-
-        return jsonObject;
-    }
-
-    public static OfferGeneral generalEdit() throws Exception {
-        OfferGeneral offerGeneral = new OfferGeneral();
-        offerGeneral.fillOfferGeneralWithRandomDataForAPI();
+    public static OfferBasicInfo basicInfoEdit() throws Exception {
+        OfferBasicInfo offerBasicInfo = new OfferBasicInfo();
+        offerBasicInfo.fillOfferBasicInfoWithRandomDataForAPI();
 
         Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(initializeJsonOfferGeneral(offerGeneral), JsonObject.class);
+        JsonObject jsonObject = gson.fromJson(initializeJsonOfferBasicInfo(offerBasicInfo), JsonObject.class);
+        System.out.println("___ Подготовленные данные:___");
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println("___ _____________________ ___");
 
-        String path = "https://api.admin.3tracks.link/offer/" + offerId + "/edit";
+        String path = "https://api.admin.3tracks.link/offer/" + offerMainId + "/basic-info";
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -125,64 +61,55 @@ public class OfferMainBasicInfoAPI {
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на edit: " + responseBody);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
-        return offerGeneral;
+        return offerBasicInfo;
     }
 
-    public static OfferGeneral generalGet() {
+    public static OfferBasicInfo basicInfoGet(Boolean isShow) {
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
                 .header("Authorization", authKeyAdmin)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .get("https://api.admin.3tracks.link/offer/" + offerId + "/basic-info");
+                .get("https://api.admin.3tracks.link/offer/" + offerMainId + "/basic-info");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        if (isShow)
+            System.out.println("Ответ на get: " + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
         JSONObject offer = data.getJSONObject("offer");
 
-        OfferGeneral offerGeneral = new OfferGeneral();
-        offerGeneral.setOfferId(offer.getInt("id"));
-        offerGeneral.setTitle(offer.getString("title"));
-        offerGeneral.setStatus(offer.getString("status"));
-        offerGeneral.setPrivacyLevel(offer.getString("privacyLevel"));
-        offerGeneral.setNotes(offer.isNull("notes") ? null : data.getString("notes"));
-        offerGeneral.setReconciliation(offer.isNull("reconciliation") ? null : data.getString("reconciliation"));
-        offerGeneral.setPayouts(offer.isNull("payouts") ? null : data.getString("payouts"));
-        offerGeneral.setReleaseDate(offer.isNull("releaseDate") ? null : data.getString("releaseDate"));
-        offerGeneral.setStopDate(offer.isNull("stopDate") ? null : data.getString("stopDate"));
-        offerGeneral.setSendBeforeStoping(offer.isNull("sendBeforeStopping") ? null : data.getInt("sendBeforeStopping"));
+        OfferBasicInfo offerBasicInfo = new OfferBasicInfo();
+        offerBasicInfo.setOfferId(offer.getInt("id"));
+        offerBasicInfo.setTitle(offer.getString("title")); // НЕ МОЖЕТ БЫТЬ NULL
+        offerBasicInfo.setStatus(offer.getString("status"));
+        offerBasicInfo.setPrivacyLevel(offer.getString("privacyLevel"));
+        offerBasicInfo.setNotes(offer.isNull("notes") ? null : offer.getString("notes"));
+        offerBasicInfo.setReconciliation(offer.isNull("reconciliation") ? null : offer.getString("reconciliation"));
+        offerBasicInfo.setPayouts(offer.isNull("payouts") ? null : offer.getString("payouts"));
+        offerBasicInfo.setReleaseDate(offer.isNull("releaseDate") ? null : offer.getString("releaseDate"));
+        offerBasicInfo.setStopDate(offer.isNull("stopDate") ? null : offer.getString("stopDate"));
+        offerBasicInfo.setSendBeforeStopping(offer.isNull("sendBeforeStopping") ? null : offer.getInt("sendBeforeStopping"));
+        offerBasicInfo.setTop(offer.isNull("isTop") ? null : offer.getBoolean("isTop"));
+        offerBasicInfo.setStatusNotice(offer.isNull("statusNotice") ? null : offer.getBoolean("statusNotice"));
+        offerBasicInfo.setPreviewUrl(offer.isNull("previewUrl") ? null : offer.getString("previewUrl"));  // НЕ МОЖЕТ БЫТЬ NULL
 
-        offerGeneral.setTop(offer.isNull("statusNotice") ? null : data.getBoolean("statusNotice"));
-        offerGeneral.setStatusNotice(offer.isNull("statusNotice") ? null : data.getBoolean("statusNotice"));
+        offerBasicInfo.setKpi(getTemplateFromJson(offer, "kpi"));
+        offerBasicInfo.setPaidGoal(getTemplateFromJson(offer, "paidGoal"));
+        offerBasicInfo.setDescription(getTemplateFromJson(offer, "description"));
 
-        JSONArray kpiArray = jsonObject.optJSONArray("kpi");
-        if (kpiArray != null) {
-            for (int i = 0; i < kpiArray.length(); i++) {
-                JSONObject kpiItem = kpiArray.getJSONObject(i);
-                offerGeneral.setKpi();
+        JSONObject advert = offer.getJSONObject("advert"); // // НЕ МОЖЕТ БЫТЬ NULL
+        offerBasicInfo.setAdvertId(advert.getInt("value"));
+        offerBasicInfo.setAdvertName(advert.getString("label"));
 
-                String lang = kpiItem.optString("lang", "unknown");
-                String text = kpiItem.optString("text", "no text");
-                System.out.println("Lang: " + lang);
-                System.out.println("Text: " + text);
-            }
-
-
-
-
-        JSONArray kpiArray = offer.getJSONArray("kpi");
-        //offerGeneral.setRoleId(String.valueOf(role.isNull("value") ? null : role.getInt("value")));
-
-
-
-        return offerGeneral;
+        offerBasicInfo.setTagId(getArrayFromJson(offer, "tag"));
+        offerBasicInfo.setTrafficSourceId(getArrayFromJson(offer, "trafficSource"));
+        offerBasicInfo.setCategoriesId(getArrayFromJson(offer, "category"));
+        return offerBasicInfo;
     }
 
-    public static void generalAssert(OfferGeneral offerGeneralEdit) {
-        OfferGeneral offerGeneral = generalGet();
-        Assert.assertEquals(offerGeneral.getStatus(), offerGeneralEdit.getStatus());
+    public static void basicInfoGetShow() {
+        basicInfoGet(true);
     }
 }

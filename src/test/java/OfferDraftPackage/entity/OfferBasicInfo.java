@@ -11,9 +11,10 @@ import static Helper.GeoAndLang.getRandomKey;
 import static Helper.Offers.*;
 import static SQL.AdvertSQL.*;
 
-public class OfferGeneral {
+public class OfferBasicInfo {
     Integer offerId;
     Integer advertId;
+    String advertName;
     List<Integer> categoriesId;
     List<String> categoriesName;
     List<Integer> tagId;
@@ -33,18 +34,15 @@ public class OfferGeneral {
     String reconciliation;
     String releaseDate;
     String stopDate;
-    Integer sendBeforeStoping;
-
-
+    Integer sendBeforeStopping;
+    String previewUrl;
 
     public static class OfferTemplate {
-
-
         public Map<String, String> templateMap = new HashMap<>();
 
         public OfferTemplate() {
             for (String lang : LANG) {
-                templateMap.put(lang, generateName(20, OFFER_WORDS));
+               templateMap.put(lang, generateName(20, OFFER_WORDS));
             }
         }
 
@@ -57,12 +55,14 @@ public class OfferGeneral {
         }
     }
 
-    public OfferGeneral() {
+    public OfferBasicInfo() {
     }
 
-    public void fillOfferGeneralWithRandomDataForAPI() throws Exception {
+    public void fillOfferBasicInfoWithRandomDataForAPI() throws Exception {
         this.advertId = Integer.valueOf(getRandomValueFromBD("id", "advert"));
+        this.advertName = getRandomValueFromBDWhere("id", "advert", "id", String.valueOf(this.advertId));
         this.title = generateName(3, OFFER_WORDS);
+        this.previewUrl = generateCompanyUrl(this.title);
         this.status = getRandomKey(OFFER_STATUS_MAP);
         this.privacyLevel = getRandomKey(OFFER_PRIVACY_LEVEL);
         this.statusNotice = new Random().nextBoolean();
@@ -75,7 +75,7 @@ public class OfferGeneral {
         this.reconciliation = generateName(2, OFFER_WORDS);
         this.releaseDate = getCurrentDateAndTime();
         this.stopDate = getFutureOrPastDate(6);
-        this.sendBeforeStoping = 21;
+        this.sendBeforeStopping = 21;
         this.trafficSourceId = getSomeValuesFromBDWhere("id", "traffic_source",
                 "lang", "general", 3).stream()
                 .map(Integer::parseInt)
@@ -237,12 +237,12 @@ public class OfferGeneral {
         this.stopDate = stopDate;
     }
 
-    public Integer getSendBeforeStoping() {
-        return sendBeforeStoping;
+    public Integer getSendBeforeStopping() {
+        return sendBeforeStopping;
     }
 
-    public void setSendBeforeStoping(Integer sendBeforeStoping) {
-        this.sendBeforeStoping = sendBeforeStoping;
+    public void setSendBeforeStopping(Integer sendBeforeStopping) {
+        this.sendBeforeStopping = sendBeforeStopping;
     }
 
     public List<Integer> getTrafficSourceId() {
@@ -259,5 +259,21 @@ public class OfferGeneral {
 
     public void setOfferId(Integer offerId) {
         this.offerId = offerId;
+    }
+
+    public String getAdvertName() {
+        return advertName;
+    }
+
+    public void setAdvertName(String advertName) {
+        this.advertName = advertName;
+    }
+
+    public String getPreviewUrl() {
+        return previewUrl;
+    }
+
+    public void setPreviewUrl(String previewUrl) {
+        this.previewUrl = previewUrl;
     }
 }

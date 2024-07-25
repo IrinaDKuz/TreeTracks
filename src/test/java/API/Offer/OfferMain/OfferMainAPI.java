@@ -1,19 +1,11 @@
 package API.Offer.OfferMain;
 
-import OfferDraftPackage.entity.OfferGeneral;
 import OfferMainPackage.entity.OfferMain;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.List;
-import java.util.Map;
 
 import static API.Helper.deleteMethod;
 import static Helper.Auth.authKeyAdmin;

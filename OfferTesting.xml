@@ -2,13 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Offers Test Suite">
 
-    <test verbose="2" preserve-order="true" name="Offer Draft API test">
-        <classes>
-            <class name="API.Offer.OfferDraft.OfferDraftList"/>
-            <class name="API.Offer.OfferDraft.OfferDraftGeneralAPI"/>
-
-        </classes>
-    </test>
     <test verbose="2" preserve-order="true" name="Offer Main API test">
         <classes>
             <class name="API.Offer.OfferMain.OfferMainList"/>
@@ -16,8 +9,9 @@
             <class name="API.Offer.OfferMain.OfferMainBasicInfoAPI"/>
         </classes>
     </test>
-    <test verbose="2" preserve-order="true" name="Content Settings API test">
+    <test verbose="2" preserve-order="true" name="Offer Draft API test">
         <classes>
+            <class name="API.Offer.OfferDraft.OfferDraftBasicInfoAPI"/>
         </classes>
     </test>
     <test verbose="2" preserve-order="true" name="CRM Settings API test">

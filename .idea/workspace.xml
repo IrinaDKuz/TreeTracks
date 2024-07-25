@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftBasicInfoAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OfferTesting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OfferTesting.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftGeneralAPI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferDraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferDraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferBasicInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/OfferMainPackage/entity/OfferMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OfferMainPackage/entity/OfferMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,62 +43,66 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.ActionsClass.PairwiseTestGenerationContentFilter.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;TestNG./Users/irina/IdeaProjects/TreeTracks/AdminTesting.xml.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG./Users/irina/IdeaProjects/TreeTracks/AdvertTesting.xml.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG./Users/irina/IdeaProjects/TreeTracks/OfferTesting.xml.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG./Users/irina/IdeaProjects/TreeTracks/SettingsTesting.xml.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG./Users/irina/IdeaProjects/TreeTracks/testNG.xml.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdminCreate.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdminGeneralAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdminListAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdminPermissionCheck.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdminPermissionsAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdminSQL.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertAPI.advertEdit.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertAddPrimaryInfoCheck.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertBulkCheck.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertBulkCheck.test.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertContactsAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertCreate.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertCreate.test.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertEdit.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertGetFromBD.executor&quot;: &quot;Debug&quot;,
-    &quot;TestNG.AdvertListAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertNotesAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertPaymentInfoAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertPostbackAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertPrimaryInfoAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertSQL.getManager.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.AdvertSQL.test.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.Auth.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.ContactsAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.ContentAdvertTagAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.ContentCategoryAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.ContentGoalAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.ContentMessengerAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.ContentOfferTagAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.EmailAPI.generalGet.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.EmailAPI.test.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.GeneralAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.GeneralAPI.generalAdd.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.OfferDraftAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.OfferDraftGeneralAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.OfferMainGeneralAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.OfferMainList.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.SettingsEmailAPI.executor&quot;: &quot;Run&quot;,
-    &quot;TestNG.SettingsGeneralAPI.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/irina/IdeaProjects/TreeTracks/src/test/java/API/Advert+&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.ActionsClass.PairwiseTestGenerationContentFilter.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/AdminTesting.xml.executor": "Run",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/AdvertTesting.xml.executor": "Run",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/OfferTesting.xml.executor": "Run",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/SettingsTesting.xml.executor": "Run",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/testNG.xml.executor": "Run",
+    "TestNG.AdminCreate.executor": "Run",
+    "TestNG.AdminGeneralAPI.executor": "Run",
+    "TestNG.AdminListAPI.executor": "Run",
+    "TestNG.AdminPermissionCheck.executor": "Run",
+    "TestNG.AdminPermissionsAPI.executor": "Run",
+    "TestNG.AdminSQL.executor": "Run",
+    "TestNG.AdvertAPI.advertEdit.executor": "Run",
+    "TestNG.AdvertAddPrimaryInfoCheck.executor": "Run",
+    "TestNG.AdvertBulkCheck.executor": "Run",
+    "TestNG.AdvertBulkCheck.test.executor": "Run",
+    "TestNG.AdvertContactsAPI.executor": "Run",
+    "TestNG.AdvertCreate.executor": "Run",
+    "TestNG.AdvertCreate.test.executor": "Run",
+    "TestNG.AdvertEdit.executor": "Run",
+    "TestNG.AdvertGetFromBD.executor": "Debug",
+    "TestNG.AdvertListAPI.executor": "Run",
+    "TestNG.AdvertNotesAPI.executor": "Run",
+    "TestNG.AdvertPaymentInfoAPI.executor": "Run",
+    "TestNG.AdvertPostbackAPI.executor": "Run",
+    "TestNG.AdvertPrimaryInfoAPI.executor": "Run",
+    "TestNG.AdvertSQL.getManager.executor": "Run",
+    "TestNG.AdvertSQL.test.executor": "Run",
+    "TestNG.Auth.executor": "Run",
+    "TestNG.ContactsAPI.executor": "Run",
+    "TestNG.ContentAdvertTagAPI.executor": "Run",
+    "TestNG.ContentCategoryAPI.executor": "Run",
+    "TestNG.ContentGoalAPI.executor": "Run",
+    "TestNG.ContentMessengerAPI.executor": "Run",
+    "TestNG.ContentOfferTagAPI.executor": "Run",
+    "TestNG.EmailAPI.generalGet.executor": "Run",
+    "TestNG.EmailAPI.test.executor": "Run",
+    "TestNG.GeneralAPI.executor": "Run",
+    "TestNG.GeneralAPI.generalAdd.executor": "Run",
+    "TestNG.OfferDraftAPI.executor": "Run",
+    "TestNG.OfferDraftBasicInfoAPI.executor": "Run",
+    "TestNG.OfferDraftGeneralAPI.executor": "Run",
+    "TestNG.OfferMainBasicInfoAPI.executor": "Run",
+    "TestNG.OfferMainBasicInfoDRAFTAPI.executor": "Run",
+    "TestNG.OfferMainCreate.executor": "Run",
+    "TestNG.OfferMainGeneralAPI.executor": "Run",
+    "TestNG.OfferMainList.executor": "Run",
+    "TestNG.SettingsEmailAPI.executor": "Run",
+    "TestNG.SettingsGeneralAPI.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks/src/test/java/API/Advert+",
+    "settings.editor.selected.configurable": "preferences.editor"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/java/API/Advert+" />
@@ -98,11 +112,11 @@
       <recent name="$PROJECT_DIR$/src/test/java/API/OfferDraft" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="API.Offer.OfferDraft" />
       <recent name="API.Settings.Content" />
       <recent name="SettingsPackage.entity" />
       <recent name="API.AdvertPlus" />
       <recent name="API.Admin" />
-      <recent name="API.Offer.OfferMain" />
     </key>
   </component>
   <component name="RunManager">
@@ -266,12 +280,12 @@
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainGeneralAPI.java</url>
+          <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java</url>
           <line>36</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainGeneralAPI.java</url>
+          <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java</url>
           <line>37</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
@@ -294,6 +308,15 @@
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
           <option name="timeStamp" value="24" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java</url>
+          <line>66</line>
+          <properties class="API.Offer.OfferMain.OfferMainBasicInfoAPI" method="basicInfoGet">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

@@ -1,22 +1,22 @@
 package OfferMainPackage.entity;
 
-import OfferDraftPackage.entity.OfferGeneral;
+import OfferDraftPackage.entity.OfferBasicInfo;
 
 public class OfferMain {
-    public OfferGeneral offerGeneral;
+    public OfferBasicInfo offerBasicInfo;
     int id;
 
 
     public OfferMain() {
-        this.offerGeneral = new OfferGeneral();
+        this.offerBasicInfo = new OfferBasicInfo();
     }
 
-    public OfferGeneral getOfferGeneral() {
-        return offerGeneral;
+    public OfferBasicInfo getOfferGeneral() {
+        return offerBasicInfo;
     }
 
-    public void setOfferGeneral(OfferGeneral offerGeneral) {
-        this.offerGeneral = offerGeneral;
+    public void setOfferGeneral(OfferBasicInfo offerBasicInfo) {
+        this.offerBasicInfo = offerBasicInfo;
     }
 
 }

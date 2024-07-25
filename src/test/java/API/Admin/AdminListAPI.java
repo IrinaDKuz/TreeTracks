@@ -20,7 +20,7 @@ import static SQL.AdvertSQL.getRandomValueFromBDWhereNotNull;
 
 /***
  Тест проверяет работу API методов Админов
- - get,
+ - getList,
  TODO: lastLoginDt, lastLoginIp
  */
 

@@ -1,23 +1,20 @@
 package OfferDraftPackage.entity;
 
-import AdminPackage.entity.AdminGeneral;
-import AdminPackage.entity.AdminPermissions;
-
 public class OfferDraft {
-    public OfferGeneral offerGeneral;
+    public OfferBasicInfo offerBasicInfo;
     int id;
 
 
     public OfferDraft() {
-        this.offerGeneral = new OfferGeneral();
+        this.offerBasicInfo = new OfferBasicInfo();
     }
 
-    public OfferGeneral getOfferGeneral() {
-        return offerGeneral;
+    public OfferBasicInfo getOfferGeneral() {
+        return offerBasicInfo;
     }
 
-    public void setOfferGeneral(OfferGeneral offerGeneral) {
-        this.offerGeneral = offerGeneral;
+    public void setOfferGeneral(OfferBasicInfo offerBasicInfo) {
+        this.offerBasicInfo = offerBasicInfo;
     }
 
 }

@@ -18,14 +18,17 @@ import static SQL.AdvertSQL.*;
 /***
  Тест проверяет работу API методов Main Offer
  - getList, filters,
+ TODO: ids[], advert[], country[]
  */
 
 public class OfferMainList {
 
     public final static Map<String, String> offersFields = new HashMap<>() {{
-        put("id", "ids[]");
+       // put("id", "ids[]");
         put("title", "title");
+       // put("advert_id", "advert[]");
         put("status", "status[]");
+       // put("country", "country[]");
         put("privacy_level", "privacyLevel[]");
     }};
     public final static Map<String, String> offersCategoryFields = new HashMap<>() {{
