@@ -5,19 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftBasicInfoAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftTrackingAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferTracking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OfferTesting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/OfferTesting.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftGeneralAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferDraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferDraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferBasicInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/OfferMainPackage/entity/OfferMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OfferMainPackage/entity/OfferMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Offers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Offers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +86,7 @@
     "TestNG.OfferDraftAPI.executor": "Run",
     "TestNG.OfferDraftBasicInfoAPI.executor": "Run",
     "TestNG.OfferDraftGeneralAPI.executor": "Run",
+    "TestNG.OfferDraftTrackingAPI.executor": "Run",
     "TestNG.OfferMainBasicInfoAPI.executor": "Run",
     "TestNG.OfferMainBasicInfoDRAFTAPI.executor": "Run",
     "TestNG.OfferMainCreate.executor": "Run",
@@ -112,11 +109,11 @@
       <recent name="$PROJECT_DIR$/src/test/java/API/OfferDraft" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="OfferDraftPackage.entity" />
       <recent name="API.Offer.OfferDraft" />
       <recent name="API.Settings.Content" />
       <recent name="SettingsPackage.entity" />
       <recent name="API.AdvertPlus" />
-      <recent name="API.Admin" />
     </key>
   </component>
   <component name="RunManager">
@@ -246,7 +243,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java</url>
-          <line>40</line>
+          <line>39</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -271,12 +268,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java</url>
-          <line>250</line>
+          <line>274</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java</url>
-          <line>284</line>
+          <line>308</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -304,6 +301,21 @@
           <line>101</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java</url>
+          <line>205</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
           <option name="timeStamp" value="24" />
@@ -316,6 +328,24 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferTracking.java</url>
+          <line>107</line>
+          <properties class="OfferDraftPackage.entity.OfferTracking" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferTracking.java</url>
+          <line>102</line>
+          <properties class="OfferDraftPackage.entity.OfferTracking.LandingPage" method="setLandingPageUpdatedAt">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

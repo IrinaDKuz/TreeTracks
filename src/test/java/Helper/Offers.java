@@ -42,6 +42,20 @@ public class Offers {
             "Innovative", "Cutting-edge", "Advanced", "Modern", "Trendy"
     };
 
+    public static final String[] TECHNOLOGY_WORDS = {
+            "ArtificialIntelligence", "MachineLearning", "Blockchain", "Cryptocurrency", "VirtualReality",
+            "AugmentedReality", "InternetOfThings", "CloudComputing", "BigData", "CyberSecurity",
+            "QuantumComputing", "5G", "Automation", "Robotics", "Nanotechnology",
+            "Biotechnology", "Wearables", "SmartHomes", "SelfDrivingCars", "Drones",
+            "3DPrinting", "EdgeComputing", "Microservices", "DevOps", "Fintech",
+            "EdTech", "MedTech", "CleanTech", "GreenTech", "SpaceTech",
+            "Bioinformatics", "NeuralNetworks", "DataScience", "DigitalTwins", "SmartCities",
+            "eCommerce", "Gaming", "SoftwareDevelopment", "Hardware", "Networking",
+            "Telecommunications", "ArtificialGeneralIntelligence", "AugmentedAnalytics", "ComputerVision", "NaturalLanguageProcessing",
+            "InternetSecurity", "DigitalTransformation", "SmartDevices", "ConnectedWorld", "QuantumInternet"
+    };
+
+
     public final static Map<String, String> OFFER_STATUS_MAP = new HashMap<>() {
         {
             put("active", "Active");
@@ -57,6 +71,22 @@ public class Offers {
             put("integration", "Integration");
 
         }};
+
+    public final static Map<String, String> LANDING_PAGE_TYPE = new HashMap<>() {
+        {
+            put("landing", "landing");
+            put("pre_landing", "prelanding");
+        }};
+
+    public final static Map<String, String> REDIRECT_TYPE = new HashMap<>() {
+        {
+            put("http_302", "HTTP 302 redirect");
+            put("http_meta", "http_meta");
+            put("js_meta", "js_meta");
+            put("http_302_with_hidded_reffer", "HTTP 302 redirect with hidded reffer");
+
+        }};
+
 
     public final static Map<String, String> PERSON_STATUS_MAP = new HashMap<>() {
         {

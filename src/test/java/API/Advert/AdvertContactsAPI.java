@@ -32,14 +32,12 @@ public class AdvertContactsAPI {
 
     @Test
     public static void test() throws Exception {
-       // for (int i = 0; i < 50; i++) {
             advertId = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert", "id", "1000"));
             contactsGet();
             contactsAdd();
             AdvertContact advertContact = contactsEdit();
             contactsAssert(advertContact);
             contactsDelete();
-            //}
         }
 
         private static void contactsAdd () throws Exception {

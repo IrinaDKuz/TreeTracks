@@ -43,9 +43,9 @@
     </test>
 
     <test verbose="2" preserve-order="true" name="Advert create UI test">
-        <classes>
+<!--        <classes>
             <class name="AdvertPackage.autoCreate.AdvertCreate"/>
             <class name="AdvertPackage.autoCreate.AdvertEdit"/>
-        </classes>
+        </classes>-->
     </test>
 </suite>

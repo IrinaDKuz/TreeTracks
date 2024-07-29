@@ -7,7 +7,6 @@ import static Helper.GeoAndLang.*;
 import static SQL.AdvertSQL.*;
 
 public class AdvertNotes {
-
     int notesId;
     int advert_id;
     int admin_id;
@@ -39,11 +38,9 @@ public class AdvertNotes {
             this.location = getRandomValueFromBD("name", "event");
             this.locationId = getValueFromBDWhere("id", "event",
                     "name",   this.location  );
-
         }
         this.text = generateName(20, DESCRIPTION_WORDS);
     }
-
 
     public String getType() {
         return type;
@@ -68,7 +65,6 @@ public class AdvertNotes {
     public void setText(String text) {
         this.text = text;
     }
-
 
     public int getNotesId() {
         return notesId;
@@ -101,6 +97,7 @@ public class AdvertNotes {
     public void setLocationId(String locationId) {
         this.locationId = locationId;
     }
+
     public Integer getAdminId() {
         return adminId;
     }

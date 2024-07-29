@@ -173,6 +173,23 @@ public class AdvertSQL {
         return titles;
     }
 
+
+    public static int getCountFromBDWhere(String tableName,
+                                                  String where1, String whereValue1) throws Exception {
+        String sqlRequest = "SELECT COUNT(*) from " + tableName +
+                " WHERE " + where1 + " = '" + whereValue1 + "' ;";
+        return Integer.parseInt(sqlQueryList(sqlRequest, "COUNT(*)").getFirst());
+    }
+
+
+    public static int getCountFromBDWhereAndWhere(String tableName,
+                                                  String where1, String whereValue1, String operator1,
+                                                  String where2, String whereValue2, String operator2) throws Exception {
+        String sqlRequest = "SELECT COUNT(*) from " + tableName +
+                " WHERE " + where1 + " " + operator1 + " '" + whereValue1 + "'" +
+                " AND " + where2 + " " + operator2 + " '" + whereValue2 + "' ;";
+        return Integer.parseInt(sqlQueryList(sqlRequest, "COUNT(*)").getFirst());
+    }
 }
 
 

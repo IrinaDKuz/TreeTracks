@@ -9,6 +9,8 @@ import static Helper.GeoAndLang.*;
 import static SQL.AdvertSQL.*;
 
 public class AdvertPrimaryInfo {
+
+    Integer advertId;
     String status;
     String company;
     String companyLegalName;
@@ -23,10 +25,14 @@ public class AdvertPrimaryInfo {
     String accountManagerId;
     String accountManagerName;
 
+    Integer activeOffersCount;
+    Integer inactiveOffersCount;
+    Integer totalOffersCount;
+    Integer draftOffersCount;
+
     List<String> pricingModel;
     List<String> geo;
     List<String> geoAbb = new ArrayList<>();
-
 
     Set<Integer> categoriesId;
     List<String> categoriesName = new ArrayList<>();
@@ -83,6 +89,24 @@ public class AdvertPrimaryInfo {
         this.userRequestSourceId = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_id", id);
         this.userRequestSourceValue = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_value", id);
         this.note = getValueFromAdvertPrimaryInfoBDWhere("note", id);
+    }
+
+    public void fillAdvertPrimaryInfoWithOffersData(String advertID) throws Exception {
+        this.activeOffersCount = getCountFromBDWhereAndWhere("offer",
+                "status", "active", "=",
+                "advert_id", advertID, "=");
+        System.out.println("activeOffersCount : " + this.activeOffersCount);
+
+        this.inactiveOffersCount = getCountFromBDWhereAndWhere("offer",
+                "status", "active", "!=",
+                "advert_id", advertID, "=");
+        System.out.println("inactiveOffersCount : " + this.inactiveOffersCount);
+
+        this.totalOffersCount = getCountFromBDWhere("offer", "advert_id", advertID);
+        System.out.println("totalOffersCount : " + this.totalOffersCount);
+
+        this.draftOffersCount = getCountFromBDWhere("offer_draft", "advert_id", advertID);
+        System.out.println("draftOffersCount : " + this.draftOffersCount);
     }
 
     public void fillAdvertPrimaryInfoWithRandomData() throws Exception {
@@ -366,4 +390,43 @@ public class AdvertPrimaryInfo {
         this.geoAbb = geoAbb;
     }
 
+    public Integer getActiveOffersCount() {
+        return activeOffersCount;
+    }
+
+    public void setActiveOffersCount(Integer activeOffersCount) {
+        this.activeOffersCount = activeOffersCount;
+    }
+
+    public Integer getInactiveOffersCount() {
+        return inactiveOffersCount;
+    }
+
+    public void setInactiveOffersCount(Integer inactiveOffersCount) {
+        this.inactiveOffersCount = inactiveOffersCount;
+    }
+
+    public Integer getTotalOffersCount() {
+        return totalOffersCount;
+    }
+
+    public void setTotalOffersCount(Integer totalOffersCount) {
+        this.totalOffersCount = totalOffersCount;
+    }
+
+    public Integer getDraftOffersCount() {
+        return draftOffersCount;
+    }
+
+    public void setDraftOffersCount(Integer draftOffersCount) {
+        this.draftOffersCount = draftOffersCount;
+    }
+
+    public Integer getAdvertId() {
+        return advertId;
+    }
+
+    public void setAdvertId(Integer advertId) {
+        this.advertId = advertId;
+    }
 }

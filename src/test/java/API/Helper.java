@@ -64,4 +64,16 @@ public class Helper {
         }
         return template;
     }
+
+
+    public static Integer parseUnknownValueToInteger(JSONObject jsonObject, String parameterName) {
+        Object activeValue = jsonObject.get(parameterName);
+        if (activeValue instanceof Integer) {
+            return (Integer) activeValue;
+        } else if (activeValue instanceof String) {
+            return Integer.valueOf((String) activeValue);
+        } else {
+            throw new IllegalArgumentException("Unexpected type for " + parameterName);
+        }
+    }
 }
