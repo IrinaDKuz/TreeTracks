@@ -5,12 +5,12 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static API.Advert.AdvertContactsAPI.contactsDelete;
+import static API.Helper.deleteMethod;
 import static SQL.AdvertSQL.getArrayFromBD;
 import static SQL.AdvertSQL.getValueFromBDWhere;
 
 /***
- Тест удаляет все кантакты, которые есть в таблице advert_contact_double
+ Тест удаляет все контакты, которые есть в таблице advert_contact_double
  */
 
 public class AdvertContactsCleanDoubleContactAPI {
@@ -28,7 +28,7 @@ public class AdvertContactsCleanDoubleContactAPI {
                             "advert_id", String.valueOf(advertId)));
                     System.out.println(advertId);
                     System.out.println(advertContactId);
-                    contactsDelete();
+                    deleteMethod("advert",advertId + "/contact/" + advertContactId);
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
                 }

@@ -9,6 +9,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <aspectj.version>1.9.21</aspectj.version>
+        <allure-testng.version>2.20.0</allure-testng.version>
+        <allure.version>2.20.0</allure.version>
+
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,95 +24,61 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
-
                 <configuration>
                     <source>21</source>
                     <target>21</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                  <!--  <systemPropertyVariables>
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>${project.build.directory}/allure-results</value>
+                        </property>
+                    </systemPropertyVariables>-->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <reportVersion>2.20.0</reportVersion>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>skip-tests</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </profile>
+    </profiles>
+
+
     <dependencies>
+        <!-- Testing Frameworks -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.24.2</version> <!-- Замените на актуальную версию -->
+            <version>3.24.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.6.1</version>
-        </dependency>
-
-        <!--    <dependency>
-                    <groupId>org.testng</groupId>
-                    <artifactId>testng</artifactId>
-                    <version>RELEASE</version>
-                    <scope>test</scope>
-                </dependency>-->
-
-
-        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
-        <dependency>
-            <groupId>ru.yandex.qatools.ashot</groupId>
-            <artifactId>ashot</artifactId>
-            <version>1.5.4</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-commandline</artifactId>
-            <version>2.24.1</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/io.qameta.allure.plugins/screen-diff-plugin -->
-        <dependency>
-            <groupId>io.qameta.allure.plugins</groupId>
-            <artifactId>screen-diff-plugin</artifactId>
-            <version>2.24.1</version>
-        </dependency>
-
-
-        <!-- https://github.com/Timurchik57/JAVA/blob/master/pom.xml-->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.6.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-commons</artifactId>
-            <version>1.8.0-M1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit5</artifactId>
-            <version>2.17.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20230618</version>
-        </dependency>
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-java-commons</artifactId>
-            <version>2.20.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -116,41 +86,12 @@
             <version>5.3.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>15.0</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.telegram</groupId>
-            <artifactId>telegrambots</artifactId>
-            <version>6.8.0</version>
-            <!-- Проверьте актуальную версию на https://mvnrepository.com/artifact/org.telegram/telegrambots -->
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>6.1.2</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>6.1.2</version>
-        </dependency>
-
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
@@ -158,82 +99,123 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <!-- Allure Dependencies -->
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.20.0</version>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-commandline</artifactId>
+            <version>2.24.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure.plugins</groupId>
+            <artifactId>screen-diff-plugin</artifactId>
+            <version>2.24.1</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>2.20.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- JSON Handling -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230618</version>
+        </dependency>
+
+        <!-- Spring Framework -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>6.1.2</version>
+        </dependency>
+
+        <!-- Database Drivers -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
 
+        <!-- Selenium and WebDriver Manager -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-remote-driver</artifactId>
             <version>4.17.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
             <version>4.17.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.17.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
             <version>4.17.0</version>
         </dependency>
-
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-devtools-v85</artifactId>
             <version>4.17.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-http-jdk-client</artifactId>
             <version>4.8.1</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-http-jdk-client -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-http-jdk-client</artifactId>
-            <version>4.13.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.6.3</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>3.25.2</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-vision -->
+        <!-- Google Cloud Vision API -->
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-vision</artifactId>
             <version>3.37.0</version>
         </dependency>
 
-    </dependencies>
+        <!-- Telegram Bots API -->
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>6.8.0</version>
+        </dependency>
 
+        <!-- AShot for Screenshots -->
+        <dependency>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+        <!-- Protocol Buffers -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.25.2</version>
+        </dependency>
+    </dependencies>
 </project>

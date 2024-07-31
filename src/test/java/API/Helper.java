@@ -1,6 +1,7 @@
 package API;
 
 import OfferDraftPackage.entity.OfferBasicInfo;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,11 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Helper.AllureHelper.DELETE_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
 
 public class Helper {
-
-
 
     public static final String[] LANG = {"eng", "rus"};
 
@@ -32,7 +32,9 @@ public class Helper {
 
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на delete: " + responseBody);
+        System.out.println(DELETE_RESPONSE + responseBody);
+        Allure.step(DELETE_RESPONSE + responseBody);
+
         Assert.assertEquals(responseBody, "{\"success\":true}");
     }
 

@@ -3,6 +3,7 @@ package API.Advert;
 import AdvertPackage.entity.AdvertRequisites;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,6 +14,9 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 import static SQL.AdvertSQL.getRandomValueFromBDWhere;
@@ -30,34 +34,35 @@ public class AdvertPaymentInfoAPI {
     @Test
     public static void test() throws Exception {
         advertId = Integer.parseInt(getRandomValueFromBD("id", "advert"));
-        System.out.println(advertId);
-        paymentGet();
+        Allure.step("Получаем методы оплаты у рандомного Адверта " + advertId);
+        paymentGet(true);
+        Allure.step("Добавляем метод оплаты и заполняем его поля");
         paymentAdd();
+
         advertPaymentId = Integer.parseInt(getRandomValueFromBDWhere("id", "advert_payment",
                 "advert_id", String.valueOf(advertId)));
+        Allure.step("Редактируем любой метод оплаты у текущего Адверта" + advertPaymentId );
         AdvertRequisites advertRequisites = paymentEdit();
+        Allure.step(CHECK);
         paymentAssert(advertRequisites);
-        paymentDelete();
+        Allure.step(DELETE + advertPaymentId);
+        deleteMethod("advert",advertId + "/payment-info/" + advertPaymentId);
     }
 
     private static JsonObject initializeJsonAdvertPayment(AdvertRequisites advertRequisites) {
         JsonObject jsonObject = new JsonObject();
-
-        // Создаем вложенный объект requisites
         JsonObject requisitesObject = new JsonObject();
 
         for (Object key : advertRequisites.getRequisites().keySet()) {
             requisitesObject.addProperty((String) key, advertRequisites.getRequisites().get(key));
         }
 
-        // Создаем объект advert_payment_info
         JsonObject advertPaymentInfoObject = new JsonObject();
         advertPaymentInfoObject.addProperty("currency", advertRequisites.getCurrency());
         advertPaymentInfoObject.add("requisites", requisitesObject);
         advertPaymentInfoObject.addProperty("paymentSystemId", advertRequisites.getPaymentSystemId());
         advertPaymentInfoObject.addProperty("isDefault", advertRequisites.getDefault());
 
-        // Создаем основной объект jsonObject и добавляем в него advert_payment_info
         jsonObject.add("advert_payment_info", advertPaymentInfoObject);
         return jsonObject;
     }
@@ -69,6 +74,7 @@ public class AdvertPaymentInfoAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPayment(advertRequisites), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -81,7 +87,8 @@ public class AdvertPaymentInfoAPI {
 
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на add: " + responseBody);
+        System.out.println(ADD_RESPONSE + responseBody);
+        Allure.step(ADD_RESPONSE + responseBody);
 
         JSONObject jsonResponse = new JSONObject(responseBody);
         //  advertPaymentId = jsonResponse.getJSONObject("data").getInt("advertContact");
@@ -94,6 +101,7 @@ public class AdvertPaymentInfoAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPayment(advertRequisitesEdit), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -106,12 +114,13 @@ public class AdvertPaymentInfoAPI {
 
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на edit: " + responseBody);
+        System.out.println(EDIT_RESPONSE + responseBody);
+        Allure.step(EDIT_RESPONSE + responseBody);
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return advertRequisitesEdit;
     }
 
-    public static ArrayList<AdvertRequisites> paymentGet() {
+    public static ArrayList<AdvertRequisites> paymentGet(Boolean isShow) {
         ArrayList<AdvertRequisites> paymentList = new ArrayList<>();
         Response response;
         response = RestAssured.given()
@@ -122,8 +131,10 @@ public class AdvertPaymentInfoAPI {
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/payment-info");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
-
+        if (isShow) {
+            System.out.println(GET_RESPONSE + responseBody);
+            Allure.step(GET_RESPONSE + responseBody);
+        }
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
 
@@ -146,8 +157,8 @@ public class AdvertPaymentInfoAPI {
         return paymentList;
     }
 
-    public static void paymentAssert(AdvertRequisites advertRequisiteEdit) throws Exception {
-        ArrayList<AdvertRequisites> advertRequisitesList = paymentGet();
+    public static void paymentAssert(AdvertRequisites advertRequisiteEdit) {
+        ArrayList<AdvertRequisites> advertRequisitesList = paymentGet(false);
         for (AdvertRequisites advertRequisite : advertRequisitesList) {
             if (advertRequisite.getRequisitesId() == advertPaymentId) {
                 Assert.assertEquals(advertRequisite.getPaymentSystemId(), advertRequisiteEdit.getPaymentSystemId());
@@ -156,20 +167,5 @@ public class AdvertPaymentInfoAPI {
                 Assert.assertEquals(advertRequisite.getRequisites(), advertRequisiteEdit.getRequisites());
             }
         }
-    }
-
-    public static void paymentDelete() {
-        Response response;
-        response = RestAssured.given()
-                .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .delete("https://api.admin.3tracks.link/advert/" + advertId + "/payment-info/" + advertPaymentId);
-
-        // Получаем и выводим ответ
-        String responseBody = response.getBody().asString();
-        System.out.println("Ответ на delete: " + responseBody);
-        Assert.assertEquals(responseBody, "{\"success\":true}");
     }
 }

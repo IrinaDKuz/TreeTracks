@@ -1,8 +1,9 @@
-package API.Advert;
+package API.AdvertPlus;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -10,6 +11,7 @@ import io.restassured.response.Response;
 import java.util.List;
 import java.util.Map;
 
+import static Helper.AllureHelper.DATA;
 import static Helper.Auth.authKeyAdmin;
 
 public class AdvertBulkAPI {
@@ -43,7 +45,6 @@ public class AdvertBulkAPI {
         return jsonMethod;
     }
 
-
     public static void advertBulkChange(Map<String, List<String>> arrayPropertyValueMap,
                                    Map<String, String> stringPropertyValueMap) {
         Gson gson = new Gson();
@@ -51,6 +52,7 @@ public class AdvertBulkAPI {
                 stringPropertyValueMap), JsonObject.class);
 
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -61,8 +63,9 @@ public class AdvertBulkAPI {
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/advert/bulk-edit");
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println("Ответ: " + responseBody);
+        Allure.step("Ответ: " + responseBody);
+
     }
 }

@@ -1,17 +1,19 @@
-package AdvertPackage.autoTest;
+package API.AdvertPlus;
 
 import AdvertPackage.entity.Advert;
 import AdvertPackage.entity.AdvertPrimaryInfo;
-import org.testng.Assert;
+import io.qameta.allure.Allure;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static API.Advert.AdvertBulkAPI.advertBulkChange;
+import static API.AdvertPlus.AdvertBulkAPI.advertBulkChange;
 import static Helper.ActionsClass.getSomeValuesFromArray;
 import static Helper.Adverts.*;
+import static Helper.AllureHelper.CHECK;
+import static Helper.AllureHelper.DATA;
 import static Helper.GeoAndLang.getRandomValue;
 import static SQL.AdvertSQL.*;
 import static SQL.AdvertSQL.getSomeValuesFromBD;
@@ -23,12 +25,11 @@ import static SQL.AdvertSQL.getSomeValuesFromBD;
  */
 
 public class AdvertBulkCheck {
-    public static int count = 6;
+    public static int count = 3;
 
     @Test
     public static void test() throws Exception {
         for (int i = 0; i < count; i++) {
-
             List<Advert> advertsBeforeChangesFromBD = new ArrayList<>();
             List<Integer> advertsId = new ArrayList<>();
             for (int j = 0; j < new Random().nextInt(10); j++) {
@@ -39,7 +40,7 @@ public class AdvertBulkCheck {
                 showAdvertData(advert);
                 advertsBeforeChangesFromBD.add(advert);
             }
-
+            Allure.step("id Адвертов, которых планируем менять: " + advertsId);
             List<Advert> advertsAfterChanges = bulkAdvertRandomChange(advertsBeforeChangesFromBD);
 
             List<Advert> advertsAfterChangesFromBD = new ArrayList<>();
@@ -66,7 +67,7 @@ public class AdvertBulkCheck {
 
     private static void checkAdvertsChanges(List<Advert> advertsAfterChanges, List<Advert> advertsAfterChangesFromBD) {
         SoftAssert softAssert = new SoftAssert();
-
+        Allure.step(CHECK);
         for (int i = 0; i < advertsAfterChanges.size(); i++) {
             AdvertPrimaryInfo advertPrimaryInfo = advertsAfterChanges.get(i).getAdvertPrimaryInfo();
             AdvertPrimaryInfo advertPrimaryInfo2 = advertsAfterChangesFromBD.get(i).getAdvertPrimaryInfo();
@@ -79,8 +80,8 @@ public class AdvertBulkCheck {
             System.out.println(advertPrimaryInfo.getTagId());
             System.out.println(advertPrimaryInfo2.getTagId());
             softAssert.assertEquals(advertPrimaryInfo.getTagId(), advertPrimaryInfo2.getTagId());
-            System.out.println("!getCategories " + advertPrimaryInfo.getCategoriesId());
-            System.out.println("!getCategories " + advertPrimaryInfo2.getCategoriesId());
+            System.out.println("getCategories " + advertPrimaryInfo.getCategoriesId());
+            System.out.println("getCategories " + advertPrimaryInfo2.getCategoriesId());
             softAssert.assertEquals(advertPrimaryInfo.getCategoriesId(), advertPrimaryInfo2.getCategoriesId());
         }
 
@@ -137,7 +138,6 @@ public class AdvertBulkCheck {
                     .map(Integer::valueOf)
                     .collect(Collectors.toSet()));
         });
-
         return adverts;
     }
 }

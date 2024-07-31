@@ -42,7 +42,7 @@ public class OfferDraftTrackingAPI {
         System.out.println(offerDraftId);
         trackingGetShow();
         OfferTracking offerTrackingEdit = trackingAddEdit();
-        basicInfoAssert(trackingGet(false), offerTrackingEdit);
+        basicInfoAssert(trackingGet(true), offerTrackingEdit);
         //deleteMethod("offer-draft", String.valueOf(offerDraftId));
     }
 
@@ -150,13 +150,14 @@ public class OfferDraftTrackingAPI {
         Assert.assertEquals(offerTracking.getTrafficbackUrl(), offerTrackingEdit.getTrafficbackUrl());
         Assert.assertEquals(offerTracking.getTrackingDomainUrlId(), offerTrackingEdit.getTrackingDomainUrlId());
         Assert.assertEquals(offerTracking.getRedirectType(), offerTrackingEdit.getRedirectType());
-       // Assert.assertEquals(offerTracking.getAllowDeeplinks(), offerTrackingEdit.getAllowDeeplinks());
-       // Assert.assertEquals(offerTracking.getAllowImpressions(), offerTrackingEdit.getAllowImpressions());
-        for (int i = 0; i < offerTracking.getLandingPages().size(); i++){
+        Assert.assertEquals(offerTracking.getAllowDeeplinks(), offerTrackingEdit.getAllowDeeplinks());
+        Assert.assertEquals(offerTracking.getAllowImpressions(), offerTrackingEdit.getAllowImpressions());
+        for (int i = 0; i < offerTracking.getLandingPages().size(); i++) {
             OfferTracking.LandingPage lp = offerTracking.getLandingPages().get(i);
             OfferTracking.LandingPage lpEdit = offerTrackingEdit.getLandingPages().get(i);
             Assert.assertEquals(lp.getLandingPageTitle(), lpEdit.getLandingPageTitle());
             Assert.assertEquals(lp.getLandingPageTrackingUrl(), lpEdit.getLandingPageTrackingUrl());
+            Assert.assertEquals(lp.getLandingPagePreviewUrl(), lpEdit.getLandingPagePreviewUrl());
             Assert.assertEquals(lp.getLandingPageType(), lpEdit.getLandingPageType());
             Assert.assertEquals(lp.getLandingPageTitle(), lpEdit.getLandingPageTitle());
         }

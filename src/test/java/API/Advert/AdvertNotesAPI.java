@@ -3,6 +3,7 @@ package API.Advert;
 import AdvertPackage.entity.AdvertNotes;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,9 +14,10 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
+import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getRandomValueFromBD;
-import static SQL.AdvertSQL.getRandomValueFromBDWhereMore;
 
 /***
  Тест проверяет работу API методов
@@ -30,11 +32,16 @@ public class AdvertNotesAPI {
     @Test
     public static void test() throws Exception {
         advertId = Integer.parseInt(getRandomValueFromBD("id", "advert"));
-        notesGet();
+        Allure.step("Получаем заметки у рандомного Адверта " + advertId);
+        notesGet(true);
+        Allure.step("Добавляем заметки Адверту");
         notesAdd();
+        Allure.step("Редактируем заметку " + advertNotesId);
         AdvertNotes advertNotes = notesEdit();
+        Allure.step(CHECK);
         notesAssert(advertNotes);
-        notesDelete();
+        Allure.step(DELETE + advertNotesId);
+        deleteMethod("advert",advertId + "/notes/" + advertNotesId + "/delete");
     }
 
     private static JsonObject initializeJsonAdvertNotes(AdvertNotes advertNotes) {
@@ -54,6 +61,7 @@ public class AdvertNotesAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertNotes(advertNotes), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -67,6 +75,7 @@ public class AdvertNotesAPI {
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на add: " + responseBody);
+        Allure.step(ADD_RESPONSE + responseBody);
 
         JSONObject jsonResponse = new JSONObject(responseBody);
         advertNotesId = jsonResponse.getJSONObject("data").getInt("notesId");
@@ -79,6 +88,7 @@ public class AdvertNotesAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertNotes(advertNotesEdit), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -92,12 +102,13 @@ public class AdvertNotesAPI {
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на edit: " + responseBody);
+        Allure.step(EDIT_RESPONSE + responseBody);
 
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return advertNotesEdit;
     }
 
-    public static ArrayList<AdvertNotes> notesGet() {
+    public static ArrayList<AdvertNotes> notesGet(Boolean isShow) {
         ArrayList<AdvertNotes> notesList = new ArrayList<>();
         Response response;
         response = RestAssured.given()
@@ -108,7 +119,10 @@ public class AdvertNotesAPI {
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/notes");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        if (isShow) {
+            System.out.println(GET_RESPONSE + responseBody);
+            Allure.step(GET_RESPONSE + responseBody);
+        }
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
@@ -137,7 +151,7 @@ public class AdvertNotesAPI {
     }
 
     public static void notesAssert(AdvertNotes advertNotesEdit) {
-        ArrayList<AdvertNotes> AdvertNotesList = notesGet();
+        ArrayList<AdvertNotes> AdvertNotesList = notesGet(false);
         for (AdvertNotes advertNotes : AdvertNotesList) {
             if (advertNotes.getNotesId() == advertNotesId) {
                 System.out.println(advertNotes.getNotesId());
@@ -147,20 +161,5 @@ public class AdvertNotesAPI {
                 Assert.assertEquals(advertNotes.getLocation(), advertNotesEdit.getLocation());
             }
         }
-    }
-
-    public static void notesDelete() {
-        Response response;
-        response = RestAssured.given()
-                .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .delete("https://api.admin.3tracks.link/advert/" + advertId + "/notes/" + advertNotesId + "/delete");
-
-        // Получаем и выводим ответ
-        String responseBody = response.getBody().asString();
-        System.out.println("Ответ: " + responseBody);
-        Assert.assertEquals(responseBody, "{\"success\":true}");
     }
 }

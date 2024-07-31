@@ -3,10 +3,7 @@ package SQL;
 import org.testng.annotations.Test;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DatabaseTest {
 
@@ -65,7 +62,6 @@ public class DatabaseTest {
         }
         return resultList;
     }
-
 
     public static List<String> sqlQueryList(String sql, String parameter) throws SQLException {
         String url = URL_DEV;

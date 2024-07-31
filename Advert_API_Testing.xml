@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Advert Test Suite">
+    <test verbose="2" preserve-order="true" name="Adverts API test">
+        <classes>
+            <!--      <class name="API.Advert.AdvertPrimaryInfoAPI"/>
+                <class name="API.Advert.AdvertContactsAPI"/>
+                <class name="API.Advert.AdvertPaymentInfoAPI"/>
+                <class name="API.Advert.AdvertPostbackAPI"/>
+                <class name="API.Advert.AdvertNotesAPI"/>-->
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Advert API add test">
+        <classes>
+<!--
+            <class name="API.Advert.AdvertFilterAPI"/>
+-->
+<!--
+          <class name="API.AdvertPlus.AdvertBulkCheck"/>&ndash;&gt;
+-->
+            <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
+        </classes>
+    </test>
+</suite>

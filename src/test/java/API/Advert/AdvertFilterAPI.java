@@ -1,5 +1,6 @@
 package API.Advert;
 
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -56,6 +57,7 @@ public class AdvertFilterAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.description("Проверка работы фильтров");
         for (Map.Entry<String, String> entry : generalAdvertFields.entrySet()) {
             String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "advert", entry.getKey());
             filterAdverts(entry, value);
@@ -119,6 +121,7 @@ public class AdvertFilterAPI {
         System.out.println("paramName = " + paramName);
         System.out.println("paramValue = " + paramValue);
         System.out.println("advertIds = " + ids);
+        Allure.step("Поверка " + paramName + "=" + paramValue);
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -129,8 +132,6 @@ public class AdvertFilterAPI {
                 .get(getUrlWithParameters("https://api.admin.3tracks.link/advert?", params));
 
         String responseBody = response.getBody().asString();
-        //  System.out.println("Ответ на get: не выводим" + responseBody);
-
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataArray = jsonObject.getJSONObject("data");
@@ -145,6 +146,8 @@ public class AdvertFilterAPI {
         ids = removeDeletedAdverts(ids);
         System.out.println(filterIdList);
         System.out.println(ids);
+        Allure.step("AdvertId из фильтра: " + filterIdList);
+        Allure.step("AdvertId из базы: " + ids);
         Assert.assertEquals(filterIdList, ids);
     }
 

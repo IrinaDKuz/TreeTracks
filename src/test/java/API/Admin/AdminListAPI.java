@@ -2,21 +2,15 @@ package API.Admin;
 
 import AdminPackage.entity.Admin;
 import AdminPackage.entity.AdminGeneral;
-import AdvertPackage.entity.AdvertNotes;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.assertj.core.api.Assertions;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.*;
 
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getArrayFromBDWhere;
-import static SQL.AdvertSQL.getRandomValueFromBDWhereNotNull;
 
 /***
  Тест проверяет работу API методов Админов

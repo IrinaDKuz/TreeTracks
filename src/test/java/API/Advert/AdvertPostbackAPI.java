@@ -4,6 +4,7 @@ import AdvertPackage.entity.AdvertPostback;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,8 +14,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.List;
 import java.util.stream.StreamSupport;
+
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
-import static Helper.Auth.authKeyTest;
 import static SQL.AdvertSQL.getRandomValueFromBDWhereMore;
 import static java.util.Objects.isNull;
 
@@ -30,8 +32,11 @@ public class AdvertPostbackAPI {
     @Test
     public static void test() throws Exception {
         advertId = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert", "id", "1000"));
+        Allure.step("Получаем постбеки у рандомного Адверта " + advertId);
         postbackGet();
+        Allure.step("Редактируем постбеки");
         AdvertPostback advertPostback = postbackEdit();
+        Allure.step(CHECK);
         postbackAssert(advertPostback);
     }
 
@@ -66,6 +71,7 @@ public class AdvertPostbackAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPostbackBody(advertPostback), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -77,7 +83,9 @@ public class AdvertPostbackAPI {
                 .post("https://api.admin.3tracks.link/advert/" + advertId + "/postback/edit");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ: " + responseBody);
+        System.out.println(EDIT_RESPONSE + responseBody);
+        Allure.step(EDIT_RESPONSE + responseBody);
+
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return advertPostback;
     }
@@ -93,7 +101,8 @@ public class AdvertPostbackAPI {
 
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");

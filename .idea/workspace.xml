@@ -5,15 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftTrackingAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/OfferDraftPackage/entity/OfferTracking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Advert_API_Testing.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Advert_UI_Testing.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Advert/allure.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Helper/AllureHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdvertTesting.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminListAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertBulkAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertBulkAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertNotesAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertNotesAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPaymentInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPaymentInfoAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPostbackAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPostbackAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsCleanDoubleContactAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsCleanDoubleContactAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Offers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Offers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftTrackingAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftTrackingAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoTest/AdvertBulkCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertBulkCheck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/DatabaseTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +74,11 @@
     "TestNG.AdvertBulkCheck.executor": "Run",
     "TestNG.AdvertBulkCheck.test.executor": "Run",
     "TestNG.AdvertContactsAPI.executor": "Run",
+    "TestNG.AdvertContactsFindAPI.executor": "Run",
     "TestNG.AdvertCreate.executor": "Run",
     "TestNG.AdvertCreate.test.executor": "Run",
     "TestNG.AdvertEdit.executor": "Run",
+    "TestNG.AdvertFilterAPI.executor": "Run",
     "TestNG.AdvertGetFromBD.executor": "Debug",
     "TestNG.AdvertListAPI.executor": "Run",
     "TestNG.AdvertNotesAPI.executor": "Run",
@@ -96,24 +111,24 @@
     "TestNG.SettingsGeneralAPI.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks/src/test/java/API/Advert+",
+    "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks",
     "settings.editor.selected.configurable": "preferences.editor"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/test/java/API/Advert" />
       <recent name="$PROJECT_DIR$/src/test/java/API/Advert+" />
       <recent name="$PROJECT_DIR$/src/test/java" />
       <recent name="$PROJECT_DIR$/src/test/java/API/OfferMain" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/test/java/API/OfferDraft" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Helper" />
+      <recent name="API.AdvertPlus" />
       <recent name="OfferDraftPackage.entity" />
       <recent name="API.Offer.OfferDraft" />
       <recent name="API.Settings.Content" />
-      <recent name="SettingsPackage.entity" />
-      <recent name="API.AdvertPlus" />
     </key>
   </component>
   <component name="RunManager">
@@ -121,12 +136,12 @@
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="AdvertPackage.autoTest.*" />
+          <option name="PATTERN" value="API.AdvertPlus.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="AdvertPackage.autoTest" />
-      <option name="MAIN_CLASS_NAME" value="AdvertPackage.autoTest.AdvertBulkCheck" />
+      <option name="MAIN_CLASS_NAME" value="API.AdvertPlus.AdvertBulkCheck" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
@@ -139,7 +154,7 @@
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="API.Advert.*" />
+          <option name="PATTERN" value="API.AdvertPlus.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -175,7 +190,7 @@
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="API.Advert.*" />
+          <option name="PATTERN" value="API.AdvertPlus.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -193,7 +208,7 @@
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="API.Advert.*" />
+          <option name="PATTERN" value="API.AdvertPlus.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -243,7 +258,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java</url>
-          <line>39</line>
+          <line>46</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -308,13 +323,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java</url>
-          <line>36</line>
+          <line>37</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java</url>
-          <line>205</line>
+          <line>212</line>
           <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java</url>
+          <line>183</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
@@ -346,6 +371,24 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java</url>
+          <line>49</line>
+          <properties class="API.AdvertPlus.AdvertContactsFindAPI" method="positiveSeparateTest">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java</url>
+          <line>86</line>
+          <properties class="API.AdvertPlus.AdvertContactsFindAPI" method="excludeTest">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

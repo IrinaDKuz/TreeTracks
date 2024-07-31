@@ -4,6 +4,8 @@ import AdvertPackage.entity.AdvertPrimaryInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -33,17 +35,14 @@ public class AdvertPrimaryInfoAPI {
     public static void test() throws Exception {
         AdvertPrimaryInfo advertPrimaryInfoAdd = primaryInfoAddEdit(false);
         advertId = advertPrimaryInfoAdd.getAdvertId();
-       // advertId = Integer.parseInt(getLastValueFromBD("id", "advert"));
         primaryInfoAssert(advertPrimaryInfoAdd, primaryInfoGet(false));
-
         primaryInfoGet(true);
 
         AdvertPrimaryInfo advertPrimaryInfoEdit = primaryInfoAddEdit(true);
         primaryInfoAssert(advertPrimaryInfoEdit, primaryInfoGet(false));
 
-        deleteMethod("advert", String.valueOf(advertId));
-
-        advertId = Integer.parseInt(getRandomValueFromBD("advert_id", "offer"));
+        advertId = Integer.parseInt(getFrequentValueFromBD("advert_id", "offer"));
+        Allure.step("Проверка для Адверта, к которому присоединено несколько офферов " + advertId);
         AdvertPrimaryInfo advertPrimaryInfoEdit2 = primaryInfoAddEdit(true);
         primaryInfoAssert(advertPrimaryInfoEdit2, primaryInfoGet(false));
     }
@@ -89,12 +88,18 @@ public class AdvertPrimaryInfoAPI {
     }
 
     public static AdvertPrimaryInfo primaryInfoAddEdit(Boolean isEdit) throws Exception {
+        if (isEdit)
+            Allure.step("Проверка редактирования Primary Info");
+        else
+            Allure.step("Проверка добавления нового Адверта и заполнения Primary Info");
+
         AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
         advertPrimaryInfo.fillAdvertPrimaryInfoWithRandomData();
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPrimaryInfo(advertPrimaryInfo), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step("Данные для отправки: \n " + jsonObject.toString().replace("],", "],\n"));
 
         String path = isEdit ? "https://api.admin.3tracks.link/advert/" + advertId + "/edit" :
                 "https://api.admin.3tracks.link/advert/new";
@@ -110,12 +115,13 @@ public class AdvertPrimaryInfoAPI {
         String responseBody = response.getBody().asString();
 
         if (isEdit) {
+            Allure.step("Ответ на edit: " + responseBody);
             System.out.println("Ответ на edit: " + responseBody);
             Assert.assertTrue(responseBody.contains("{\"success\":true"));
             advertPrimaryInfo.setAdvertId(advertId);
 
-        }
-        else {
+        } else {
+            Allure.step("Ответ на add: " + responseBody);
             System.out.println("Ответ на add: " + responseBody);
             Assert.assertTrue(responseBody.contains("{\"success\":true"));
             JSONObject jsonResponse = new JSONObject(responseBody);
@@ -123,7 +129,6 @@ public class AdvertPrimaryInfoAPI {
         }
         return advertPrimaryInfo;
     }
-
 
     public static AdvertPrimaryInfo primaryInfoGet(Boolean isShow) {
         AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
@@ -141,6 +146,7 @@ public class AdvertPrimaryInfoAPI {
         String responseBody = response.getBody().asString();
         if (isShow) {
             System.out.println("Ответ на get: " + responseBody);
+            Allure.step("Ответ на get: " + responseBody);
         }
 
         JSONObject jsonObject = new JSONObject(responseBody);
@@ -158,7 +164,7 @@ public class AdvertPrimaryInfoAPI {
         advertPrimaryInfo.setNote(data.isNull("note") ? null : data.getString("note"));
 
         JSONObject offer = data.getJSONObject("offer");
-        advertPrimaryInfo.setActiveOffersCount(parseUnknownValueToInteger(offer,"active"));
+        advertPrimaryInfo.setActiveOffersCount(parseUnknownValueToInteger(offer, "active"));
         advertPrimaryInfo.setInactiveOffersCount(parseUnknownValueToInteger(offer, "inactive"));
         advertPrimaryInfo.setTotalOffersCount(offer.getInt("total"));
         advertPrimaryInfo.setDraftOffersCount(offer.getInt("draft"));
@@ -203,6 +209,7 @@ public class AdvertPrimaryInfoAPI {
     }
 
     public static void primaryInfoAssert(AdvertPrimaryInfo advertPrimaryInfo, AdvertPrimaryInfo advertPrimaryInfoGet) throws Exception {
+        Allure.step("Сравнение отправленных значений в полях с полученными из get");
         Assert.assertEquals(advertPrimaryInfo.getStatus(), advertPrimaryInfoGet.getStatus());
         Assert.assertEquals(advertPrimaryInfo.getCompany(), advertPrimaryInfoGet.getCompany());
         Assert.assertEquals(advertPrimaryInfo.getCompanyLegalName(), advertPrimaryInfoGet.getCompanyLegalName());
@@ -226,6 +233,7 @@ public class AdvertPrimaryInfoAPI {
         Assert.assertEquals(advertPrimaryInfo.getNote(), advertPrimaryInfoGet.getNote());
 
         if (advertPrimaryInfo.getAdvertId() != null) {
+            Allure.step("Сравнение значений offer count со значениями из базы");
             advertPrimaryInfo.fillAdvertPrimaryInfoWithOffersData(advertPrimaryInfo.getAdvertId().toString());
             Assert.assertEquals(advertPrimaryInfo.getActiveOffersCount(), advertPrimaryInfoGet.getActiveOffersCount());
             Assert.assertEquals(advertPrimaryInfo.getInactiveOffersCount(), advertPrimaryInfoGet.getInactiveOffersCount());
