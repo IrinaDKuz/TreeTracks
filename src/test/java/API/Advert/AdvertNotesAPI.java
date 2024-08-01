@@ -105,7 +105,7 @@ public class AdvertNotesAPI {
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на edit: " + responseBody);
         Allure.step(EDIT_RESPONSE + responseBody);
-
+//
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return advertNotesEdit;
     }
