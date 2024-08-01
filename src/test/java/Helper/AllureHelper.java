@@ -51,5 +51,4 @@ public class AllureHelper {
         String prettyJson = gson.toJson(jsonObj);
         Allure.addAttachment(name, "application/json", prettyJson);
     }
-    //
 }

@@ -53,7 +53,7 @@ public class AdvertContactsAPI {
         advertContact.fillAdvertContactWithRandomData();
 
         Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContact, false), JsonObject.class);
+        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContact), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
         attachJson(String.valueOf(jsonObject), DATA);
@@ -100,7 +100,7 @@ public class AdvertContactsAPI {
             }
         }
         Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContactEdit, true), JsonObject.class);
+        JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContactEdit), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step("Данные для отправки: \n " + jsonObject.toString().replace("],", "],\n"));
 
