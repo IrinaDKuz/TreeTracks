@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static API.Advert.AdvertFilterAPI.getUrlWithParameters;
-import static Helper.AllureHelper.CHECK;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 import static io.restassured.RestAssured.given;
@@ -108,7 +108,7 @@ public class AdvertContactsFindAPI {
         System.out.println("               messengerId, значение: " + messengerTypeId);
         System.out.println("               messengerValue, значение: " + messengerValue);
 
-        Allure.step("Ищем по совокупности полей: person = " + person  +
+        Allure.step("Ищем по совокупности полей: person = " + person +
                 ", email = " + email + ", messengerId = " + messengerTypeId +
                 ", messengerValue = " + messengerValue);
 
@@ -122,8 +122,6 @@ public class AdvertContactsFindAPI {
         List<Integer> personArrayFromBDIntList = new ArrayList<>(uniquePersonArrayFromBDInt);
         Collections.sort(personArray);
         Collections.sort(personArrayFromBDIntList);
-        System.out.println(personArray);
-        System.out.println(personArrayFromBDIntList);
         Assert.assertEquals(personArray, personArrayFromBDIntList);
     }
 
@@ -131,7 +129,7 @@ public class AdvertContactsFindAPI {
         String fieldValue = getRandomValueFromBD(field, "advert_contact");
         System.out.println("Ищем по полю: " + field + ", значение: " + fieldValue);
         Allure.step("Ищем по полю: " + field + ", значение: " + fieldValue);
-                List<Integer> personArray = findContact(Map.of(field, fieldValue));
+        List<Integer> personArray = findContact(Map.of(field, fieldValue));
         List<Integer> personArrayFromBD = getArrayFromBDWhere("advert_id", "advert_contact",
                 field, fieldValue)
                 .stream()
@@ -139,8 +137,6 @@ public class AdvertContactsFindAPI {
                 .collect(Collectors.toList());
         Collections.sort(personArray);
         Collections.sort(personArrayFromBD);
-        System.out.println(personArray);
-        System.out.println(personArrayFromBD);
         Allure.step("id Адвертов из ответа на запрос : " + personArray + ", id Адвертов из БД: " + personArrayFromBD);
         Assert.assertEquals(personArray, personArrayFromBD);
     }
@@ -192,7 +188,7 @@ public class AdvertContactsFindAPI {
 
         System.out.println("Ищем по полям: messenger_id значение: " + messengerId);
         System.out.println("Ищем по полям: messenger_value значение: " + messengerValue);
-        Allure.step( "Ищем по полям: messenger_id = " + messengerId +
+        Allure.step("Ищем по полям: messenger_id = " + messengerId +
                 " и messenger_value = " + messengerValue);
 
 
@@ -223,8 +219,8 @@ public class AdvertContactsFindAPI {
                 .get("https://api.admin.3tracks.link/advert/contact/find");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
-       Allure.step("Ответ на get: " + responseBody);
+        Allure.step("Ответ на get: " + responseBody);
+        attachJson(responseBody, GET_RESPONSE);
 
         JsonPath jsonPath = new JsonPath(responseBody);
         if (jsonPath.get("data.advert.value") != null) {

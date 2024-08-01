@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.AllureHelper.attachJson;
 import static Helper.Auth.authKeyAdmin;
+import static java.util.Objects.isNull;
 
 /***
  Тест проверяет работу API методов Draft Offer
@@ -48,10 +49,9 @@ public class OfferDraftList {
             OfferMain offerMain = new OfferMain();
             JSONObject dataObject = offers.getJSONObject(i);
 
-            offerMain.getOfferGeneral().setStatus(dataObject.getString("status"));
-            offerMain.getOfferGeneral().setTitle(dataObject.getString("title"));
-            offerMain.getOfferGeneral().setPrivacyLevel(dataObject.getString("privacyLevel"));
-            System.out.println(offerMain.getOfferGeneral().getPrivacyLevel());
+            offerMain.getOfferGeneral().setStatus(dataObject.isNull("status") ? null : dataObject.getString("status"));
+            offerMain.getOfferGeneral().setTitle(dataObject.isNull("title") ? null : dataObject.getString("title"));
+            offerMain.getOfferGeneral().setPrivacyLevel(dataObject.isNull("privacyLevel") ? null : dataObject.getString("privacyLevel"));
 
             // offerGeneral.setTitle(data.isNull("email") ? null : data.getString("title"));
             //  offerGeneral.setStatusNotice(data.isNull("statusNotice") ? null : data.getBoolean("statusNotice"));

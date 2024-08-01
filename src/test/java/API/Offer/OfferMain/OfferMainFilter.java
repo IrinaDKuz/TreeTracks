@@ -99,7 +99,7 @@ public class OfferMainFilter {
                 .header("Content-Type", "application/json")
                 .when()
                 .get(getUrlWithParameters(url, params));
-
+//
         String responseBody = response.getBody().asString();
         attachJson(responseBody, GET_RESPONSE);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
@@ -116,11 +116,11 @@ public class OfferMainFilter {
         }
         Collections.sort(filterIdList);
         ids = removeDeletedAdverts(ids);
-        Allure.step("AdminId из фильтра: " + filterIdList);
-        Allure.step("AdminID из базы: " + ids);
+        Allure.step("OfferId из фильтра: " + filterIdList);
+        Allure.step("OfferId из базы: " + ids);
         Assert.assertEquals(filterIdList, ids);
     }
-
+// yegbwe
     private static Set<String> removeDeletedAdverts(Set<String> ids) {
         ids.removeIf(id -> !isInDatabase("id", id, "offer"));
         return ids;

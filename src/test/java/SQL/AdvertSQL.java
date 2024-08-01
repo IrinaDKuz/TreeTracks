@@ -60,7 +60,7 @@ public class AdvertSQL {
 
 
     public static List<String> getArrayFromBDWhereAnd(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
-        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + entry.getValue() + "'").collect(Collectors.joining(" AND "));
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "));
         System.out.println(sqlRequest);
         return sqlQueryList(sqlRequest, parameter);
     }
@@ -71,7 +71,7 @@ public class AdvertSQL {
         return sqlQueryList(sqlRequest, parameter);
     }
 
-    private static String escapeSql(String value) {
+    public static String escapeSql(String value) {
         if (value != null) {
             // Экранируем одинарные кавычки
             value = value.replace("'", "''");

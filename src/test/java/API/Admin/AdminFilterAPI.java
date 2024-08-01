@@ -80,7 +80,7 @@ public class AdminFilterAPI {
         Collections.sort(filterIdList);
         Collections.sort(ids);
         Allure.step("AdminId из фильтра: " + filterIdList);
-        Allure.step("AdminID из базы: " + ids);
+        Allure.step("AdminId из базы: " + ids);
         Assertions.assertThat(filterIdList).isEqualTo(ids);
     }
 }

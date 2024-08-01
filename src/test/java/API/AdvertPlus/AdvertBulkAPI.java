@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static Helper.AllureHelper.DATA;
+import static Helper.AllureHelper.attachJson;
 import static Helper.Auth.authKeyAdmin;
 
 public class AdvertBulkAPI {
@@ -53,6 +54,7 @@ public class AdvertBulkAPI {
 
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         Response response;
         response = RestAssured.given()

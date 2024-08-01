@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
@@ -47,6 +48,7 @@ public class AdvertPaymentInfoAPI {
         paymentAssert(advertRequisites);
         Allure.step(DELETE + advertPaymentId);
         deleteMethod("advert",advertId + "/payment-info/" + advertPaymentId);
+        assertDelete(String.valueOf(advertPaymentId), "advert_payment");
     }
 
     private static JsonObject initializeJsonAdvertPayment(AdvertRequisites advertRequisites) {
@@ -75,6 +77,7 @@ public class AdvertPaymentInfoAPI {
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPayment(advertRequisites), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         Response response;
         response = RestAssured.given()
@@ -134,7 +137,9 @@ public class AdvertPaymentInfoAPI {
         if (isShow) {
             System.out.println(GET_RESPONSE + responseBody);
             Allure.step(GET_RESPONSE + responseBody);
+            attachJson(responseBody, GET_RESPONSE);
         }
+
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
 
@@ -158,7 +163,7 @@ public class AdvertPaymentInfoAPI {
     }
 
     public static void paymentAssert(AdvertRequisites advertRequisiteEdit) {
-        ArrayList<AdvertRequisites> advertRequisitesList = paymentGet(false);
+        ArrayList<AdvertRequisites> advertRequisitesList = paymentGet(true);
         for (AdvertRequisites advertRequisite : advertRequisitesList) {
             if (advertRequisite.getRequisitesId() == advertPaymentId) {
                 Assert.assertEquals(advertRequisite.getPaymentSystemId(), advertRequisiteEdit.getPaymentSystemId());

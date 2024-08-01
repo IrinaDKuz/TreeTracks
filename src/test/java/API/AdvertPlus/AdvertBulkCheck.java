@@ -77,14 +77,9 @@ public class AdvertBulkCheck {
             softAssert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfo2.getSalesManagerId());
             Collections.sort(advertPrimaryInfo.getTagId());
             Collections.sort(advertPrimaryInfo2.getTagId());
-            System.out.println(advertPrimaryInfo.getTagId());
-            System.out.println(advertPrimaryInfo2.getTagId());
             softAssert.assertEquals(advertPrimaryInfo.getTagId(), advertPrimaryInfo2.getTagId());
-            System.out.println("getCategories " + advertPrimaryInfo.getCategoriesId());
-            System.out.println("getCategories " + advertPrimaryInfo2.getCategoriesId());
             softAssert.assertEquals(advertPrimaryInfo.getCategoriesId(), advertPrimaryInfo2.getCategoriesId());
         }
-
         softAssert.assertAll();
     }
 

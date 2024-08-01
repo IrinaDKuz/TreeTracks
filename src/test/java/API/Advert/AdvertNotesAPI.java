@@ -42,7 +42,7 @@ public class AdvertNotesAPI {
         Allure.step(CHECK);
         notesAssert(advertNotes);
         Allure.step(DELETE + advertNotesId);
-        deleteMethod("advert",advertId + "/notes/" + advertNotesId + "/delete");
+        deleteMethod("advert", advertId + "/notes/" + advertNotesId + "/delete");
     }
 
     private static JsonObject initializeJsonAdvertNotes(AdvertNotes advertNotes) {
@@ -90,6 +90,7 @@ public class AdvertNotesAPI {
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertNotes(advertNotesEdit), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         Response response;
         response = RestAssured.given()
@@ -153,7 +154,7 @@ public class AdvertNotesAPI {
     }
 
     public static void notesAssert(AdvertNotes advertNotesEdit) {
-        ArrayList<AdvertNotes> AdvertNotesList = notesGet(false);
+        ArrayList<AdvertNotes> AdvertNotesList = notesGet(true);
         for (AdvertNotes advertNotes : AdvertNotesList) {
             if (advertNotes.getNotesId() == advertNotesId) {
                 System.out.println(advertNotes.getNotesId());

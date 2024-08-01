@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 
@@ -54,7 +55,8 @@ public class AdvertContactsAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContact, false), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
-        Allure.step("Данные для отправки: \n " + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         Response response;
         response = RestAssured.given()
@@ -119,9 +121,7 @@ public class AdvertContactsAPI {
         return advertContactEdit;
     }
 
-
-    private static JsonObject initializeJsonAdvertContacts(AdvertContact advertContact, Boolean isEdit) throws
-            Exception {
+    private static JsonObject initializeJsonAdvertContacts(AdvertContact advertContact) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("status", advertContact.getStatus().toLowerCase());
@@ -140,9 +140,7 @@ public class AdvertContactsAPI {
             jsonMessenger.addProperty("value", messenger.getMessengerValue());
             messengersArray.add(jsonMessenger);
         }
-
         jsonObject.add("messengers", messengersArray);
-
         return jsonObject;
     }
 
@@ -159,8 +157,9 @@ public class AdvertContactsAPI {
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         if (isShow) {
-            System.out.println("Ответ на get: " + responseBody);
-            Allure.step("Ответ на get: " + responseBody);
+            System.out.println(GET_RESPONSE + responseBody);
+            Allure.step(GET_RESPONSE + responseBody);
+            Allure.step(GET_RESPONSE + responseBody);
         }
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
@@ -191,7 +190,7 @@ public class AdvertContactsAPI {
     }
 
     public static void contactsAssert(AdvertContact advertContactEdit) {
-        ArrayList<AdvertContact> advertContactsList = contactsGet(false);
+        ArrayList<AdvertContact> advertContactsList = contactsGet(true);
         for (AdvertContact advertContact : advertContactsList) {
             if (advertContact.getContactID() == advertContactId) {
                 System.out.println(advertContact.getContactID());
@@ -201,12 +200,8 @@ public class AdvertContactsAPI {
                 Assert.assertEquals(advertContact.getPosition(), advertContactEdit.getPosition());
 
                 for (int i = 0; i < advertContactEdit.getMessengers().size(); i++) {
-
                     Messenger getMessenger = advertContact.getMessengers().get(i);
                     Messenger editMessenger = advertContactEdit.getMessengers().get(i);
-                    System.out.println("getMessenger " + getMessenger.getMessengerId());
-                    System.out.println("editMessenger " + editMessenger.getMessengerId());
-                    // Assert.assertEquals(getMessenger.getMessengerId(), editMessenger.getMessengerId());
                     Assert.assertEquals(getMessenger.getMessengerTypeId(), editMessenger.getMessengerTypeId());
                     Assert.assertEquals(getMessenger.getMessengerValue(), editMessenger.getMessengerValue());
                 }

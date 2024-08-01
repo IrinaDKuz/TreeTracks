@@ -18,7 +18,7 @@
             <class name="API.Offer.OfferMain.OfferMainBasicInfoAPI"/>
 
             <!--
-                        <class name="API.Offer.OfferMain.OfferMainAPI_NEED_TO_DO"/>
+                        <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>
             -->
         </classes>
     </test>

@@ -72,6 +72,7 @@ public class AdvertPostbackAPI {
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPostbackBody(advertPostback), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         Response response;
         response = RestAssured.given()
@@ -103,6 +104,7 @@ public class AdvertPostbackAPI {
         String responseBody = response.getBody().asString();
         System.out.println(GET_RESPONSE + responseBody);
         Allure.step(GET_RESPONSE + responseBody);
+        attachJson(responseBody, GET_RESPONSE);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");

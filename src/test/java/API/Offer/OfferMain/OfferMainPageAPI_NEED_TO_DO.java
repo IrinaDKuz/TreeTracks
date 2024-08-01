@@ -18,7 +18,7 @@ import static Helper.Auth.authKeyAdmin;
  для Offer Main
  */
 
-public class OfferMainAPI_NEED_TO_DO {
+public class OfferMainPageAPI_NEED_TO_DO {
     static int offerId;
 
     @Test
