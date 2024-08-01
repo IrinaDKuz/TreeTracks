@@ -1,0 +1,41 @@
+{
+  "trackingUrl": "quantumcomputing-cryptocurrency-2680.com",
+  "additionalMacro": "sub3\u003d{clickid_here}",
+  "trafficbackUrl": "nanotechnology-artificialintelligence-2081.com",
+  "trackingDomainUrl": 88,
+  "redirectType": "http_meta",
+  "allowDeeplinks": true,
+  "allowImpressions": true,
+  "landingPage": [
+    {
+      "title": "DevOps NeuralNetworks DigitalTwins",
+      "trackingUrl": "{clickid} or {click_id} - clickid_param_info{pid} - Partner ID{ip} - IP-address{geo} - Country code{sub1-8} - SubId #1-8{deeplink} - Deeplink{device_ua} - Device User Agent{offer_id} - Offer ID{rand} - Unique number{time} - Unix time{city} - City{time_petty} - Time of click committing in format H:i:s{date_only} - Date of click committing in format Y-m-d{affiliate_name} - Company name of affiliate{advertiser_id} - ID of advertiser{offer_name} - Offer title{referrer} - Сlick referrer",
+      "previewUrl": "devops-neuralnetworks-digitaltwins-8808.com",
+      "type": "pre_landing"
+    },
+    {
+      "title": "CleanTech DigitalTransformation Wearables",
+      "trackingUrl": "{clickid} or {click_id} - clickid_param_info{pid} - Partner ID{ip} - IP-address{geo} - Country code{sub1-8} - SubId #1-8{deeplink} - Deeplink{device_ua} - Device User Agent{offer_id} - Offer ID{rand} - Unique number{time} - Unix time{city} - City{time_petty} - Time of click committing in format H:i:s{date_only} - Date of click committing in format Y-m-d{affiliate_name} - Company name of affiliate{advertiser_id} - ID of advertiser{offer_name} - Offer title{referrer} - Сlick referrer",
+      "previewUrl": "cleantech-digitaltransformation-wearables-5096.com",
+      "type": "landing"
+    },
+    {
+      "title": "Hardware CleanTech DigitalTwins",
+      "trackingUrl": "{clickid} or {click_id} - clickid_param_info{pid} - Partner ID{ip} - IP-address{geo} - Country code{sub1-8} - SubId #1-8{deeplink} - Deeplink{device_ua} - Device User Agent{offer_id} - Offer ID{rand} - Unique number{time} - Unix time{city} - City{time_petty} - Time of click committing in format H:i:s{date_only} - Date of click committing in format Y-m-d{affiliate_name} - Company name of affiliate{advertiser_id} - ID of advertiser{offer_name} - Offer title{referrer} - Сlick referrer",
+      "previewUrl": "hardware-cleantech-digitaltwins-7463.com",
+      "type": "landing"
+    },
+    {
+      "title": "MedTech ArtificialGeneralIntelligence SmartCities",
+      "trackingUrl": "{clickid} or {click_id} - clickid_param_info{pid} - Partner ID{ip} - IP-address{geo} - Country code{sub1-8} - SubId #1-8{deeplink} - Deeplink{device_ua} - Device User Agent{offer_id} - Offer ID{rand} - Unique number{time} - Unix time{city} - City{time_petty} - Time of click committing in format H:i:s{date_only} - Date of click committing in format Y-m-d{affiliate_name} - Company name of affiliate{advertiser_id} - ID of advertiser{offer_name} - Offer title{referrer} - Сlick referrer",
+      "previewUrl": "medtech-artificialgeneralintelligence-smartcities-3553.com",
+      "type": "landing"
+    },
+    {
+      "title": "Telecommunications Nanotechnology QuantumInternet",
+      "trackingUrl": "{clickid} or {click_id} - clickid_param_info{pid} - Partner ID{ip} - IP-address{geo} - Country code{sub1-8} - SubId #1-8{deeplink} - Deeplink{device_ua} - Device User Agent{offer_id} - Offer ID{rand} - Unique number{time} - Unix time{city} - City{time_petty} - Time of click committing in format H:i:s{date_only} - Date of click committing in format Y-m-d{affiliate_name} - Company name of affiliate{advertiser_id} - ID of advertiser{offer_name} - Offer title{referrer} - Сlick referrer",
+      "previewUrl": "telecommunications-nanotechnology-quantuminternet-1125.com",
+      "type": "landing"
+    }
+  ]
+}

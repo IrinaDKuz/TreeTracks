@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "admin": []
+  },
+  "pagination": {
+    "page": 1.0,
+    "limit": 2000.0,
+    "totalCount": 0.0
+  }
+}

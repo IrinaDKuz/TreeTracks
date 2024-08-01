@@ -7,19 +7,18 @@ import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
-import static API.Helper.deleteMethod;
 import static Helper.Auth.authKeyAdmin;
 
 /***
  Тест проверяет работу API методов
- - просмотр(get), delete,
- TODO https://api.admin.3tracks.link/offer/28/add-affiliate
+ - просмотр(get),
+ TODO 0 DONE + https://api.admin.3tracks.link/offer/28/add-affiliate
 
  проверка
  для Offer Main
  */
 
-public class OfferMainAPI {
+public class OfferMainAPI_NEED_TO_DO {
     static int offerId;
 
     @Test
@@ -28,7 +27,6 @@ public class OfferMainAPI {
                 //Integer.parseInt(getRandomValueFromBD("id", "offer"));
         System.out.println(offerId);
         offerMainGet();
-        deleteMethod("offer-draft", String.valueOf(offerId));
     }
 
     public static OfferMain offerMainGet() {

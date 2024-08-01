@@ -3,6 +3,7 @@ package API.Offer.OfferMain;
 import OfferDraftPackage.entity.OfferBasicInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -12,6 +13,7 @@ import org.testng.annotations.Test;
 
 import static API.Helper.*;
 import static API.Offer.OfferDraft.OfferDraftBasicInfoAPI.*;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 
@@ -19,23 +21,25 @@ import static SQL.AdvertSQL.getRandomValueFromBD;
  Тест проверяет работу API методов
  - get, edit, проверка
  для вкладки General Offer Main
+ //TODO: 90% Done (осталось logo)
  */
-
-//TODO: 99% Done (осталось logo)
 
 public class OfferMainBasicInfoAPI {
     static int offerMainId;
 
     @Test
     public static void test() throws Exception {
-        offerMainId = 38;
-        Integer.parseInt(getRandomValueFromBD("id", "offer"));
-        System.out.println(offerMainId);
-        basicInfoGetShow();
+        offerMainId = Integer.parseInt(getRandomValueFromBD("id", "offer"));
+        Allure.step("Выбираем рандомный Offer Main id=" + offerMainId);
 
+        Allure.step("Получаем Basic Info Offer Main id=" + offerMainId);
+        basicInfoGet(true);
+
+        Allure.step("Редактируем Basic Info Offer Main id=" + offerMainId);
         OfferBasicInfo offerBasicInfoEdit = basicInfoEdit();
+
+        Allure.step(CHECK);
         basicInfoAssert(basicInfoGet(false), offerBasicInfoEdit);
-       // deleteMethod("offer", String.valueOf(offerMainId)); // Не должно быть удаления Main Offer
     }
 
     public static OfferBasicInfo basicInfoEdit() throws Exception {
@@ -44,9 +48,9 @@ public class OfferMainBasicInfoAPI {
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonOfferBasicInfo(offerBasicInfo), JsonObject.class);
-        System.out.println("___ Подготовленные данные:___");
         System.out.println(jsonObject.toString().replace("],", "],\n"));
-        System.out.println("___ _____________________ ___");
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         String path = "https://api.admin.3tracks.link/offer/" + offerMainId + "/basic-info";
 
@@ -60,6 +64,7 @@ public class OfferMainBasicInfoAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на edit: " + responseBody);
+        Allure.step(EDIT_RESPONSE + responseBody);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
         return offerBasicInfo;
     }
@@ -73,9 +78,10 @@ public class OfferMainBasicInfoAPI {
                 .get("https://api.admin.3tracks.link/offer/" + offerMainId + "/basic-info");
 
         String responseBody = response.getBody().asString();
-        if (isShow)
+        if (isShow) {
             System.out.println("Ответ на get: " + responseBody);
-
+            attachJson(responseBody, GET_RESPONSE);
+        }
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
         JSONObject offer = data.getJSONObject("offer");
@@ -107,9 +113,5 @@ public class OfferMainBasicInfoAPI {
         offerBasicInfo.setTrafficSourceId(getArrayFromJson(offer, "trafficSource"));
         offerBasicInfo.setCategoriesId(getArrayFromJson(offer, "category"));
         return offerBasicInfo;
-    }
-
-    public static void basicInfoGetShow() {
-        basicInfoGet(true);
     }
 }

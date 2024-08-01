@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 104,
+        "email": "petrpetrovpp2024@gmail.com",
+        "status": "enabled",
+        "firstName": "FULL ACCESS",
+        "secondName": "DONT CHANGE",
+        "skype": "full access",
+        "telegram": "full access",
+        "phone": "123 456 789",
+        "workingHours": "12",
+        "updatedAt": "2024-07-02 07:44:09",
+        "createdAt": "2024-06-13 16:00:05"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

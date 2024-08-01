@@ -19,6 +19,7 @@ import java.util.stream.StreamSupport;
 
 import static API.Helper.deleteMethod;
 import static API.Helper.parseUnknownValueToInteger;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 
@@ -26,6 +27,7 @@ import static SQL.AdvertSQL.*;
  Тест проверяет работу API методов
  - get, add/edit, delete, проверка
  во вкладке Адверт - "Primary Info"
+ //TODO: 100% Done
  */
 
 public class AdvertPrimaryInfoAPI {
@@ -33,12 +35,18 @@ public class AdvertPrimaryInfoAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Добавляем Адверта");
         AdvertPrimaryInfo advertPrimaryInfoAdd = primaryInfoAddEdit(false);
         advertId = advertPrimaryInfoAdd.getAdvertId();
+        Allure.step(CHECK);
         primaryInfoAssert(advertPrimaryInfoAdd, primaryInfoGet(false));
+
+        Allure.step("Получаем Primary Info Адверта id=" + advertId);
         primaryInfoGet(true);
 
+        Allure.step("Редактируем Primary Info Адверта id=" + advertId);
         AdvertPrimaryInfo advertPrimaryInfoEdit = primaryInfoAddEdit(true);
+        Allure.step(CHECK);
         primaryInfoAssert(advertPrimaryInfoEdit, primaryInfoGet(false));
 
         advertId = Integer.parseInt(getFrequentValueFromBD("advert_id", "offer"));
@@ -88,18 +96,14 @@ public class AdvertPrimaryInfoAPI {
     }
 
     public static AdvertPrimaryInfo primaryInfoAddEdit(Boolean isEdit) throws Exception {
-        if (isEdit)
-            Allure.step("Проверка редактирования Primary Info");
-        else
-            Allure.step("Проверка добавления нового Адверта и заполнения Primary Info");
-
         AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
         advertPrimaryInfo.fillAdvertPrimaryInfoWithRandomData();
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPrimaryInfo(advertPrimaryInfo), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
-        Allure.step("Данные для отправки: \n " + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         String path = isEdit ? "https://api.admin.3tracks.link/advert/" + advertId + "/edit" :
                 "https://api.admin.3tracks.link/advert/new";
@@ -111,22 +115,20 @@ public class AdvertPrimaryInfoAPI {
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
                 .post(path);
-        // Получаем и выводим ответ
+
         String responseBody = response.getBody().asString();
 
-        if (isEdit) {
-            Allure.step("Ответ на edit: " + responseBody);
-            System.out.println("Ответ на edit: " + responseBody);
-            Assert.assertTrue(responseBody.contains("{\"success\":true"));
-            advertPrimaryInfo.setAdvertId(advertId);
-
-        } else {
-            Allure.step("Ответ на add: " + responseBody);
-            System.out.println("Ответ на add: " + responseBody);
-            Assert.assertTrue(responseBody.contains("{\"success\":true"));
+        if (!isEdit) {
+            System.out.println(ADD_RESPONSE + responseBody);
+            Allure.step(ADD_RESPONSE + responseBody);
             JSONObject jsonResponse = new JSONObject(responseBody);
             advertPrimaryInfo.setAdvertId(jsonResponse.getJSONObject("data").getInt("advertId"));
+        } else {
+            System.out.println(EDIT_RESPONSE + responseBody);
+            Allure.step(EDIT_RESPONSE + responseBody);
+            advertPrimaryInfo.setAdvertId(advertId);
         }
+        Assert.assertTrue(responseBody.contains("{\"success\":true"));
         return advertPrimaryInfo;
     }
 
@@ -142,11 +144,11 @@ public class AdvertPrimaryInfoAPI {
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId);
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         if (isShow) {
-            System.out.println("Ответ на get: " + responseBody);
-            Allure.step("Ответ на get: " + responseBody);
+            System.out.println(GET_RESPONSE + responseBody);
+            Allure.step(GET_RESPONSE + responseBody);
+            attachJson(responseBody, GET_RESPONSE);
         }
 
         JSONObject jsonObject = new JSONObject(responseBody);

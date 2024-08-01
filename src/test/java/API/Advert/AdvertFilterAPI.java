@@ -18,9 +18,9 @@ import static SQL.AdvertSQL.*;
 /***
  Тест проверяет работу API методов Адвертов
  - getList, filters,
+ // TODO: реализовать requisites, contact(messengers),
  */
 
-// TODO: реализовать requisites, contact(messengers),
 
 public class AdvertFilterAPI {
 
@@ -172,6 +172,7 @@ public class AdvertFilterAPI {
         }
         url = url.substring(0, url.length() - 1);
         System.out.println(url);
+        Allure.step("url: " + url);
         return url;
     }
 }

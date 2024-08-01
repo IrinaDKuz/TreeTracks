@@ -1,5 +1,6 @@
 package API.Admin;
 
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -11,30 +12,31 @@ import org.testng.annotations.Test;
 
 import java.util.*;
 
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 
 /***
  Тест проверяет работу API методов Админов
  - filters,
-TODO: 100% DONE
+TODO: 90% DONE BUG не ищет по skype
  */
 
-
 public class AdminFilterAPI {
-    static List<String> contactMethods = Arrays.asList("phone", "telegram", "skype");
 
     public final static Map<String, String> adminFields = new HashMap<>() {{
         put("status", "status");
         put("email", "email");
         put("first_name", "firstName");
         put("second_name", "secondName");
-        put(contactMethods.get(new Random().nextInt(contactMethods.size())), "messenger");
+        put("phone", "messenger");
+        put("telegram", "messenger");
+        put("skype", "messenger");
     }};
 
     @Test
     public static void test() throws Exception {
-
+        Allure.description("Проверка работы метода фильтрациии Админов");
         for (Map.Entry<String, String> entry : adminFields.entrySet()) {
             String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "admin", entry.getKey());
             List<String> ids = getArrayFromBDWhere("id", "admin", entry.getKey(), value);
@@ -47,9 +49,11 @@ public class AdminFilterAPI {
         params.put("page", 1);
         params.put("limit", 2000);
         params.put(paramName, paramValue);
+
         System.out.println("paramName = " + paramName);
         System.out.println("paramValue = " + paramValue);
         System.out.println("advertIds = " + ids);
+        Allure.step("Поверка " + paramName + "=" + paramValue);
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -60,7 +64,9 @@ public class AdminFilterAPI {
                 .get("https://api.admin.3tracks.link/admin");
 
         String responseBody = response.getBody().asString();
+        attachJson(responseBody, GET_RESPONSE);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
+
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataArray = jsonObject.getJSONObject("data");
         JSONArray admins = dataArray.getJSONArray("admin");
@@ -73,6 +79,8 @@ public class AdminFilterAPI {
 
         Collections.sort(filterIdList);
         Collections.sort(ids);
+        Allure.step("AdminId из фильтра: " + filterIdList);
+        Allure.step("AdminID из базы: " + ids);
         Assertions.assertThat(filterIdList).isEqualTo(ids);
     }
 }

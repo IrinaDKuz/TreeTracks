@@ -16,6 +16,7 @@ import java.util.Map;
 
 import static Helper.AllureHelper.DELETE_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
+import static SQL.AdvertSQL.isInDatabase;
 
 public class Helper {
 
@@ -77,5 +78,14 @@ public class Helper {
         } else {
             throw new IllegalArgumentException("Unexpected type for " + parameterName);
         }
+    }
+
+    public static Boolean assertDelete(String id, String tableName) {
+       Boolean isDelete = !isInDatabase("id", id, tableName);
+       if (isDelete)
+           Allure.step("id=" + id + " не найден в БД " + tableName);
+       else
+           Allure.step("id=" + id + " найден в БД " + tableName);
+        return isDelete;
     }
 }

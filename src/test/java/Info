@@ -53,3 +53,5 @@ return ids;  }
 
 
     else Assert.fail();
+
+        attachJson(responseBody, GET_RESPONSE);

@@ -3,6 +3,7 @@ package API.Admin;
 import AdminPackage.entity.AdminGeneral;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -10,7 +11,9 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 
 /***
@@ -21,16 +24,22 @@ import static Helper.Auth.authKeyAdmin;
  */
 
 public class AdminGeneralAPI {
-
     static int adminId;
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Добавляем Админа");
         generalAddEdit(false);
-        generalGet();
+        Allure.step("Получаем General Info Админа id= " + adminId);
+        generalGet(true);
+        Allure.step("Редактируем General Info Админа id= " + adminId);
         AdminGeneral adminGeneral = generalAddEdit(true);
+        Allure.step(CHECK);
         generalAssert(adminGeneral);
+        Allure.step(DELETE + adminId);
         deleteMethod("admin", String.valueOf(adminId));
+        assertDelete(String.valueOf(adminId), "admin");
+
     }
 
     private static JsonObject initializeJsonAdminGeneral(AdminGeneral adminGeneral, boolean isEdit) {
@@ -62,6 +71,8 @@ public class AdminGeneralAPI {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdminGeneral(adminGeneral, isEdit), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         String path = isEdit ? "https://api.admin.3tracks.link/admin/" + adminId + "/edit" :
                 "https://api.admin.3tracks.link/admin/new";
@@ -73,19 +84,23 @@ public class AdminGeneralAPI {
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
                 .post(path);
-        // Получаем и выводим ответ
+
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на add/edit: " + responseBody);
-        Assert.assertTrue(responseBody.contains("{\"success\":true"));
 
         if (!isEdit) {
+            System.out.println(ADD_RESPONSE + responseBody);
+            Allure.step(ADD_RESPONSE + responseBody);
             JSONObject jsonResponse = new JSONObject(responseBody);
             adminId = jsonResponse.getJSONObject("data").getInt("id");
+        } else {
+            System.out.println(EDIT_RESPONSE + responseBody);
+            Allure.step(EDIT_RESPONSE + responseBody);
         }
+        Assert.assertTrue(responseBody.contains("{\"success\":true"));
         return adminGeneral;
     }
 
-    public static AdminGeneral generalGet() {
+    public static AdminGeneral generalGet(Boolean isShow) {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -95,7 +110,12 @@ public class AdminGeneralAPI {
                 .get("https://api.admin.3tracks.link/admin/" + adminId);
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+
+        if (isShow) {
+            System.out.println(GET_RESPONSE + responseBody);
+            Allure.step(GET_RESPONSE + responseBody);
+            attachJson(responseBody, GET_RESPONSE);
+        }
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
@@ -116,7 +136,7 @@ public class AdminGeneralAPI {
     }
 
     public static void generalAssert(AdminGeneral adminGeneralEdit) {
-        AdminGeneral adminGeneral = generalGet();
+        AdminGeneral adminGeneral = generalGet(false);
         Assert.assertEquals(adminGeneral.getStatus(), adminGeneralEdit.getStatus());
         Assert.assertEquals(adminGeneral.getRoleId(), adminGeneralEdit.getRoleId());
         Assert.assertEquals(adminGeneral.getEmail(), adminGeneralEdit.getEmail());

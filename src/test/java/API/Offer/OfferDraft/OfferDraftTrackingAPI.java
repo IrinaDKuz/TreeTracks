@@ -1,11 +1,10 @@
 package API.Offer.OfferDraft;
 
-import AdvertPackage.entity.AdvertContact;
-import OfferDraftPackage.entity.OfferBasicInfo;
 import OfferDraftPackage.entity.OfferTracking;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,22 +14,19 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import static API.Helper.getArrayFromJson;
-import static API.Helper.getTemplateFromJson;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 
 /***
  Тест проверяет работу API методов
- - add, проверка, get, edit, проверка, delete
+ - get, edit, проверка
  для вкладки Tracking Offer Draft
+ //TODO: 100% Done
  */
 
-//TODO: 0% Done (осталось logo)
 
 public class OfferDraftTrackingAPI {
     static int offerDraftId;
@@ -40,10 +36,12 @@ public class OfferDraftTrackingAPI {
     public static void test() throws Exception {
         offerDraftId = Integer.parseInt(getRandomValueFromBD("id", "offer_draft"));
         System.out.println(offerDraftId);
-        trackingGetShow();
+        Allure.step("Получаем Tracking Info у рандомного Оффера " + offerDraftId);
+        trackingGet(true);
+        Allure.step("Редактируем Tracking Info");
         OfferTracking offerTrackingEdit = trackingAddEdit();
-        basicInfoAssert(trackingGet(true), offerTrackingEdit);
-        //deleteMethod("offer-draft", String.valueOf(offerDraftId));
+        Allure.step(CHECK);
+        basicInfoAssert(trackingGet(false), offerTrackingEdit);
     }
 
     public static JsonObject initializeJsonOfferBasicInfo(OfferTracking offerTracking) {
@@ -75,9 +73,9 @@ public class OfferDraftTrackingAPI {
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonOfferBasicInfo(offerTracking), JsonObject.class);
-        System.out.println("___ Подготовленные данные:___");
         System.out.println(jsonObject.toString().replace("],", "],\n"));
-        System.out.println("___ _____________________ ___");
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         String path = "https://api.admin.3tracks.link/offer-draft/" + offerDraftId + "/tracking";
 
@@ -91,9 +89,8 @@ public class OfferDraftTrackingAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на edit: " + responseBody);
-
+        Allure.step(EDIT_RESPONSE + responseBody);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
-
         return offerTracking;
     }
 
@@ -106,8 +103,11 @@ public class OfferDraftTrackingAPI {
                 .get("https://api.admin.3tracks.link/offer-draft/" + offerDraftId + "/tracking");
 
         String responseBody = response.getBody().asString();
-        if (isShow)
+        if (isShow) {
             System.out.println("Ответ на get: " + responseBody);
+            Allure.step(GET_RESPONSE + responseBody);
+            attachJson(responseBody, GET_RESPONSE);
+        }
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
@@ -140,10 +140,6 @@ public class OfferDraftTrackingAPI {
         return offerTracking;
     }
 
-    public static void trackingGetShow() {
-        trackingGet(true);
-    }
-
     public static void basicInfoAssert(OfferTracking offerTracking, OfferTracking offerTrackingEdit) {
         Assert.assertEquals(offerTracking.getTrackingUrl(), offerTrackingEdit.getTrackingUrl());
         Assert.assertEquals(offerTracking.getAdditionalMacro(), offerTrackingEdit.getAdditionalMacro());
@@ -161,6 +157,5 @@ public class OfferDraftTrackingAPI {
             Assert.assertEquals(lp.getLandingPageType(), lpEdit.getLandingPageType());
             Assert.assertEquals(lp.getLandingPageTitle(), lpEdit.getLandingPageTitle());
         }
-        System.out.println("___ Корректная запись полей проверена V ___");
     }
 }

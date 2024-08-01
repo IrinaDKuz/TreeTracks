@@ -23,11 +23,12 @@ import static SQL.AdvertSQL.getRandomValueFromBD;
  Тест проверяет работу API методов
  - get, add, edit, проверка, delete
  во вкладке Адверт - "Notes"
+ TODO: 100% DONE
  */
 
 public class AdvertNotesAPI {
-    public static int advertNotesId;
-    public static int advertId;
+    static int advertNotesId;
+    static int advertId;
 
     @Test
     public static void test() throws Exception {
@@ -62,6 +63,7 @@ public class AdvertNotesAPI {
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertNotes(advertNotes), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+        attachJson(String.valueOf(jsonObject), DATA);
 
         Response response;
         response = RestAssured.given()
@@ -72,7 +74,6 @@ public class AdvertNotesAPI {
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/advert/" + advertId + "/notes/add");
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на add: " + responseBody);
         Allure.step(ADD_RESPONSE + responseBody);
@@ -122,6 +123,7 @@ public class AdvertNotesAPI {
         if (isShow) {
             System.out.println(GET_RESPONSE + responseBody);
             Allure.step(GET_RESPONSE + responseBody);
+            attachJson(responseBody, GET_RESPONSE);
         }
 
         JSONObject jsonObject = new JSONObject(responseBody);

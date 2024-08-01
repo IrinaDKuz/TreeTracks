@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "data": {
+    "offerDraft": {
+      "id": 61,
+      "trackingUrl": "edtech-internetsecurity-4429.com",
+      "additionalMacro": "sub3\u003d{clickid_here}",
+      "landingPage": [],
+      "trafficbackUrl": "cleantech-hardware-9459.com",
+      "trackingDomainUrl": 88,
+      "redirectType": "http_302",
+      "allowDeeplinks": true,
+      "allowImpressions": false
+    }
+  }
+}

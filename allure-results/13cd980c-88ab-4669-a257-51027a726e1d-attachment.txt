@@ -1,0 +1,60 @@
+{
+  "title": "Limited-time Specialist Easy",
+  "status": "active",
+  "advert": 1143,
+  "statusNotice": true,
+  "privacyLevel": "public",
+  "isTop": false,
+  "releaseDate": "2024-08-01T08:16:53.867Z",
+  "stopDate": "2024-08-07T11:16:53.867Z",
+  "sendBeforeStopping": 21,
+  "notes": "Specialist Effective Powerful Licensed On-demand Sweepstake Instant Authority Advanced Free",
+  "reconciliation": "Limited Innovative",
+  "payouts": "Endorsement Expert Support Endorsement Quick",
+  "previewUrl": "limited-time-specialist-easy-7218.com",
+  "tag": [
+    76,
+    86,
+    89
+  ],
+  "category": [
+    48,
+    27,
+    8
+  ],
+  "trafficSource": [
+    53,
+    48,
+    68
+  ],
+  "kpi": [
+    {
+      "lang": "rus",
+      "text": "Effective Limited-time Sweepstake Licensed Membership Essential Top-rated Discount Recommendation Combo New Guaranteed Deal Satisfaction Cashback Limited-time Secure Top-rated Feedback Premium"
+    },
+    {
+      "lang": "eng",
+      "text": "Extreme Contest Membership Risk-free Fan-favorite Review Incredible Satisfaction On-demand Promotion Deal New Contest Essential Fast Best-seller Promotion Exclusive On-demand Discount"
+    }
+  ],
+  "description": [
+    {
+      "lang": "rus",
+      "text": "Gift Prize Incredible Limited-stock Ultimate Supreme Endorsement Bargain New Fast Professional Cutting-edge Award-winning Limited-time Secure Powerful Expert Review Guaranteed Powerful"
+    },
+    {
+      "lang": "eng",
+      "text": "Best Rating Risk-free Top-rated Free Review Huge Unbeatable Leader Specialist Support Limited Instant Qualified Recommendation Reliable Verified User-friendly Top Bargain"
+    }
+  ],
+  "paidGoal": [
+    {
+      "lang": "rus",
+      "text": "Essential Instant-access No-brainer Leader Risk-free Bargain VIP Promotion Support VIP Top Satisfaction Immediate Specialist Feedback Award-winning Easy Best Access Cutting-edge"
+    },
+    {
+      "lang": "eng",
+      "text": "Unbeatable Limited-stock 24/7 Gift Recommendation Quick Bundle Endorsement Trusted Innovative Bonus Endorsement Convenient Best-seller Subscription Package Testimonial On-demand Safe Trusted"
+    }
+  ]
+}

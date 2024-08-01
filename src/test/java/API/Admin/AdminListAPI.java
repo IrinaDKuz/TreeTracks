@@ -2,6 +2,7 @@ package API.Admin;
 
 import AdminPackage.entity.Admin;
 import AdminPackage.entity.AdminGeneral;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -9,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
+import static Helper.AllureHelper.GET_RESPONSE;
+import static Helper.AllureHelper.attachJson;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getArrayFromBDWhere;
 
@@ -18,11 +21,12 @@ import static SQL.AdvertSQL.getArrayFromBDWhere;
  TODO: lastLoginDt, lastLoginIp
  */
 
-
 public class AdminListAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.description("Проверка работы метода get adminList");
+        Allure.step("Получаем список Админов");
         adminListGet();
     }
 
@@ -37,10 +41,12 @@ public class AdminListAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на get: " + responseBody);
+        attachJson(responseBody, GET_RESPONSE);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
         JSONArray adminArray = data.getJSONArray("admin");
+
         for (int i = 0; i < adminArray.length(); i++) {
             Admin admin = new Admin();
             AdminGeneral adminGeneral = admin.getAdminGeneral();

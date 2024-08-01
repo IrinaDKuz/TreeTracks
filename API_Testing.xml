@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="API test">
+
+    <test verbose="2" preserve-order="true" name="Admin API test">
+        <classes>
+            <class name="API.Admin.AdminGeneralAPI"/>
+            <class name="API.Admin.AdminFilterAPI"/>
+            <class name="API.Admin.AdminListAPI"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Adverts API test">
+        <classes>
+            <class name="API.Advert.AdvertPrimaryInfoAPI"/>
+            <class name="API.Advert.AdvertContactsAPI"/>
+            <class name="API.Advert.AdvertPaymentInfoAPI"/>
+            <class name="API.Advert.AdvertPostbackAPI"/>
+            <class name="API.Advert.AdvertNotesAPI"/>
+
+            <class name="API.Advert.AdvertFilterAPI"/>
+            <class name="API.AdvertPlus.AdvertBulkCheck"/>
+            <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Offer Draft API test">
+        <classes>
+            <class name="API.Offer.OfferDraft.OfferDraftList"/>
+            <class name="API.Offer.OfferDraft.OfferDraftFilter"/>
+            <class name="API.Offer.OfferDraft.OfferDraftBasicInfoAPI"/>
+            <class name="API.Offer.OfferDraft.OfferDraftTrackingAPI"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Offer Main API test">
+        <classes>
+            <class name="API.Offer.OfferMain.OfferMainList"/>
+            <class name="API.Offer.OfferMain.OfferMainFilter"/>
+            <class name="API.Offer.OfferMain.OfferMainBasicInfoAPI"/>
+
+            <!--
+                        <class name="API.Offer.OfferMain.OfferMainAPI_NEED_TO_DO"/>
+            -->
+        </classes>
+    </test>
+
+</suite>
