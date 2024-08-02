@@ -2,9 +2,8 @@ name: API test (Advertisers + Admins + Offers)
 on:
   schedule:
     - cron: '0 4 * * *'   # Запуск каждый день в 8:00 UTC
-    - cron: '15 6 * * *'  # Запуск каждый день в 15:00 UTC
+    - cron: '20 6 * * *'  # Запуск каждый день в 15:00 UTC
   workflow_dispatch:     # Позволяет запускать работу вручную через интерфейс GitHub
-
 
 permissions:
   contents: write
@@ -13,7 +12,7 @@ permissions:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -48,7 +47,7 @@ jobs:
         retention-days: 1
 
   generate-report:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: test
     name: Generate report
 
@@ -62,9 +61,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Install Allure on macOS
+    - name: Install Allure on Linux
       run: |
-        brew install allure
+        sudo apt-get update
+        sudo apt-get install -y allure
 
     - name: Download all workflow run artifact
       uses: actions/download-artifact@v3
@@ -80,9 +80,8 @@ jobs:
         path: _site
         retention-days: 1
 
-
   publish-report:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: generate-report
     name: Publish report
 
