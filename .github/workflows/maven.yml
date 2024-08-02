@@ -47,7 +47,7 @@ jobs:
         retention-days: 1
 
   generate-report:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: test
     name: Generate report
 
@@ -61,24 +61,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Install Allure
+    - name: Install Allure on macOS
       run: |
-        sudo apt-get update
-        sudo apt-get install -y unzip
-        curl -sLo allurectl https://github.com/allure-framework/allurectl/releases/latest/download/allurectl-linux
-        chmod +x allurectl
-        sudo mv allurectl /usr/local/bin/allurectl
-        allurectl --version
+        brew install allure
 
-    - name: Download all workflow run artifacts
+    - name: Download all workflow run artifact
       uses: actions/download-artifact@v3
-      with:
-        name: allure-results
-        path: allure-results
 
     - name: Generate Allure Report
       run: |
-        allurectl generate allure-results -o _site --clean
+        allure generate -c allure-results --clean -o _site
 
     - name: Upload Allure Report as artifact
       uses: actions/upload-artifact@v3
@@ -87,8 +79,9 @@ jobs:
         path: _site
         retention-days: 1
 
+
   publish-report:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: generate-report
     name: Publish report
 
@@ -96,7 +89,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Download all workflow run artifacts
+    - name: Download all workflow run artifact
       uses: actions/download-artifact@v3
 
     - name: Upload GitHub Pages artifact
