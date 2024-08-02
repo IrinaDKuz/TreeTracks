@@ -1,8 +1,8 @@
 name: API test (Advertisers + Admins + Offers)
+
 on:
   schedule:
     - cron: '0 4 * * *'   # Запуск каждый день в 8:00 UTC
-    - cron: '20 6 * * *'  # Запуск каждый день в 15:00 UTC
   workflow_dispatch:     # Позволяет запускать работу вручную через интерфейс GitHub
 
 permissions:
@@ -61,13 +61,17 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Install Allure on Linux
+    - name: Install Allure
       run: |
-        sudo apt-get update
-        sudo apt-get install -y allure
+        curl -o allure-ctl https://github.com/allure-framework/allure2/releases/download/2.18.1/allure-2.18.1.tgz
+        tar -zxvf allure-ctl
+        sudo mv allure-ctl /usr/local/bin/allure
+        sudo chmod +x /usr/local/bin/allure
 
-    - name: Download all workflow run artifact
+    - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
+      with:
+        path: allure-results
 
     - name: Generate Allure Report
       run: |
@@ -89,7 +93,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Download all workflow run artifact
+    - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
 
     - name: Upload GitHub Pages artifact
