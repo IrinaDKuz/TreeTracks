@@ -1,6 +1,10 @@
 name: API test (Advertisers + Admins + Offers)
 on:
-  workflow_dispatch
+  schedule:
+    - cron: '0 4 * * *'   # Запуск каждый день в 8:00 UTC
+    - cron: '15 6 * * *'  # Запуск каждый день в 15:00 UTC
+  workflow_dispatch:     # Позволяет запускать работу вручную через интерфейс GitHub
+
 
 permissions:
   contents: write
