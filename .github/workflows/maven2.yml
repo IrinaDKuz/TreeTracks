@@ -1,4 +1,4 @@
-name: API test (Advertisers + Admins + Offers)
+name: test v 01
 
 on:
   schedule:
