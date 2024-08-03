@@ -1,9 +1,9 @@
-name: test v 01
+name: API test (Advertisers + Admins + Offers)
 
 on:
   schedule:
-    - cron: '0 4 * * *'   
-  workflow_dispatch:     
+    - cron: '0 4 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -25,9 +25,28 @@ jobs:
 
       - name: Download Allure Results Artifact
         run: |
-          ARTIFACT_ID=$(curl -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts?name=allure-results" | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") &&
+          ARTIFACTS=$(curl -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts" | python -c "import sys, json; data=json.load(sys.stdin); print(data['artifacts']) if 'artifacts' in data else sys.exit(1);") &&
+          if [ -z "$ARTIFACTS" ]; then echo "No artifacts found" && exit 1; fi &&
+          ARTIFACT_ID=$(echo $ARTIFACTS | python -c "import sys, json; artifacts=json.load(sys.stdin); print([artifact['id'] for artifact in artifacts if artifact['name'] == 'allure-results'][0]);") &&
           curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts/$ARTIFACT_ID/zip" -o artifacts.zip &&
           mkdir -p allure-results && unzip artifacts.zip -d allure-results
+
+      - name: Download Allure Report History
+        run: |
+          REPORTS=$(curl -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts" | python -c "import sys, json; data=json.load(sys.stdin); print(data['artifacts']) if 'artifacts' in data else sys.exit(1);") &&
+          if [ -z "$REPORTS" ]; then echo "No report artifacts found" && exit 1; fi &&
+          REPORT_ID=$(echo $REPORTS | python -c "import sys, json; reports=json.load(sys.stdin); print([artifact['id'] for artifact in reports if artifact['name'] == 'github-pages'][0]);") &&
+          curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts/$REPORT_ID/zip" -o pages.zip &&
+          mkdir -p old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
+
+      - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results
+
+      - name: Store allure history
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 1
 
   test:
     runs-on: ubuntu-latest
