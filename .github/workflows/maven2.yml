@@ -1,4 +1,4 @@
-name: test v01
+name: API test v
 
 on:
   schedule:
