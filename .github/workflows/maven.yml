@@ -11,89 +11,136 @@ permissions:
   id-token: write
 
 jobs:
-  test:
+   download-history:
+
+    # if: false
     runs-on: ubuntu-latest
+    name: Download history
+    steps:
+      - name: setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: >
+          ARTIFACT_ID=$(curl -L 
+          -H "Accept: application/vnd.github+json" 
+          -H "X-GitHub-Api-Version: 2022-11-28" 
+          "https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts?name=allure-results" 
+          | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
+          &&
+          curl -L 
+          -H "Accept: application/vnd.github+json" 
+          -H "Authorization: Bearer ${{ secrets.TOKEN }}" 
+          -H "X-GitHub-Api-Version: 2022-11-28" 
+          https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts/$ARTIFACT_ID/zip 
+          -o artifacts.zip &&
+          REPORT_ID=$(curl -L 
+          -H "Accept: application/vnd.github+json" 
+          -H "X-GitHub-Api-Version: 2022-11-28" 
+          "https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts?name=github-pages" 
+          | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id']);") 
+          &&
+          curl -L 
+          -H "Accept: application/vnd.github+json" 
+          -H "Authorization: Bearer ${{ secrets.TOKEN }}" 
+          -H "X-GitHub-Api-Version: 2022-11-28" 
+          https://api.github.com/repos/3snetTest/ThreeTracks/actions/artifacts/$REPORT_ID/zip 
+          -o pages.zip
+      - run: mkdir allure-results && unzip artifacts.zip -d allure-results
+      - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
+      - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results
+      - name: Store allure history
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path:
+            allure-results
+          retention-days: 1
+      
+   test:
+    runs-on: ubuntu-latest
+    needs: download-history
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+     - name: Checkout code
+       uses: actions/checkout@v3
 
-    - name: Set up JDK 21
-      uses: actions/setup-java@v3
-      with:
+     - name: Set up JDK 21
+       uses: actions/setup-java@v3
+       with:
         java-version: '21'
         distribution: 'temurin'
 
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
+     - name: Cache Maven packages
+       uses: actions/cache@v3
+       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - name: Build with Maven (skip tests)
-      run: mvn install -Pskip-tests
+     - name: Build with Maven (skip tests)
+       run: mvn install -Pskip-tests
 
-    - name: Run tests
-      run: mvn test -Dsurefire.suiteXmlFiles=API_Testing.xml -Dallure.results.directory=allure-results
-      continue-on-error: true
-
-    - name: Store allure results
-      uses: actions/upload-artifact@v3
-      with:
+     - name: Run tests
+       run: mvn test -Dsurefire.suiteXmlFiles=API_Testing.xml -Dallure.results.directory=allure-results
+       continue-on-error: true
+ 
+     - name: Store allure results
+       uses: actions/upload-artifact@v3
+       with:
         name: allure-results
         path: allure-results
         retention-days: 1
 
-  generate-report:
-    runs-on: macos-latest
-    needs: test
-    name: Generate report
+   generate-report:
+     runs-on: macos-latest
+     needs: test
+     name: Generate report
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+     steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+     - name: Set up JDK 17
+       uses: actions/setup-java@v3
+       with:
+         java-version: '17'
+         distribution: 'temurin'
 
-    - name: Install Allure on macOS
-      run: |
+     - name: Install Allure on macOS
+       run: |
         brew install allure
 
-    - name: Download all workflow run artifact
-      uses: actions/download-artifact@v3
+     - name: Download all workflow run artifact
+       uses: actions/download-artifact@v3
 
-    - name: Generate Allure Report
-      run: |
+     - name: Generate Allure Report
+       run: |
         allure generate -c allure-results --clean -o _site
 
-    - name: Upload Allure Report as artifact
-      uses: actions/upload-artifact@v3
-      with:
+     - name: Upload Allure Report as artifact
+       uses: actions/upload-artifact@v3
+       with:
         name: _site
         path: _site
         retention-days: 1
 
 
-  publish-report:
-    runs-on: macos-latest
-    needs: generate-report
-    name: Publish report
+   publish-report:
+     runs-on: macos-latest
+     needs: generate-report
+     name: Publish report
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+     steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
 
-    - name: Download all workflow run artifact
-      uses: actions/download-artifact@v3
+     - name: Download all workflow run artifact
+       uses: actions/download-artifact@v3
 
-    - name: Upload GitHub Pages artifact
-      uses: actions/upload-pages-artifact@v3
+     - name: Upload GitHub Pages artifact
+       uses: actions/upload-pages-artifact@v3
 
-    - name: Deploy GitHub Pages site
-      uses: actions/deploy-pages@v4.0.5
+     - name: Deploy GitHub Pages site
+       uses: actions/deploy-pages@v4.0.5
