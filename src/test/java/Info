@@ -64,9 +64,14 @@ origin  git@github.com:3SnetAdmin/TreeTracksTest.git (fetch)
 origin  git@github.com:3SnetAdmin/TreeTracksTest.git (push)
 origin2 git@github.com:IrinaDKuz/TreeTracks.git (fetch)
 origin2 git@github.com:IrinaDKuz/TreeTracks.git (push)
+origin3 git@github.com:3snetTest/ThreeTracks.git (fetch)
+origin3 git@github.com:3snetTest/ThreeTracks.git (push)
+
 
  если нужно изменить - git remote set-url origin3 git@github.com:3snetTest/ThreeTracks.git
 
 git add .
 git commit -m "mes"
-git push origin2 main
+git push origin3 main
+
+git pull origin3 main
