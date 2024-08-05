@@ -120,7 +120,7 @@ public class OfferMainFilter {
         Allure.step("OfferId из базы: " + ids);
         Assert.assertEquals(filterIdList, ids);
     }
-// yegbwe
+
     private static Set<String> removeDeletedAdverts(Set<String> ids) {
         ids.removeIf(id -> !isInDatabase("id", id, "offer"));
         return ids;

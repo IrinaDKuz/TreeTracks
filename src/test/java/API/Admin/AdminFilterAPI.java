@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.*;
 
@@ -37,14 +38,16 @@ public class AdminFilterAPI {
     @Test
     public static void test() throws Exception {
         Allure.description("Проверка работы метода фильтрациии Админов");
+        SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, String> entry : adminFields.entrySet()) {
             String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "admin", entry.getKey());
             List<String> ids = getArrayFromBDWhere("id", "admin", entry.getKey(), value);
-            filterAdmins(entry.getValue(), value, ids);
+            filterAdmins(entry.getValue(), value, ids, softAssert);
         }
+        softAssert.assertAll();
     }
 
-    private static void filterAdmins(String paramName, String paramValue, List<String> ids) {
+    private static void filterAdmins(String paramName, String paramValue, List<String> ids, SoftAssert softAssert) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", 1);
         params.put("limit", 2000);
@@ -65,7 +68,7 @@ public class AdminFilterAPI {
 
         String responseBody = response.getBody().asString();
         attachJson(responseBody, GET_RESPONSE);
-        Assert.assertTrue(responseBody.contains("{\"success\":true"));
+        softAssert.assertTrue(responseBody.contains("{\"success\":true"));
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataArray = jsonObject.getJSONObject("data");
@@ -81,6 +84,6 @@ public class AdminFilterAPI {
         Collections.sort(ids);
         Allure.step("AdminId из фильтра: " + filterIdList);
         Allure.step("AdminId из базы: " + ids);
-        Assertions.assertThat(filterIdList).isEqualTo(ids);
+        softAssert.assertEquals(filterIdList, ids);
     }
 }

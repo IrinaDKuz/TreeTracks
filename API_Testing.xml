@@ -39,10 +39,26 @@
             <class name="API.Offer.OfferMain.OfferMainList"/>
             <class name="API.Offer.OfferMain.OfferMainFilter"/>
             <class name="API.Offer.OfferMain.OfferMainBasicInfoAPI"/>
+            <!--     <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>-->
+        </classes>
+    </test>
 
-            <!--
-                        <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>
-            -->
+    <test verbose="2" preserve-order="true" name="System Settings API test">
+        <classes>
+            <class name="API.Settings.System.SettingsGeneralAPI"/>
+            <class name="API.Settings.System.SettingsEmailAPI"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Content Settings API test">
+        <classes>
+            <class name="API.Settings.Content.ContentCategoryAPI"/>
+            <class name="API.Settings.Content.ContentGoalAPI"/>
+            <!--  <class name="API.Settings.Content.ContentPaymentSystemAPI"/>-->
+            <class name="API.Settings.Content.ContentTrafficSourceAPI"/>
+            <class name="API.Settings.Content.ContentOfferTagAPI"/>
+            <class name="API.Settings.Content.ContentAdvertTagAPI"/>
+            <class name="API.Settings.Content.ContentMessengerAPI"/>
         </classes>
     </test>
 

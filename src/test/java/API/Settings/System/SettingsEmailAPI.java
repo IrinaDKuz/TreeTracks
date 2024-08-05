@@ -10,7 +10,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
+import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
 
 import static Helper.Auth.authKeyAdmin;
@@ -25,12 +27,15 @@ import static SQL.AdvertSQL.*;
 
 public class SettingsEmailAPI {
     public static int settingEmailId;
+    public static String currentType = "";
     static String EMAIL_TYPE_ERROR = "This type is already in use. Please try another one.";
 
     @Test
     public static void test() throws Exception {
         emailAddEdit("add");
         settingEmailId = Integer.parseInt(getRandomValueFromBD("id", "mail_server"));
+        currentType = getValueFromBDWhere("type", "mail_server",
+                "id", String.valueOf(settingEmailId));
         SettingsEmail settingsEmail = emailAddEdit(settingEmailId + "/edit");
         emailAssert(settingsEmail);
         emailDelete(String.valueOf(settingEmailId));
@@ -57,7 +62,8 @@ public class SettingsEmailAPI {
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingEmailBody(settingsEmail), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
 
-        if (getArrayFromBD("type", "mail_server").contains(settingsEmail.getType())) {
+        if (getArrayFromBD("type", "mail_server").contains(settingsEmail.getType())
+                || (!currentType.equals(settingsEmail.getType()))){
             Response responseError = RestAssured.given()
                     .contentType(ContentType.URLENC)
                     .header("Authorization", authKeyAdmin)
@@ -122,15 +128,20 @@ public class SettingsEmailAPI {
 
     public static void emailAssert(SettingsEmail settingsEmailEdit) {
         ArrayList<SettingsEmail> settingsEmails = emailGet();
+        boolean isInList = false;
         for (SettingsEmail settingsEmail : settingsEmails) {
             if (settingsEmail.getEmailId() == settingEmailId){
-                Assert.assertEquals(settingsEmail.getType(), settingsEmailEdit.getType());
-                Assert.assertEquals(settingsEmail.getPassword(), settingsEmailEdit.getPassword());
-                Assert.assertEquals(settingsEmail.getPort(), settingsEmailEdit.getPort());
-                Assert.assertEquals(settingsEmail.getProtocol(), settingsEmailEdit.getProtocol());
-                Assert.assertEquals(settingsEmail.getUser(), settingsEmailEdit.getUser());
-                Assert.assertEquals(settingsEmail.getServer(), settingsEmailEdit.getServer());
+                SoftAssert softAssert = new SoftAssert();
+                softAssert.assertEquals(settingsEmail.getType(), settingsEmailEdit.getType());
+                softAssert.assertEquals(settingsEmail.getPassword(), settingsEmailEdit.getPassword());
+                softAssert.assertEquals(settingsEmail.getPort(), settingsEmailEdit.getPort());
+                softAssert.assertEquals(settingsEmail.getProtocol(), settingsEmailEdit.getProtocol());
+                softAssert.assertEquals(settingsEmail.getUser(), settingsEmailEdit.getUser());
+                softAssert.assertEquals(settingsEmail.getServer(), settingsEmailEdit.getServer());
+                softAssert.assertAll();
+                isInList = true;
             }
+            Assert.assertTrue(isInList);
         }
     }
 

@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.*;
 
@@ -49,7 +50,7 @@ public class AdvertFilterAPI {
     }};
     public final static Map<String, String> contactAdvertFields = new HashMap<>() {{
         put("person", "person");
-        put("email", "contact"); // добавить сюда messenger
+        put("email", "contact");
     }};
     public final static Map<String, String> messengerAdvertFields = new HashMap<>() {{
         put("value", "contact");
@@ -58,45 +59,47 @@ public class AdvertFilterAPI {
     @Test
     public static void test() throws Exception {
         Allure.description("Проверка работы фильтров");
+        SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, String> entry : generalAdvertFields.entrySet()) {
             String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "advert", entry.getKey());
-            filterAdverts(entry, value);
+            filterAdverts(entry, value, softAssert );
         }
         for (Map.Entry<String, String> entry : tagAdvertFields.entrySet()) {
             String value = getRandomValueFromBD(entry.getKey(), "advert_tag_relation");
             System.out.println(value);
-            filterAdverts(entry, value, "advert_tag_relation", "advert_id");
+            filterAdverts(entry, value, "advert_tag_relation", "advert_id", softAssert);
         }
         for (Map.Entry<String, String> entry : categoryAdvertFields.entrySet()) {
             String value = getRandomValueFromBD(entry.getKey(), "advert_category");
             System.out.println(value);
-            filterAdverts(entry, value, "advert_category", "advert_id");
+            filterAdverts(entry, value, "advert_category", "advert_id", softAssert);
         }
         for (Map.Entry<String, String> entry : paymentAdvertFields.entrySet()) {
             String value = getRandomValueFromBD(entry.getKey(), "advert_payment");
             System.out.println(value);
-            filterAdverts(entry, value, "advert_payment", "advert_id");
+            filterAdverts(entry, value, "advert_payment", "advert_id", softAssert);
         }
         for (Map.Entry<String, String> entry : contactAdvertFields.entrySet()) {
             String value = getRandomValueFromBD(entry.getKey(), "advert_contact");
             System.out.println(value);
-            filterAdverts(entry, value, "advert_contact", "advert_id");
+            filterAdverts(entry, value, "advert_contact", "advert_id", softAssert);
         }
         for (Map.Entry<String, String> entry : messengerAdvertFields.entrySet()) {
             String value = getRandomValueFromBD(entry.getKey(), "advert_contact_messenger");
             System.out.println(value);
             // пока только вручную
-            // filterAdverts(entry, value, "advert_contact", "advert_id");
+            // filterAdverts(entry, value, "advert_contact", "advert_id", softAssert);
         }
+        softAssert.assertAll();
     }
 
-    private static void filterAdverts(Map.Entry<String, String> entry, String valueString, String tableName, String idRowName) throws Exception {
+    private static void filterAdverts(Map.Entry<String, String> entry, String valueString, String tableName, String idRowName, SoftAssert softAssert) throws Exception {
         Set<String> ids = new TreeSet<>();
         ids.addAll(getArrayFromBDWhere(idRowName, tableName, entry.getKey(), valueString));
-        filterAdvertsPost(entry.getValue(), valueString, ids);
+        filterAdvertsPost(entry.getValue(), valueString, ids, softAssert);
     }
 
-    private static void filterAdverts(Map.Entry<String, String> entry, String valueString) throws Exception {
+    private static void filterAdverts(Map.Entry<String, String> entry, String valueString, SoftAssert softAssert) throws Exception {
         Object value;
         Set<String> ids = new TreeSet<>(); // Set для хранения уникальных значений
         if (entry.getKey().equals("geo") || entry.getKey().equals("pricing_model")) {
@@ -109,10 +112,10 @@ public class AdvertFilterAPI {
             value = valueString;
             ids.addAll(getArrayFromBDWhere("id", "advert", entry.getKey(), (String) value));
         }
-        filterAdvertsPost(entry.getValue(), value, ids);
+        filterAdvertsPost(entry.getValue(), value, ids, softAssert);
     }
 
-    private static void filterAdvertsPost(String paramName, Object paramValue, Set<String> ids) {
+    private static void filterAdvertsPost(String paramName, Object paramValue, Set<String> ids, SoftAssert softAssert) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", 1);
         params.put("limit", 2000);
@@ -148,7 +151,7 @@ public class AdvertFilterAPI {
         System.out.println(ids);
         Allure.step("AdvertId из фильтра: " + filterIdList);
         Allure.step("AdvertId из базы: " + ids);
-        Assert.assertEquals(filterIdList, ids);
+        softAssert.assertEquals(filterIdList, ids);
     }
 
     private static Set<String> removeDeletedAdverts(Set<String> ids) {
