@@ -4,6 +4,7 @@ import SettingsPackage.entity.ContentMessenger;
 import SettingsPackage.entity.ContentMessenger.MessengerLang;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getLastValueFromBDWhere;
 
@@ -32,12 +35,18 @@ public class ContentMessengerAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Добавляем Messenger");
         messengerAddEdit("add");
+
         settingMessengerId = Integer.parseInt(getLastValueFromBDWhere("id", "messenger_type",
                 "lang", "general"));
+        Allure.step("Редактируем Messenger" + settingMessengerId);
         ContentMessenger contentMessenger = messengerAddEdit(settingMessengerId + "/edit");
+
+        Allure.step(CHECK);
         messengerAssert(contentMessenger);
         deleteMethod("setting/messenger", settingMessengerId + "/remove");
+        assertDelete(String.valueOf(settingMessengerId), "messenger_type");
     }
 
     private static JsonObject initializeJsonSettingMessengerBody(ContentMessenger contentMessenger) {
@@ -69,7 +78,8 @@ public class ContentMessengerAPI {
         contentMessenger.fillContentMessengerWithRandomData();
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingMessengerBody(contentMessenger), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -82,6 +92,8 @@ public class ContentMessengerAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ " + method + " : " + responseBody);
+        Allure.step("Ответ " + method + " : " + responseBody);
+
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return contentMessenger;
     }
@@ -97,7 +109,8 @@ public class ContentMessengerAPI {
                 .get("https://api.admin.3tracks.link/setting/messenger");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");

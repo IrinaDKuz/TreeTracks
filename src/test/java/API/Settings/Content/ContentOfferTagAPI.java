@@ -3,6 +3,7 @@ package API.Settings.Content;
 import SettingsPackage.entity.ContentTag;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -14,7 +15,9 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getLastValueFromBD;
 import static SQL.AdvertSQL.getLastValueFromBDWhere;
@@ -30,12 +33,19 @@ public class ContentOfferTagAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Добавляем OfferTag");
         tagAddEdit("add");
+
         settingTagId = Integer.parseInt(getLastValueFromBD("id", "tag"));
         System.out.println(settingTagId);
+        Allure.step("Редактируем OfferTag" + settingTagId);
         ContentTag contentTag = tagAddEdit(settingTagId + "/edit");
+
+        Allure.step(CHECK);
         tagAssert(contentTag);
+
         deleteMethod("setting/tag", settingTagId + "/remove");
+        assertDelete(String.valueOf(settingTagId), "tag");
     }
 
     private static JsonObject initializeJsonSettingTagBody(ContentTag contentTag) {
@@ -51,7 +61,8 @@ public class ContentOfferTagAPI {
         contentTag.fillContentTagWithRandomData();
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingTagBody(contentTag), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -64,6 +75,7 @@ public class ContentOfferTagAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ " + method + " : " + responseBody);
+        Allure.step("Ответ " + method + " : " + responseBody);
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return contentTag;
     }
@@ -79,7 +91,8 @@ public class ContentOfferTagAPI {
                 .get("https://api.admin.3tracks.link/setting/tag");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataObject = jsonObject.getJSONObject("data");

@@ -4,6 +4,7 @@ import SettingsPackage.entity.ContentCategory.*;
 import SettingsPackage.entity.ContentCategory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getLastValueFromBDWhere;
 
@@ -32,20 +35,25 @@ public class ContentCategoryAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Добавляем Category");
         categoryAddEdit("add");
+
         settingCategoryId = Integer.parseInt(getLastValueFromBDWhere("id", "category",
                 "lang", "general"));
+        Allure.step("Редактируем Category" + settingCategoryId);
         ContentCategory contentCategory = categoryAddEdit(settingCategoryId + "/edit");
+
+        Allure.step(CHECK);
         categoryAssert(contentCategory);
+
         deleteMethod("setting/category", settingCategoryId + "/remove");
+        assertDelete(String.valueOf(settingCategoryId), "category");
     }
 
     private static JsonObject initializeJsonSettingCategoryBody(ContentCategory contentCategory) {
         JsonObject mainObject = new JsonObject();
         JsonObject mainObject2 = new JsonObject();
-
         JsonObject jsonCategories = new JsonObject();
-
         JsonObject jsonCategoriesEng = new JsonObject();
         jsonCategoriesEng.addProperty("title", contentCategory.getEngCategoryLang().getCategoryTitle());
         jsonCategories.add("eng", jsonCategoriesEng);
@@ -69,7 +77,8 @@ public class ContentCategoryAPI {
         contentCategory.fillContentCategoryWithRandomData();
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingCategoryBody(contentCategory), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -82,6 +91,8 @@ public class ContentCategoryAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ " + method + " : " + responseBody);
+        Allure.step("Ответ " + method + " : " + responseBody);
+
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return contentCategory;
     }
@@ -97,7 +108,8 @@ public class ContentCategoryAPI {
                 .get("https://api.admin.3tracks.link/setting/category");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
@@ -134,6 +146,8 @@ public class ContentCategoryAPI {
 
     public static void categoryAssert(ContentCategory contentCategoryEdit) {
         List<ContentCategory> contentCategories = categoryGet();
+        boolean isTagFound = false;
+
         for (ContentCategory contentCategory : contentCategories) {
             if (Objects.equals(contentCategory.getGeneralCategoryLang().getCategoryTitle(),
                     contentCategoryEdit.getGeneralCategoryLang().getCategoryTitle())) {
@@ -148,7 +162,10 @@ public class ContentCategoryAPI {
                 CategoryLang rus = contentCategory.getRusCategoryLang();
                 CategoryLang rusEdit = contentCategoryEdit.getRusCategoryLang();
                 Assert.assertEquals(rus.getCategoryTitle(), rusEdit.getCategoryTitle());
+                isTagFound = true;
             }
         }
+        if (!isTagFound)
+            Assert.fail();
     }
 }

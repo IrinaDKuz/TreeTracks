@@ -83,14 +83,14 @@ public class AdvertSQL {
     public static List<String> getArrayFromBDWhere(String parameter, String tableName, String where, List<String> whereValues) throws SQLException {
         List<String> list = new ArrayList<>();
         for (String whereValue : whereValues) {
-            String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") = LOWER('" + whereValue + "');";
+            String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") = LOWER('" + escapeSql(whereValue) + "');";
             list.addAll(sqlQueryList(sqlRequest, parameter));
         }
         return list;
     }
 
     public static List<String> getArrayFromBDWhereIsLike(String parameter, String tableName, String where, String whereValue) throws Exception {
-        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " LIKE '%" + whereValue + "%';";
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " LIKE '%" + escapeSql(whereValue) + "%';";
         return sqlQueryList(sqlRequest, parameter);
     }
 

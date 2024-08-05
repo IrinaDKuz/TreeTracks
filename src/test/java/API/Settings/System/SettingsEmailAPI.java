@@ -3,6 +3,7 @@ package API.Settings.System;
 import SettingsPackage.entity.SettingsEmail;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,6 +16,9 @@ import org.testng.asserts.SoftAssert;
 import javax.validation.constraints.AssertTrue;
 import java.util.ArrayList;
 
+import static API.Helper.assertDelete;
+import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 
@@ -33,12 +37,19 @@ public class SettingsEmailAPI {
     @Test
     public static void test() throws Exception {
         emailAddEdit("add");
+        Allure.step("Добавляем email");
+
         settingEmailId = Integer.parseInt(getRandomValueFromBD("id", "mail_server"));
         currentType = getValueFromBDWhere("type", "mail_server",
                 "id", String.valueOf(settingEmailId));
+        Allure.step("Редактируем email id = " + settingEmailId + "type = " + currentType);
+
         SettingsEmail settingsEmail = emailAddEdit(settingEmailId + "/edit");
+        Allure.step(CHECK);
         emailAssert(settingsEmail);
+        Allure.step("Удаляем email id = " + settingEmailId);
         emailDelete(String.valueOf(settingEmailId));
+        assertDelete(String.valueOf(settingEmailId), "mail_server");
     }
 
     private static JsonObject initializeJsonSettingEmailBody(SettingsEmail settingsEmail) {
@@ -60,26 +71,31 @@ public class SettingsEmailAPI {
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingEmailBody(settingsEmail), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
-        if (getArrayFromBD("type", "mail_server").contains(settingsEmail.getType())
-                || (!currentType.equals(settingsEmail.getType()))){
-            Response responseError = RestAssured.given()
-                    .contentType(ContentType.URLENC)
-                    .header("Authorization", authKeyAdmin)
-                    .header("Accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .body(jsonObject.toString())
-                    .post("https://api.admin.3tracks.link/setting/email/" + method);
-            String responseErrorBody = responseError.getBody().asString();
+        if (getArrayFromBD("type", "mail_server").contains(settingsEmail.getType())) {
+            if (currentType.equals(settingsEmail.getType())) {
+            } else {
+                Response responseError = RestAssured.given()
+                        .contentType(ContentType.URLENC)
+                        .header("Authorization", authKeyAdmin)
+                        .header("Accept", "application/json")
+                        .header("Content-Type", "application/json")
+                        .body(jsonObject.toString())
+                        .post("https://api.admin.3tracks.link/setting/email/" + method);
+                String responseErrorBody = responseError.getBody().asString();
+                System.out.println("Ответ(ошибка): " + responseErrorBody);
+                Allure.step("Ответ(ошибка): " + responseErrorBody);
 
-            System.out.println("Ответ(ошибка): на " + method + " : "+ responseErrorBody);
-            JSONObject jsonResponseError = new JSONObject(responseErrorBody);
-            JSONObject error = (JSONObject) jsonResponseError.getJSONArray("error").get(0);
-            Assert.assertEquals(error.getString("msg"), EMAIL_TYPE_ERROR);
+                JSONObject jsonResponseError = new JSONObject(responseErrorBody);
+                JSONObject error = (JSONObject) jsonResponseError.getJSONArray("error").get(0);
+                Assert.assertEquals(error.getString("msg"), EMAIL_TYPE_ERROR);
 
-            emailDelete(getValueFromBDWhere("id", "mail_server",
-                    "type", settingsEmail.getType()));
+                Allure.step("Удаляем email с таким же типом и отправляем запрос еще раз");
+                emailDelete(getValueFromBDWhere("id", "mail_server",
+                        "type", settingsEmail.getType()));
+            }
         }
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -90,10 +106,11 @@ public class SettingsEmailAPI {
                 .post("https://api.admin.3tracks.link/setting/email/" + method);
         String responseBody = response.getBody().asString();
         System.out.println("Ответ на " + method + " : " + responseBody);
+        Allure.step("Ответ на " + method + " : " + responseBody);
+
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return settingsEmail;
     }
-
 
     public static ArrayList<SettingsEmail> emailGet() {
         ArrayList<SettingsEmail> settingsEmails = new ArrayList<>();
@@ -106,7 +123,8 @@ public class SettingsEmailAPI {
                 .get("https://api.admin.3tracks.link/setting/email");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
@@ -130,7 +148,7 @@ public class SettingsEmailAPI {
         ArrayList<SettingsEmail> settingsEmails = emailGet();
         boolean isInList = false;
         for (SettingsEmail settingsEmail : settingsEmails) {
-            if (settingsEmail.getEmailId() == settingEmailId){
+            if (settingsEmail.getEmailId() == settingEmailId) {
                 SoftAssert softAssert = new SoftAssert();
                 softAssert.assertEquals(settingsEmail.getType(), settingsEmailEdit.getType());
                 softAssert.assertEquals(settingsEmail.getPassword(), settingsEmailEdit.getPassword());

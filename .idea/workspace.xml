@@ -5,15 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/API_Testing.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SettingsTesting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Settings_API_Testing.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/AdminFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminFilterAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentAdvertTagAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentAdvertTagAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentCategoryAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentCategoryAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentGoalAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentGoalAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentMessengerAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentMessengerAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentOfferTagAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentOfferTagAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsEmailAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsEmailAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Info" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsGeneralAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsGeneralAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +84,7 @@
     "TestNG.ContentGoalAPI.executor": "Run",
     "TestNG.ContentMessengerAPI.executor": "Run",
     "TestNG.ContentOfferTagAPI.executor": "Run",
+    "TestNG.ContentTrafficSourceAPI.executor": "Run",
     "TestNG.EmailAPI.generalGet.executor": "Run",
     "TestNG.EmailAPI.test.executor": "Run",
     "TestNG.GeneralAPI.executor": "Run",
@@ -113,11 +115,11 @@
       <recent name="$PROJECT_DIR$/src/test/java/API/OfferMain" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="API.Settings.Content" />
       <recent name="API.Offer.OfferDraft" />
       <recent name="API.Offer.OfferMain" />
       <recent name="Helper" />
       <recent name="API.AdvertPlus" />
-      <recent name="OfferDraftPackage.entity" />
     </key>
   </component>
   <component name="RunManager">
@@ -262,7 +264,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentCategoryAPI.java</url>
-          <line>139</line>
+          <line>153</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -297,7 +299,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentGoalAPI.java</url>
-          <line>101</line>
+          <line>111</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -329,6 +331,21 @@
           <url>file://$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftFilter.java</url>
           <line>39</line>
           <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java</url>
+          <line>166</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java</url>
+          <line>165</line>
+          <option name="timeStamp" value="73" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.util.ConcurrentModificationException" package="java.util" />

@@ -3,6 +3,7 @@ package API.Settings.Content;
 import SettingsPackage.entity.ContentTag;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -14,7 +15,9 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getLastValueFromBD;
 
@@ -29,10 +32,14 @@ public class ContentAdvertTagAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Добавляем AdvertTag");
         tagAddEdit("add");
+        Allure.step("Редактируем AdvertTag");
         ContentTag contentTag = tagAddEdit(settingTagId + "/edit");
+        Allure.step(CHECK);
         tagAssert(contentTag);
         deleteMethod("setting/advert-tag", String.valueOf(settingTagId));
+        assertDelete(String.valueOf(settingTagId), "advert_tag");
     }
 
     private static JsonObject initializeJsonSettingTagBody(ContentTag contentTag) {
@@ -46,7 +53,8 @@ public class ContentAdvertTagAPI {
         contentTag.fillContentTagWithRandomData();
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingTagBody(contentTag), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -59,6 +67,7 @@ public class ContentAdvertTagAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ " + method + " : " + responseBody);
+        Allure.step("Ответ " + method + " : " + responseBody);
 
         if (method.equals("add")) {
             JSONObject jsonResponse = new JSONObject(responseBody);
@@ -79,7 +88,8 @@ public class ContentAdvertTagAPI {
                 .get("https://api.admin.3tracks.link/setting/advert-tag");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataObject = jsonObject.getJSONObject("data");

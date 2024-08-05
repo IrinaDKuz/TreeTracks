@@ -1,9 +1,10 @@
 package API.Settings.Content;
 
-import SettingsPackage.entity.ContentCategory;
-import SettingsPackage.entity.ContentCategory.CategoryLang;
+import SettingsPackage.entity.ContentTrafficSource;
+import SettingsPackage.entity.ContentTrafficSource.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getLastValueFromBDWhere;
 
@@ -28,48 +31,56 @@ import static SQL.AdvertSQL.getLastValueFromBDWhere;
 
 
 public class ContentTrafficSourceAPI {
-    public static int settingCategoryId;
+    public static int settingTrafficSourceId;
 
     @Test
     public static void test() throws Exception {
-        categoryAddEdit("add");
-        settingCategoryId = Integer.parseInt(getLastValueFromBDWhere("id", "category",
+        Allure.step("Добавляем TrafficSource");
+
+        trafficSourceAddEdit("add");
+        settingTrafficSourceId = Integer.parseInt(getLastValueFromBDWhere("id", "traffic_source",
                 "lang", "general"));
-        ContentCategory contentCategory = categoryAddEdit(settingCategoryId + "/edit");
-        categoryAssert(contentCategory);
-        deleteMethod("setting/category", settingCategoryId + "/remove");
+        Allure.step("Редактируем TrafficSource" + settingTrafficSourceId);
+        ContentTrafficSource contentTrafficSource = trafficSourceAddEdit(settingTrafficSourceId + "/edit");
+        Allure.step(CHECK);
+        trafficSourceAssert(contentTrafficSource);
+
+        deleteMethod("setting/traffic-source", settingTrafficSourceId + "/remove");
+        assertDelete(String.valueOf(settingTrafficSourceId), "traffic_source");
+
     }
 
-    private static JsonObject initializeJsonSettingCategoryBody(ContentCategory contentCategory) {
+    private static JsonObject initializeJsonSettingTrafficSourceBody(ContentTrafficSource contentTrafficSource) {
         JsonObject mainObject = new JsonObject();
         JsonObject mainObject2 = new JsonObject();
 
         JsonObject jsonCategories = new JsonObject();
 
         JsonObject jsonCategoriesEng = new JsonObject();
-        jsonCategoriesEng.addProperty("title", contentCategory.getEngCategoryLang().getCategoryTitle());
+        jsonCategoriesEng.addProperty("title", contentTrafficSource.getEngContentTrafficLang().getContentTrafficTitle());
         jsonCategories.add("eng", jsonCategoriesEng);
 
         JsonObject jsonCategoriesRus = new JsonObject();
-        jsonCategoriesRus.addProperty("title", contentCategory.getRusCategoryLang().getCategoryTitle());
+        jsonCategoriesRus.addProperty("title", contentTrafficSource.getRusContentTrafficLang().getContentTrafficTitle());
         jsonCategories.add("rus", jsonCategoriesRus);
 
         JsonObject jsonCategoriesGeneral = new JsonObject();
-        jsonCategoriesGeneral.addProperty("title", contentCategory.getGeneralCategoryLang().getCategoryTitle());
+        jsonCategoriesGeneral.addProperty("title", contentTrafficSource.getGeneralContentTrafficLang().getContentTrafficTitle());
         jsonCategories.add("general", jsonCategoriesGeneral);
 
-        mainObject2.add("category", jsonCategories);
-        mainObject.add("category_lang", mainObject2);
+        mainObject2.add("trafficSource", jsonCategories);
+        mainObject.add("traffic_source_lang", mainObject2);
 
         return mainObject;
     }
 
-    public static ContentCategory categoryAddEdit(String method) {
-        ContentCategory contentCategory = new ContentCategory();
-        contentCategory.fillContentCategoryWithRandomData();
+    public static ContentTrafficSource trafficSourceAddEdit(String method) {
+        ContentTrafficSource contentTrafficSource = new ContentTrafficSource();
+        contentTrafficSource.fillContentContentTrafficWithRandomData();
         Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(initializeJsonSettingCategoryBody(contentCategory), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        JsonObject jsonObject = gson.fromJson(initializeJsonSettingTrafficSourceBody(contentTrafficSource), JsonObject.class);
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -78,77 +89,97 @@ public class ContentTrafficSourceAPI {
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
-                .post("https://api.admin.3tracks.link/setting/category/" + method);
+                .post("https://api.admin.3tracks.link/setting/traffic-source/" + method);
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ " + method + " : " + responseBody);
+        Allure.step("Ответ " + method + " : " + responseBody);
+
         Assert.assertEquals(responseBody, "{\"success\":true}");
-        return contentCategory;
+        return contentTrafficSource;
     }
 
-    public static ArrayList<ContentCategory> categoryGet() {
-        ArrayList<ContentCategory> contentCategories = new ArrayList<>();
+    public static ArrayList<ContentTrafficSource> trafficSourceGet() {
+        ArrayList<ContentTrafficSource> contentCategories = new ArrayList<>();
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
                 .header("Authorization", authKeyAdmin)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .get("https://api.admin.3tracks.link/setting/category");
+                .get("https://api.admin.3tracks.link/setting/traffic-source");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
 
         for (int i = 0; i < dataArray.length(); i++) {
-            ContentCategory contentCategory = new ContentCategory();
+            ContentTrafficSource contentTrafficSource = new ContentTrafficSource();
             JSONObject dataObject = dataArray.getJSONObject(i);
 
-            JSONObject LangCategoryObjectEng = dataObject.getJSONObject("eng");
-            CategoryLang categoryLangEng = new CategoryLang();
-            JSONObject LangCategoryObjectRus = dataObject.getJSONObject("rus");
-            CategoryLang categoryLangRus = new CategoryLang();
-            JSONObject LangCategoryObjectGen = dataObject.getJSONObject("general");
-            CategoryLang categoryLangGen = new CategoryLang();
-            setCategoriesLang(categoryLangEng, LangCategoryObjectEng);
-            setCategoriesLang(categoryLangRus, LangCategoryObjectRus);
-            setCategoriesLang(categoryLangGen, LangCategoryObjectGen);
+            JSONObject LangTrafficSourceObjectEng = null;
+            ContentTrafficLang trafficSourceLangEng = null;
+            if (dataObject.has("eng")) {
+                LangTrafficSourceObjectEng = dataObject.getJSONObject("eng");
+                trafficSourceLangEng = new ContentTrafficLang();
+            }
 
-            contentCategory.setEngCategoryLang(categoryLangEng);
-            contentCategory.setRusCategoryLang(categoryLangRus);
-            contentCategory.setGeneralCategoryLang(categoryLangGen);
+            JSONObject LangTrafficSourceObjectRus = null;
+            ContentTrafficLang trafficSourceLangRus = null;
+            if (dataObject.has("rus")) {
+                LangTrafficSourceObjectRus = dataObject.getJSONObject("rus");
+                trafficSourceLangRus = new ContentTrafficLang();
+            }
 
-            contentCategories.add(contentCategory);
+            JSONObject LangTrafficSourceObjectGen = dataObject.getJSONObject("general");
+            ContentTrafficLang trafficSourceLangGen = new ContentTrafficLang();
+
+            setContentTrafficLang(trafficSourceLangEng, LangTrafficSourceObjectEng);
+            setContentTrafficLang(trafficSourceLangRus, LangTrafficSourceObjectRus);
+            setContentTrafficLang(trafficSourceLangGen, LangTrafficSourceObjectGen);
+
+            contentTrafficSource.setEngContentTrafficLang(trafficSourceLangEng);
+            contentTrafficSource.setRusContentTrafficLang(trafficSourceLangRus);
+            contentTrafficSource.setGeneralContentTrafficLang(trafficSourceLangGen);
+
+            contentCategories.add(contentTrafficSource);
         }
         return contentCategories;
     }
 
-    private static void setCategoriesLang(CategoryLang categoryLang, JSONObject dataObject) {
-        categoryLang.setCategoryTitle(dataObject.getString(("title")));
-        categoryLang.setCategoryLang(dataObject.getString(("lang")));
-        categoryLang.setCategoryId(dataObject.isNull("id") ? null : dataObject.getInt(("id")));
-        categoryLang.setCategoryParentId(dataObject.isNull("parentId") ? null : dataObject.getInt(("parentId")));
+    private static void setContentTrafficLang(ContentTrafficLang trafficSourceLang, JSONObject dataObject) {
+        if (dataObject != null) {
+            trafficSourceLang.setContentTrafficTitle(dataObject.isNull("title") ? null : dataObject.getString(("title")));
+            trafficSourceLang.setContentTrafficLang(dataObject.isNull("lang") ? null : dataObject.getString(("lang")));
+            trafficSourceLang.setContentTrafficId(dataObject.isNull("id") ? null : dataObject.getInt("id"));
+            trafficSourceLang.setContentTrafficParentId(dataObject.isNull("parentId") ? null : dataObject.getInt(("parentId")));
+        }
     }
 
-    public static void categoryAssert(ContentCategory contentCategoryEdit) {
-        List<ContentCategory> contentCategories = categoryGet();
-        for (ContentCategory contentCategory : contentCategories) {
-            if (Objects.equals(contentCategory.getGeneralCategoryLang().getCategoryTitle(),
-                    contentCategoryEdit.getGeneralCategoryLang().getCategoryTitle())) {
-                CategoryLang gen = contentCategory.getGeneralCategoryLang();
-                CategoryLang genEdit = contentCategoryEdit.getGeneralCategoryLang();
-                Assert.assertEquals(gen.getCategoryTitle(), genEdit.getCategoryTitle());
+    public static void trafficSourceAssert(ContentTrafficSource contentTrafficSourceEdit) {
+        List<ContentTrafficSource> contentCategories = trafficSourceGet();
+        boolean isTrafficSourceFound = false;
 
-                CategoryLang eng = contentCategory.getEngCategoryLang();
-                CategoryLang engEdit = contentCategoryEdit.getEngCategoryLang();
-                Assert.assertEquals(eng.getCategoryTitle(), engEdit.getCategoryTitle());
+        for (ContentTrafficSource contentTrafficSource : contentCategories) {
+            if (Objects.equals(contentTrafficSource.getGeneralContentTrafficLang().getContentTrafficTitle(),
+                    contentTrafficSourceEdit.getGeneralContentTrafficLang().getContentTrafficTitle())) {
+                ContentTrafficLang gen = contentTrafficSource.getGeneralContentTrafficLang();
+                ContentTrafficLang genEdit = contentTrafficSourceEdit.getGeneralContentTrafficLang();
+                Assert.assertEquals(gen.getContentTrafficTitle(), genEdit.getContentTrafficTitle());
 
-                CategoryLang rus = contentCategory.getRusCategoryLang();
-                CategoryLang rusEdit = contentCategoryEdit.getRusCategoryLang();
-                Assert.assertEquals(rus.getCategoryTitle(), rusEdit.getCategoryTitle());
+                ContentTrafficLang eng = contentTrafficSource.getEngContentTrafficLang();
+                ContentTrafficLang engEdit = contentTrafficSourceEdit.getEngContentTrafficLang();
+                Assert.assertEquals(eng.getContentTrafficTitle(), engEdit.getContentTrafficTitle());
+
+                ContentTrafficLang rus = contentTrafficSource.getRusContentTrafficLang();
+                ContentTrafficLang rusEdit = contentTrafficSourceEdit.getRusContentTrafficLang();
+                Assert.assertEquals(rus.getContentTrafficTitle(), rusEdit.getContentTrafficTitle());
+                isTrafficSourceFound = true;
             }
         }
+        Assert.assertTrue(isTrafficSourceFound);
     }
 }

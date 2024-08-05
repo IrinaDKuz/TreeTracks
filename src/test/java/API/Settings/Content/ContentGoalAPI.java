@@ -4,6 +4,7 @@ import SettingsPackage.entity.ContentGoal;
 import SettingsPackage.entity.ContentMessenger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 
@@ -32,12 +35,16 @@ public class ContentGoalAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Добавляем Goal");
         goalAddEdit("add");
         settingGoalId = Integer.parseInt(getLastValueFromBD("id", "goal"));
-        System.out.println(settingGoalId);
+        Allure.step("Редактируем Category" + settingGoalId);
         ContentGoal contentGoal = goalAddEdit(settingGoalId + "/edit");
+        Allure.step(CHECK);
         goalAssert(contentGoal);
+
         deleteMethod("setting/goal", settingGoalId + "/remove");
+        assertDelete(String.valueOf(settingGoalId), "goal");
     }
 
     private static JsonObject initializeJsonSettingGoalBody(ContentGoal contentGoal) {
@@ -53,7 +60,8 @@ public class ContentGoalAPI {
         contentGoal.fillContentGoalWithRandomData();
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingGoalBody(contentGoal), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -66,6 +74,7 @@ public class ContentGoalAPI {
 
         String responseBody = response.getBody().asString();
         System.out.println("Ответ " + method + " : " + responseBody);
+        Allure.step("Ответ " + method + " : " + responseBody);
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return contentGoal;
     }
@@ -80,7 +89,8 @@ public class ContentGoalAPI {
                 .get("https://api.admin.3tracks.link/setting/goal");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");

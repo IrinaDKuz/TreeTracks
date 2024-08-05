@@ -3,6 +3,7 @@ package API.Settings.System;
 import SettingsPackage.entity.SettingsGeneral;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 
 /***
@@ -24,8 +26,11 @@ public class SettingsGeneralAPI {
 
     @Test
     public static void test() throws Exception {
+        Allure.step("Получаем General Info");
         generalGet();
+        Allure.step("Редактируем General Info");
         SettingsGeneral settingsGeneral = generalAddEdit();
+        Allure.step(CHECK);
         generalAssert(settingsGeneral);
     }
 
@@ -54,7 +59,8 @@ public class SettingsGeneralAPI {
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonSettingGeneralBody(settingsGeneral), JsonObject.class);
-        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        System.out.println(DATA + jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
 
         Response response;
         response = RestAssured.given()
@@ -66,7 +72,8 @@ public class SettingsGeneralAPI {
                 .post("https://api.admin.3tracks.link/setting/general");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ: " + responseBody);
+        System.out.println(EDIT_RESPONSE + responseBody);
+        Allure.step(EDIT_RESPONSE + responseBody);
         Assert.assertEquals(responseBody, "{\"success\":true}");
         return settingsGeneral;
     }
@@ -82,7 +89,8 @@ public class SettingsGeneralAPI {
                 .get("https://api.admin.3tracks.link/setting/general");
 
         String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
+        System.out.println(GET_RESPONSE + responseBody);
+        Allure.step(GET_RESPONSE + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataObject = jsonObject.getJSONObject("data");
