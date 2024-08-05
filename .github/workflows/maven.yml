@@ -3,12 +3,7 @@ name: API test (Advertisers + Admins + Offers)
 on:
   schedule:
     - cron: '0 4 * * *'   
-<<<<<<< HEAD
-    - cron: '0 11 * * *'  
-  workflow_dispatch: 
-=======
   workflow_dispatch:     
->>>>>>> 6ed3e89e8b4dec4a39ad19c38974ce549673e911
 
 permissions:
   contents: write
