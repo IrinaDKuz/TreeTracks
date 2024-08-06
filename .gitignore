@@ -13,6 +13,7 @@ allure-results/
 *.iws
 *.iml
 *.ipr
+*.yml
 
 ### Eclipse ###
 .apt_generated

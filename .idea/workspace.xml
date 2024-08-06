@@ -5,16 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentAdvertTagAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentAdvertTagAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentCategoryAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentCategoryAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentGoalAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentGoalAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentMessengerAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentMessengerAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentOfferTagAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentOfferTagAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTrafficSourceAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsEmailAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsEmailAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsGeneralAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/System/SettingsGeneralAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftBasicInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftBasicInfoAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftTrackingAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferDraft/OfferDraftTrackingAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertBrowserBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Driver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +288,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/AdvertPackage/autoCreate/AdvertCreate.java</url>
-          <line>49</line>
+          <line>50</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -324,7 +323,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java</url>
-          <line>102</line>
+          <line>104</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

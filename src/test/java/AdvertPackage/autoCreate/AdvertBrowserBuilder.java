@@ -199,27 +199,31 @@ public class AdvertBrowserBuilder {
         acceptModalDialog(driver);
     }
 
-public static void buildBrowserAdvertFilter(Advert advert, WebDriver driver) throws InterruptedException {
-    menuItemClick(ADVERTISERS, driver);
-    showAdvertPrimaryInfoInformation(advert.getAdvertPrimaryInfo());
-    selectAutocompleteInputByText("Sales Manager", advert.getAdvertPrimaryInfo().getSalesManagerName(), driver);
-    selectAutocompleteInputByText("Account Manager", advert.getAdvertPrimaryInfo().getAccountManagerName(), driver);
-    enterTextByPlaceholder("Site URL", advert.getAdvertPrimaryInfo().getSiteUrl(), driver);
-    selectAutocompleteInputByText("Geo", advert.getAdvertPrimaryInfo().getGeo().getFirst(), driver);
-    selectAutocompleteInputByText("Categories", advert.getAdvertPrimaryInfo().getCategoriesName().getFirst(), driver);
-    selectAutocompleteInputByText(PRICING_MODEL, advert.getAdvertPrimaryInfo().getPricingModel().getFirst(), driver);
-    selectAutocompleteInputByText(STATUS, advert.getAdvertPrimaryInfo().getStatus(), driver);
-    enterTextByPlaceholder(NOTES, advert.getAdvertPrimaryInfo().getNote(), driver);
-    enterTextByPlaceholder(COMPANY_LEGAL_NAME, advert.getAdvertPrimaryInfo().getCompanyLegalName(), driver);
-    selectAutocompleteInputByText(MANAGER, advert.getAdvertPrimaryInfo().getManagerName(), driver);
-    enterTextByPlaceholder("Contact", advert.getAdvertContact().getFirst().getEmail(), driver);
-    selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSourceName(), driver);
-    enterTextByPlaceholder(USER_REQUEST_SOURCE_VALUE, advert.getAdvertPrimaryInfo().getUserRequestSourceValue(), driver);
-    selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTagName().getFirst(), driver);
-    enterTextByPlaceholder("Person", advert.getAdvertContact().getFirst().getPerson(), driver);
-    selectAutocompleteInputByText("Payment Type", advert.getAdvertRequisites().getFirst().getPaymentSystemTitle(), driver);
-    enterTextByPlaceholder("Payment Value", getRandomValue(advert.getAdvertRequisites().getFirst().getRequisites()).toString(), driver);
-    waitAndClick(contain("button", "Show results"), driver);
-}
+    public static void buildBrowserAdvertFilter(Advert advert, WebDriver driver) throws InterruptedException {
+        menuItemClick(ADVERTISERS, driver);
+        showAdvertPrimaryInfoInformation(advert.getAdvertPrimaryInfo());
+        selectAutocompleteInputByText("Sales Manager", advert.getAdvertPrimaryInfo().getSalesManagerName(), driver);
+        selectAutocompleteInputByText("Account Manager", advert.getAdvertPrimaryInfo().getAccountManagerName(), driver);
+        enterTextByPlaceholder("Site URL", advert.getAdvertPrimaryInfo().getSiteUrl(), driver);
+        selectAutocompleteInputByText("Geo", advert.getAdvertPrimaryInfo().getGeo().getFirst(), driver);
+        selectAutocompleteInputByText("Categories", advert.getAdvertPrimaryInfo().getCategoriesName().getFirst(), driver);
+        selectAutocompleteInputByText(PRICING_MODEL, advert.getAdvertPrimaryInfo().getPricingModel().getFirst(), driver);
+        selectAutocompleteInputByText(STATUS, advert.getAdvertPrimaryInfo().getStatus(), driver);
+        enterTextByPlaceholder(NOTES, advert.getAdvertPrimaryInfo().getNote(), driver);
+        enterTextByPlaceholder(COMPANY_LEGAL_NAME, advert.getAdvertPrimaryInfo().getCompanyLegalName(), driver);
+        selectAutocompleteInputByText(MANAGER, advert.getAdvertPrimaryInfo().getManagerName(), driver);
+        enterTextByPlaceholder("Contact", advert.getAdvertContact().getFirst().getEmail(), driver);
+        selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSourceName(), driver);
+        enterTextByPlaceholder(USER_REQUEST_SOURCE_VALUE, advert.getAdvertPrimaryInfo().getUserRequestSourceValue(), driver);
+        selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTagName().getFirst(), driver);
+        enterTextByPlaceholder("Person", advert.getAdvertContact().getFirst().getPerson(), driver);
+        selectAutocompleteInputByText("Payment Type", advert.getAdvertRequisites().getFirst().getPaymentSystemTitle(), driver);
+        enterTextByPlaceholder("Payment Value", getRandomValue(advert.getAdvertRequisites().getFirst().getRequisites()).toString(), driver);
+
+        enterTextByPlaceholder("Name", advert.getAdvertPrimaryInfo().getCompany(), driver);
+        enterTextByPlaceholder("ID", "Введите id!!!!", driver);
+
+        waitAndClick(contain("button", "Show results"), driver);
+    }
 }
 

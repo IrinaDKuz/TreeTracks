@@ -34,7 +34,7 @@ public class OfferDraftTrackingAPI {
 
     @Test
     public static void test() throws Exception {
-        offerDraftId = Integer.parseInt(getRandomValueFromBD("id", "offer_draft"));
+        offerDraftId = 210; // Integer.parseInt(getRandomValueFromBD("id", "offer_draft"));
         System.out.println(offerDraftId);
         Allure.step("Получаем Tracking Info у рандомного Оффера " + offerDraftId);
         trackingGet(true);

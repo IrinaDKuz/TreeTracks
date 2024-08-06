@@ -35,6 +35,8 @@ public class AdvertFilterAPI {
         put("note", "note");
         put("manager_id", "managerId[]");
         put("company_legalname", "companyLegalname");
+        put("name", "name");
+        put("id", "id");
         put("user_request_source_value", "userRequestSourceValue");
         put("user_request_source_id", "userRequestSource[]");
     }};
@@ -135,6 +137,7 @@ public class AdvertFilterAPI {
                 .get(getUrlWithParameters("https://api.admin.3tracks.link/advert?", params));
 
         String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject dataArray = jsonObject.getJSONObject("data");

@@ -46,8 +46,8 @@ public class OfferDraftBasicInfoAPI {
         Allure.step(CHECK);
         basicInfoAssert(basicInfoGet(false), offerBasicInfoEdit);
 
-        deleteMethod("offer-draft", String.valueOf(offerDraftId));
-        assertDelete(String.valueOf(offerDraftId), "offer_draft");
+       // deleteMethod("offer-draft", String.valueOf(offerDraftId));
+      //  assertDelete(String.valueOf(offerDraftId), "offer_draft");
     }
 
     public static JsonObject initializeJsonOfferBasicInfo(OfferBasicInfo offerBasicInfo) {

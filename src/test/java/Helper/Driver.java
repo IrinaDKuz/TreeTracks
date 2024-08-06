@@ -27,7 +27,7 @@ public class Driver {
     public static ChromeDriver addChromeDriver() {
         System.setProperty("webdriver.chrome.driver", "//Users/Irina/Desktop/Sourses/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
+        //options.addArguments("--remote-allow-origins=*");
         ChromeDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='" + 0.6 + "'");
