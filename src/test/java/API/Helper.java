@@ -1,6 +1,7 @@
 package API;
 
 import OfferDraftPackage.entity.OfferBasicInfo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -8,11 +9,12 @@ import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static Helper.AllureHelper.DELETE_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
@@ -24,12 +26,7 @@ public class Helper {
 
     public static void deleteMethod(String url, String id) {
         Response response;
-        response = RestAssured.given()
-                .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .delete("https://api.admin.3tracks.link/" + url + "/" + id );
+        response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", authKeyAdmin).header("Accept", "application/json").header("Content-Type", "application/json").delete("https://api.admin.3tracks.link/" + url + "/" + id);
 
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
@@ -48,8 +45,7 @@ public class Helper {
                 list.add(value);
             }
             return list;
-        }
-        else return null;
+        } else return null;
     }
 
     public static OfferBasicInfo.OfferTemplate getTemplateFromJson(JSONObject data, String parameterName) {
@@ -81,11 +77,25 @@ public class Helper {
     }
 
     public static Boolean assertDelete(String id, String tableName) {
-       Boolean isDelete = !isInDatabase("id", id, tableName);
-       if (isDelete)
-           Allure.step("id=" + id + " не найден в БД " + tableName);
-       else
-           Allure.step("id=" + id + " найден в БД " + tableName);
+        Boolean isDelete = !isInDatabase("id", id, tableName);
+        if (isDelete) Allure.step("id=" + id + " не найден в БД " + tableName);
+        else Allure.step("id=" + id + " найден в БД " + tableName);
         return isDelete;
+    }
+
+
+    public static String getRandomValueFromJson(String jsonString) throws JsonProcessingException {
+        // Создаем ObjectMapper для парсинга JSON-строки
+        ObjectMapper mapper = new ObjectMapper();
+        // Парсим JSON-строку в JsonNode
+        JsonNode rootNode = mapper.readTree(jsonString);
+        List<String> values = new ArrayList<>();
+        rootNode.fields().forEachRemaining(entry -> values.add(entry.getValue().asText()));
+        if (values.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(values.size());
+        return values.get(randomIndex);
     }
 }

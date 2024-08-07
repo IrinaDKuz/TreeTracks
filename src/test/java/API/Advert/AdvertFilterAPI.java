@@ -12,6 +12,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.*;
 
+import static API.Helper.getRandomValueFromJson;
 import static AdvertPackage.entity.AdvertPrimaryInfo.getArrayFromBDString;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
@@ -26,36 +27,36 @@ import static SQL.AdvertSQL.*;
 public class AdvertFilterAPI {
 
     public final static Map<String, String> generalAdvertFields = new HashMap<>() {{
-        put("sales_manager", "salesManager[]");
-        put("account_manager", "accountManager[]");
+      //  put("sales_manager", "salesManager[]");
+     //   put("account_manager", "accountManager[]");
         put("site_url", "siteUrl");
-        put("geo", "geo[]");
-        put("pricing_model", "pricingModel[]");
-        put("status", "status[]");
-        put("note", "note");
-        put("manager_id", "managerId[]");
-        put("company_legalname", "companyLegalname");
-        put("name", "name");
-        put("id", "id");
-        put("user_request_source_value", "userRequestSourceValue");
-        put("user_request_source_id", "userRequestSource[]");
+     //   put("geo", "geo[]");
+   //     put("pricing_model", "pricingModel[]");
+    //    put("status", "status[]");
+   //     put("note", "note");
+   //     put("manager_id", "managerId[]");
+   //     put("company_legalname", "companyLegalname");
+   //     put("name", "name");
+   //     put("id", "id");
+    //    put("user_request_source_value", "userRequestSourceValue");
+    //    put("user_request_source_id", "userRequestSource[]");
     }};
     public final static Map<String, String> tagAdvertFields = new HashMap<>() {{
-        put("advert_tag_id", "tag[]");
+     //  put("advert_tag_id", "tag[]");
     }};
     public final static Map<String, String> categoryAdvertFields = new HashMap<>() {{
-        put("category_id", "categories[]");
+     // put("category_id", "categories[]");
     }};
     public final static Map<String, String> paymentAdvertFields = new HashMap<>() {{
-        put("payment_system_id", "paymentType[]");
-        // put("requisites", "paymentDetails[]"); // пока вручную
+      put("payment_system_id", "paymentType[]");
+      put("requisites", "paymentDetails"); // пока вручную
     }};
     public final static Map<String, String> contactAdvertFields = new HashMap<>() {{
-        put("person", "person");
-        put("email", "contact");
+      put("person", "person");
+      put("email", "contact");
     }};
     public final static Map<String, String> messengerAdvertFields = new HashMap<>() {{
-        put("value", "contact");
+        put("id", "contact");
     }};
 
     @Test
@@ -64,7 +65,7 @@ public class AdvertFilterAPI {
         SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, String> entry : generalAdvertFields.entrySet()) {
             String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "advert", entry.getKey());
-            filterAdverts(entry, value, softAssert );
+            filterAdverts(entry, value, softAssert);
         }
         for (Map.Entry<String, String> entry : tagAdvertFields.entrySet()) {
             String value = getRandomValueFromBD(entry.getKey(), "advert_tag_relation");
@@ -78,6 +79,8 @@ public class AdvertFilterAPI {
         }
         for (Map.Entry<String, String> entry : paymentAdvertFields.entrySet()) {
             String value = getRandomValueFromBD(entry.getKey(), "advert_payment");
+            if (entry.getKey().equals("requisites"))
+                value = getRandomValueFromJson(value);
             System.out.println(value);
             filterAdverts(entry, value, "advert_payment", "advert_id", softAssert);
         }
@@ -87,18 +90,27 @@ public class AdvertFilterAPI {
             filterAdverts(entry, value, "advert_contact", "advert_id", softAssert);
         }
         for (Map.Entry<String, String> entry : messengerAdvertFields.entrySet()) {
-            String value = getRandomValueFromBD(entry.getKey(), "advert_contact_messenger");
-            System.out.println(value);
-            // пока только вручную
-            // filterAdverts(entry, value, "advert_contact", "advert_id", softAssert);
+            String value = getRandomValueFromBD("value", "advert_contact_messenger");
+            List<String> contactsID = getArrayFromBDWhere("contact_id", "advert_contact_messenger",
+                    "value", value);
+            filterAdverts(entry, value, contactsID, "advert_id", softAssert);
         }
         softAssert.assertAll();
     }
 
+    private static void filterAdverts(Map.Entry<String, String> entry, String valueString, List<String> contactsID,
+                                      String idRowName, SoftAssert softAssert) throws Exception {
+        Set<String> ids = new TreeSet<>();
+        ids.addAll(getArrayFromBDWhere(idRowName, "advert_contact", entry.getKey(), contactsID));
+        List<String> filterIds = filterAdvertsPost(entry.getValue(), valueString);
+        filterAssert(filterIds, ids, softAssert);
+    }
+
     private static void filterAdverts(Map.Entry<String, String> entry, String valueString, String tableName, String idRowName, SoftAssert softAssert) throws Exception {
         Set<String> ids = new TreeSet<>();
-        ids.addAll(getArrayFromBDWhere(idRowName, tableName, entry.getKey(), valueString));
-        filterAdvertsPost(entry.getValue(), valueString, ids, softAssert);
+        ids.addAll(getArrayFromBDWhereLike(idRowName, tableName, entry.getKey(), valueString));
+        List<String> filterIds = filterAdvertsPost(entry.getValue(), valueString);
+        filterAssert(filterIds, ids, softAssert);
     }
 
     private static void filterAdverts(Map.Entry<String, String> entry, String valueString, SoftAssert softAssert) throws Exception {
@@ -114,10 +126,11 @@ public class AdvertFilterAPI {
             value = valueString;
             ids.addAll(getArrayFromBDWhere("id", "advert", entry.getKey(), (String) value));
         }
-        filterAdvertsPost(entry.getValue(), value, ids, softAssert);
+        List<String> filterIds = filterAdvertsPost(entry.getValue(), value);
+        filterAssert(filterIds, ids, softAssert);
     }
 
-    private static void filterAdvertsPost(String paramName, Object paramValue, Set<String> ids, SoftAssert softAssert) {
+    private static List<String> filterAdvertsPost(String paramName, Object paramValue) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", 1);
         params.put("limit", 2000);
@@ -125,7 +138,6 @@ public class AdvertFilterAPI {
 
         System.out.println("paramName = " + paramName);
         System.out.println("paramValue = " + paramValue);
-        System.out.println("advertIds = " + ids);
         Allure.step("Поверка " + paramName + "=" + paramValue);
 
         Response response = RestAssured.given()
@@ -149,9 +161,14 @@ public class AdvertFilterAPI {
             filterIdList.add(String.valueOf(dataObject.getInt("id")));
         }
         Collections.sort(filterIdList);
-        ids = removeDeletedAdverts(ids);
+        return filterIdList;
+    }
+
+    private static void filterAssert(List<String> filterIdList, Set<String> ids, SoftAssert softAssert) {
+        removeDeletedAdverts(ids);
         System.out.println(filterIdList);
-        System.out.println(ids);
+        System.out.println("advertIds = " + ids);
+        System.out.println("filterAdvertIds = " + filterIdList);
         Allure.step("AdvertId из фильтра: " + filterIdList);
         Allure.step("AdvertId из базы: " + ids);
         softAssert.assertEquals(filterIdList, ids);

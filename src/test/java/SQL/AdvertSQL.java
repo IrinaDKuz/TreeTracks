@@ -58,6 +58,11 @@ public class AdvertSQL {
         return sqlQueryList(sqlRequest, parameter);
     }
 
+    public static List<String> getArrayFromBDWhereLike(String parameter, String tableName, String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") LIKE LOWER('%" + whereValue + "%');";
+        return sqlQueryList(sqlRequest, parameter);
+    }
+
 
     public static List<String> getArrayFromBDWhereAnd(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
         String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "));
@@ -142,7 +147,6 @@ public class AdvertSQL {
         List<String> list = sqlQueryList(sqlRequest, parameter);
         return list.get(new Random().nextInt(list.size()));
     }
-
 
     public static String getRandomValueFromBDWhereMore(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " > " + whereValue + " ;";

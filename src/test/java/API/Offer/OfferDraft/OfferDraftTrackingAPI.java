@@ -128,11 +128,16 @@ public class OfferDraftTrackingAPI {
             for (int i = 0; i < landingPagesArray.length(); i++) {
                 JSONObject landingPagesObject = landingPagesArray.getJSONObject(i);
                 OfferTracking.LandingPage landingPage = new OfferTracking.LandingPage();
-                landingPage.setLandingPageTitle(landingPagesObject.getString("title"));
-                landingPage.setLandingPageTrackingUrl(landingPagesObject.getString("trackingUrl"));
-                landingPage.setLandingPagePreviewUrl(landingPagesObject.getString("previewUrl"));
-                landingPage.setLandingPageType(landingPagesObject.getString("type"));
-                landingPage.setLandingPageUpdatedAt(landingPagesObject.isNull("updatedAt") ? null : landingPagesObject.getString("updatedAt"));
+                landingPage.setLandingPageTitle(landingPagesObject.isNull("title") ? null
+                        : landingPagesObject.getString("title"));
+                landingPage.setLandingPageTrackingUrl(landingPagesObject.isNull("trackingUrl") ? null
+                        : landingPagesObject.getString("trackingUrl"));
+                landingPage.setLandingPagePreviewUrl(landingPagesObject.isNull("previewUrl") ? null
+                        : landingPagesObject.getString("previewUrl"));
+                landingPage.setLandingPageType(landingPagesObject.isNull("type") ? null
+                        : landingPagesObject.getString("type"));
+                landingPage.setLandingPageUpdatedAt(landingPagesObject.isNull("updatedAt") ? null
+                        : landingPagesObject.getString("updatedAt"));
                 landingPages.add(landingPage);
             }
             offerTracking.setLandingPages(landingPages);

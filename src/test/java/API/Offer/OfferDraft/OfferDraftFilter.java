@@ -8,10 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.*;
 
 import static API.Advert.AdvertFilterAPI.getUrlWithParameters;
+import static API.Offer.OfferMain.OfferMainFilter.filterAssert;
 import static API.Offer.OfferMain.OfferMainFilter.filterOffersPost;
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.AllureHelper.attachJson;
@@ -47,14 +49,17 @@ public class OfferDraftFilter {
     }
 
     private static void filterOffersTest() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, String> entry : offersFields.entrySet()) {
-            String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "offer", entry.getKey());
-            filterOffers(entry, value);
+            String value = getRandomValueFromBDWhereNotNull(entry.getKey(), "offer_draft", entry.getKey());
+            filterOffers(entry, value, softAssert);
         }
+        softAssert.assertAll();
     }
 
-    private static void filterOffers(Map.Entry<String, String> entry, String valueString) throws Exception {
-        Set<String> ids = new TreeSet<>(getArrayFromBDWhere("id", "offer", entry.getKey(), valueString));
-        filterOffersPost(entry.getValue(), valueString, ids, true);
+    private static void filterOffers(Map.Entry<String, String> entry, String valueString, SoftAssert softAssert) throws Exception {
+        Set<String> ids = new TreeSet<>(getArrayFromBDWhere("id", "offer_draft", entry.getKey(), valueString));
+        List<String> filterIds = filterOffersPost(entry.getValue(), valueString, true);
+        filterAssert(filterIds, ids, softAssert, true);
     }
 }
