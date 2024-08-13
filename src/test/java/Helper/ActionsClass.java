@@ -225,9 +225,9 @@ public class ActionsClass {
         return dateFormat.format(currentDate);
     }
 
-    public static String getCurrentTime() {
+    public static String getCurrentDateAndTimeToNumber() {
         Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mmss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmssSSS");
         return dateFormat.format(currentDate);
     }
 

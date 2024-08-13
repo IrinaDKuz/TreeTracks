@@ -21,7 +21,8 @@ import static SQL.AdvertSQL.*;
 /***
  Тест проверяет работу API методов Main Offer
  - filter,
- TODO: 90% BUG ids[], advert[], country[]
+ TODO: 50% BUG ids[], country[] + отделить поля которые фильтруются по полному  и неполному соответствию
+
  */
 
 public class OfferMainFilter {

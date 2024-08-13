@@ -3,6 +3,7 @@ package AdvertPackage.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static Helper.ActionsClass.getCurrentDateAndTimeToNumber;
 import static Helper.Adverts.*;
 import static Helper.GeoAndLang.getRandomValue;
 import static SQL.AdvertSQL.getRandomValueFromBDWhere;
@@ -33,6 +34,12 @@ public class AdvertContact {
             this.messengerTypeId = getRandomValueFromBDWhere("id", "messenger_type", "lang", "general");
             this.messengerTypeName = getValueFromBDWhere("title", "messenger_type", "id", this.messengerTypeId);
             this.messengerValue = this.messengerTypeName + " " + generateName(1, CONTACT_WORDS);
+        }
+
+        public void generateUniqueMessenger() throws Exception {
+            this.messengerTypeId = getRandomValueFromBDWhere("id", "messenger_type", "lang", "general");
+            this.messengerTypeName = getValueFromBDWhere("title", "messenger_type", "id", this.messengerTypeId);
+            this.messengerValue = generateName(1, CONTACT_WORDS) + getCurrentDateAndTimeToNumber();
         }
 
         public String getMessengerTypeId() {
@@ -81,6 +88,21 @@ public class AdvertContact {
         for (int i = 0; i <= new Random().nextInt(3) + 1; i++) {
             Messenger messenger = new Messenger();
             messenger.generateMessenger();
+            messengers.add(messenger);
+        }
+        this.messengers = messengers;
+    }
+
+    public void fillAdvertContactWithRandomUniqueData() throws Exception {
+        this.person = generateName(2, CONTACT_WORDS) + getCurrentDateAndTimeToNumber();
+        this.status = getRandomValue(PERSON_STATUS_MAP).toLowerCase();
+        this.email = generateEmail(this.person);
+        this.position = generateName(1, JOB_WORDS);
+
+        ArrayList<Messenger> messengers = new ArrayList<>();
+        for (int i = 0; i <= new Random().nextInt(3) + 1; i++) {
+            Messenger messenger = new Messenger();
+            messenger.generateUniqueMessenger();
             messengers.add(messenger);
         }
         this.messengers = messengers;

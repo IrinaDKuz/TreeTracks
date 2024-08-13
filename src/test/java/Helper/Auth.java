@@ -11,7 +11,7 @@ import static Helper.ActionsClass.waitAndSendKeys;
 
 public class Auth {
     public static String authKeyTest = "Bearer ac9894e101da82b7175f02a315399145";
-    public static String authKeyAdmin = "Bearer cc195a7dde68a955dfc697bf67d7b3e3";
+    public static String authKeyAdmin = "Bearer 2d427861d4de44f9016617334e802b41";
                                        //  "Bearer 5125483436dc828dc8608f50b26390cb";
 
     public static final String EMAIL_TEST = "petrpetrovpp2023@gmail.com";

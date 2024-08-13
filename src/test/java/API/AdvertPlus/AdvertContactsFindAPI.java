@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,23 +38,25 @@ public class AdvertContactsFindAPI {
 
     @Test
     public static void test() throws Exception {
+        SoftAssert softAssert =  new SoftAssert();
         Allure.step("1) Проверки каждого поля отдельно");
-        positiveSeparateTest();
+        positiveSeparateTest(softAssert);
         Allure.step("2) Проверки полей в совокупности по одному Адверту");
-        positiveCombineTest();
+        positiveCombineTest(softAssert);
         Allure.step("3) Проверки полей в совокупности данные из полей у разных Адвертов");
-        negativeCombineTest();
+        negativeCombineTest(softAssert);
         Allure.step("4) Проверки exclude");
-        excludeTest();
+        excludeTest(softAssert);
+        softAssert.assertAll();
     }
 
-    public static void positiveSeparateTest() throws Exception {
-        separateTest("person");
-        separateTest("email");
-        separateMessengerTest();
+    public static void positiveSeparateTest(SoftAssert softAssert) throws Exception {
+        separateTest("person", softAssert);
+        separateTest("email", softAssert);
+        separateMessengerTest(softAssert);
     }
 
-    public static void positiveCombineTest() throws Exception {
+    public static void positiveCombineTest(SoftAssert softAssert) throws Exception {
         String messengerId = getRandomValueFromBD("id", "advert_contact_messenger");
         String messengerTypeId = getValueFromBDWhere("messenger_id", "advert_contact_messenger",
                 "id", messengerId);
@@ -66,31 +69,32 @@ public class AdvertContactsFindAPI {
         String email = getRandomValueFromBDWhere("email", "advert_contact",
                 "id", contactId);
 
-        combineTest(person, email, messengerTypeId, messengerValue);
+        combineTest(person, email, messengerTypeId, messengerValue, softAssert);
     }
 
-    public static void negativeCombineTest() throws Exception {
+    public static void negativeCombineTest(SoftAssert softAssert) throws Exception {
         String messengerTypeId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
         String messengerValue = getRandomValueFromBD("value", "advert_contact_messenger");
         String person = getRandomValueFromBD("person", "advert_contact");
         String email = getRandomValueFromBD("email", "advert_contact");
-        combineTest(person, email, messengerTypeId, messengerValue);
+        combineTest(person, email, messengerTypeId, messengerValue, softAssert);
 
         messengerTypeId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
         messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
                 "messenger_id", messengerTypeId);
         person = getRandomValueFromBD("person", "advert_contact");
         email = getRandomValueFromBD("email", "advert_contact");
-        combineTest(person, email, messengerTypeId, messengerValue);
+        combineTest(person, email, messengerTypeId, messengerValue, softAssert);
     }
 
-    public static void excludeTest() throws Exception {
-        separateWithExcludeTest("person");
-        separateWithExcludeTest("email");
-        separateMessengerTest();
+    public static void excludeTest(SoftAssert softAssert) throws Exception {
+        separateWithExcludeTest("person", softAssert);
+        separateWithExcludeTest("email", softAssert);
+        separateMessengerTest(softAssert);
     }
 
-    public static void combineTest(String person, String email, String messengerTypeId, String messengerValue) throws Exception {
+    public static void combineTest(String person, String email, String messengerTypeId, String messengerValue,
+                                   SoftAssert softAssert) throws Exception {
         List<String> contactArrayFromBD = getArrayFromBDWhereAnd("contact_id", "advert_contact_messenger",
                 Map.of("messenger_id", messengerTypeId, "value", messengerValue));
         List<String> personArrayFromBD = new ArrayList<>();
@@ -122,10 +126,10 @@ public class AdvertContactsFindAPI {
         List<Integer> personArrayFromBDIntList = new ArrayList<>(uniquePersonArrayFromBDInt);
         Collections.sort(personArray);
         Collections.sort(personArrayFromBDIntList);
-        Assert.assertEquals(personArray, personArrayFromBDIntList);
+        softAssert.assertEquals(personArray, personArrayFromBDIntList);
     }
 
-    private static void separateTest(String field) throws Exception {
+    private static void separateTest(String field, SoftAssert softAssert) throws Exception {
         String fieldValue = getRandomValueFromBD(field, "advert_contact");
         System.out.println("Ищем по полю: " + field + ", значение: " + fieldValue);
         Allure.step("Ищем по полю: " + field + ", значение: " + fieldValue);
@@ -138,10 +142,10 @@ public class AdvertContactsFindAPI {
         Collections.sort(personArray);
         Collections.sort(personArrayFromBD);
         Allure.step("id Адвертов из ответа на запрос : " + personArray + ", id Адвертов из БД: " + personArrayFromBD);
-        Assert.assertEquals(personArray, personArrayFromBD);
+        softAssert.assertEquals(personArray, personArrayFromBD);
     }
 
-    private static void separateWithExcludeTest(String field) throws Exception {
+    private static void separateWithExcludeTest(String field, SoftAssert softAssert) throws Exception {
         String fieldValue = getFrequentValueFromBD(field, "advert_contact");
         System.out.println("Ищем по полю: " + field + ", значение: " + fieldValue);
         Allure.step("Ищем по полю: " + field + ", значение: " + fieldValue);
@@ -150,7 +154,7 @@ public class AdvertContactsFindAPI {
         System.out.println(ids);
 
         List<Integer> personArray = findContactExclude(Map.of(field, fieldValue, "excludeId[]", ids));
-        Assert.assertEquals(personArray, Collections.emptyList());
+        softAssert.assertEquals(personArray, Collections.emptyList());
 
         // Исключаем несколько рандомно
         Random random = new Random();
@@ -178,10 +182,10 @@ public class AdvertContactsFindAPI {
         System.out.println(personArray);
         System.out.println(personArrayFromBDWithoutId);
         Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDWithoutId);
-        Assert.assertEquals(personArray, personArrayFromBDWithoutId);
+        softAssert.assertEquals(personArray, personArrayFromBDWithoutId);
     }
 
-    private static void separateMessengerTest() throws Exception {
+    private static void separateMessengerTest(SoftAssert softAssert) throws Exception {
         String messengerId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
         String messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
                 "messenger_id", messengerId);
@@ -206,7 +210,7 @@ public class AdvertContactsFindAPI {
         System.out.println(personArray);
         System.out.println(personArrayFromBDInt);
         Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDInt);
-        Assert.assertEquals(personArray, personArrayFromBDInt);
+        softAssert.assertEquals(personArray, personArrayFromBDInt);
     }
 
     public static List<Integer> findContact(Map<String, String> params) {

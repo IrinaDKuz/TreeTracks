@@ -1,23 +1,18 @@
 package API.AdvertPlus;
 
-import io.qameta.allure.Allure;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.testng.Assert;
+import AdvertPackage.entity.AdvertContact;
+import AdvertPackage.entity.AdvertContactDouble;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static API.Advert.AdvertFilterAPI.getUrlWithParameters;
-import static Helper.AllureHelper.GET_RESPONSE;
-import static Helper.AllureHelper.attachJson;
-import static Helper.Auth.authKeyAdmin;
+import static API.Advert.AdvertContactsAPI.contactsAddPost;
+import static API.Advert.AdvertContactsAPI.contactsEditPost;
+import static API.Helper.deleteMethod;
+import static AdvertPackage.entity.AdvertContactDouble.fillAdvertContactsDoubleFromBD;
 import static SQL.AdvertSQL.*;
-import static io.restassured.RestAssured.given;
+import static SQL.DatabaseTest.sqlQueryList;
 
 /***
  Тест ищет контакты совпадающие по полям:
@@ -30,225 +25,189 @@ import static io.restassured.RestAssured.given;
 
 public class AdvertDoubleContactsAPI {
 
-    static Map<String, String> headers = Map.of(
-            "Authorization", authKeyAdmin,
-            "Accept", "application/json",
-            "Content-Type", "application/json"
-    );
-
     @Test
     public static void test() throws Exception {
-        Allure.step("1) Проверки каждого поля отдельно");
-        positiveSeparateTest();
-        Allure.step("2) Проверки полей в совокупности по одному Адверту");
-        positiveCombineTest();
-        Allure.step("3) Проверки полей в совокупности данные из полей у разных Адвертов");
-        negativeCombineTest();
-        Allure.step("4) Проверки exclude");
-        excludeTest();
+        // person
+        //testByPerson();
+      //  for (int i = 0; i < 5; i++) {
+            addEditNewContact("email", false);
+            addEditNewContact("email", true);
+            addEditNewContact("person", false);
+            addEditNewContact("person", true);
+            editContactFromBD("contact_id1", "advert1", true);
+            editContactFromBD("contact_id2", "advert2", true);
+            editContactFromBD("contact_id1", "advert1", false);
+            editContactFromBD("contact_id2", "advert2", false);
+       // }
+
+        // messenger = из базы id и name и type
+
+        // редактируем контакт1 из добавленных
+        // проверяем базу
+
+        // редактируем контакт2 из добавленных
+        // проверяем базу
+
+        // редактируем контакт из базы чтобы он стал дублем нового
+        // проверяем базу
+
+        // удаляем контакт1 из добавленных
+        // проверяем базу
+
+        // удаляем контакт2 из добавленных
+        // проверяем базу
     }
 
-    public static void positiveSeparateTest() throws Exception {
-        separateTest("person");
-        separateTest("email");
-        separateMessengerTest();
-    }
+    private static void addEditNewContact(String parameterName, Boolean isEdit) throws Exception {
+        // Записываем список объектов из базы
+        try {
+            List<AdvertContactDouble> advertContactDoublesFromBD = fillAdvertContactsDoubleFromBD();
+            String value = getRandomValueFromBDWhereNotNull(parameterName, "advert_contact", parameterName);
 
-    public static void positiveCombineTest() throws Exception {
-        String messengerId = getRandomValueFromBD("id", "advert_contact_messenger");
-        String messengerTypeId = getValueFromBDWhere("messenger_id", "advert_contact_messenger",
-                "id", messengerId);
-        String messengerValue = getValueFromBDWhere("value", "advert_contact_messenger",
-                "id", messengerId);
-        String contactId = getValueFromBDWhere("contact_id", "advert_contact_messenger",
-                "id", messengerId);
-        String person = getRandomValueFromBDWhere("person", "advert_contact",
-                "id", contactId);
-        String email = getRandomValueFromBDWhere("email", "advert_contact",
-                "id", contactId);
+            System.out.println("Было всего записей: " + advertContactDoublesFromBD.size());
+            System.out.println("ParameterName = " + parameterName);
+            System.out.println("ParameterValue = " + value);
 
-        combineTest(person, email, messengerTypeId, messengerValue);
-    }
+            List<String> contactIds = getArrayFromBDWhereOrderBy("id", "advert_contact",
+                    parameterName, value, "id");
 
-    public static void negativeCombineTest() throws Exception {
-        String messengerTypeId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
-        String messengerValue = getRandomValueFromBD("value", "advert_contact_messenger");
-        String person = getRandomValueFromBD("person", "advert_contact");
-        String email = getRandomValueFromBD("email", "advert_contact");
-        combineTest(person, email, messengerTypeId, messengerValue);
-
-        messengerTypeId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
-        messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
-                "messenger_id", messengerTypeId);
-        person = getRandomValueFromBD("person", "advert_contact");
-        email = getRandomValueFromBD("email", "advert_contact");
-        combineTest(person, email, messengerTypeId, messengerValue);
-    }
-
-    public static void excludeTest() throws Exception {
-        separateWithExcludeTest("person");
-        separateWithExcludeTest("email");
-        separateMessengerTest();
-    }
-
-    public static void combineTest(String person, String email, String messengerTypeId, String messengerValue) throws Exception {
-        List<String> contactArrayFromBD = getArrayFromBDWhereAnd("contact_id", "advert_contact_messenger",
-                Map.of("messenger_id", messengerTypeId, "value", messengerValue));
-        List<String> personArrayFromBD = new ArrayList<>();
-        if (contactArrayFromBD.isEmpty())
-            personArrayFromBD.addAll(getArrayFromBDWhereOr("advert_id", "advert_contact",
-                    Map.of("person", person, "email", email)));
-        else {
-            for (String contactFromBD : contactArrayFromBD)
-                personArrayFromBD.addAll(getArrayFromBDWhereOr("advert_id", "advert_contact",
-                        Map.of("person", person, "email", email, "id", contactFromBD)));
-        }
-
-        System.out.println("Ищем по полям: person, значение: " + person);
-        System.out.println("               email, значение: " + email);
-        System.out.println("               messengerId, значение: " + messengerTypeId);
-        System.out.println("               messengerValue, значение: " + messengerValue);
-
-        Allure.step("Ищем по совокупности полей: person = " + person +
-                ", email = " + email + ", messengerId = " + messengerTypeId +
-                ", messengerValue = " + messengerValue);
-
-        List<Integer> personArray = findContact(Map.of("person", person, "email", email,
-                "messengerId", messengerTypeId, "messengerValue", messengerValue));
-        List<Integer> personArrayFromBDInt = personArrayFromBD.stream()
-                .map(Integer::parseInt)
-                .toList();
-
-        Set<Integer> uniquePersonArrayFromBDInt = new LinkedHashSet<>(personArrayFromBDInt);
-        List<Integer> personArrayFromBDIntList = new ArrayList<>(uniquePersonArrayFromBDInt);
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBDIntList);
-        Assert.assertEquals(personArray, personArrayFromBDIntList);
-    }
-
-    private static void separateTest(String field) throws Exception {
-        String fieldValue = getRandomValueFromBD(field, "advert_contact");
-        System.out.println("Ищем по полю: " + field + ", значение: " + fieldValue);
-        Allure.step("Ищем по полю: " + field + ", значение: " + fieldValue);
-        List<Integer> personArray = findContact(Map.of(field, fieldValue));
-        List<Integer> personArrayFromBD = getArrayFromBDWhere("advert_id", "advert_contact",
-                field, fieldValue)
-                .stream()
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBD);
-        Allure.step("id Адвертов из ответа на запрос : " + personArray + ", id Адвертов из БД: " + personArrayFromBD);
-        Assert.assertEquals(personArray, personArrayFromBD);
-    }
-
-    private static void separateWithExcludeTest(String field) throws Exception {
-        String fieldValue = getFrequentValueFromBD(field, "advert_contact");
-        System.out.println("Ищем по полю: " + field + ", значение: " + fieldValue);
-        Allure.step("Ищем по полю: " + field + ", значение: " + fieldValue);
-        List<String> ids = getArrayFromBDWhere("advert_id", "advert_contact", field, fieldValue);
-        // Исключаем все
-        System.out.println(ids);
-
-        List<Integer> personArray = findContactExclude(Map.of(field, fieldValue, "excludeId[]", ids));
-        Assert.assertEquals(personArray, Collections.emptyList());
-
-        // Исключаем несколько рандомно
-        Random random = new Random();
-        List<String> idsToExclude = ids.stream()
-                .skip(random.nextInt(ids.size()))
-                .limit(random.nextInt(ids.size()))
-                .toList();
-
-        Allure.step("Исключаем: " + idsToExclude);
-
-        personArray = findContactExclude(Map.of(field, fieldValue, "excludeId[]", idsToExclude));
-        List<Integer> personArrayFromBD = getArrayFromBDWhere("advert_id", "advert_contact",
-                field, fieldValue)
-                .stream()
-                .map(Integer::parseInt)
-                .toList();
-
-        Allure.step("Весь список: " + personArrayFromBD);
-        Allure.step("Исключаем: " + idsToExclude);
-
-        List<Integer> personArrayFromBDWithoutId = new ArrayList<>(personArrayFromBD);
-        personArrayFromBDWithoutId.removeAll(idsToExclude.stream().map(Integer::parseInt).toList());
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBDWithoutId);
-        System.out.println(personArray);
-        System.out.println(personArrayFromBDWithoutId);
-        Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDWithoutId);
-        Assert.assertEquals(personArray, personArrayFromBDWithoutId);
-    }
-
-    private static void separateMessengerTest() throws Exception {
-        String messengerId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
-        String messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
-                "messenger_id", messengerId);
-
-        System.out.println("Ищем по полям: messenger_id значение: " + messengerId);
-        System.out.println("Ищем по полям: messenger_value значение: " + messengerValue);
-        Allure.step("Ищем по полям: messenger_id = " + messengerId +
-                " и messenger_value = " + messengerValue);
+            System.out.println("RowIds = " + contactIds);
 
 
-        List<Integer> personArray = findContact(Map.of("messengerId", messengerId, "messengerValue", messengerValue));
-        List<String> contactArrayFromBD = getArrayFromBDWhereAnd("contact_id", "advert_contact_messenger",
-                Map.of("messenger_id", messengerId, "value", messengerValue));
+            Map<String, String> contactVSAdvertMap = new LinkedHashMap<>();
+            for (String contactId : contactIds) {
+                contactVSAdvertMap.put(contactId, getValueFromBDWhere("advert_id", "advert_contact",
+                        "id", contactId));
+            }
 
-        List<String> personArrayFromBD = getArrayFromBDWhere("advert_id", "advert_contact",
-                "id", contactArrayFromBD);
-        List<Integer> personArrayFromBDInt = new ArrayList<>(personArrayFromBD.stream()
-                .map(Integer::parseInt)
-                .toList());
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBDInt);
-        System.out.println(personArray);
-        System.out.println(personArrayFromBDInt);
-        Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDInt);
-        Assert.assertEquals(personArray, personArrayFromBDInt);
-    }
+            // берем Адверта1 у которого нет контактов
+            // берем Адверта2 у которого есть 1 контакт
+            // берем Адверта3 у которого есть больше 2х контактов
 
-    public static List<Integer> findContact(Map<String, String> params) {
-        RequestSpecification request = given()
-                .contentType(ContentType.URLENC);
-        headers.forEach(request::header);
-        params.forEach(request::param);
+            List<String> exceptValuesList = new ArrayList<>(contactVSAdvertMap.values());
 
-        Response response = request.when()
-                .get("https://api.admin.3tracks.link/advert/contact/find");
+            String randomAdvert2 = null;
+            String randomAdvert3 = null;
 
-        String responseBody = response.getBody().asString();
-        Allure.step("Ответ на get: " + responseBody);
-        attachJson(responseBody, GET_RESPONSE);
+            AdvertContact advertContact = new AdvertContact();
+            advertContact.fillAdvertContactWithRandomUniqueData();
 
-        JsonPath jsonPath = new JsonPath(responseBody);
-        if (jsonPath.get("data.advert.value") != null) {
-            return jsonPath.getList("data.advert.value");
-        } else {
-            return List.of();
+            if (parameterName.equals("person"))
+                advertContact.setPerson(value);
+            if (parameterName.equals("email"))
+                advertContact.setEmail(value);
+
+            String duplicatorContactId;
+            String duplicatorAdvertId1;
+            if (isEdit) {
+                duplicatorAdvertId1 = getRandomValueFromBDExcept("advert_id", "advert_contact",
+                        exceptValuesList);
+                System.out.println("Редактируем контакт Адверта: " + duplicatorAdvertId1);
+
+                duplicatorContactId = getRandomValueFromBDWhere("id", "advert_contact",
+                        "advert_id", duplicatorAdvertId1);
+                System.out.println("Редактируем контакт: " + duplicatorContactId);
+
+                editContact(duplicatorAdvertId1, duplicatorContactId, advertContact);
+            } else {
+                duplicatorAdvertId1 = getRandomValueFromBDExcept("id", "advert",
+                        exceptValuesList);
+                System.out.println("Добавляем контакт Адверту: " + duplicatorAdvertId1);
+
+                duplicatorContactId = String.valueOf(addContact(duplicatorAdvertId1, advertContact));
+                System.out.println("Добавленный контакт id =  " + duplicatorAdvertId1);
+
+            }
+
+            for (String contactId : contactIds) {
+                AdvertContactDouble advertContactDouble =
+                        new AdvertContactDouble(parameterName, duplicatorAdvertId1, contactVSAdvertMap.get(contactId),
+                                String.valueOf(duplicatorContactId), contactId);
+                advertContactDoublesFromBD.add(advertContactDouble);
+                System.out.println("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
+            }
+
+            List<AdvertContactDouble> advertContactDoublesFromBDAfter = fillAdvertContactsDoubleFromBD();
+            System.out.println("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
+
+            assertContactDoubleBD(advertContactDoublesFromBD, advertContactDoublesFromBDAfter);
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 
-    public static List<Integer> findContactExclude(Map<String, Object> params) {
-        Response response = RestAssured.given()
-                .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .when()
-                .get(getUrlWithParameters("https://api.admin.3tracks.link/advert/contact/find?", params));
-
-        String responseBody = response.getBody().asString();
-        System.out.println("Ответ на get: " + responseBody);
-        Allure.step("Ответ на get: " + responseBody);
-
-        JsonPath jsonPath = new JsonPath(responseBody);
-        if (jsonPath.get("data.advert.value") != null) {
-            return jsonPath.getList("data.advert.value");
-        } else {
-            return List.of();
+    private static void assertContactDoubleBD(List<AdvertContactDouble> advertContactDoublesFromBD,
+                                              List<AdvertContactDouble> advertContactDoublesFromBDAfter) {
+        SoftAssert softAssert = new SoftAssert();
+        try {
+            for (int i = 0; i < advertContactDoublesFromBD.size(); i++) {
+                AdvertContactDouble acd1 = advertContactDoublesFromBD.get(i);
+                AdvertContactDouble acd2 = advertContactDoublesFromBDAfter.get(i);
+                softAssert.assertEquals(acd1.getAdvert1(), acd2.getAdvert1());
+                softAssert.assertEquals(acd1.getAdvert2(), acd2.getAdvert2());
+                softAssert.assertEquals(acd1.getContact_id1(), acd2.getContact_id1());
+                softAssert.assertEquals(acd1.getContact_id2(), acd2.getContact_id2());
+                softAssert.assertEquals(acd1.getField(), acd2.getField());
+            }
+            softAssert.assertAll();
+        } catch (AssertionError a) {
+            System.err.println(a);
         }
+    }
+
+    private static void editContactFromBD(String parameterName, String advertFieldName, Boolean isEdit) {
+        // Записываем список объектов из базы
+        try {
+            List<AdvertContactDouble> advertContactDoublesFromBD = fillAdvertContactsDoubleFromBD();
+            String contactIdFromBD = getRandomValueFromBDWhereNotNull(parameterName, "advert_contact_double",
+                    parameterName);
+            String advertIdFromBD = getValueFromBDWhere(advertFieldName, "advert_contact_double",
+                    parameterName, contactIdFromBD);
+
+            System.out.println("Было всего записей: " + advertContactDoublesFromBD.size());
+            System.out.println("AdvertID = " + advertIdFromBD);
+            System.out.println("ContactId = " + contactIdFromBD);
+            // Эти ids будем удалять из таблицы
+            List<String> ids = getIdsWhereContactIsOrderById(contactIdFromBD);
+            System.out.println("Удалили/изменили записей: " + ids.size());
+
+            advertContactDoublesFromBD.removeIf(advertContactDouble -> ids.contains(advertContactDouble.getId()));
+            // И редактируем/удаляем сам контакт
+            if (isEdit) {
+                AdvertContact advertContact = new AdvertContact();
+                advertContact.fillAdvertContactWithRandomUniqueData();
+                editContact(advertIdFromBD, contactIdFromBD, advertContact);
+            } else {
+                deleteContact(advertIdFromBD, contactIdFromBD);
+            }
+
+            List<AdvertContactDouble> advertContactDoublesFromBDAfter = fillAdvertContactsDoubleFromBD();
+            System.out.println("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
+            System.out.println("Стало записей  в локальном массиве: " + advertContactDoublesFromBD.size());
+
+            assertContactDoubleBD(advertContactDoublesFromBD, advertContactDoublesFromBDAfter);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    private static int addContact(String advertId, AdvertContact advertContact) {
+        return contactsAddPost(advertId, advertContact);
+    }
+
+    private static void editContact(String advertId, String duplicatorContactId, AdvertContact advertContactEdit) throws Exception {
+        contactsEditPost(advertId, duplicatorContactId, advertContactEdit);
+    }
+
+    private static void deleteContact(String advertId, String advertContactId) {
+        deleteMethod("advert", advertId + "/contact/" + advertContactId);
+    }
+
+    public static List<String> getIdsWhereContactIsOrderById(String contactId) throws Exception {
+        String sqlRequest = "SELECT id FROM advert_contact_double " +
+                "WHERE contact_id1 = " + contactId + " OR contact_id2 = " + contactId +
+                " ;";
+        System.out.println(sqlRequest);
+        return sqlQueryList(sqlRequest, "id");
     }
 }

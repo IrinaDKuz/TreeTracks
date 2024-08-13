@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
@@ -51,7 +50,10 @@ public class AdvertContactsAPI {
     private static void contactsAdd() throws Exception {
         AdvertContact advertContact = new AdvertContact();
         advertContact.fillAdvertContactWithRandomData();
+        contactsAddPost(String.valueOf(advertId), advertContact);
+    }
 
+    public static int contactsAddPost(String id, AdvertContact advertContact) {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertContacts(advertContact), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
@@ -65,7 +67,7 @@ public class AdvertContactsAPI {
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
-                .post("https://api.admin.3tracks.link/advert/" + advertId + "/contact/add");
+                .post("https://api.admin.3tracks.link/advert/" + id + "/contact/add");
 
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
@@ -74,16 +76,21 @@ public class AdvertContactsAPI {
 
         JSONObject jsonResponse = new JSONObject(responseBody);
         advertContactId = jsonResponse.getJSONObject("data").getInt("advertContact");
+        return advertContactId;
     }
-
 
     public static AdvertContact contactsEdit() throws Exception {
         AdvertContact advertContactEdit = new AdvertContact();
         advertContactEdit.fillAdvertContactWithRandomData();
+        contactsEditPost(String.valueOf(advertId), String.valueOf(advertContactId), advertContactEdit);
 
+        return advertContactEdit;
+    }
+
+
+    public static void contactsEditPost(String advertId, String advertContactId, AdvertContact advertContactEdit) throws Exception {
         List<String> messengerIds = getArrayFromBDWhere("id", "advert_contact_messenger",
                 "contact_id", String.valueOf(advertContactId));
-
 
         for (int i = 0; i < messengerIds.size(); i++) {
             try {
@@ -118,10 +125,9 @@ public class AdvertContactsAPI {
         Allure.step("Ответ на edit: " + responseBody);
 
         Assert.assertEquals(responseBody, "{\"success\":true}");
-        return advertContactEdit;
     }
 
-    private static JsonObject initializeJsonAdvertContacts(AdvertContact advertContact) {
+        private static JsonObject initializeJsonAdvertContacts(AdvertContact advertContact) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("status", advertContact.getStatus().toLowerCase());

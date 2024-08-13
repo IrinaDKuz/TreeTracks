@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static SQL.DatabaseTest.sqlQuery;
 import static SQL.DatabaseTest.sqlQueryList;
 import static java.sql.DriverManager.getConnection;
 
@@ -51,6 +50,15 @@ public class AdvertSQL {
     public static String getValueFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = '" + whereValue + "' ;";
         return sqlQueryList(sqlRequest, parameter).getFirst();
+    }
+
+
+    public static List<String> getArrayFromBDWhereOrderBy(String parameter, String tableName,
+                                                          String where, String whereValue, String orderBy) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName +
+                " WHERE LOWER(" + where + ") = LOWER('" + whereValue + "') " +
+                "ORDER BY " + orderBy + " DESC;";
+        return sqlQueryList(sqlRequest, parameter);
     }
 
     public static List<String> getArrayFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
@@ -151,6 +159,15 @@ public class AdvertSQL {
     public static String getRandomValueFromBDWhereMore(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " > " + whereValue + " ;";
         List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+
+
+    public static String getRandomValueFromBDExcept(String parameter, String tableName, List<String> exceptList) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + ";";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        list.removeAll(exceptList);
         return list.get(new Random().nextInt(list.size()));
     }
 
