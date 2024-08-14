@@ -1,7 +1,5 @@
 name: test
 on:
-  schedule:
-    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
