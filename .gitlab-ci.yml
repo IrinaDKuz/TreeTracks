@@ -4,7 +4,7 @@ stages:
   - generate_report
   - publish_report
 
-image: jelastic/maven:3.9.5-openjdk-21:latest
+image: jelastic/maven:3.9.5-openjdk-21
 
 build:
   stage: build
