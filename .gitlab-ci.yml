@@ -23,26 +23,55 @@ workflow:
         when: never
       - when: always
 
-stages:          # List of stages for jobs, and their order of execution
+
+image: maven:3.8.6-openjdk-11  # Используйте официальный образ Maven с OpenJDK 11
+
+stages:
+  - build
   - test
+
+variables:
+  MAVEN_OPTS: "-Xms512m -Xmx2g"  # Настройте параметры JVM по необходимости
+
+before_script:
+  - apt-get update && apt-get install -y unzip  # Устанавливаем unzip, если необходимо для работы
+
+build:
+  stage: build
+  script:
+    - mvn clean install  # Сборка проекта и установка зависимостей
+
+test:
+  stage: test
+  script:
+    - mvn test -DsuiteXmlFile=Admin_API_Testing.xml  # Запуск тестов с указанием XML конфигурации
+  
+
+
+
+
+
+
+#stages:          # List of stages for jobs, and their order of execution
+ # - test
   #- deploy
 
-test-job:       # This job runs in the build stage, which runs first.
-  stage: test
-  image: openjdk:11-jdk
-  before_script:
-    - apt-get update
-    - apt-get install -y maven  # Или gradle, в зависимости от вашего проекта
+#test-job:       # This job runs in the build stage, which runs first.
+ # stage: test
+ # image: maven:3.8.6-openjdk-11
+ # before_script:
+ #   - apt-get update
+ #   - apt-get install -y maven  # Или gradle, в зависимости от вашего проекта
 
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-    - apt-get update && apt-get install -y google-chrome-stable
-    - pip install -r requirements.txt  # этого файла сейчас нет
+ #   - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+ #   - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+ #   - apt-get update && apt-get install -y google-chrome-stable
+ #   - pip install -r requirements.txt  # этого файла сейчас нет
   
-  script:
+ # script:
   # Устанавливаем зависимости и запускаем тесты с помощью Maven
-    - mvn install
-    - mvn test
+  #  - mvn install
+ #   - mvn test
 
 # unit-test-job:   # This job runs in the test stage.
  # stage: test    # It only starts when the job in the build stage completes successfully.
