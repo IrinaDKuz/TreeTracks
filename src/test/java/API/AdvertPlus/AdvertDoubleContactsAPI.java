@@ -27,38 +27,38 @@ public class AdvertDoubleContactsAPI {
 
     @Test
     public static void test() throws Exception {
-        // person
-        //testByPerson();
-      //  for (int i = 0; i < 5; i++) {
-            addEditNewContact("email", false);
-            addEditNewContact("email", true);
-            addEditNewContact("person", false);
-            addEditNewContact("person", true);
-            editContactFromBD("contact_id1", "advert1", true);
-            editContactFromBD("contact_id2", "advert2", true);
-            editContactFromBD("contact_id1", "advert1", false);
-            editContactFromBD("contact_id2", "advert2", false);
-       // }
 
-        // messenger = из базы id и name и type
+        System.out.println("******* Добавляем email *******");
+        addEditNewContact("email", false);
 
-        // редактируем контакт1 из добавленных
-        // проверяем базу
+        System.out.println("******* Редактируем email *******");
+        addEditNewContact("email", true);
 
-        // редактируем контакт2 из добавленных
-        // проверяем базу
+        System.out.println("******* Добавляем person *******");
+        addEditNewContact("person", false);
 
-        // редактируем контакт из базы чтобы он стал дублем нового
-        // проверяем базу
+        System.out.println("******* Редактируем person *******");
+        addEditNewContact("person", true);
 
-        // удаляем контакт1 из добавленных
-        // проверяем базу
+        System.out.println("******* Добавляем messenger *******");
+        addEditNewContactMessengers(false);
 
-        // удаляем контакт2 из добавленных
-        // проверяем базу
+        System.out.println("******* Добавляем messenger 2 *******");
+        addEditNewContactMessengers(false);
+
+        System.out.println("******* Редактируем messenger *******");
+        addEditNewContactMessengers(true);
+        // deleteEditContactFromBD(null, "contact_id1", "advert1", true);
+        // deleteEditContactFromBD(null, "contact_id2", "advert2", true);
+        // deleteEditContactFromBD(null, "contact_id1", "advert1", false);
+        // deleteEditContactFromBD(null, "contact_id2", "advert2", false);
+        // deleteEditContactFromBD("messenger_id1", "contact_id1","advert1", true);
+        // deleteEditContactFromBD("messenger_id2", "contact_id2", "advert2", true);
+        // deleteEditContactFromBD("messenger_id1", "contact_id1","advert1", false);
+        // deleteEditContactFromBD("messenger_id2", "contact_id2", "advert2", false);
     }
 
-    private static void addEditNewContact(String parameterName, Boolean isEdit) throws Exception {
+    private static void addEditNewContact(String parameterName, Boolean isEdit)  {
         // Записываем список объектов из базы
         try {
             List<AdvertContactDouble> advertContactDoublesFromBD = fillAdvertContactsDoubleFromBD();
@@ -72,7 +72,6 @@ public class AdvertDoubleContactsAPI {
                     parameterName, value, "id");
 
             System.out.println("RowIds = " + contactIds);
-
 
             Map<String, String> contactVSAdvertMap = new LinkedHashMap<>();
             for (String contactId : contactIds) {
@@ -122,10 +121,10 @@ public class AdvertDoubleContactsAPI {
             for (String contactId : contactIds) {
                 AdvertContactDouble advertContactDouble =
                         new AdvertContactDouble(parameterName, duplicatorAdvertId1, contactVSAdvertMap.get(contactId),
-                                String.valueOf(duplicatorContactId), contactId);
+                                String.valueOf(duplicatorContactId), contactId, "null", "null");
                 advertContactDoublesFromBD.add(advertContactDouble);
-                System.out.println("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
             }
+            System.out.println("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
 
             List<AdvertContactDouble> advertContactDoublesFromBDAfter = fillAdvertContactsDoubleFromBD();
             System.out.println("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
@@ -136,37 +135,120 @@ public class AdvertDoubleContactsAPI {
         }
     }
 
-    private static void assertContactDoubleBD(List<AdvertContactDouble> advertContactDoublesFromBD,
-                                              List<AdvertContactDouble> advertContactDoublesFromBDAfter) {
-        SoftAssert softAssert = new SoftAssert();
-        try {
-            for (int i = 0; i < advertContactDoublesFromBD.size(); i++) {
-                AdvertContactDouble acd1 = advertContactDoublesFromBD.get(i);
-                AdvertContactDouble acd2 = advertContactDoublesFromBDAfter.get(i);
-                softAssert.assertEquals(acd1.getAdvert1(), acd2.getAdvert1());
-                softAssert.assertEquals(acd1.getAdvert2(), acd2.getAdvert2());
-                softAssert.assertEquals(acd1.getContact_id1(), acd2.getContact_id1());
-                softAssert.assertEquals(acd1.getContact_id2(), acd2.getContact_id2());
-                softAssert.assertEquals(acd1.getField(), acd2.getField());
-            }
-            softAssert.assertAll();
-        } catch (AssertionError a) {
-            System.err.println(a);
-        }
-    }
-
-    private static void editContactFromBD(String parameterName, String advertFieldName, Boolean isEdit) {
+    private static void addEditNewContactMessengers(Boolean isEdit)  {
         // Записываем список объектов из базы
         try {
             List<AdvertContactDouble> advertContactDoublesFromBD = fillAdvertContactsDoubleFromBD();
-            String contactIdFromBD = getRandomValueFromBDWhereNotNull(parameterName, "advert_contact_double",
-                    parameterName);
+            String messengerId = getRandomValueFromBD("id", "advert_contact_messenger");
+            String value = getRandomValueFromBDWhere("value", "advert_contact_messenger",
+                    "id", messengerId);
+
+            String messengerType = getRandomValueFromBDWhere("messenger_id", "advert_contact_messenger",
+                    "id", messengerId);
+
+            System.out.println("Было всего записей: " + advertContactDoublesFromBD.size());
+            System.out.println("ParameterValue = " + value);
+            System.out.println("ParameterType = " + messengerType);
+            System.out.println("MessengerId = " + messengerId);
+
+            List<String> contactIds = getArrayFromBDWhereAnd("contact_id", "advert_contact_messenger",
+                    Map.of("value", value, "messenger_id", messengerType));
+
+            System.out.println("contactIds = " + contactIds);
+
+            Map<String, String> contactVSAdvertMap = new LinkedHashMap<>();
+            try {
+                for (String contactId : contactIds) {
+                    contactVSAdvertMap.put(contactId, getValueFromBDWhere("advert_id", "advert_contact",
+                            "id", contactId));
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("Заново");
+                System.out.println(e);
+            }
+
+            List<String> exceptValuesList = new ArrayList<>(contactVSAdvertMap.values());
+
+            AdvertContact advertContact = new AdvertContact();
+            advertContact.fillAdvertContactWithRandomUniqueData();
+
+            Random random = new Random();
+            int randomIndex = random.nextInt(advertContact.getMessengers().size());
+            advertContact.getMessengers().get(randomIndex).setMessengerValue(value);
+            advertContact.getMessengers().get(randomIndex).setMessengerTypeId(messengerType);
+
+            String duplicatorContactId;
+            String duplicatorAdvertId1;
+            if (isEdit) {
+                duplicatorAdvertId1 = getRandomValueFromBDExcept("advert_id", "advert_contact",
+                        exceptValuesList);
+                System.out.println("Редактируем контакт Адверта: " + duplicatorAdvertId1);
+                duplicatorContactId = getRandomValueFromBDWhere("id", "advert_contact",
+                        "advert_id", duplicatorAdvertId1);
+                System.out.println("Редактируем контакт: " + duplicatorContactId);
+                editContact(duplicatorAdvertId1, duplicatorContactId, advertContact);
+
+            } else {
+                duplicatorAdvertId1 = getRandomValueFromBDExcept("id", "advert",
+                        exceptValuesList);
+                System.out.println("Добавляем контакт Адверту: " + duplicatorAdvertId1);
+                duplicatorContactId = String.valueOf(addContact(duplicatorAdvertId1, advertContact));
+                System.out.println("Добавленный контакт id =  " + duplicatorContactId);
+            }
+
+            String doubleMessengerId = getArrayFromBDWhereAnd("id", "advert_contact_messenger",
+                    Map.of("value", value, "messenger_id", messengerType, "contact_id", duplicatorContactId))
+                    .getFirst();
+            System.out.println("Дублирующий мессенжер id =  " + doubleMessengerId);
+
+            for (String contactId : contactIds) {
+                System.out.println("Контакт, к которому добавляем дубли: " + contactId);
+                System.out.println("Адверт, к которому добавляем дубли: " + contactVSAdvertMap.get(contactId));
+
+                AdvertContactDouble advertContactDouble =
+                        new AdvertContactDouble("messenger", duplicatorAdvertId1, contactVSAdvertMap.get(contactId),
+                                duplicatorContactId, contactId, doubleMessengerId, messengerId);
+                advertContactDoublesFromBD.add(advertContactDouble);
+            }
+            System.out.println("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
+
+            List<AdvertContactDouble> advertContactDoublesFromBDAfter = fillAdvertContactsDoubleFromBD();
+            System.out.println("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
+
+            assertContactDoubleBD(advertContactDoublesFromBD, advertContactDoublesFromBDAfter);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    private static void deleteEditContactFromBD(String messengerParameterName,
+                                                String contactParameterName,
+                                                String advertFieldName,
+                                                Boolean isEdit) {
+        try {
+            // Записываем список объектов из базы
+            List<AdvertContactDouble> advertContactDoublesFromBD = fillAdvertContactsDoubleFromBD();
+            String id;
+            if (messengerParameterName != null) {
+                id = getRandomValueFromBDWhereNotNull("id", "advert_contact_double",
+                        messengerParameterName);
+                String messengerIdFromBD = getValueFromBDWhere(contactParameterName, "advert_contact_double",
+                        "id", id);
+                System.out.println("ContactId = " + messengerIdFromBD);
+
+            } else {
+                id = getRandomValueFromBDWhereNotNull("id", "advert_contact_double",
+                        contactParameterName);
+            }
+            String contactIdFromBD = getValueFromBDWhere(contactParameterName, "advert_contact_double",
+                    "id", id);
             String advertIdFromBD = getValueFromBDWhere(advertFieldName, "advert_contact_double",
-                    parameterName, contactIdFromBD);
+                    contactParameterName, contactIdFromBD);
 
             System.out.println("Было всего записей: " + advertContactDoublesFromBD.size());
             System.out.println("AdvertID = " + advertIdFromBD);
             System.out.println("ContactId = " + contactIdFromBD);
+
             // Эти ids будем удалять из таблицы
             List<String> ids = getIdsWhereContactIsOrderById(contactIdFromBD);
             System.out.println("Удалили/изменили записей: " + ids.size());
@@ -190,6 +272,30 @@ public class AdvertDoubleContactsAPI {
             System.err.println(e);
         }
     }
+
+
+    private static void assertContactDoubleBD(List<AdvertContactDouble> advertContactDoublesFromBD,
+                                              List<AdvertContactDouble> advertContactDoublesFromBDAfter) {
+        SoftAssert softAssert = new SoftAssert();
+        try {
+            for (int i = 0; i < advertContactDoublesFromBD.size(); i++) {
+                AdvertContactDouble acd1 = advertContactDoublesFromBD.get(i);
+                AdvertContactDouble acd2 = advertContactDoublesFromBDAfter.get(i);
+                softAssert.assertEquals(acd1.getAdvert1(), acd2.getAdvert1());
+                softAssert.assertEquals(acd1.getAdvert2(), acd2.getAdvert2());
+                softAssert.assertEquals(acd1.getContact_id1(), acd2.getContact_id1());
+                softAssert.assertEquals(acd1.getContact_id2(), acd2.getContact_id2());
+                softAssert.assertEquals(acd1.getField(), acd2.getField());
+                softAssert.assertEquals(acd1.getMessenger_id1(), acd2.getMessenger_id1());
+                softAssert.assertEquals(acd1.getMessenger_id2(), acd2.getMessenger_id2());
+            }
+            softAssert.assertAll();
+        } catch (AssertionError a) {
+            System.err.println(a);
+        }
+        System.out.println("New test____________________________");
+    }
+
 
     private static int addContact(String advertId, AdvertContact advertContact) {
         return contactsAddPost(advertId, advertContact);

@@ -19,14 +19,16 @@ public class AdvertContactDouble {
 
     public AdvertContactDouble(String field,
                                String advert1, String advert2,
-                               String contact_id1, String contact_id2) {
+                               String contact_id1, String contact_id2,
+                               String messenger_id1, String messenger_id2
+                               ) {
         this.advert1 = advert1;
         this.advert2 = advert2;
         this.contact_id1 = contact_id1;
         this.contact_id2 = contact_id2;
         this.field = field;
-        this.messenger_id1 = null;
-        this.messenger_id2 = null;
+        this.messenger_id1 = messenger_id1;
+        this.messenger_id2 = messenger_id2;
     }
 
 

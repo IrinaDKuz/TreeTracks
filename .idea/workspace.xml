@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContactDouble.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContactDouble.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertContactDouble.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +62,7 @@
     "TestNG.AdvertContactsFindAPI.executor": "Run",
     "TestNG.AdvertCreate.executor": "Run",
     "TestNG.AdvertCreate.test.executor": "Run",
-    "TestNG.AdvertDoubleContactsAPI.executor": "Run",
+    "TestNG.AdvertDoubleContactsAPI.executor": "Debug",
     "TestNG.AdvertEdit.executor": "Run",
     "TestNG.AdvertFilterAPI.executor": "Run",
     "TestNG.AdvertGetFromBD.executor": "Debug",
@@ -364,33 +357,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>170</line>
-          <option name="timeStamp" value="108" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>140</line>
-          <option name="timeStamp" value="109" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>39</line>
+          <line>53</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>178</line>
-          <option name="timeStamp" value="114" />
+          <line>180</line>
+          <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>198</line>
-          <option name="timeStamp" value="115" />
+          <line>288</line>
+          <option name="timeStamp" value="126" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
