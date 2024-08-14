@@ -7,12 +7,6 @@ stages:
 variables:
   MAVEN_OPTS: "-Xms512m -Xmx2g"
 
-before_script:
-  - apt-get update && apt-get install -y wget unzip  # Устанавливаем необходимые инструменты
-  - wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip
-  - unzip apache-maven-3.8.6-bin.zip
-  - export PATH=$PATH:$(pwd)/apache-maven-3.8.6/bin
-
 cache:
   key: "$CI_COMMIT_REF_SLUG-maven"
   paths:
@@ -20,13 +14,13 @@ cache:
 
 build:
   stage: build
-  image: openjdk:21-jdk
+  image: maven:3.8.6-openjdk-21
   script:
     - mvn install -Pskip-tests
 
 test:
   stage: test
-  image: openjdk:21-jdk
+  image: maven:3.8.6-openjdk-21
   script:
     - mvn test -Dsurefire.suiteXmlFiles=API_Testing.xml -Dallure.results.directory=allure-results
   artifacts:
@@ -41,10 +35,9 @@ generate_report:
   stage: generate_report
   image: maven:3.8.6-openjdk-17
   script:
-    - apt-get update && apt-get install -y wget
-    - wget https://dl.bintray.com/qameta/maven/io/qameta/allure/allure-commandline/2.13.9/allure-commandline-2.13.9.zip
-    - unzip allure-commandline-2.13.9.zip -d allure
-    - export PATH=$PATH:$(pwd)/allure/allure-2.13.9/bin
+    - curl -L -o allure.zip https://dl.bintray.com/qameta/maven/io/qameta/allure/allure-commandline/2.13.9/allure-commandline-2.13.9.zip
+    - unzip allure.zip -d allure
+    - export PATH=$PATH:$(pwd)/allure/allure-commandline-2.13.9/bin
     - allure generate -c allure-results --clean -o _site
   artifacts:
     paths:
