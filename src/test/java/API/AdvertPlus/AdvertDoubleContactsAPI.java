@@ -115,7 +115,6 @@ public class AdvertDoubleContactsAPI {
 
                 duplicatorContactId = String.valueOf(addContact(duplicatorAdvertId1, advertContact));
                 System.out.println("Добавленный контакт id =  " + duplicatorAdvertId1);
-
             }
 
             for (String contactId : contactIds) {
