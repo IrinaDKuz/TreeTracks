@@ -27,9 +27,11 @@ workflow:
 image: openjdk:21-jdk
 
 before_script:
-  # Устанавливаем Maven
-  - apt-get update && apt-get install -y maven
-
+  - apt-get update && apt-get install -y wget unzip
+  - wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip
+  - unzip apache-maven-3.8.6-bin.zip
+  - export PATH=$PATH:$(pwd)/apache-maven-3.8.6/bin
+  
 stages:
   - build
   - test
