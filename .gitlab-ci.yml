@@ -24,22 +24,22 @@ workflow:
       - when: always
 
 
-image: maven:3.8.6-openjdk-11  # Используйте официальный образ Maven с OpenJDK 11
+image: maven:3.8.6-openjdk-21  # Образ Maven с OpenJDK 21
 
 stages:
   - build
   - test
 
 variables:
-  MAVEN_OPTS: "-Xms512m -Xmx2g"  # Настройте параметры JVM по необходимости
+  MAVEN_OPTS: "-Xms512m -Xmx2g"  # Настройка параметров JVM
 
 before_script:
-  - apt-get update && apt-get install -y unzip  # Устанавливаем unzip, если необходимо для работы
+  - apt-get update && apt-get install -y unzip
 
 build:
   stage: build
   script:
-    - mvn clean install  # Сборка проекта и установка зависимостей
+    - mvn clean install
 
 test:
   stage: test
