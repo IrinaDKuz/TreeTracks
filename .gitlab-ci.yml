@@ -22,8 +22,11 @@ test:
   - apt-get update && apt-get install -y google-chrome-stable
   - apt update && apt install -y openjdk-21-jdk openjdk-21-jre
   - wget https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz && tar -zxvf allure-2.25.0.tgz -C /opt/ && ln -s /opt/allure-2.25.0/bin/allure /usr/bin/allure
+  - wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d /usr/local/bin/
+  - chmod +x /usr/local/bin/chromedriver
+  - mvn dependency:resolve
       #  - pip install -r requirements.txt
-  - pip install selenium --upgrade
 
   script:
     - mvn clean test -Dsurefire.suiteXmlFiles=API_Testing.xml 
