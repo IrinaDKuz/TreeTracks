@@ -4,7 +4,8 @@ stages:
   - generate_report
   - publish_report
 
-image: jelastic/maven:3.9.5-openjdk-21
+image: maven:latest
+  #jelastic/maven:3.9.5-openjdk-21
 
 build:
   stage: build
@@ -13,7 +14,6 @@ build:
 
 test:
   stage: test
-
 
   before_script:
         - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
