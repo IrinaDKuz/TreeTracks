@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class AdvertContactsAPI {
         Allure.step("Выполняем проверки");
         contactsAssert(advertContact);
         Allure.step("Удаляем контакт " + advertContactId);
-        deleteMethod("advert",advertId + "/contact/" + advertContactId);
+     //   deleteMethod("advert",advertId + "/contact/" + advertContactId);
     }
 
     private static void contactsAdd() throws Exception {
@@ -199,18 +200,21 @@ public class AdvertContactsAPI {
         ArrayList<AdvertContact> advertContactsList = contactsGet(true);
         for (AdvertContact advertContact : advertContactsList) {
             if (advertContact.getContactID() == advertContactId) {
+                SoftAssert softAssert = new SoftAssert();
                 System.out.println(advertContact.getContactID());
-                Assert.assertEquals(advertContact.getPerson(), advertContactEdit.getPerson());
-                Assert.assertEquals(advertContact.getStatus(), advertContactEdit.getStatus());
-                Assert.assertEquals(advertContact.getEmail(), advertContactEdit.getEmail());
-                Assert.assertEquals(advertContact.getPosition(), advertContactEdit.getPosition());
+                softAssert.assertEquals(advertContact.getPerson(), advertContactEdit.getPerson());
+                softAssert.assertEquals(advertContact.getStatus(), advertContactEdit.getStatus());
+                softAssert.assertEquals(advertContact.getEmail(), advertContactEdit.getEmail());
+                softAssert.assertEquals(advertContact.getPosition(), advertContactEdit.getPosition());
 
                 for (int i = 0; i < advertContactEdit.getMessengers().size(); i++) {
                     Messenger getMessenger = advertContact.getMessengers().get(i);
                     Messenger editMessenger = advertContactEdit.getMessengers().get(i);
-                    Assert.assertEquals(getMessenger.getMessengerTypeId(), editMessenger.getMessengerTypeId());
-                    Assert.assertEquals(getMessenger.getMessengerValue(), editMessenger.getMessengerValue());
+                    softAssert.assertEquals(getMessenger.getMessengerId(), editMessenger.getMessengerId());
+                    softAssert.assertEquals(getMessenger.getMessengerTypeId(), editMessenger.getMessengerTypeId());
+                    softAssert.assertEquals(getMessenger.getMessengerValue(), editMessenger.getMessengerValue());
                 }
+                softAssert.assertAll();
             }
         }
     }

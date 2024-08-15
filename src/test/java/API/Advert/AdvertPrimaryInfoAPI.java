@@ -49,7 +49,7 @@ public class AdvertPrimaryInfoAPI {
         Allure.step(CHECK);
         primaryInfoAssert(advertPrimaryInfoEdit, primaryInfoGet(false));
 
-        advertId = Integer.parseInt(getFrequentValueFromBD("advert_id", "offer"));
+        advertId = Integer.parseInt(getFrequentValueFromBDNotNull("advert_id", "offer"));
         Allure.step("Проверка для Адверта, к которому присоединено несколько офферов advertId=" + advertId);
         AdvertPrimaryInfo advertPrimaryInfoEdit2 = primaryInfoAddEdit(true);
         primaryInfoAssert(advertPrimaryInfoEdit2, primaryInfoGet(true));

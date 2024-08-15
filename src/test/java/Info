@@ -75,3 +75,63 @@ git commit -m "mes"
 git push origin3 main
 
 git pull origin3 main
+
+
+
+stages:
+  - build
+  - test
+  - generate_report
+  - publish_report
+
+image: jelastic/maven:3.9.5-openjdk-21
+
+build:
+  stage: build
+  script:
+    - mvn compile
+
+test:
+  stage: test
+
+  before_script:
+        - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+        - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+        - apt-get update && apt-get install -y google-chrome-stable
+
+        - apt update && apt install -y openjdk-21-jdk openjdk-21-jre
+        - wget https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz && tar -zxvf allure-2.25.0.tgz -C /opt/ && ln -s /opt/allure-2.25.0/bin/allure /usr/bin/allure
+      #  - pip install -r requirements.txt
+        - pip install selenium --upgrade
+
+  script:
+    - mvn clean test -Dsurefire.suiteXmlFiles=API_Testing.xml
+    # Подкручиваем, чтобы сохранял отчет
+   # -
+ # artifacts:
+  #  paths:
+   #   - allure-results
+    #reports:
+     # junit:
+      #  - target/surefire-reports/TEST-*.xml
+    #expire_in: 1 day
+
+#generate_report:
+ # stage: generate_report
+  #image: maven:3.8.6-openjdk-17
+  #script:
+  #  - curl -L -o allure.zip https://dl.bintray.com/qameta/maven/io/qameta/allure/allure-commandline/2.13.9/allure-commandline-2.13.9.zip
+   # - unzip allure.zip -d allure
+    #- export PATH=$PATH:$(pwd)/allure/allure-commandline-2.13.9/bin
+ #   - allure generate -c allure-results --clean -o _site
+ # artifacts:
+  #  paths:
+   #   - _site
+   # expire_in: 1 day
+
+#publish_report:
+ # stage: publish_report
+  #image: alpine:latest
+  #script:
+ #   - apk add --no-cache curl
+  #  - curl -X POST -F "file=@_site" -F "branch=$CI_COMMIT_REF_NAME" "https://pages.example.com/upload"  # Замените URL на ваш реальный адрес публикации

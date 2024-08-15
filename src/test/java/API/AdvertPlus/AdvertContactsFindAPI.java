@@ -124,13 +124,18 @@ public class AdvertContactsFindAPI {
 
         Set<Integer> uniquePersonArrayFromBDInt = new LinkedHashSet<>(personArrayFromBDInt);
         List<Integer> personArrayFromBDIntList = new ArrayList<>(uniquePersonArrayFromBDInt);
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBDIntList);
+
+        if (!personArray.isEmpty() || !personArrayFromBDIntList.isEmpty()){
+            Collections.sort(personArray);
+            Collections.sort(personArrayFromBDIntList);
+        }
+        System.out.println("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDIntList);
+        Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDIntList);
         softAssert.assertEquals(personArray, personArrayFromBDIntList);
     }
 
     private static void separateTest(String field, SoftAssert softAssert) throws Exception {
-        String fieldValue = getRandomValueFromBD(field, "advert_contact");
+        String fieldValue = getFrequentValueFromBDNotNull(field, "advert_contact");
         System.out.println("Ищем по полю: " + field + ", значение: " + fieldValue);
         Allure.step("Ищем по полю: " + field + ", значение: " + fieldValue);
         List<Integer> personArray = findContact(Map.of(field, fieldValue));
@@ -139,14 +144,17 @@ public class AdvertContactsFindAPI {
                 .stream()
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBD);
+        if (!personArray.isEmpty() || !personArrayFromBD.isEmpty()){
+            Collections.sort(personArray);
+            Collections.sort(personArrayFromBD);
+        }
+        System.out.println("id Адвертов из ответа на запрос : " + personArray + ", id Адвертов из БД: " + personArrayFromBD);
         Allure.step("id Адвертов из ответа на запрос : " + personArray + ", id Адвертов из БД: " + personArrayFromBD);
         softAssert.assertEquals(personArray, personArrayFromBD);
     }
 
     private static void separateWithExcludeTest(String field, SoftAssert softAssert) throws Exception {
-        String fieldValue = getFrequentValueFromBD(field, "advert_contact");
+        String fieldValue = getFrequentValueFromBDNotNull(field, "advert_contact");
         System.out.println("Ищем по полю: " + field + ", значение: " + fieldValue);
         Allure.step("Ищем по полю: " + field + ", значение: " + fieldValue);
         List<String> ids = getArrayFromBDWhere("advert_id", "advert_contact", field, fieldValue);
@@ -154,6 +162,9 @@ public class AdvertContactsFindAPI {
         System.out.println(ids);
 
         List<Integer> personArray = findContactExclude(Map.of(field, fieldValue, "excludeId[]", ids));
+
+        System.out.println("Проверяем, что пустой массив : " + personArray);
+        Allure.step("Проверяем, что пустой массив : " + personArray);
         softAssert.assertEquals(personArray, Collections.emptyList());
 
         // Исключаем несколько рандомно
@@ -177,10 +188,11 @@ public class AdvertContactsFindAPI {
 
         List<Integer> personArrayFromBDWithoutId = new ArrayList<>(personArrayFromBD);
         personArrayFromBDWithoutId.removeAll(idsToExclude.stream().map(Integer::parseInt).toList());
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBDWithoutId);
-        System.out.println(personArray);
-        System.out.println(personArrayFromBDWithoutId);
+        if (!personArray.isEmpty() || !personArrayFromBDWithoutId.isEmpty()){
+            Collections.sort(personArray);
+            Collections.sort(personArrayFromBDWithoutId);
+        }
+        System.out.println("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDWithoutId);
         Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDWithoutId);
         softAssert.assertEquals(personArray, personArrayFromBDWithoutId);
     }
@@ -195,7 +207,6 @@ public class AdvertContactsFindAPI {
         Allure.step("Ищем по полям: messenger_id = " + messengerId +
                 " и messenger_value = " + messengerValue);
 
-
         List<Integer> personArray = findContact(Map.of("messengerId", messengerId, "messengerValue", messengerValue));
         List<String> contactArrayFromBD = getArrayFromBDWhereAnd("contact_id", "advert_contact_messenger",
                 Map.of("messenger_id", messengerId, "value", messengerValue));
@@ -205,10 +216,12 @@ public class AdvertContactsFindAPI {
         List<Integer> personArrayFromBDInt = new ArrayList<>(personArrayFromBD.stream()
                 .map(Integer::parseInt)
                 .toList());
-        Collections.sort(personArray);
-        Collections.sort(personArrayFromBDInt);
-        System.out.println(personArray);
-        System.out.println(personArrayFromBDInt);
+
+        if (!personArray.isEmpty() || !personArrayFromBDInt.isEmpty()){
+            Collections.sort(personArray);
+            Collections.sort(personArrayFromBDInt);
+        }
+        System.out.println("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDInt);
         Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDInt);
         softAssert.assertEquals(personArray, personArrayFromBDInt);
     }
