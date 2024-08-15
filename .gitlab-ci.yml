@@ -28,7 +28,7 @@ test:
   script:
     - mvn clean test -Dsurefire.suiteXmlFiles=API_Testing.xml 
     # Подкручиваем, чтобы сохранял отчет
-    - 
+   # - 
  # artifacts:
   #  paths:
    #   - allure-results
