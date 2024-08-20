@@ -40,9 +40,7 @@ public class AdvertPrimaryInfo {
     List<Integer> tagId;
     List<String> tagName = new ArrayList<>();
 
-    String userRequestSourceId;
-    String userRequestSourceName;
-    String userRequestSourceValue;
+    String userRequestSource;
     String note;
 
     String address1;
@@ -86,8 +84,7 @@ public class AdvertPrimaryInfo {
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
 
-        this.userRequestSourceId = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_id", id);
-        this.userRequestSourceValue = getValueFromAdvertPrimaryInfoBDWhere("user_request_source_value", id);
+        this.userRequestSource = getValueFromAdvertPrimaryInfoBDWhere("user_request_source", id);
         this.note = getValueFromAdvertPrimaryInfoBDWhere("note", id);
     }
 
@@ -160,10 +157,7 @@ public class AdvertPrimaryInfo {
             this.tagName.add(getValueFromBDWhere("name", "advert_tag",
                     "id", String.valueOf(tagId)));
 
-        this.userRequestSourceId = getRandomValueFromBD("id", "user_request_source");
-        this.userRequestSourceName = getRandomValueFromBDWhere("name", "user_request_source",
-                "id", this.userRequestSourceId);
-        this.userRequestSourceValue = generateName(2, COMPANY_WORDS);
+        this.userRequestSource = getRandomValueFromBD("id", "admin");
         this.note = generateName(10, COMPANY_WORDS);
     }
 
@@ -309,20 +303,12 @@ public class AdvertPrimaryInfo {
         this.tagId.removeAll(tags);
     }
 
-    public String getUserRequestSourceId() {
-        return userRequestSourceId;
+    public String getUserRequestSource() {
+        return userRequestSource;
     }
 
-    public void setUserRequestSourceId(String userRequestSourceId) {
-        this.userRequestSourceId = userRequestSourceId;
-    }
-
-    public String getUserRequestSourceValue() {
-        return userRequestSourceValue;
-    }
-
-    public void setUserRequestSourceValue(String userRequestSourceValue) {
-        this.userRequestSourceValue = userRequestSourceValue;
+    public void setUserRequestSource(String userRequestSource) {
+        this.userRequestSource = userRequestSource;
     }
 
     public String getNote() {
@@ -355,14 +341,6 @@ public class AdvertPrimaryInfo {
 
     public void setAccountManagerName(String accountManagerName) {
         this.accountManagerName = accountManagerName;
-    }
-
-    public String getUserRequestSourceName() {
-        return userRequestSourceName;
-    }
-
-    public void setUserRequestSourceName(String userRequestSourceName) {
-        this.userRequestSourceName = userRequestSourceName;
     }
 
     public List<String> getTagName() {

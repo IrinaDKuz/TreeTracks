@@ -24,9 +24,17 @@ public class Helper {
 
     public static final String[] LANG = {"eng", "rus"};
 
+   // public static final String URL = "https://api.newx.3tracks.online";
+    public static final String URL = "https://api.admin.3tracks.link";
+
+
     public static void deleteMethod(String url, String id) {
         Response response;
-        response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", authKeyAdmin).header("Accept", "application/json").header("Content-Type", "application/json").delete("https://api.admin.3tracks.link/" + url + "/" + id);
+        System.out.println("https://api.admin.3tracks.link/" + url + "/" + id);
+        response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", authKeyAdmin)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .delete("https://api.admin.3tracks.link/" + url + "/" + id);
 
         // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
@@ -76,11 +84,17 @@ public class Helper {
         }
     }
 
-    public static Boolean assertDelete(String id, String tableName) {
-        Boolean isDelete = !isInDatabase("id", id, tableName);
-        if (isDelete) Allure.step("id=" + id + " не найден в БД " + tableName);
-        else Allure.step("id=" + id + " найден в БД " + tableName);
-        return isDelete;
+    public static void assertDelete(String id, String tableName) {
+        boolean isDelete = !isInDatabase("id", id, tableName);
+        if (isDelete) {
+            Allure.step("id=" + id + " не найден в БД " + tableName);
+            System.out.println("id=" + id + " не найден в БД " + tableName);
+        }
+        else {
+            Allure.step("id=" + id + " найден в БД " + tableName);
+            System.out.println("id=" + id + " найден в БД " + tableName);
+        }
+        Assert.assertTrue(isDelete);
     }
 
 

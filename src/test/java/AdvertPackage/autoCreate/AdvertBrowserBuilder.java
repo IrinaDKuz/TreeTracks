@@ -48,8 +48,7 @@ public class AdvertBrowserBuilder {
         selectAutocompleteInput(PRICING_MODEL, advertPrimaryInfo.getPricingModel(), driver);
         selectAutocompleteInput(CATEGORIES, advertPrimaryInfo.getCategoriesName(), driver);
         selectAutocompleteInput(TAGS, advertPrimaryInfo.getTagName(), driver);
-        selectAutocompleteInput(USER_REQUEST_SOURCE, advertPrimaryInfo.getUserRequestSourceName(), driver);
-        clearAndSendKeysByLabel(USER_REQUEST_SOURCE_VALUE, advertPrimaryInfo.getUserRequestSourceValue(), driver);
+        selectAutocompleteInput(USER_REQUEST_SOURCE, advertPrimaryInfo.getUserRequestSource(), driver);
         sendKeysToTextAreaByLabel(NOTES, advertPrimaryInfo.getNote(), driver);
         // TODO Ждать пару секунд сообщение об ошибке
     }
@@ -213,8 +212,7 @@ public class AdvertBrowserBuilder {
         enterTextByPlaceholder(COMPANY_LEGAL_NAME, advert.getAdvertPrimaryInfo().getCompanyLegalName(), driver);
         selectAutocompleteInputByText(MANAGER, advert.getAdvertPrimaryInfo().getManagerName(), driver);
         enterTextByPlaceholder("Contact", advert.getAdvertContact().getFirst().getEmail(), driver);
-        selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSourceName(), driver);
-        enterTextByPlaceholder(USER_REQUEST_SOURCE_VALUE, advert.getAdvertPrimaryInfo().getUserRequestSourceValue(), driver);
+        selectAutocompleteInputByText(USER_REQUEST_SOURCE, advert.getAdvertPrimaryInfo().getUserRequestSource(), driver);
         selectAutocompleteInputByText(TAG, advert.getAdvertPrimaryInfo().getTagName().getFirst(), driver);
         enterTextByPlaceholder("Person", advert.getAdvertContact().getFirst().getPerson(), driver);
         selectAutocompleteInputByText("Payment Type", advert.getAdvertRequisites().getFirst().getPaymentSystemTitle(), driver);

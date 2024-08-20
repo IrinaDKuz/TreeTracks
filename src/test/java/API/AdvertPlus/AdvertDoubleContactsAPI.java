@@ -305,7 +305,7 @@ public class AdvertDoubleContactsAPI {
                         .build();
 
                 for (Object diffEntry : diff.getDiffs()) {
-                    System.out.println(diffEntry.toString());
+                    System.err.println(diffEntry.toString());
                 }
             }
         }

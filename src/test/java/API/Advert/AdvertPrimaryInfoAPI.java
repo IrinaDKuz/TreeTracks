@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -17,8 +16,7 @@ import org.testng.annotations.Test;
 import java.util.*;
 import java.util.stream.StreamSupport;
 
-import static API.Helper.deleteMethod;
-import static API.Helper.parseUnknownValueToInteger;
+import static API.Helper.*;
 import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
@@ -35,6 +33,7 @@ public class AdvertPrimaryInfoAPI {
 
     @Test
     public static void test() throws Exception {
+
         Allure.step("Добавляем Адверта");
         AdvertPrimaryInfo advertPrimaryInfoAdd = primaryInfoAddEdit(false);
         advertId = advertPrimaryInfoAdd.getAdvertId();
@@ -68,8 +67,7 @@ public class AdvertPrimaryInfoAPI {
         advertObject.addProperty("siteUrl", advertPrimaryInfo.getSiteUrl());
         advertObject.addProperty("companyLegalname", advertPrimaryInfo.getCompanyLegalName());
         advertObject.addProperty("note", advertPrimaryInfo.getNote());
-        advertObject.addProperty("userRequestSourceId", Integer.parseInt(advertPrimaryInfo.getUserRequestSourceId()));
-        advertObject.addProperty("userRequestSourceValue", advertPrimaryInfo.getUserRequestSourceValue());
+        advertObject.addProperty("userRequestSource", Integer.parseInt(advertPrimaryInfo.getUserRequestSource()));
 
         List<String> pricingModelList = advertPrimaryInfo.getPricingModel();
         JsonArray pricingModelArray = new JsonArray();
@@ -105,8 +103,8 @@ public class AdvertPrimaryInfoAPI {
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
         attachJson(String.valueOf(jsonObject), DATA);
 
-        String path = isEdit ? "https://api.admin.3tracks.link/advert/" + advertId + "/edit" :
-                "https://api.admin.3tracks.link/advert/new";
+        String path = isEdit ? URL + "/advert/" + advertId + "/edit" :
+                URL + "/advert/new";
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -142,7 +140,7 @@ public class AdvertPrimaryInfoAPI {
                 .header("Authorization", authKeyAdmin)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .get("https://api.admin.3tracks.link/advert/" + advertId);
+                .get(URL + "/advert/" + advertId);
 
         String responseBody = response.getBody().asString();
         if (isShow) {
@@ -161,8 +159,7 @@ public class AdvertPrimaryInfoAPI {
         advertPrimaryInfo.setManagerId(String.valueOf(data.isNull("managerId") ? null : data.getInt("managerId")));
         advertPrimaryInfo.setSalesManagerId(String.valueOf(data.isNull("salesManager") ? null : data.getInt("salesManager")));
         advertPrimaryInfo.setAccountManagerId(String.valueOf(data.isNull("accountManager") ? null : data.getInt("accountManager")));
-        advertPrimaryInfo.setUserRequestSourceId(String.valueOf(data.isNull("userRequestSourceId") ? null : data.getInt("userRequestSourceId")));
-        advertPrimaryInfo.setUserRequestSourceValue(data.isNull("userRequestSourceValue") ? null : data.getString("userRequestSourceValue"));
+        advertPrimaryInfo.setUserRequestSource(String.valueOf(data.isNull("userRequestSource") ? null : data.getInt("userRequestSource")));
         advertPrimaryInfo.setNote(data.isNull("note") ? null : data.getString("note"));
 
         JSONObject offer = data.getJSONObject("offer");
@@ -230,8 +227,7 @@ public class AdvertPrimaryInfoAPI {
         Set<Integer> categoriesId = advertPrimaryInfo.getCategoriesId();
         Set<Integer> categoriesIdEdit = advertPrimaryInfoGet.getCategoriesId();
         Assert.assertEquals(categoriesId, categoriesIdEdit);
-        Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceId(), advertPrimaryInfoGet.getUserRequestSourceId());
-        Assert.assertEquals(advertPrimaryInfo.getUserRequestSourceValue(), advertPrimaryInfoGet.getUserRequestSourceValue());
+        Assert.assertEquals(advertPrimaryInfo.getUserRequestSource(), advertPrimaryInfoGet.getUserRequestSource());
         Assert.assertEquals(advertPrimaryInfo.getNote(), advertPrimaryInfoGet.getNote());
 
         if (advertPrimaryInfo.getAdvertId() != null) {

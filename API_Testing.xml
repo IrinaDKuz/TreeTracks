@@ -7,6 +7,8 @@
             <class name="API.Admin.AdminGeneralAPI"/>
             <class name="API.Admin.AdminFilterAPI"/>
             <class name="API.Admin.AdminListAPI"/>
+            <class name="API.Admin.AffiliateManagerAPI"/>
+
         </classes>
     </test>
 
@@ -18,6 +20,7 @@
             <class name="API.Advert.AdvertPaymentInfoAPI"/>
             <class name="API.Advert.AdvertPostbackAPI"/>
             <class name="API.Advert.AdvertNotesAPI"/>
+            <class name="API.Advert.AdvertAccessAPI"/>
 
             <class name="API.Advert.AdvertFilterAPI"/>
             <class name="API.AdvertPlus.AdvertBulkCheck"/>
@@ -39,6 +42,8 @@
             <class name="API.Offer.OfferMain.OfferMainList"/>
             <class name="API.Offer.OfferMain.OfferMainFilter"/>
             <class name="API.Offer.OfferMain.OfferMainBasicInfoAPI"/>
+            <class name="API.Offer.OfferMain.OfferAccessAPI"/>
+
             <!--     <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>-->
         </classes>
     </test>

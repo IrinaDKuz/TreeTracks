@@ -65,6 +65,12 @@ public class Adverts {
         }
     };
 
+    public final static Map<String, String> ADVERT_ACCESS_TYPE = new HashMap<>() {
+        {
+            put("single", "Single");
+            put("multiple", "Multiple");
+        }
+    };
 
     public static final String[] COMPANY_WORDS = {"Tech", "Global", "Future", "Innovative", "Smart", "Digital", "Creative",
             "Dynamic", "Eco", "Bright", "Alpha", "Omega", "Hyper", "Super", "Ultra",
@@ -133,6 +139,30 @@ public class Adverts {
     };
 
 
+    public static final String[] LOGIN_WORDS = {
+            "Cobra", "Viper", "Python", "Boa", "Anaconda",
+            "Mamba", "Rattlesnake", "Adder", "Copperhead", "Coral",
+            "Scarab", "Mantis", "Beetle", "Dragonfly", "Butterfly",
+            "Wasp", "Hornet", "Ant", "Bee", "Mosquito",
+            "Gnat", "Cricket", "Locust", "Termite", "Flea",
+            "Centipede", "Millipede", "Spider", "Tarantula", "Scorpion",
+            "Grasshopper", "Cicada", "Firefly", "Ladybug", "Weevil",
+            "Tick", "Mite", "Garter", "King", "Milk",
+            "Pit", "Bushmaster", "Fer_de_Lance", "Taipan", "Asp",
+            "Krait", "Cottonmouth", "SeaSnake", "BoaConstrictor", "GaboonViper",
+            "Copperhead", "Kingsnake", "Boomslang", "Keelback", "WaterMoccasin",
+            "Sidewinder", "PuffAdder", "Saw scaledViper", "TreeViper", "BushViper",
+            "RoughGreenSnake", "SmoothGreenSnake", "EasternBrownSnake", "Red_belliedBlackSnake", "Inland_Taipan",
+            "DeathAdder", "WhipSnake", "BrownTreeSnake", "TigerSnake", "SandViper",
+            "FalseWaterCobra", "NightSnake", "EarthSnake", "GrassSnake", "BlindSnake",
+            "Blunt_nosedViper", "MoleSnake", "SpeckledKingsnake", "BrahminBlindSnake", "HognoseSnake",
+            "ThreadSnake", "SmoothSnake", "SandSnake", "Leaf_nosedSnake", "SwampSnake",
+            "Shieldtail", "WormSnake", "RatSnake", "Bullsnake", "GopherSnake",
+            "RockPython", "ReticulatedPython", "Green_TreePython", "BlackMamba", "Blue_Krait"
+    };
+
+
+
     public static void showAdvertPrimaryInfoInformation(AdvertPrimaryInfo advertPrimaryInfo) {
         System.out.println(NAME + ": " + advertPrimaryInfo.getCompany());
         System.out.println(COMPANY_LEGAL_NAME + ": " + advertPrimaryInfo.getCompanyLegalName());
@@ -146,8 +176,7 @@ public class Adverts {
 
         System.out.println(CATEGORIES + ": " + advertPrimaryInfo.getCategoriesId() + ": " + advertPrimaryInfo.getCategoriesName());
         System.out.println(TAGS + ": " + advertPrimaryInfo.getTagId() + ": " + advertPrimaryInfo.getTagName());
-        System.out.println(USER_REQUEST_SOURCE + ": " + advertPrimaryInfo.getUserRequestSourceId() + ": " + advertPrimaryInfo.getUserRequestSourceName());
-        System.out.println(USER_REQUEST_SOURCE_VALUE + ": " + advertPrimaryInfo.getUserRequestSourceValue());
+        System.out.println(USER_REQUEST_SOURCE + ": " + advertPrimaryInfo.getUserRequestSource());
         System.out.println(NOTES + ": " + advertPrimaryInfo.getNote());
     }
 

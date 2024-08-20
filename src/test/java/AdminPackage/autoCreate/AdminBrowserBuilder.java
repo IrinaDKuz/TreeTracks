@@ -39,9 +39,8 @@ public class AdminBrowserBuilder {
         selectAutocompleteInput("GEO", advertPrimaryInfo.getGeo(), driver);
         selectAutocompleteInput("Categories", advertPrimaryInfo.getCategoriesName(), driver);
         selectAutocompleteInput("Tags", advertPrimaryInfo.getTagName(), driver);
-        selectAutocompleteInput("User Request Source", advertPrimaryInfo.getUserRequestSourceId(), driver);
+        selectAutocompleteInput("User Request Source", advertPrimaryInfo.getUserRequestSource(), driver);
 
-        sendKeysByLabel("User Request Source Value", advertPrimaryInfo.getUserRequestSourceValue(), driver);
         sendKeysToTextAreaByLabel("Note", advertPrimaryInfo.getNote(), driver);
 
         WebElement checkbox = driver.findElement(By.id("forbidChangePostbackStatus"));
