@@ -19,41 +19,42 @@ import static SQL.AdvertSQL.*;
 
 /***
  Тест проверяет работу API методов Адвертов
- - getList, filters,
- // TODO: реализовать requisites, contact(messengers),
+ - filters,
+ // TODO: реализовать requisites,
  */
 
 
 public class AdvertFilterAPI {
 
     public final static Map<String, String> generalAdvertFields = new HashMap<>() {{
-      //  put("sales_manager", "salesManager[]");
-     //   put("account_manager", "accountManager[]");
+        put("sales_manager", "salesManager[]");
+        put("account_manager", "accountManager[]");
         put("site_url", "siteUrl");
-     //   put("geo", "geo[]");
-   //     put("pricing_model", "pricingModel[]");
-    //    put("status", "status[]");
-   //     put("note", "note");
-   //     put("manager_id", "managerId[]");
-   //     put("company_legalname", "companyLegalname");
-   //     put("name", "name");
-   //     put("id", "id");
-    //    put("user_request_source_value", "userRequestSourceValue");
-    //    put("user_request_source_id", "userRequestSource[]");
+        put("geo", "geo[]");
+        put("pricing_model", "pricingModel[]");
+        put("status", "status[]");
+        put("note", "note");
+        put("manager_id", "managerId[]");
+        put("company_legalname", "companyLegalname");
+        put("name", "name");
+        put("id", "id");
+        put("user_request_source_value", "userRequestSourceValue");
+        put("user_request_source", "userRequestSource[]");
     }};
+
     public final static Map<String, String> tagAdvertFields = new HashMap<>() {{
-     //  put("advert_tag_id", "tag[]");
+        put("advert_tag_id", "tag[]");
     }};
     public final static Map<String, String> categoryAdvertFields = new HashMap<>() {{
-     // put("category_id", "categories[]");
+        put("category_id", "categories[]");
     }};
     public final static Map<String, String> paymentAdvertFields = new HashMap<>() {{
-      put("payment_system_id", "paymentType[]");
-      put("requisites", "paymentDetails"); // пока вручную
+        put("payment_system_id", "paymentType[]");
+        put("requisites", "paymentDetails"); // пока вручную
     }};
     public final static Map<String, String> contactAdvertFields = new HashMap<>() {{
-      put("person", "person");
-      put("email", "contact");
+        put("person", "person");
+        put("email", "contact");
     }};
     public final static Map<String, String> messengerAdvertFields = new HashMap<>() {{
         put("id", "contact");

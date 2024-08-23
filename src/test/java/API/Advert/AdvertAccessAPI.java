@@ -17,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.ArrayList;
 import java.util.List;
 
+import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
@@ -54,6 +55,7 @@ public class AdvertAccessAPI {
         contactsAssert(advertAccessEdit);
         Allure.step("Удаляем Access " + advertAccessId);
         deleteMethod("advert",advertId + "/access/" + advertAccessId);
+        assertDelete(String.valueOf(advertAccessId), "advert_access");
     }
 
     private static AdvertAccess accessAdd() throws Exception {

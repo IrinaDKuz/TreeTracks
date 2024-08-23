@@ -23,9 +23,19 @@ import static io.restassured.RestAssured.given;
  Тест ищет контакты совпадающие по полям:
  person
  email
- messengerId + messengerValue
+ messengers [id, value]
  excludeId
- TODO: тест нестабильный и иногда падает
+ TODO: messengers + тест нестабильный и иногда падает
+
+
+ NB! Тест из-за особенностей мапы не умеет искать такие значения:
+ Ищем по полям: messengers[][id] = 108 и messengers[][value] = Bougainvillea0815093027381
+ Ищем по полям: messengers[][id] = 103 и messengers[][value] = Campanula0813170123490
+ Ищем по полям: messengers[][id] = 103 и messengers[][value] = Echinacea0813181935575
+ и перезаписывает значения с одинаковым id, такие кейсы нужно прогонять вручную
+
+
+ Нужно ли будет искать пустые email?
  */
 
 public class AdvertContactsFindAPI {
@@ -38,14 +48,18 @@ public class AdvertContactsFindAPI {
 
     @Test
     public static void test() throws Exception {
-        SoftAssert softAssert =  new SoftAssert();
+        SoftAssert softAssert = new SoftAssert();
         Allure.step("1) Проверки каждого поля отдельно");
+        System.out.println("1) Проверки каждого поля отдельно");
         positiveSeparateTest(softAssert);
         Allure.step("2) Проверки полей в совокупности по одному Адверту");
+        System.out.println("2) Проверки полей в совокупности по одному Адверту");
         positiveCombineTest(softAssert);
         Allure.step("3) Проверки полей в совокупности данные из полей у разных Адвертов");
+        System.out.println("3) Проверки полей в совокупности данные из полей у разных Адвертов");
         negativeCombineTest(softAssert);
         Allure.step("4) Проверки exclude");
+        System.out.println("4) Проверки exclude");
         excludeTest(softAssert);
         softAssert.assertAll();
     }
@@ -58,12 +72,14 @@ public class AdvertContactsFindAPI {
 
     public static void positiveCombineTest(SoftAssert softAssert) throws Exception {
         String messengerId = getRandomValueFromBD("id", "advert_contact_messenger");
+        System.out.println("messengerId = " + messengerId);
         String messengerTypeId = getValueFromBDWhere("messenger_id", "advert_contact_messenger",
                 "id", messengerId);
         String messengerValue = getValueFromBDWhere("value", "advert_contact_messenger",
                 "id", messengerId);
         String contactId = getValueFromBDWhere("contact_id", "advert_contact_messenger",
                 "id", messengerId);
+        System.out.println("contactId = " + contactId);
         String person = getRandomValueFromBDWhere("person", "advert_contact",
                 "id", contactId);
         String email = getRandomValueFromBDWhere("email", "advert_contact",
@@ -73,11 +89,16 @@ public class AdvertContactsFindAPI {
     }
 
     public static void negativeCombineTest(SoftAssert softAssert) throws Exception {
+        Allure.step("3.1) messengerTypeId и messengerValue из разных контактов и несовпадают");
+        System.out.println("3.1) messengerTypeId и messengerValue из разных контактов и несовпадают");
         String messengerTypeId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
         String messengerValue = getRandomValueFromBD("value", "advert_contact_messenger");
         String person = getRandomValueFromBD("person", "advert_contact");
         String email = getRandomValueFromBD("email", "advert_contact");
         combineTest(person, email, messengerTypeId, messengerValue, softAssert);
+
+        Allure.step("3.2) messengerTypeId и messengerValue из одного мессенджера и совпадают");
+        System.out.println("3.2) messengerTypeId и messengerValue из одного мессенджера и совпадают");
 
         messengerTypeId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
         messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
@@ -109,15 +130,15 @@ public class AdvertContactsFindAPI {
 
         System.out.println("Ищем по полям: person, значение: " + person);
         System.out.println("               email, значение: " + email);
-        System.out.println("               messengerId, значение: " + messengerTypeId);
-        System.out.println("               messengerValue, значение: " + messengerValue);
+        System.out.println("               messengers[0][id], значение: " + messengerTypeId);
+        System.out.println("               messengers[0][value], значение: " + messengerValue);
 
         Allure.step("Ищем по совокупности полей: person = " + person +
-                ", email = " + email + ", messengerId = " + messengerTypeId +
-                ", messengerValue = " + messengerValue);
+                ", email = " + email + ", messengers[0][id] = " + messengerTypeId +
+                ", messengers[0][value] = " + messengerValue);
 
         List<Integer> personArray = findContact(Map.of("person", person, "email", email,
-                "messengerId", messengerTypeId, "messengerValue", messengerValue));
+                "messengers[0][id]", messengerTypeId, "messengers[0][value]", messengerValue));
         List<Integer> personArrayFromBDInt = personArrayFromBD.stream()
                 .map(Integer::parseInt)
                 .toList();
@@ -125,7 +146,7 @@ public class AdvertContactsFindAPI {
         Set<Integer> uniquePersonArrayFromBDInt = new LinkedHashSet<>(personArrayFromBDInt);
         List<Integer> personArrayFromBDIntList = new ArrayList<>(uniquePersonArrayFromBDInt);
 
-        if (!personArray.isEmpty() || !personArrayFromBDIntList.isEmpty()){
+        if (!personArray.isEmpty() && !personArrayFromBDIntList.isEmpty()) {
             Collections.sort(personArray);
             Collections.sort(personArrayFromBDIntList);
         }
@@ -144,7 +165,7 @@ public class AdvertContactsFindAPI {
                 .stream()
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        if (!personArray.isEmpty() || !personArrayFromBD.isEmpty()){
+        if (!personArray.isEmpty() && !personArrayFromBD.isEmpty()) {
             Collections.sort(personArray);
             Collections.sort(personArrayFromBD);
         }
@@ -188,7 +209,7 @@ public class AdvertContactsFindAPI {
 
         List<Integer> personArrayFromBDWithoutId = new ArrayList<>(personArrayFromBD);
         personArrayFromBDWithoutId.removeAll(idsToExclude.stream().map(Integer::parseInt).toList());
-        if (!personArray.isEmpty() || !personArrayFromBDWithoutId.isEmpty()){
+        if (!personArray.isEmpty() && !personArrayFromBDWithoutId.isEmpty()) {
             Collections.sort(personArray);
             Collections.sort(personArrayFromBDWithoutId);
         }
@@ -198,18 +219,25 @@ public class AdvertContactsFindAPI {
     }
 
     private static void separateMessengerTest(SoftAssert softAssert) throws Exception {
-        String messengerId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
-        String messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
-                "messenger_id", messengerId);
+        int count = new Random().nextInt(5) + 1;
+        Map<String, String> messengerMap = new HashMap<>();
+        for (int i = 0; i < count; i++) {
 
-        System.out.println("Ищем по полям: messenger_id значение: " + messengerId);
-        System.out.println("Ищем по полям: messenger_value значение: " + messengerValue);
-        Allure.step("Ищем по полям: messenger_id = " + messengerId +
-                " и messenger_value = " + messengerValue);
+            String messengerId = getRandomValueFromBD("messenger_id", "advert_contact_messenger");
+            String messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
+                    "messenger_id", messengerId);
 
-        List<Integer> personArray = findContact(Map.of("messengerId", messengerId, "messengerValue", messengerValue));
-        List<String> contactArrayFromBD = getArrayFromBDWhereAnd("contact_id", "advert_contact_messenger",
-                Map.of("messenger_id", messengerId, "value", messengerValue));
+            System.out.println("Ищем по полям: messengers[0][id] = " + messengerId +
+                    " и messengers[0][value] = " + messengerValue);
+
+            Allure.step("Ищем по полям: messengers[0][id] = " + messengerId +
+                    " и messengers[0][value] = " + messengerValue);
+
+            messengerMap.put(messengerId, messengerValue);
+        }
+
+        List<String> contactArrayFromBD = getContactArrayFromBD(messengerMap);
+        List<Integer> personArrayFromRequest = getPersonArrayFromRequest(messengerMap);
 
         List<String> personArrayFromBD = getArrayFromBDWhere("advert_id", "advert_contact",
                 "id", contactArrayFromBD);
@@ -217,19 +245,45 @@ public class AdvertContactsFindAPI {
                 .map(Integer::parseInt)
                 .toList());
 
-        if (!personArray.isEmpty() || !personArrayFromBDInt.isEmpty()){
-            Collections.sort(personArray);
+        if (!personArrayFromRequest.isEmpty() && !personArrayFromBDInt.isEmpty()) {
+            Collections.sort(personArrayFromRequest);
             Collections.sort(personArrayFromBDInt);
         }
-        System.out.println("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDInt);
-        Allure.step("id Адвертов из ответа на запрос : " + personArray + " id Адвертов из БД: " + personArrayFromBDInt);
-        softAssert.assertEquals(personArray, personArrayFromBDInt);
+        System.out.println("id Адвертов из ответа на запрос : " + personArrayFromRequest + " id Адвертов из БД: " + personArrayFromBDInt);
+        Allure.step("id Адвертов из ответа на запрос : " + personArrayFromRequest + " id Адвертов из БД: " + personArrayFromBDInt);
+        softAssert.assertEquals(personArrayFromRequest, personArrayFromBDInt);
+    }
+
+
+    private static List<String> getContactArrayFromBD(Map<String, String> messengerMap) throws Exception {
+        List<String> contactArrayFromBD = new ArrayList<>();
+        for (Map.Entry<String, String> entry : messengerMap.entrySet()) {
+            contactArrayFromBD.addAll(getArrayFromBDWhereAnd(
+                    "contact_id",
+                    "advert_contact_messenger",
+                    Map.of("messenger_id", entry.getKey(), "value", entry.getValue())
+            ));
+        }
+        return contactArrayFromBD;
+    }
+
+    private static List<Integer> getPersonArrayFromRequest(Map<String, String> messengerMap) throws Exception {
+        Map<String, String> messengerMapForFind = new HashMap<>();
+        int i = 0;
+        for (Map.Entry<String, String> entry : messengerMap.entrySet()) {
+            System.out.println("messengers[" + String.valueOf(i) + "][id]");
+            messengerMapForFind.put("messengers[" + String.valueOf(i) + "][id]", entry.getKey());
+            messengerMapForFind.put("messengers[" + String.valueOf(i) + "][value]", entry.getValue());
+            i++;
+        }
+        return findContact(messengerMapForFind);
     }
 
     public static List<Integer> findContact(Map<String, String> params) {
         RequestSpecification request = given()
                 .contentType(ContentType.URLENC);
         headers.forEach(request::header);
+        System.out.println(params);
         params.forEach(request::param);
 
         Response response = request.when()
@@ -237,6 +291,7 @@ public class AdvertContactsFindAPI {
 
         String responseBody = response.getBody().asString();
         Allure.step("Ответ на get: " + responseBody);
+        System.out.println("Ответ на get: " + responseBody);
         attachJson(responseBody, GET_RESPONSE);
 
         JsonPath jsonPath = new JsonPath(responseBody);
@@ -266,5 +321,6 @@ public class AdvertContactsFindAPI {
         } else {
             return List.of();
         }
+
     }
 }

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.StreamSupport;
 
 import static Helper.AllureHelper.DELETE_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
@@ -53,6 +54,16 @@ public class Helper {
                 list.add(value);
             }
             return list;
+        } else return null;
+    }
+
+    public static List<String> getStringArrayFromJson(JSONObject data, String parameterName) {
+        if (data.get(parameterName) instanceof JSONArray) {
+            JSONArray array = data.getJSONArray(parameterName);
+            List<String> listArray = StreamSupport.stream(array.spliterator(), false)
+                    .map(Object::toString)
+                    .toList();
+            return listArray;
         } else return null;
     }
 

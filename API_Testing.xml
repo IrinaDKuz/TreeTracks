@@ -8,7 +8,6 @@
             <class name="API.Admin.AdminFilterAPI"/>
             <class name="API.Admin.AdminListAPI"/>
             <class name="API.Admin.AffiliateManagerAPI"/>
-
         </classes>
     </test>
 
@@ -25,6 +24,9 @@
             <class name="API.Advert.AdvertFilterAPI"/>
             <class name="API.AdvertPlus.AdvertBulkCheck"/>
             <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
+            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
+            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
+            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
         </classes>
     </test>
 

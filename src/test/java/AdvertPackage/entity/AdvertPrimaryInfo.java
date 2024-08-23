@@ -86,6 +86,7 @@ public class AdvertPrimaryInfo {
 
         this.userRequestSource = getValueFromAdvertPrimaryInfoBDWhere("user_request_source", id);
         this.note = getValueFromAdvertPrimaryInfoBDWhere("note", id);
+        this.offerCount = getValueFromAdvertPrimaryInfoBDWhere("offer_count", id);
     }
 
     public void fillAdvertPrimaryInfoWithOffersData(String advertID) throws Exception {

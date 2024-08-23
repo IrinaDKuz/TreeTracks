@@ -67,7 +67,6 @@ origin2 git@github.com:IrinaDKuz/TreeTracks.git (push)
 origin3 git@github.com:3snetTest/ThreeTracks.git (fetch)
 origin3 git@github.com:3snetTest/ThreeTracks.git (push)
 
-
  если нужно изменить - git remote set-url origin4 git@gitlab.com:3tracks/3TracksTesting.git
 
 git add .
