@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "status": "disabled",
+    "roleId": 15,
+    "email": "agoutitamanduaelephantshrewdugong@hotmail.com",
+    "plainPassword": "HoeLcf1ha9",
+    "firstName": "Agouti Tamandua",
+    "secondName": "Elephant Shrew Dugong",
+    "phone": "1965653330",
+    "skype": "Skype:Agouti Tamandua",
+    "telegram": "@TelegramElephant Shrew Dugong",
+    "workingHours": "78"
+  }
+}

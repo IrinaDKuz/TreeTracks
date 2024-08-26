@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 47,
+        "email": "Adrien9@yahoo.com",
+        "status": "enabled",
+        "firstName": "Daisy",
+        "secondName": "Blick",
+        "skype": "skype",
+        "telegram": "telegram",
+        "phone": "+7852159344",
+        "workingHours": "text",
+        "updatedAt": "2022-12-19 09:26:46",
+        "createdAt": "2022-12-19 09:26:45"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

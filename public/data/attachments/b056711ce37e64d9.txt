@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "data": {
+    "admin": {
+      "id": 187,
+      "email": "agoutitamanduaelephantshrewdugong@hotmail.com",
+      "status": "disabled",
+      "role": {
+        "value": 15,
+        "label": "advert permission + content filter"
+      },
+      "firstName": "Agouti Tamandua",
+      "secondName": "Elephant Shrew Dugong",
+      "skype": "Skype:Agouti Tamandua",
+      "telegram": "@TelegramElephant Shrew Dugong",
+      "phone": "1965653330",
+      "workingHours": "78",
+      "createdAt": "2024-08-26T10:12:51+00:00"
+    }
+  }
+}

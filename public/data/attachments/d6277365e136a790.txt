@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 60,
+        "email": "Kara.Dare97@hotmail.com",
+        "status": "enabled",
+        "firstName": "Abner",
+        "secondName": "Mosciski",
+        "skype": "skype",
+        "telegram": "telegram",
+        "phone": "+7852154269",
+        "workingHours": "text",
+        "updatedAt": "2022-12-21 15:48:22",
+        "createdAt": "2022-12-21 15:48:20"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

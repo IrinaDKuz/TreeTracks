@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","6179","test","API test","Mon Aug 26 13:13:19 EEST 2024","passed","Mon Aug 26 13:13:25 EEST 2024","API.Admin.AffiliateManagerAPI","Admin API test","API.Admin.AffiliateManagerAPI","test"
+"Проверка работы метода фильтрациии Админов","12733","test","API test","Mon Aug 26 13:13:00 EEST 2024","failed","Mon Aug 26 13:13:13 EEST 2024","API.Admin.AdminFilterAPI","Admin API test","API.Admin.AdminFilterAPI","test"
+"Проверка работы метода get adminList","724","test","API test","Mon Aug 26 13:13:18 EEST 2024","passed","Mon Aug 26 13:13:19 EEST 2024","API.Admin.AdminListAPI","Admin API test","API.Admin.AdminListAPI","test"
+"","7140","test","API test","Mon Aug 26 13:12:48 EEST 2024","passed","Mon Aug 26 13:12:55 EEST 2024","API.Admin.AdminGeneralAPI","Admin API test","API.Admin.AdminGeneralAPI","test"

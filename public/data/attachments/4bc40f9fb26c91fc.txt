@@ -1,0 +1,155 @@
+{
+  "success": true,
+  "data": {
+    "managers": [
+      {
+        "id": 29,
+        "adminId": 121,
+        "telegramUsername": "Locust_1446944364",
+        "telegramId": "1209534618",
+        "code": "26092",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      },
+      {
+        "id": 28,
+        "adminId": 61,
+        "telegramUsername": "WaterMoccasin_1562651777",
+        "telegramId": "1658649517",
+        "code": "25123",
+        "isAddToChat": true,
+        "isChatAdmin": false
+      },
+      {
+        "id": 27,
+        "adminId": 95,
+        "telegramUsername": "Adder_1446494027",
+        "telegramId": "1193288814",
+        "code": "89695",
+        "isAddToChat": false,
+        "isChatAdmin": true
+      },
+      {
+        "id": 25,
+        "adminId": 98,
+        "telegramUsername": "ReticulatedPython_1080745775",
+        "telegramId": "1669552980",
+        "code": "37216",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      },
+      {
+        "id": 24,
+        "adminId": 176,
+        "telegramUsername": "Spider_1451544431",
+        "telegramId": "1971034018",
+        "code": "79336",
+        "isAddToChat": false,
+        "isChatAdmin": true
+      },
+      {
+        "id": 23,
+        "adminId": 47,
+        "telegramUsername": "Wasp_2074434917",
+        "telegramId": "1905974833",
+        "code": "63144",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      },
+      {
+        "id": 22,
+        "adminId": 59,
+        "telegramUsername": "Taipan_1997719637",
+        "telegramId": "1606369510",
+        "code": "57877",
+        "isAddToChat": false,
+        "isChatAdmin": false
+      },
+      {
+        "id": 21,
+        "adminId": 56,
+        "telegramUsername": "telegram1",
+        "telegramId": "123",
+        "code": "45787",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      },
+      {
+        "id": 20,
+        "adminId": 69,
+        "telegramUsername": "telegram_user_name",
+        "telegramId": "123",
+        "code": "4577",
+        "isAddToChat": false,
+        "isChatAdmin": true
+      },
+      {
+        "id": 19,
+        "adminId": 68,
+        "telegramUsername": "telegram1",
+        "telegramId": "9999999999",
+        "code": "45768",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      },
+      {
+        "id": 18,
+        "adminId": 67,
+        "telegramUsername": "telegram1",
+        "telegramId": "4294967296",
+        "code": "45687",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      },
+      {
+        "id": 17,
+        "adminId": 94,
+        "telegramUsername": "SamArhipovich",
+        "telegramId": "999999",
+        "code": "0000",
+        "isAddToChat": false,
+        "isChatAdmin": false
+      },
+      {
+        "id": 9,
+        "adminId": 53,
+        "telegramUsername": "telegramUsername",
+        "telegramId": "2147483647",
+        "code": "code5",
+        "isAddToChat": false,
+        "isChatAdmin": false
+      },
+      {
+        "id": 8,
+        "adminId": 60,
+        "telegramUsername": "edit_edit",
+        "telegramId": "4294967290",
+        "isAddToChat": true,
+        "isChatAdmin": false
+      },
+      {
+        "id": 3,
+        "adminId": 104,
+        "telegramUsername": "telegramUsername",
+        "telegramId": "111111111",
+        "code": "code",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      },
+      {
+        "id": 2,
+        "adminId": 1,
+        "telegramUsername": "admin",
+        "telegramId": "2123",
+        "code": "3",
+        "isAddToChat": true,
+        "isChatAdmin": true
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 100,
+    "totalCount": 16
+  }
+}

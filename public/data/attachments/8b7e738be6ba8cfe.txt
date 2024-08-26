@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "data": {
+    "affiliateManager": {
+      "id": 38,
+      "adminId": 72,
+      "telegramId": "2060183324",
+      "telegramUsername": "Kingsnake_1146849091",
+      "code": "40481",
+      "isAddToChat": true,
+      "isChatAdmin": false
+    }
+  }
+}

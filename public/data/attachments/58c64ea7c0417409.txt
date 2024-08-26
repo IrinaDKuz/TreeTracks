@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 33,
+        "email": "Asha83@yahoo.com",
+        "status": "enabled",
+        "firstName": "Darrell",
+        "secondName": "Schultz",
+        "skype": "Adrien",
+        "telegram": "Kayden",
+        "phone": "+7852157725",
+        "workingHours": "14",
+        "createdAt": "2022-12-12 12:52:08"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

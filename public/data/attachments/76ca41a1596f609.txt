@@ -1,0 +1,8 @@
+{
+  "adminId": "106",
+  "code": "21489",
+  "telegramId": "1187605938",
+  "telegramUsername": "Keelback_1998302922",
+  "isAddToChat": true,
+  "isChatAdmin": false
+}

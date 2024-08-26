@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 65,
+        "email": "Cielo_Schulist@hotmail.com",
+        "status": "enabled",
+        "firstName": "Yessenia",
+        "secondName": "Powlowski",
+        "skype": "Kristian",
+        "telegram": "Casper",
+        "phone": "89635214785",
+        "workingHours": "14",
+        "createdAt": "2022-12-21 18:25:55"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

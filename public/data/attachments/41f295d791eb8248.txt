@@ -1,0 +1,13 @@
+{
+  "admin_edit": {
+    "status": "disabled",
+    "roleId": 13,
+    "email": "kinkajouzorillacivetechidna@gmail.com",
+    "firstName": "Kinkajou Zorilla",
+    "secondName": "Civet Echidna",
+    "phone": "1404830258",
+    "skype": "Skype:Kinkajou Zorilla",
+    "telegram": "@TelegramCivet Echidna",
+    "workingHours": "44"
+  }
+}
