@@ -11,9 +11,8 @@
         </classes>
     </test>
 
-
     <test verbose="2" preserve-order="true" name="Adverts API test">
-       <!-- <classes>
+        <classes>
             <class name="API.Advert.AdvertPrimaryInfoAPI"/>
             <class name="API.Advert.AdvertContactsAPI"/>
             <class name="API.Advert.AdvertPaymentInfoAPI"/>
@@ -21,16 +20,14 @@
             <class name="API.Advert.AdvertNotesAPI"/>
             <class name="API.Advert.AdvertAccessAPI"/>
 
-          &lt;!&ndash;  <class name="API.Advert.AdvertFilterAPI"/>&ndash;&gt;
-           &lt;!&ndash; <class name="API.AdvertPlus.AdvertBulkCheck"/&ndash;&gt;
+            <class name="API.Advert.AdvertFilterAPI"/>
+            <class name="API.AdvertPlus.AdvertBulkCheck"/>
             <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
             <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
-            &lt;!&ndash;<class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
-            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>&ndash;&gt;
-        </classes>-->
+        </classes>
     </test>
 
-   <!-- <test verbose="2" preserve-order="true" name="Offer Draft API test">
+    <test verbose="2" preserve-order="true" name="Offer Draft API test">
         <classes>
             <class name="API.Offer.OfferDraft.OfferDraftList"/>
             <class name="API.Offer.OfferDraft.OfferDraftFilter"/>
@@ -46,7 +43,7 @@
             <class name="API.Offer.OfferMain.OfferMainBasicInfoAPI"/>
             <class name="API.Offer.OfferMain.OfferAccessAPI"/>
 
-            &lt;!&ndash;     <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>&ndash;&gt;
+            <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>
         </classes>
     </test>
 
@@ -61,12 +58,11 @@
         <classes>
             <class name="API.Settings.Content.ContentCategoryAPI"/>
             <class name="API.Settings.Content.ContentGoalAPI"/>
-            &lt;!&ndash;  <class name="API.Settings.Content.ContentPaymentSystemAPI"/>&ndash;&gt;
+            <!-- <class name="API.Settings.Content.ContentPaymentSystemAPI"/>;-->
             <class name="API.Settings.Content.ContentTrafficSourceAPI"/>
             <class name="API.Settings.Content.ContentOfferTagAPI"/>
             <class name="API.Settings.Content.ContentAdvertTagAPI"/>
             <class name="API.Settings.Content.ContentMessengerAPI"/>
         </classes>
-    </test>-->
-
+    </test>
 </suite>
