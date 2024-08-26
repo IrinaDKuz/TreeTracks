@@ -31,18 +31,18 @@ test:
   artifacts:
     when: always
     paths:
-      - target/allure-results
-    expire_in: 1 day
+      - allure-results
+    expire_in: 5 day
 
 generate_report:
   image: "franela/allure-docker:latest"
   stage: generate_report
   script:
-    - allure generate --clean target/allure-results -o target/allure-report
+    - allure generate --clean allure-results -o allure-report
   artifacts:
     when: always
     paths:
-      - target/allure-report
+      - allure-report
     expire_in: 1 day
 
 publish_report:
