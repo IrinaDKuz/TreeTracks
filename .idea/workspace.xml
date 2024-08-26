@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFromListAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertFromList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/API_Testing.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAccessAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAccessAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPrimaryInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Info" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -378,7 +369,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java</url>
-          <line>93</line>
+          <line>95</line>
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -468,7 +459,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java</url>
-          <line>105</line>
+          <line>110</line>
           <properties class="API.AdvertPlus.AdvertContactsFindAPI" method="excludeTest">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

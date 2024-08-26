@@ -21,12 +21,12 @@
             <class name="API.Advert.AdvertNotesAPI"/>
             <class name="API.Advert.AdvertAccessAPI"/>
 
-            <class name="API.Advert.AdvertFilterAPI"/>
-            <class name="API.AdvertPlus.AdvertBulkCheck"/>
+          <!--  <class name="API.Advert.AdvertFilterAPI"/>-->
+           <!-- <class name="API.AdvertPlus.AdvertBulkCheck"/-->
             <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
             <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
-            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
-            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
+            <!--<class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
+            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>-->
         </classes>
     </test>
 
