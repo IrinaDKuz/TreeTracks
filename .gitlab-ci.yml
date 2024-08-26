@@ -5,7 +5,6 @@ stages:
   - publish_report
 
 image: maven:latest
-  #jelastic/maven:3.9.5-openjdk-21
 
 build:
   stage: build
@@ -14,23 +13,45 @@ build:
 
 test:
   stage: test
-
   before_script:
-  - apt-get update && apt-get install -y gnupg wget unzip
-  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-  - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-  - apt-get update && apt-get install -y google-chrome-stable
-  - apt update && apt install -y openjdk-21-jdk openjdk-21-jre
-  - wget https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz && tar -zxvf allure-2.25.0.tgz -C /opt/ && ln -s /opt/allure-2.25.0/bin/allure /usr/bin/allure
-  - wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
-  - unzip chromedriver_linux64.zip -d /usr/local/bin/
-  - chmod +x /usr/local/bin/chromedriver
-  - mvn dependency:resolve
-      #  - pip install -r requirements.txt
+    - apt-get update && apt-get install -y gnupg wget unzip
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+    - apt-get update && apt-get install -y google-chrome-stable
+    - apt update && apt install -y openjdk-21-jdk openjdk-21-jre
+    - wget https://github.com/allure-framework/allure2/releases/download/2.25.0/allure-2.25.0.tgz && tar -zxvf allure-2.25.0.tgz -C /opt/ && ln -s /opt/allure-2.25.0/bin/allure /usr/bin/allure
+    - wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+    - unzip chromedriver_linux64.zip -d /usr/local/bin/
+    - chmod +x /usr/local/bin/chromedriver
+    - mvn dependency:resolve
 
   script:
-    - mvn clean test -Dsurefire.suiteXmlFiles=API_Testing.xml 
-    # Подкручиваем, чтобы сохранял отчет
+    - mvn clean test -Dsurefire.suiteXmlFiles=API_Testing.xml
+
+  artifacts:
+    when: always
+    paths:
+      - target/allure-results
+    expire_in: 1 day
+
+generate_report:
+  image: "franela/allure-docker:latest"
+  stage: generate_report
+  script:
+    - allure generate --clean target/allure-results -o target/allure-report
+  artifacts:
+    when: always
+    paths:
+      - target/allure-report
+    expire_in: 1 day
+
+publish_report:
+  stage: publish_report
+  script:
+    - echo "Placeholder for publishing the report, e.g., upload to a server or store in GitLab Pages"
+
+
+
    # - 
  # artifacts:
   #  paths:
