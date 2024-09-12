@@ -1,0 +1,828 @@
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 41,
+        "title": "Powerful Early-bird Prize",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "powerful-early-bird-prize-8305.com",
+        "categories": [
+          20,
+          18,
+          13
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1129,
+          "label": "Network Eco Eco"
+        },
+        "accountManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "salesManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "note": "Satisfaction Sweepstake Authority Guaranteed Supreme Supreme Accredited Exclusive Trusted Giveaway",
+        "tags": [
+          103,
+          83,
+          76
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 40,
+        "title": "Certified Top-rated Qualified",
+        "status": "disabled",
+        "privacyLevel": "public",
+        "previewUrl": "test.ru",
+        "categories": [
+          14,
+          52,
+          55
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1223,
+          "label": "Advert with Accesses"
+        },
+        "note": "Hot Amazing Convenient Best Bonus Promotion Amazing Promotion Essential Satisfaction",
+        "tags": [
+          103,
+          57,
+          83
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 39,
+        "title": "Main title 123",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 886,
+          "label": "Fafabet partners"
+        },
+        "note": "",
+        "tags": [],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 36,
+        "title": "Guaranteed Bargain Specialist",
+        "status": "disabled",
+        "privacyLevel": "private",
+        "previewUrl": "guaranteed-bargain-specialist-5890.com",
+        "categories": [
+          55,
+          20,
+          31
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 601,
+          "label": "Kraken partners"
+        },
+        "note": "Early-bird Immediate Cashback Best Cutting-edge Hot Feedback Membership Bundle VIP",
+        "tags": [
+          82,
+          57,
+          76
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 30,
+        "title": "Package Certified Sale",
+        "status": "disabled",
+        "privacyLevel": "public",
+        "previewUrl": "package-certified-sale-6910.com",
+        "categories": [
+          61,
+          5,
+          31
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 812,
+          "label": "Mozzartaffiliates"
+        },
+        "note": "Top Package Ultimate Save Top-rated VIP Gift On-demand Exclusive-access Safe",
+        "tags": [
+          97,
+          86,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 29,
+        "title": "Instant One-time Contest",
+        "status": "disabled",
+        "privacyLevel": "public",
+        "previewUrl": "instant-one-time-contest-1325.com",
+        "categories": [
+          52,
+          40,
+          8
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 812,
+          "label": "Mozzartaffiliates"
+        },
+        "note": "Expert Licensed Advanced Cashback Accredited Combo On-demand Instant-access Subscription On-demand",
+        "tags": [
+          86,
+          103,
+          76
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 27,
+        "title": "Must-have Sweepstake Premium",
+        "status": "paused",
+        "privacyLevel": "private",
+        "previewUrl": "must-have-sweepstake-premium-2173.com",
+        "categories": [
+          55,
+          14,
+          16
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1128,
+          "label": "Hub Smart Enterprises"
+        },
+        "accountManager": {
+          "value": 102,
+          "label": "saden201@gmail.com"
+        },
+        "salesManager": {
+          "value": 92,
+          "label": "test5@admin.com"
+        },
+        "note": "Risk-free Accredited Expert On-demand Huge Limited-time Mega Membership Limited-time Must-have",
+        "tags": [
+          89,
+          57,
+          97
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 23,
+        "title": "Save Licensed Convenient",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "save-licensed-convenient-4166.com",
+        "categories": [
+          14,
+          18,
+          50
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 717,
+          "label": "Partners.betcris"
+        },
+        "note": "Premium Accredited Ultimate Must-have Package On-demand First Exclusive-access Accredited Gift",
+        "tags": [
+          97,
+          86,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 21,
+        "title": "Award-winning Sweepstake Ultimate",
+        "status": "active",
+        "privacyLevel": "private",
+        "previewUrl": "award-winning-sweepstake-ultimate-7167.com",
+        "categories": [
+          54,
+          3,
+          330
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1188,
+          "label": "Digital Enterprises Labs"
+        },
+        "accountManager": {
+          "value": 97,
+          "label": "test5Edit2@admin.com"
+        },
+        "salesManager": {
+          "value": 64,
+          "label": "Aileen.Greenholt89@gmail.com"
+        },
+        "note": "Effective Cashback Secure Bundle Specialist Free Access Best 24/7 First",
+        "tags": [
+          86,
+          57,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "Obshcheye delo CPA RU speakers [private for 4]",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "https://delothe.buzz/?\u0026clickid\u003d{clickid}\u0026pid\u003d{pid}\u0026ip\u003d{ip}\u0026geo\u003d{geo}\u0026device_ua\u003d{device_ua}\u0026city\u003d{city}\u0026fbid\u003d{sub5}",
+        "categories": [
+          3
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 2,
+          "label": "azartcash"
+        },
+        "accountManager": {
+          "value": 19,
+          "label": "Anastasia_VonRueden87@yahoo.com"
+        },
+        "note": "Notes",
+        "tags": [
+          76
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 1,
+        "title": "Obshcheye delo CPA RU speakers [private for 4]",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "https://delothe.buzz/?\u0026clickid\u003d{clickid}\u0026pid\u003d{pid}\u0026ip\u003d{ip}\u0026geo\u003d{geo}\u0026device_ua\u003d{device_ua}\u0026city\u003d{city}\u0026fbid\u003d{sub5}",
+        "categories": [
+          68,
+          65
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1095,
+          "label": "Dynamic Super Systems)"
+        },
+        "accountManager": {
+          "value": 70,
+          "label": "Leola_Weimann30@hotmail.com"
+        },
+        "salesManager": {
+          "value": 68,
+          "label": "Norma_Grady6@gmail.com"
+        },
+        "note": "",
+        "tags": [
+          57,
+          84,
+          97,
+          99
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 11
+  }
+}

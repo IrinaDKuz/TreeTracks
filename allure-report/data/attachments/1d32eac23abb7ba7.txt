@@ -1,0 +1,1099 @@
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 237,
+        "title": "Best Top-rated Effective",
+        "status": "paused",
+        "privacyLevel": "integration",
+        "previewUrl": "best-top-rated-effective-7175.com",
+        "categories": [
+          51,
+          22,
+          7
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 761,
+          "label": "ScandyPartners"
+        },
+        "note": "Subscription Satisfaction Leader User-friendly Must-have 24/7 Premium Amazing Top-rated Immediate",
+        "tags": [
+          82,
+          86,
+          97
+        ]
+      },
+      {
+        "id": 236,
+        "title": "Licensed Special Save",
+        "status": "paused",
+        "privacyLevel": "private",
+        "previewUrl": "licensed-special-save-7254.com",
+        "categories": [
+          17,
+          21,
+          29
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1201,
+          "label": "Bright Ventures Future"
+        },
+        "accountManager": {
+          "value": 113,
+          "label": "tapircapybaravolequokka@outlook.com"
+        },
+        "salesManager": {
+          "value": 6,
+          "label": "Winnifred.Mayert67@hotmail.com"
+        },
+        "note": "Bonus Discount User-friendly Trusted Specialist Leader Package Safe Hot Testimonial",
+        "tags": [
+          83,
+          103,
+          76
+        ]
+      },
+      {
+        "id": 235,
+        "title": "Testimonial New Ultimate",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "testimonial-new-ultimate-9079.com",
+        "categories": [
+          5,
+          41,
+          30
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1088,
+          "label": "Partners Hub Systems"
+        },
+        "accountManager": {
+          "value": 68,
+          "label": "Norma_Grady6@gmail.com"
+        },
+        "salesManager": {
+          "value": 95,
+          "label": "test5unique2@admin.com"
+        },
+        "note": "Package Modern Referral Testimonial Contest Exclusive-access Fast Testimonial First Reward",
+        "tags": [
+          83,
+          103,
+          57
+        ]
+      },
+      {
+        "id": 234,
+        "title": "Must-have Early-bird Accredited",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "must-have-early-bird-accredited-9249.com",
+        "categories": [
+          330,
+          22,
+          46
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 867,
+          "label": "888STARZ.bet affiliate"
+        },
+        "note": "Effective Instant Best Hot Effective Gift Membership Specialist Guaranteed Top-rated",
+        "tags": [
+          103,
+          89,
+          86
+        ]
+      },
+      {
+        "id": 232,
+        "title": "Quick Incredible Offer",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "quick-incredible-offer-3365.com",
+        "categories": [
+          28,
+          48,
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1153,
+          "label": "Solutions Systems Alpha"
+        },
+        "accountManager": {
+          "value": 28,
+          "label": "Ardith.Sporer49@yahoo.com"
+        },
+        "salesManager": {
+          "value": 53,
+          "label": "Ross45@hotmail.com"
+        },
+        "note": "Exclusive-access Mega Cutting-edge Bonus Verified Limited-time Discount Rating Feedback Flash",
+        "tags": [
+          76,
+          83,
+          89
+        ]
+      },
+      {
+        "id": 231,
+        "title": "Ultimate Essential Offer",
+        "status": "active",
+        "privacyLevel": "private",
+        "previewUrl": "ultimate-essential-offer-6773.com",
+        "categories": [
+          333,
+          39,
+          40
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 13,
+          "label": "Adhaatec"
+        },
+        "accountManager": {
+          "value": 19,
+          "label": "Anastasia_VonRueden87@yahoo.com"
+        },
+        "note": "First Certified Review Qualified Professional Advanced Early-bird Innovative Specialist Huge",
+        "tags": [
+          103,
+          57,
+          89
+        ]
+      },
+      {
+        "id": 230,
+        "title": "Fan-favorite Best-seller Early-bird",
+        "status": "active",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "fan-favorite-best-seller-early-bird-2268.com",
+        "categories": [
+          38,
+          47,
+          31
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 926,
+          "label": "Gerhold and Sons"
+        },
+        "accountManager": {
+          "value": 56,
+          "label": "Betsy.Veum12@hotmail.com"
+        },
+        "salesManager": {
+          "value": 66,
+          "label": "Justice.Daugherty45@hotmail.com"
+        },
+        "note": "Cutting-edge Innovative VIP Giveaway Extreme Best VIP Award-winning Qualified Limited-stock",
+        "tags": [
+          83,
+          89,
+          103
+        ]
+      },
+      {
+        "id": 229,
+        "title": "Add new Offer-draft",
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 228,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 227,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 226,
+        "title": "Save On-demand Authority",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "save-on-demand-authority-8743.com",
+        "categories": [
+          343,
+          55,
+          35
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1108,
+          "label": "Group Group Dynamic"
+        },
+        "accountManager": {
+          "value": 33,
+          "label": "Asha83@yahoo.com"
+        },
+        "salesManager": {
+          "value": 63,
+          "label": "Kolby.Torp53@hotmail.com"
+        },
+        "note": "On-demand Instant-access Premium Mega Support Rating Bundle Save Save Testimonial",
+        "tags": [
+          86,
+          57,
+          89
+        ]
+      },
+      {
+        "id": 225,
+        "title": "Feedback Specialist Deal",
+        "status": "disabled",
+        "privacyLevel": "public",
+        "previewUrl": "feedback-specialist-deal-4317.com",
+        "categories": [
+          51,
+          64,
+          16
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 630,
+          "label": "Btagmaster"
+        },
+        "note": "Reliable Endorsement Subscription Quick Essential Launch Free Reliable Save Guaranteed",
+        "tags": [
+          83,
+          76,
+          82
+        ]
+      },
+      {
+        "id": 224,
+        "title": "Instant Extreme Exclusive-access",
+        "status": "disabled",
+        "privacyLevel": "integration",
+        "previewUrl": "instant-extreme-exclusive-access-175.com",
+        "categories": [
+          17,
+          21,
+          43
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 698,
+          "label": "FonBet Apps"
+        },
+        "note": "Hidden Early-bird Huge On-demand Innovative Effective VIP Supreme Best-seller Immediate",
+        "tags": [
+          57,
+          86,
+          97
+        ]
+      },
+      {
+        "id": 223,
+        "title": "Sweepstake Recommendation Unbeatable",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "sweepstake-recommendation-unbeatable-9680.com",
+        "categories": [
+          46,
+          55,
+          45
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1185,
+          "label": "Industries Alpha Omega"
+        },
+        "accountManager": {
+          "value": 71,
+          "label": "Pinkie_Block@hotmail.com"
+        },
+        "salesManager": {
+          "value": 55,
+          "label": "Lenora45@gmail.com"
+        },
+        "note": "Incredible Launch Safe Instant-access Easy Limited-stock First Rating Quick Top",
+        "tags": [
+          86,
+          97,
+          76
+        ]
+      },
+      {
+        "id": 222,
+        "title": "Expert Trendy Authority",
+        "status": "active",
+        "privacyLevel": "private",
+        "previewUrl": "expert-trendy-authority-5252.com",
+        "categories": [
+          39,
+          13,
+          41
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 823,
+          "label": "Kongaffiliates"
+        },
+        "note": "Authority Customer Accredited Modern Must-have Exclusive Access Free Fast Cutting-edge",
+        "tags": [
+          82,
+          57,
+          103
+        ]
+      },
+      {
+        "id": 220,
+        "title": "Review Essential Referral",
+        "status": "disabled",
+        "privacyLevel": "private",
+        "previewUrl": "review-essential-referral-9322.com",
+        "categories": [
+          45,
+          64,
+          44
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 888,
+          "label": "Apostaquente afiliados"
+        },
+        "note": "Best-seller Review Instant-access Free Deal Subscription Must-have Fast Safe Free",
+        "tags": [
+          89,
+          83,
+          82
+        ]
+      },
+      {
+        "id": 219,
+        "title": "Free Cutting-edge Guaranteed",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "free-cutting-edge-guaranteed-8804.com",
+        "categories": [
+          54,
+          16,
+          30
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 603,
+          "label": "sport and casino"
+        },
+        "note": "Unbeatable Giveaway Bonus Proven User-friendly Sale Support Review Limited Cutting-edge",
+        "tags": [
+          76,
+          57,
+          103
+        ]
+      },
+      {
+        "id": 218,
+        "title": "Referral Limited-stock Unbeatable",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "referral-limited-stock-unbeatable-4918.com",
+        "categories": [
+          3,
+          14,
+          20
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 691,
+          "label": "affiliate.casinojet"
+        },
+        "note": "Top-rated Cutting-edge Hidden Licensed One-time Premium Top Free Specialist Huge",
+        "tags": [
+          103,
+          86,
+          97
+        ]
+      },
+      {
+        "id": 217,
+        "title": "Contest Unbeatable Hidden",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "contest-unbeatable-hidden-5367.com",
+        "categories": [
+          26,
+          6,
+          37
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1200,
+          "label": "wirv"
+        },
+        "note": "Safe Endorsement Launch Limited-stock Proven Best-seller Top Giveaway Supreme Advanced",
+        "tags": [
+          83,
+          89,
+          76
+        ]
+      },
+      {
+        "id": 216,
+        "title": "Innovative Qualified Ultimate",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "innovative-qualified-ultimate-4836.com",
+        "categories": [
+          7,
+          343,
+          21
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 859,
+          "label": "Junicpartners"
+        },
+        "note": "Authority Sweepstake Unbeatable Reliable Immediate Referral Unbeatable Proven Supreme Prize",
+        "tags": [
+          86,
+          82,
+          83
+        ]
+      },
+      {
+        "id": 215,
+        "title": "Amazing Fast Early-bird",
+        "status": "paused",
+        "privacyLevel": "integration",
+        "previewUrl": "amazing-fast-early-bird-3184.com",
+        "categories": [
+          22,
+          36,
+          20
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 970,
+          "label": "Feeney - Weimann"
+        },
+        "accountManager": {
+          "value": 33,
+          "label": "Asha83@yahoo.com"
+        },
+        "salesManager": {
+          "value": 46,
+          "label": "Patience_Bechtelar13@gmail.com"
+        },
+        "note": "Contest Quick Proven Modern No-brainer Endorsement Convenient Flash One-time Top",
+        "tags": [
+          82,
+          83,
+          57
+        ]
+      },
+      {
+        "id": 214,
+        "title": "Secure Access Leader",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "secure-access-leader-9148.com",
+        "categories": [
+          54,
+          7,
+          27
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 676,
+          "label": "Fastbet IT"
+        },
+        "note": "Sale Extreme Gift Rating Customer Reward Advanced Best-seller Save Modern",
+        "tags": [
+          103,
+          83,
+          86
+        ]
+      },
+      {
+        "id": 213,
+        "title": "Ultimate Certified Sale",
+        "status": "paused",
+        "privacyLevel": "private",
+        "previewUrl": "ultimate-certified-sale-3213.com",
+        "categories": [
+          7,
+          41,
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 944,
+          "label": "Kunde, Koepp and Ernser"
+        },
+        "accountManager": {
+          "value": 71,
+          "label": "Pinkie_Block@hotmail.com"
+        },
+        "salesManager": {
+          "value": 1,
+          "label": "admin@3tracks.online"
+        },
+        "note": "Review Recommendation Must-have Guaranteed Instant Cashback On-demand Mega Deal Endorsement",
+        "tags": [
+          86,
+          82,
+          83
+        ]
+      },
+      {
+        "id": 212,
+        "title": "Special Ultimate Powerful",
+        "status": "active",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "special-ultimate-powerful-8921.com",
+        "categories": [
+          8,
+          47,
+          30
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 817,
+          "label": "10bet Africa Affiliate"
+        },
+        "note": "Easy Powerful User-friendly Extreme Feedback Extreme On-demand Membership Deal Early-bird",
+        "tags": [
+          83,
+          89,
+          86
+        ]
+      },
+      {
+        "id": 211,
+        "title": "Bundle Recommendation Rating",
+        "status": "active",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "bundle-recommendation-rating-8672.com",
+        "categories": [
+          20,
+          31,
+          365
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 788,
+          "label": "Moonshine partners"
+        },
+        "note": "Early-bird Risk-free Support Subscription Top Flash Exclusive New Expert Limited",
+        "tags": [
+          97,
+          57,
+          103
+        ]
+      },
+      {
+        "id": 210,
+        "status": "active",
+        "privacyLevel": "integration",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 165,
+        "title": "12313",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "Preview URL (Basic info)",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1129,
+          "label": "Network Eco Eco"
+        },
+        "accountManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "salesManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "tags": []
+      },
+      {
+        "id": 164,
+        "title": "new2 Offer with Front End",
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 163,
+        "title": "new Offer with Front End",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "Preview Url test",
+        "categories": [
+          365,
+          57
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1,
+          "label": "Ltd Industries Digital"
+        },
+        "accountManager": {
+          "value": 94,
+          "label": "kuduibisvicunanabarlek@outlook.com"
+        },
+        "salesManager": {
+          "value": 56,
+          "label": "Betsy.Veum12@hotmail.com"
+        },
+        "tags": []
+      },
+      {
+        "id": 162,
+        "status": "disabled",
+        "privacyLevel": "integration",
+        "categories": [
+          35,
+          365
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "note": "Notes",
+        "tags": [
+          83,
+          86
+        ]
+      },
+      {
+        "id": 161,
+        "status": "paused",
+        "privacyLevel": "integration",
+        "categories": [
+          35,
+          365
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 10,
+          "label": "International Dynamic Ultra"
+        },
+        "accountManager": {
+          "value": 98,
+          "label": "content_filter2@bug.test"
+        },
+        "salesManager": {
+          "value": 62,
+          "label": "Myra.Keebler96@yahoo.com"
+        },
+        "note": "Notes",
+        "tags": []
+      },
+      {
+        "id": 160,
+        "status": "disabled",
+        "privacyLevel": "pre_moderation",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 159,
+        "title": "Immediate Offer One-time",
+        "status": "disabled",
+        "privacyLevel": "pre_moderation",
+        "categories": [
+          343,
+          368,
+          16
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "note": "One-time Verified Support Quick Qualified Discount Cashback Extreme Safe Advanced",
+        "tags": [
+          83,
+          89,
+          86
+        ]
+      },
+      {
+        "id": 158,
+        "title": "Expert Limited-stock Limited-time",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "categories": [
+          22,
+          48,
+          50
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "note": "Hot Huge 24/7 Testimonial Limited 24/7 Contest Expert Instant-access Promotion",
+        "tags": [
+          86,
+          89,
+          57
+        ]
+      },
+      {
+        "id": 157,
+        "title": "Safe Access Best-seller",
+        "status": "active",
+        "privacyLevel": "private",
+        "categories": [
+          46,
+          34,
+          30
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "note": "Award-winning Cutting-edge Early-bird Feedback Hidden Sweepstake No-brainer Access Save Sale",
+        "tags": [
+          103,
+          86,
+          57
+        ]
+      },
+      {
+        "id": 156,
+        "title": "Hot On-demand Convenient",
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [
+          61,
+          6,
+          330
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "note": "Gift Quick Limited-time Trusted Sweepstake Discount Innovative Discount Quick Verified",
+        "tags": [
+          76,
+          103,
+          86
+        ]
+      },
+      {
+        "id": 145,
+        "title": "Offer Draft",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "categories": [
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 4,
+          "label": "bongacams"
+        },
+        "accountManager": {
+          "value": 19,
+          "label": "Anastasia_VonRueden87@yahoo.com"
+        },
+        "note": "asddas",
+        "tags": [
+          82
+        ]
+      },
+      {
+        "id": 137,
+        "title": "123",
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 992,
+          "label": "Ultra Corporation Inc."
+        },
+        "accountManager": {
+          "value": 68,
+          "label": "Norma_Grady6@gmail.com"
+        },
+        "salesManager": {
+          "value": 57,
+          "label": "Brooke.Mraz@yahoo.com"
+        },
+        "tags": []
+      },
+      {
+        "id": 136,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 125,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 122,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 119,
+        "title": "Mega Flash Trusted",
+        "status": "disabled",
+        "privacyLevel": "public",
+        "categories": [
+          14,
+          36,
+          42
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "note": "Limited-stock Must-have Supreme Limited-time Package Ultimate Trusted Authority Accredited Expert",
+        "tags": [
+          76,
+          86,
+          97
+        ]
+      },
+      {
+        "id": 117,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 97,
+        "title": "Secret Access Extreme",
+        "status": "disabled",
+        "privacyLevel": "private",
+        "categories": [
+          45,
+          34,
+          330
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 774,
+          "label": "Behappy2day"
+        },
+        "note": "Effective Fast Licensed Bargain Safe Quick Combo Effective Flash VIP",
+        "tags": [
+          83,
+          86,
+          82
+        ]
+      },
+      {
+        "id": 96,
+        "status": "active",
+        "privacyLevel": "integration",
+        "previewUrl": "http://placeimg.com/640/480/food",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 94,
+        "status": "active",
+        "privacyLevel": "integration",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 93,
+        "status": "active",
+        "privacyLevel": "integration",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 88,
+        "status": "active",
+        "privacyLevel": "integration",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 77,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 75,
+        "status": "active",
+        "privacyLevel": "public",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 74,
+        "status": "active",
+        "privacyLevel": "integration",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 61,
+        "status": "active",
+        "privacyLevel": "integration",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "tags": []
+      },
+      {
+        "id": 60,
+        "title": "null",
+        "status": "disabled",
+        "privacyLevel": "pre_moderation",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1129,
+          "label": "Network Eco Eco"
+        },
+        "accountManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "salesManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "tags": []
+      },
+      {
+        "id": 59,
+        "title": "null",
+        "status": "disabled",
+        "privacyLevel": "pre_moderation",
+        "categories": [],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1129,
+          "label": "Network Eco Eco"
+        },
+        "accountManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "salesManager": {
+          "value": 101,
+          "label": "content_Filte@BUG.test"
+        },
+        "tags": []
+      },
+      {
+        "id": 56,
+        "title": "Main title test",
+        "status": "disabled",
+        "privacyLevel": "integration",
+        "categories": [
+          35,
+          365
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 10,
+          "label": "International Dynamic Ultra"
+        },
+        "accountManager": {
+          "value": 98,
+          "label": "content_filter2@bug.test"
+        },
+        "salesManager": {
+          "value": 62,
+          "label": "Myra.Keebler96@yahoo.com"
+        },
+        "note": "Notes",
+        "tags": [
+          83,
+          86
+        ]
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 100,
+    "totalCount": 55
+  }
+}

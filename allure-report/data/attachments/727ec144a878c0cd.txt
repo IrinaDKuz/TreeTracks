@@ -1,0 +1,332 @@
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 48,
+        "title": "Specialist Exclusive Modern",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "specialist-exclusive-modern-4551.com",
+        "categories": [
+          26,
+          31,
+          42
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1191,
+          "label": "Future World International"
+        },
+        "accountManager": {
+          "value": 55,
+          "label": "Lenora45@gmail.com"
+        },
+        "salesManager": {
+          "value": 70,
+          "label": "Leola_Weimann30@hotmail.com"
+        },
+        "note": "Leader Modern Supreme Sweepstake Guaranteed Package Cashback Save Limited-time Secret",
+        "tags": [
+          76,
+          97,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 45,
+        "title": "Endorsement Referral Certified",
+        "status": "active",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "endorsement-referral-certified-7285.com",
+        "categories": [
+          343,
+          365,
+          368
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1191,
+          "label": "Future World International"
+        },
+        "accountManager": {
+          "value": 55,
+          "label": "Lenora45@gmail.com"
+        },
+        "salesManager": {
+          "value": 70,
+          "label": "Leola_Weimann30@hotmail.com"
+        },
+        "note": "Powerful Advanced Sweepstake Contest Promotion Exclusive Access Promotion Limited-time User-friendly",
+        "tags": [
+          57,
+          82,
+          97
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 43,
+        "title": "Incredible Sale Feedback",
+        "status": "disabled",
+        "privacyLevel": "public",
+        "previewUrl": "incredible-sale-feedback-1170.com",
+        "categories": [
+          55,
+          330,
+          333
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1191,
+          "label": "Future World International"
+        },
+        "accountManager": {
+          "value": 55,
+          "label": "Lenora45@gmail.com"
+        },
+        "salesManager": {
+          "value": 70,
+          "label": "Leola_Weimann30@hotmail.com"
+        },
+        "note": "Proven Limited-time Accredited Feedback Access 24/7 Subscription Customer Access Prize",
+        "tags": [
+          83,
+          89,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 31,
+        "title": "Accredited Leader Instant-access",
+        "status": "paused",
+        "privacyLevel": "private",
+        "previewUrl": "accredited-leader-instant-access-8785.com",
+        "categories": [
+          3,
+          6,
+          35
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1191,
+          "label": "Future World International"
+        },
+        "accountManager": {
+          "value": 55,
+          "label": "Lenora45@gmail.com"
+        },
+        "salesManager": {
+          "value": 70,
+          "label": "Leola_Weimann30@hotmail.com"
+        },
+        "note": "Save Easy Package Premium Award-winning Expert Modern Discount Feedback Licensed",
+        "tags": [
+          76,
+          86,
+          97
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 4
+  }
+}

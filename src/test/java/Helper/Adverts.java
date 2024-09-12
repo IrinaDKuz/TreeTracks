@@ -82,6 +82,29 @@ public class Adverts {
 
 
     public static final String[] CONTACT_WORDS = {
+            "Taylor", "Jordan", "Morgan", "Casey", "Parker", "Bailey", "Alex", "Dylan", "Avery", "Blake",
+            "Cameron", "Sydney", "Harper", "Hunter", "Quinn", "Reagan", "Rowan", "Emerson", "Riley", "Skyler",
+            "Kendall", "Logan", "Madison", "Spencer", "Tyler", "Finley", "Sawyer", "Hayden", "Payton", "Sullivan",
+            "Terry", "Jamie", "Shawn", "Devon", "Ellis", "Lee", "Leslie", "Marley", "Mason", "Reed",
+            "Robin", "Sage", "Shelby", "Shannon", "Tanner", "Teagan", "Tracy", "Vernon", "Whitney", "Adrian",
+            "Blair", "Charlie", "Chris", "Dakota", "Drew", "Elliot", "Evan", "Francis", "Gale", "Jesse",
+            "Jody", "Kelly", "Kennedy", "Lane", "Lynn", "Micah", "Pat", "Perry", "Quincy", "Ray",
+            "Reese", "Robin", "Shay", "Shiloh", "Sidney", "Stevie", "Terry", "Tony", "Tracey", "Tristan",
+            "Val", "Walker", "Wesley", "Wynn", "Ashton", "Casey", "Corey", "Dale", "Emery", "Harley",
+            "Hayes", "Jaden", "Jay", "Jules", "Justice", "Kim", "Lane", "Lee", "Loren", "Reese",
+            "Carter", "Miller", "Bennett", "Bailey", "Austin", "Bradley", "Brooks", "Bryant", "Campbell", "Chase",
+            "Clark", "Cole", "Collins", "Cooper", "Curtis", "Davis", "Dean", "Douglas", "Duncan", "Ellis",
+            "Fletcher", "Franklin", "Garrett", "Graham", "Grant", "Gray", "Greene", "Griffin", "Hale", "Hamilton",
+            "Harris", "Harrison", "Hart", "Hawkins", "Hayes", "Henry", "Howard", "Hudson", "Jackson", "James",
+            "Jenkins", "Johnson", "Jones", "Kelly", "Kennedy", "King", "Knight", "Lawrence", "Lee", "Lewis",
+            "Marshall", "Mason", "Mitchell", "Morgan", "Murphy", "Nelson", "Newton", "Norris", "Palmer", "Parker",
+            "Payne", "Porter", "Quinn", "Reed", "Reid", "Roberts", "Russell", "Ryan", "Scott", "Shaw",
+            "Shelton", "Simpson", "Smith", "Spencer", "Stanley", "Steele", "Stevens", "Stewart", "Stone", "Taylor",
+            "Thomas", "Thompson", "Turner", "Tyler", "Vaughn", "Wade", "Walker", "Wallace", "Walsh", "Ward",
+            "Warren", "Washington", "Watson", "Webb", "West", "White", "Williams", "Wilson", "Wright", "Young"
+    };
+
+    public static final String[] FLOWER_WORDS = {
             "Rose", "Tulip", "Sunflower", "Daisy", "Lily",
             "Orchid", "Marigold", "Chrysanthemum", "Carnation", "Hyacinth",
             "Daffodil", "Peony", "Poppy", "Iris", "Violet",
@@ -102,7 +125,7 @@ public class Adverts {
             "Jacob's Ladder", "Lantana", "Lobelia", "Lupine", "Mallow",
             "Mimosa", "Monkshood", "Nasturtium", "Nemesia", "Nigella",
             "Passionflower", "Penstemon", "Phlox", "Plumeria", "Salvia",
-            "Scabiosa", "Sedum", "Statice", "Stephanotis", "Tithonia"};
+            "Scabiosa", "Sedum", "Statice", "Stephanotis", "Tithonia" };
 
 
     public static final String[] JOB_WORDS = {

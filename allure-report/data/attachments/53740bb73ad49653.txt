@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "data": {
+    "offer": {
+      "id": 13,
+      "title": "Testt offer",
+      "description": [
+        {
+          "lang": "eng",
+          "text": "Test descrption"
+        }
+      ],
+      "kpi": [],
+      "paidGoal": [],
+      "advert": {
+        "value": 13,
+        "label": "Adhaatec"
+      },
+      "trafficSource": [
+        286
+      ],
+      "privacyLevel": "public",
+      "isTop": true,
+      "status": "paused",
+      "statusNotice": true,
+      "releaseDate": "2024-03-19T08:24:24+00:00",
+      "stopDate": "2024-03-21T23:00:00+00:00",
+      "sendBeforeStopping": 2,
+      "notes": "Текстовое поле для указания дополнительной информации по офферу",
+      "reconciliation": "Текстовое поле для внесения информации по Сверкам",
+      "payouts": "Текстовое поле для внесения информации по Выплатам",
+      "tag": [
+        89
+      ],
+      "category": [
+        65,
+        68
+      ],
+      "previewUrl": "https://delothe.buzz/?\u0026clickid\u003d{clickid}\u0026pid\u003d{pid}\u0026ip\u003d{ip}\u0026geo\u003d{geo}\u0026device_ua\u003d{device_ua}\u0026city\u003d{city}\u0026fbid\u003d{sub5}"
+    }
+  }
+}

@@ -1,8 +1,6 @@
 package Helper;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,6 +42,13 @@ public class GeoAndLang {
         Object[] keys = map.keySet().toArray();
         // Выбираем случайный ключ из массива ключей
         return keys[new Random().nextInt(keys.length)].toString();
+    }
+
+    public static List<String> getRandomKeys(Map<String, String> map, int numberOfKeys) {
+        List<String> keys = new ArrayList<>(map.keySet());
+        numberOfKeys = Math.min(numberOfKeys, keys.size());
+        Collections.shuffle(keys);
+        return keys.subList(0, numberOfKeys);
     }
 
     public static String getRandomCurrency() {
@@ -97,6 +102,10 @@ public class GeoAndLang {
 
 
     // lang
+
+
+
+
     public static Map<String, String> lang_map = Stream.of(new String[][]{
             {"aa", "Afar"}, {
             "ab", "Abkhazian"}, {
@@ -292,7 +301,7 @@ public class GeoAndLang {
     public static Map<String, String> GEO_MAP = Stream.of(new String[][]
 
             {
-                    {"all", "All"},
+                   // {"all", "All"},
                     {"af", "Afghanistan"},
                     {"al", "Albania"},
                     {"dz", "Algeria"},

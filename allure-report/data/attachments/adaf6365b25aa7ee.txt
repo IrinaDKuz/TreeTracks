@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 250,
+      "currency": "eur",
+      "requisites": {
+        "w": "Customer ID4769",
+        "title12": "Currency7425",
+        "title123": "Transaction ID6376"
+      },
+      "payment": 79
+    }
+  ]
+}

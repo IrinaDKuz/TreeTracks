@@ -1,0 +1,86 @@
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 22,
+        "title": "Macie",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "http://placeimg.com/640/480/food",
+        "categories": [
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1,
+          "label": "Ltd Industries Digital"
+        },
+        "accountManager": {
+          "value": 94,
+          "label": "kuduibisvicunanabarlek@outlook.com"
+        },
+        "salesManager": {
+          "value": 56,
+          "label": "Betsy.Veum12@hotmail.com"
+        },
+        "note": "",
+        "tags": [],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

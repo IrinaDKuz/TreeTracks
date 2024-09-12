@@ -1,0 +1,27 @@
+{
+  "categoryRemove": [
+    "27",
+    "47"
+  ],
+  "tagRemove": [
+    "1",
+    "8"
+  ],
+  "ids": [
+    "957",
+    "1256",
+    "1169"
+  ],
+  "categoryAdd": [
+    "50",
+    "30"
+  ],
+  "tagAdd": [
+    "4",
+    "12"
+  ],
+  "accountManager": "104",
+  "manager": "94",
+  "salesManager": "74",
+  "status": "assigned_to_sales_manager"
+}

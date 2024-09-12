@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static Helper.AllureHelper.DELETE_RESPONSE;
@@ -123,4 +124,46 @@ public class Helper {
         int randomIndex = random.nextInt(values.size());
         return values.get(randomIndex);
     }
+
+    public static List<String> filterExistAdvertString(List<String> list) {
+        //  удалили повторы
+        List<Integer> listInt = list.stream()
+                .map(Integer::valueOf).distinct().toList();
+
+        // удалили тех, что нет в базе
+        List<String> newList = new ArrayList<>();
+        for (Integer advertId : listInt) {
+            if (isInDatabase("id", String.valueOf(advertId), "advert")) {
+                newList.add(String.valueOf(advertId));
+            }
+        }
+        return newList;
+    }
+
+
+    public static List<Integer> filterExistAdvert(List<Integer> list) {
+        //  удалили повторы
+        List<Integer> listInt = list.stream().distinct().toList();
+
+        // удалили тех, что нет в базе
+        List<Integer> newList = new ArrayList<>();
+        for (Integer advertId : listInt) {
+            if (isInDatabase("id", String.valueOf(advertId), "advert")) {
+                newList.add(advertId);
+            }
+        }
+        return newList;
+    }
+
+    public static List<Integer> sortToInteger(List<String> list) {
+        //  удалили повторы отсортировали
+        return list.stream().map(Integer::valueOf).distinct().sorted().toList();
+    }
+
+
+    public static List<String> sortToString(List<String> list) {
+        List<Integer> listInt = list.stream().map(Integer::valueOf).distinct().sorted().toList();
+        return listInt.stream().map(String::valueOf).toList();
+    }
+
 }

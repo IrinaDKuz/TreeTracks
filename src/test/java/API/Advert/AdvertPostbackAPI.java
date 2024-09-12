@@ -33,6 +33,8 @@ public class AdvertPostbackAPI {
     public static void test() throws Exception {
         advertId = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert", "id", "1000"));
         Allure.step("Получаем постбеки у рандомного Адверта " + advertId);
+        System.out.println("Получаем постбеки у рандомного Адверта " + advertId);
+
         postbackGet();
         Allure.step("Редактируем постбеки");
         AdvertPostback advertPostback = postbackEdit();
@@ -61,10 +63,12 @@ public class AdvertPostbackAPI {
 
         jsonObject.addProperty("forbidChangePostbackStatus",
                 isNull(advertPostback.getForbidChangePostbackStatus()) ? false : advertPostback.getForbidChangePostbackStatus());
+
+        jsonObject.addProperty("platformId", advertPostback.getPlatformId());
         return jsonObject;
     }
 
-    public static AdvertPostback postbackEdit() {
+    public static AdvertPostback postbackEdit() throws Exception {
         AdvertPostback advertPostback = new AdvertPostback();
         advertPostback.fillAdvertPostbackWithRandomData();
 
@@ -111,6 +115,8 @@ public class AdvertPostbackAPI {
 
         AdvertPostback advertPostback = new AdvertPostback();
         advertPostback.setSecurePostbackCode(data.isNull("securePostbackCode") ? null : data.getString("securePostbackCode"));
+        advertPostback.setPlatformId(data.isNull("platformId") ? null : data.getInt("platformId"));
+
         advertPostback.setForbidChangePostbackStatus(data.isNull("forbidChangePostbackStatus") ? false : data.getBoolean("forbidChangePostbackStatus"));
 
         if (data.get("allowedIp") instanceof JSONArray) {
@@ -148,5 +154,6 @@ public class AdvertPostbackAPI {
         Assert.assertEquals(advertPostback.getAllowedIp(), advertPostbackEdit.getAllowedIp());
         Assert.assertEquals(advertPostback.getAllowedSubAccount(), advertPostbackEdit.getAllowedSubAccount());
         Assert.assertEquals(advertPostback.getDisallowedSubAccount(), advertPostbackEdit.getDisallowedSubAccount());
+        Assert.assertEquals(advertPostback.getPlatformId(), advertPostbackEdit.getPlatformId());
     }
 }

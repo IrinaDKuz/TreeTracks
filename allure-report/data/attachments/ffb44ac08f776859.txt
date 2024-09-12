@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 59,
+        "email": "Travis.Ferry@hotmail.com",
+        "status": "enabled",
+        "firstName": "Brooks",
+        "secondName": "Orn",
+        "skype": "Karson",
+        "telegram": "William",
+        "phone": "+7852159883",
+        "workingHours": "14",
+        "createdAt": "2022-12-21 15:16:27"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

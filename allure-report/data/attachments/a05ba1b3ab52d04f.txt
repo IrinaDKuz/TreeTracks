@@ -1,0 +1,60 @@
+{
+  "title": "Leader Save New",
+  "status": "paused",
+  "advert": 610,
+  "statusNotice": false,
+  "privacyLevel": "private",
+  "isTop": true,
+  "releaseDate": "2024-09-04T08:39:32.772Z",
+  "stopDate": "2024-09-10T11:39:32.772Z",
+  "sendBeforeStopping": 21,
+  "notes": "Bonus Early-bird Instant-access Verified New Subscription Instant-access Limited-time Powerful Licensed",
+  "reconciliation": "Certified Prize",
+  "payouts": "Fan-favorite Reliable Huge Reward Support",
+  "previewUrl": "leader-save-new-1788.com",
+  "tag": [
+    82,
+    57,
+    103
+  ],
+  "category": [
+    31,
+    3,
+    61
+  ],
+  "trafficSource": [
+    392,
+    383,
+    386
+  ],
+  "kpi": [
+    {
+      "lang": "rus",
+      "text": "Advanced Sweepstake VIP Instant-access Membership Subscription Limited-stock Subscription Limited Feedback Qualified Exclusive-access Membership User-friendly Gift Innovative Cutting-edge Accredited Giveaway Fast"
+    },
+    {
+      "lang": "eng",
+      "text": "Easy Subscription Save Promotion Exclusive Exclusive-access Subscription Customer Supreme Immediate Risk-free Launch Expert VIP Giveaway Offer Hidden Accredited Incredible Advanced"
+    }
+  ],
+  "description": [
+    {
+      "lang": "rus",
+      "text": "Membership Free Convenient Supreme Flash Combo Secure Sale Giveaway Limited Best-seller Reward Customer Ultimate Satisfaction Specialist Award-winning Offer Limited Certified"
+    },
+    {
+      "lang": "eng",
+      "text": "One-time Exclusive Best Guaranteed Launch Incredible Support Huge Bargain Support New Subscription Promotion Quick Save Satisfaction Innovative Top Immediate Top-rated"
+    }
+  ],
+  "paidGoal": [
+    {
+      "lang": "rus",
+      "text": "Advanced Package Prize Rating Recommendation Risk-free Discount Launch Gift Early-bird Premium Membership Effective Certified Leader Specialist Satisfaction Bundle Powerful Authority"
+    },
+    {
+      "lang": "eng",
+      "text": "Endorsement Sale Secure Best-seller Bargain Top Discount Proven Contest Gift Hidden Flash One-time Hot Risk-free Gift Satisfaction Unbeatable Fan-favorite Prize"
+    }
+  ]
+}

@@ -38,7 +38,6 @@ public class AdvertFilterAPI {
         put("company_legalname", "companyLegalname");
         put("name", "name");
         put("id", "id");
-        put("user_request_source_value", "userRequestSourceValue");
         put("user_request_source", "userRequestSource[]");
     }};
 
@@ -109,7 +108,7 @@ public class AdvertFilterAPI {
 
     private static void filterAdverts(Map.Entry<String, String> entry, String valueString, String tableName, String idRowName, SoftAssert softAssert) throws Exception {
         Set<String> ids = new TreeSet<>();
-        ids.addAll(getArrayFromBDWhereLike(idRowName, tableName, entry.getKey(), valueString));
+        ids.addAll(getArrayFromBDWhere(idRowName, tableName, entry.getKey(), valueString));
         List<String> filterIds = filterAdvertsPost(entry.getValue(), valueString);
         filterAssert(filterIds, ids, softAssert);
     }

@@ -1,0 +1,79 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 658,
+      "advert": {
+        "value": 1175,
+        "label": "Industries Digital Enterprise"
+      },
+      "person": "Bailey Kelly",
+      "status": "active",
+      "messengers": [
+        {
+          "id": 1481,
+          "messengerId": 108,
+          "value": "WhatsApp gen Clark"
+        },
+        {
+          "id": 1480,
+          "messengerId": 108,
+          "value": "WhatsApp gen Franklin"
+        }
+      ],
+      "email": "baileykelly@yahoo.com",
+      "position": "Digital Marketing Manager"
+    },
+    {
+      "id": 587,
+      "advert": {
+        "value": 872,
+        "label": "Bubinga Affiliates"
+      },
+      "person": "Amaryllis Sunflower 872",
+      "status": "disabled",
+      "messengers": [
+        {
+          "id": 1288,
+          "messengerId": 191,
+          "value": "Calla Lily0820184146756"
+        },
+        {
+          "id": 1287,
+          "messengerId": 31,
+          "value": "Helenium0820184145576"
+        },
+        {
+          "id": 1286,
+          "messengerId": 358,
+          "value": "Dianthus0820184144850"
+        }
+      ],
+      "email": "zinniacallalily0820184144101@example.com",
+      "position": "Customer Service Representative"
+    },
+    {
+      "id": 672,
+      "advert": {
+        "value": 56,
+        "label": "Golden star Casino"
+      },
+      "person": "Chrysanthemum Dahlia0901021116137",
+      "status": "disabled",
+      "messengers": [
+        {
+          "id": 1534,
+          "messengerId": 25,
+          "value": "Lobelia0901021119414"
+        },
+        {
+          "id": 1533,
+          "messengerId": 31,
+          "value": "Tulip0901021117776"
+        }
+      ],
+      "email": "zinniacallalily0820184144101@example.com",
+      "position": "Business Analyst"
+    }
+  ]
+}

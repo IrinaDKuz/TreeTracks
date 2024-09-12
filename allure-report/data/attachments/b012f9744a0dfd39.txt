@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "data": {
+    "id": 1260,
+    "status": "discussion",
+    "name": "Future Future Ultra",
+    "companyLegalname": "Tech Global Global Global",
+    "siteUrl": "future-future-ultra-6254.com",
+    "pricingModel": [
+      "hybrid"
+    ],
+    "managerId": 55,
+    "salesManager": 57,
+    "accountManager": 58,
+    "geo": [
+      "kw",
+      "fi",
+      "na"
+    ],
+    "categories": [
+      50,
+      51
+    ],
+    "tag": [
+      4,
+      8,
+      3
+    ],
+    "offerCount": 0,
+    "userRequestSource": 77,
+    "note": "Solutions Bright Future Ventures Omega Lab Industries Bright Smart Labs",
+    "offer": {
+      "active": 0,
+      "inactive": 0,
+      "draft": 0,
+      "total": 0
+    }
+  }
+}

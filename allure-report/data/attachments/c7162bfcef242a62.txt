@@ -1,0 +1,456 @@
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 22,
+        "title": "Macie",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "http://placeimg.com/640/480/food",
+        "categories": [
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1,
+          "label": "Ltd Industries Digital"
+        },
+        "accountManager": {
+          "value": 94,
+          "label": "kuduibisvicunanabarlek@outlook.com"
+        },
+        "salesManager": {
+          "value": 56,
+          "label": "Betsy.Veum12@hotmail.com"
+        },
+        "note": "",
+        "tags": [],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 19,
+        "title": "Maxime",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "http://placeimg.com/640/480/food",
+        "categories": [
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1128,
+          "label": "Hub Smart Enterprises"
+        },
+        "accountManager": {
+          "value": 102,
+          "label": "saden201@gmail.com"
+        },
+        "salesManager": {
+          "value": 92,
+          "label": "test5@admin.com"
+        },
+        "note": "",
+        "tags": [],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 17,
+        "title": "Oswald",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "http://placeimg.com/640/480/food",
+        "categories": [
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1,
+          "label": "Ltd Industries Digital"
+        },
+        "accountManager": {
+          "value": 94,
+          "label": "kuduibisvicunanabarlek@outlook.com"
+        },
+        "salesManager": {
+          "value": 56,
+          "label": "Betsy.Veum12@hotmail.com"
+        },
+        "note": "",
+        "tags": [],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 16,
+        "title": "Allie",
+        "status": "active",
+        "privacyLevel": "public",
+        "previewUrl": "https://delothe.buzz/?\u0026clickid\u003d{clickid}\u0026pid\u003d{pid}\u0026ip\u003d{ip}\u0026geo\u003d{geo}\u0026device_ua\u003d{device_ua}\u0026city\u003d{city}\u0026fbid\u003d{sub5}",
+        "categories": [
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1,
+          "label": "Ltd Industries Digital"
+        },
+        "accountManager": {
+          "value": 94,
+          "label": "kuduibisvicunanabarlek@outlook.com"
+        },
+        "salesManager": {
+          "value": 56,
+          "label": "Betsy.Veum12@hotmail.com"
+        },
+        "note": "",
+        "tags": [],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 15,
+        "title": "Testt offer",
+        "status": "paused",
+        "privacyLevel": "public",
+        "previewUrl": "https://delothe.buzz/?\u0026clickid\u003d{clickid}\u0026pid\u003d{pid}\u0026ip\u003d{ip}\u0026geo\u003d{geo}\u0026device_ua\u003d{device_ua}\u0026city\u003d{city}\u0026fbid\u003d{sub5}",
+        "categories": [
+          10,
+          203,
+          64,
+          1
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 15,
+          "label": "Jinilotto"
+        },
+        "accountManager": {
+          "value": 19,
+          "label": "Anastasia_VonRueden87@yahoo.com"
+        },
+        "note": "Текстовое поле для указания дополнительной информации по офферу",
+        "tags": [
+          76,
+          82
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 10,
+        "title": "Referral Package Membership",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "referral-package-membership-5370.com",
+        "categories": [
+          35,
+          343,
+          64
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 752,
+          "label": "biamo.bet"
+        },
+        "note": "Cashback Review Flash Secret Feedback Immediate Premium Package Unbeatable Certified",
+        "tags": [
+          76,
+          86,
+          82
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 6
+  }
+}

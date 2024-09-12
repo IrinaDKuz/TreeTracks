@@ -8,6 +8,7 @@
             <class name="API.Admin.AdminFilterAPI"/>
             <class name="API.Admin.AdminListAPI"/>
             <class name="API.Admin.AffiliateManagerAPI"/>
+            <class name="API.Admin.ContentFilter.ContentFilterAdvertAPI_3"/>
         </classes>
     </test>
 
@@ -18,12 +19,14 @@
             <class name="API.Advert.AdvertPaymentInfoAPI"/>
             <class name="API.Advert.AdvertPostbackAPI"/>
             <class name="API.Advert.AdvertNotesAPI"/>
+            <class name="API.Advert.AdvertDocumentAPI"/>
             <class name="API.Advert.AdvertAccessAPI"/>
 
-            <class name="API.Advert.AdvertFilterAPI"/>
-            <class name="API.AdvertPlus.AdvertBulkCheck"/>
-            <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
-            <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
+            <!--    <class name="API.Advert.AdvertFilterAPI"/>
+                    <class name="API.AdvertPlus.AdvertBulkCheck"/>
+                    <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
+                    <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
+        -->
         </classes>
     </test>
 
@@ -62,6 +65,7 @@
             <class name="API.Settings.Content.ContentTrafficSourceAPI"/>
             <class name="API.Settings.Content.ContentOfferTagAPI"/>
             <class name="API.Settings.Content.ContentAdvertTagAPI"/>
+            <class name="API.Settings.Content.ContentTaskTagAPI"/>
             <class name="API.Settings.Content.ContentMessengerAPI"/>
         </classes>
     </test>

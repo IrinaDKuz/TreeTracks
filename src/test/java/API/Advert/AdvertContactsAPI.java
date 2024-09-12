@@ -40,18 +40,23 @@ public class AdvertContactsAPI {
         contactsGet(true);
         Allure.step("Добавляем контакт и мессенджеры");
         contactsAdd();
-        Allure.step("Редактируем контакт и мессенджеры");
-        AdvertContact advertContact = contactsEdit();
+        Allure.step("Добавляем второй контакт и мессенджеры");
+        AdvertContact advertContactNew = contactsAdd();
         Allure.step("Выполняем проверки");
-        contactsAssert(advertContact);
-        Allure.step("Удаляем контакт " + advertContactId);
-     //   deleteMethod("advert",advertId + "/contact/" + advertContactId);
+        contactsAssert(advertContactNew);
+        Allure.step("Редактируем второй контакт и мессенджеры");
+        AdvertContact advertContactEdit = contactsEdit();
+        Allure.step("Выполняем проверки");
+        contactsAssert(advertContactEdit);
+        Allure.step("Удаляем второй контакт " + advertContactId);
+        deleteMethod("advert",advertId + "/contact/" + advertContactId);
     }
 
-    private static void contactsAdd() throws Exception {
+    private static AdvertContact contactsAdd() throws Exception {
         AdvertContact advertContact = new AdvertContact();
         advertContact.fillAdvertContactWithRandomData();
         contactsAddPost(String.valueOf(advertId), advertContact);
+        return advertContact;
     }
 
     public static int contactsAddPost(String id, AdvertContact advertContact) {
@@ -166,7 +171,6 @@ public class AdvertContactsAPI {
         if (isShow) {
             System.out.println(GET_RESPONSE + responseBody);
             Allure.step(GET_RESPONSE + responseBody);
-            Allure.step(GET_RESPONSE + responseBody);
         }
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");
@@ -198,6 +202,7 @@ public class AdvertContactsAPI {
 
     public static void contactsAssert(AdvertContact advertContactEdit) {
         ArrayList<AdvertContact> advertContactsList = contactsGet(true);
+        boolean isAssert = false;
         for (AdvertContact advertContact : advertContactsList) {
             if (advertContact.getContactID() == advertContactId) {
                 SoftAssert softAssert = new SoftAssert();
@@ -215,7 +220,9 @@ public class AdvertContactsAPI {
                     softAssert.assertEquals(getMessenger.getMessengerValue(), editMessenger.getMessengerValue());
                 }
                 softAssert.assertAll();
+                isAssert = true;
             }
+            Assert.assertTrue(isAssert);
         }
     }
 }

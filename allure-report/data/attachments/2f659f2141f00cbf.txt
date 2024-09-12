@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 106,
+        "email": "roleAdmin1@mail.ru",
+        "status": "disabled",
+        "firstName": "Role 01",
+        "secondName": "Admin 01",
+        "skype": "IM/Skype 01",
+        "telegram": "Telegram 01",
+        "phone": "12345678901",
+        "workingHours": "Technical Support Hours 01",
+        "updatedAt": "2024-07-05 14:24:59",
+        "createdAt": "2024-06-24 06:54:28"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

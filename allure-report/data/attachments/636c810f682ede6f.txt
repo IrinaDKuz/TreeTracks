@@ -1,0 +1,8 @@
+{
+  "description": "Dragonfly SmoothGreenSnake EasternBrownSnake Grasshopper GopherSnake Mamba WhipSnake FalseWaterCobra Shieldtail Inland_Taipan",
+  "email": "copperheadspeckledkingsnakedragonfly@yahoo.com",
+  "login": "Copperhead SpeckledKingsnake Dragonfly",
+  "password": "Sidewinder Cobra11554",
+  "type": "single",
+  "url": "seasnake-pit-rattlesnake-2446.com"
+}

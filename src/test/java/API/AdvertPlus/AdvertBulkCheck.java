@@ -34,7 +34,8 @@ public class AdvertBulkCheck {
             List<Integer> advertsId = new ArrayList<>();
             for (int j = 0; j < new Random().nextInt(10); j++) {
                 //  int id = Integer.parseInt(getRandomValueFromBD("id", "advert"));
-                int id = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert", "id", "900"));
+                int id = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert",
+                        "id", "900"));
                 advertsId.add(id);
                 Advert advert = new Advert(id);
                 showAdvertData(advert);

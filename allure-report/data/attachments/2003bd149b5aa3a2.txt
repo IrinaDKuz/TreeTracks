@@ -1,0 +1,18 @@
+{
+  "securePostbackCode": "xYZ4JtUmafH5OhUOEvDMuS0iBezN73",
+  "allowedIp": [
+    "183.143.107.245",
+    "63.136.96.59"
+  ],
+  "allowedSubAccount": [
+    "Sub 8",
+    "Sub 5",
+    "Sub 2"
+  ],
+  "forbiddenSubAccount": [
+    "Sub 1",
+    "Sub 3",
+    "Sub 4"
+  ],
+  "forbidChangePostbackStatus": false
+}

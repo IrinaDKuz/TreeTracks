@@ -20,7 +20,7 @@ import static Helper.Auth.authKeyAdmin;
  Тест проверяет работу API методов
  - get, add/edit, delete проверка
  во вкладке Админ - "General"
- TODO: 90% DONE
+ TODO: 100% DONE
  */
 
 public class AdminGeneralAPI {
@@ -29,19 +29,22 @@ public class AdminGeneralAPI {
     @Test
     public static void test() throws Exception {
         Allure.step("Добавляем Админа");
-        generalAddEdit(false);
-
+        AdminGeneral adminGeneralNew = generalAddEdit(false);
+        Allure.step(CHECK);
+        generalAssert(adminGeneralNew);
 
         Allure.step("Получаем General Info Админа id= " + adminId);
         generalGet(true);
+
         Allure.step("Редактируем General Info Админа id= " + adminId);
-        AdminGeneral adminGeneral = generalAddEdit(true);
+        AdminGeneral adminGeneralEdit = generalAddEdit(true);
+        Allure.step("Получаем General Info Админа id= " + adminId);
+        generalGet(true);
         Allure.step(CHECK);
-        generalAssert(adminGeneral);
+        generalAssert(adminGeneralEdit);
         Allure.step(DELETE + adminId);
         deleteMethod("admin", String.valueOf(adminId));
         assertDelete(String.valueOf(adminId), "admin");
-
     }
 
     private static JsonObject initializeJsonAdminGeneral(AdminGeneral adminGeneral, boolean isEdit) {

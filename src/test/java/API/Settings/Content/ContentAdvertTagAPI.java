@@ -33,11 +33,13 @@ public class ContentAdvertTagAPI {
     @Test
     public static void test() throws Exception {
         Allure.step("Добавляем AdvertTag");
-        tagAddEdit("add");
-        Allure.step("Редактируем AdvertTag");
-        ContentTag contentTag = tagAddEdit(settingTagId + "/edit");
+        ContentTag contentTagNew = tagAddEdit("add");
         Allure.step(CHECK);
-        tagAssert(contentTag);
+        tagAssert(contentTagNew);
+        Allure.step("Редактируем AdvertTag");
+        ContentTag contentTagEdit = tagAddEdit(settingTagId + "/edit");
+        Allure.step(CHECK);
+        tagAssert(contentTagEdit);
         deleteMethod("setting/advert-tag", String.valueOf(settingTagId));
         assertDelete(String.valueOf(settingTagId), "advert_tag");
     }

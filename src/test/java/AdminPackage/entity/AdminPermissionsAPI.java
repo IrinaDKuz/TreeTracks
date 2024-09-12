@@ -99,7 +99,7 @@ public class AdminPermissionsAPI {
         JsonObject permissions = new JsonObject();
 
 // Создаем json для отправки по АPI по данным Админа
-     JsonObject admin = createPermissionObject(true, true, true, true, true);
+        JsonObject admin = createPermissionObject(true, true, true, true, true);
         JsonObject adminLog = createPermissionObject(true, false, false, false, false);
         JsonObject advertPrimaryInfo = createPermissionObject(true, false, true, true, true);
         JsonObject advertContact = createPermissionObject(true, true, true, true, true);
@@ -158,8 +158,6 @@ public class AdminPermissionsAPI {
         permissionObject.addProperty("export", export);
         return permissionObject;
     }
-
-
 
 public static void changeApiPermission() {
     Gson gson = new Gson();

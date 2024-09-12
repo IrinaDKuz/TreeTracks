@@ -152,7 +152,6 @@ public class AdvertAccessAPI {
         if (isShow) {
             System.out.println(GET_RESPONSE + responseBody);
             Allure.step(GET_RESPONSE + responseBody);
-            Allure.step(GET_RESPONSE + responseBody);
         }
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray dataArray = jsonObject.getJSONArray("data");

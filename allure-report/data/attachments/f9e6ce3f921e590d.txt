@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 377,
+      "admin": {
+        "value": 104,
+        "label": "FULL ACCESS"
+      },
+      "location": {
+        "value": 16,
+        "label": "ercercercerc ere erer"
+      },
+      "text": "Patient Charismatic Resourceful Determined Practical Ambitious Dependable Caring Caring Sincere Intelligent Empathetic Practical Open-minded Enthusiastic Optimistic Enthusiastic Reliable Versatile Forgiving",
+      "type": "event",
+      "createdAt": "2024-09-04 08:23:19"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 100,
+    "totalCount": 1
+  }
+}

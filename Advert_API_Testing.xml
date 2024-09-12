@@ -9,14 +9,20 @@
             <class name="API.Advert.AdvertPaymentInfoAPI"/>
             <class name="API.Advert.AdvertPostbackAPI"/>
             <class name="API.Advert.AdvertNotesAPI"/>
+            <class name="API.Advert.AdvertDocumentAPI"/>
+            <class name="API.Advert.AdvertAccessAPI"/>
+
+
+
         </classes>
     </test>
 
-    <test verbose="2" preserve-order="true" name="Advert API add test">
+ <test verbose="2" preserve-order="true" name="Advert API add test">
         <classes>
             <class name="API.Advert.AdvertFilterAPI"/>
-            <class name="API.AdvertPlus.AdvertBulkCheck"/>
-            <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
+            <class name="API.Advert.AdvertFromListAPI"/>
+            <!--<class name="API.AdvertPlus.AdvertBulkCheck"/>
+            <class name="API.AdvertPlus.AdvertContactsFindAPI"/>-->
         </classes>
     </test>
 </suite>

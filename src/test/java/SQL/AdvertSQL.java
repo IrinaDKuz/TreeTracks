@@ -66,21 +66,19 @@ public class AdvertSQL {
         return sqlQueryList(sqlRequest, parameter);
     }
 
-    public static List<String> getArrayFromBDWhereLike(String parameter, String tableName, String where, String whereValue) throws Exception {
-        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") LIKE LOWER('%" + escapeSql(whereValue) + "%');";
+    public static List<String> getArrayFromBDWhereNull(String parameter, String tableName, String where) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") IS NULL;";
         return sqlQueryList(sqlRequest, parameter);
     }
 
 
     public static List<String> getArrayFromBDWhereAnd(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
         String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "));
-        System.out.println(sqlRequest);
         return sqlQueryList(sqlRequest, parameter);
     }
 
     public static List<String> getArrayFromBDWhereOr(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
         String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" OR "));
-        System.out.println(sqlRequest);
         return sqlQueryList(sqlRequest, parameter);
     }
 
@@ -100,6 +98,35 @@ public class AdvertSQL {
             list.addAll(sqlQueryList(sqlRequest, parameter));
         }
         return list;
+    }
+
+    public static List<String> getArrayFromBDWhereLike(String parameter, String tableName, String where, List<String> whereValues) throws Exception {
+        List<String> list = new ArrayList<>();
+        for (String whereValue : whereValues) {
+            String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " LIKE LOWER('%" + escapeSql(whereValue) + "%');";
+            list.addAll(sqlQueryList(sqlRequest, parameter));
+        }
+        Set<String> set = new HashSet<>(list);
+        return new ArrayList<>(set);
+    }
+
+    public static List<String> getArrayFromBDWhereInteger(String parameter, String tableName, String where, List<Integer> whereValues) throws SQLException {
+        List<String> list = new ArrayList<>();
+        for (Integer whereValue : whereValues) {
+            String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") = LOWER('" + whereValue + "');";
+            list.addAll(sqlQueryList(sqlRequest, parameter));
+        }
+        return list;
+    }
+
+    public static List<String> getArrayFromBDWhereLikeInteger(String parameter, String tableName, String where, List<Integer> whereValues) throws Exception {
+        List<String> list = new ArrayList<>();
+        for (Integer whereValue : whereValues) {
+            String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " LIKE LOWER('%" + whereValue + "%');";
+            list.addAll(sqlQueryList(sqlRequest, parameter));
+        }
+        Set<String> set = new HashSet<>(list);
+        return new ArrayList<>(set);
     }
 
     public static List<String> getArrayFromBDWhereIsLike(String parameter, String tableName, String where, String whereValue) throws Exception {
@@ -161,7 +188,6 @@ public class AdvertSQL {
         List<String> list = sqlQueryList(sqlRequest, parameter);
         return list.get(new Random().nextInt(list.size()));
     }
-
 
 
     public static String getRandomValueFromBDExcept(String parameter, String tableName, List<String> exceptList) throws Exception {
@@ -233,6 +259,11 @@ public class AdvertSQL {
                 " GROUP BY " + parameter +
                 " ORDER BY count DESC LIMIT 1;";
         return sqlQueryList(sqlRequest, parameter).getFirst();
+    }
+
+    public static String getCountFromBD(String tableName) throws SQLException {
+        String sqlRequest = "SELECT COUNT(*) AS count FROM " + tableName + " ;";
+        return sqlQueryList(sqlRequest, "count").getFirst();
     }
 
 }

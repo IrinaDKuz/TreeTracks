@@ -1,0 +1,13 @@
+{
+  "admin_edit": {
+    "status": "disabled",
+    "roleId": 10,
+    "email": "wombatlynxindriaardvark@hotmail.com",
+    "firstName": "Wombat Lynx",
+    "secondName": "Indri Aardvark",
+    "phone": "1415694732",
+    "skype": "Skype:Wombat Lynx",
+    "telegram": "@TelegramIndri Aardvark",
+    "workingHours": "50"
+  }
+}

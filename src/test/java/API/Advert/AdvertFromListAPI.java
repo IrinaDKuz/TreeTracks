@@ -15,12 +15,14 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.StreamSupport;
 
 import static API.Helper.*;
 import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
+import static SQL.AdvertSQL.getCountFromBD;
 
 /***
  Тест проверяет работу API методов
@@ -30,7 +32,7 @@ import static Helper.Auth.authKeyAdmin;
  */
 
 public class AdvertFromListAPI {
-    static int count;
+    static Integer count;
 
     @Test
     public static void test() throws Exception {
@@ -39,13 +41,14 @@ public class AdvertFromListAPI {
         Allure.step("Получаем список из " + count + " Адвертов");
         System.out.println("Получаем список из " + count + " Адвертов");
 
-        Allure.step(CHECK);
-        advertListAssert();
+        advertListGet(true);
     }
 
-    public static List<AdvertFromList> advertListGet(Boolean isShow) {
+    public static List<AdvertFromList> advertListGet(Boolean isShow) throws SQLException {
 
         List<AdvertFromList> advertsList = new ArrayList<>();
+        if (count == null)
+            count = Integer.valueOf(getCountFromBD("advert"));
 
         Response response;
         response = RestAssured.given()
@@ -73,7 +76,7 @@ public class AdvertFromListAPI {
             JSONObject advertObject = advertsArray.getJSONObject(i);
             advertFromList.setAdvertId(advertObject.getInt("id"));
             advertFromList.setName(advertObject.getString("name"));
-            advertFromList.setLegalName(advertObject.isNull("legalName") ? null : advertObject.getString("legalName") );
+            advertFromList.setLegalName(advertObject.isNull("legalName") ? null : advertObject.getString("legalName"));
             advertFromList.setStatus(advertObject.getString("status"));
             advertFromList.setOfferCount(advertObject.getInt("offerCount"));
             advertFromList.setNote(advertObject.isNull("note") ? null : advertObject.getString("note"));
@@ -86,43 +89,5 @@ public class AdvertFromListAPI {
             advertsList.add(advertFromList);
         }
         return advertsList;
-    }
-
-    public static void advertListAssert() {
-        List<AdvertFromList> advertsList = advertListGet(true);
-        for (AdvertFromList advert : advertsList) {
-            advert.getAdvertId();
-
-/*            Allure.step("Сравнение отправленных значений в полях с полученными из get");
-            Assert.assertEquals(advertPrimaryInfo.getStatus(), advertPrimaryInfoGet.getStatus());
-            Assert.assertEquals(advertPrimaryInfo.getCompany(), advertPrimaryInfoGet.getCompany());
-            Assert.assertEquals(advertPrimaryInfo.getCompanyLegalName(), advertPrimaryInfoGet.getCompanyLegalName());
-            Assert.assertEquals(advertPrimaryInfo.getSiteUrl(), advertPrimaryInfoGet.getSiteUrl());
-            Assert.assertEquals(advertPrimaryInfo.getManagerId(), advertPrimaryInfoGet.getManagerId());
-            Assert.assertEquals(advertPrimaryInfo.getSalesManagerId(), advertPrimaryInfoGet.getSalesManagerId());
-            Assert.assertEquals(advertPrimaryInfo.getAccountManagerId(), advertPrimaryInfoGet.getAccountManagerId());
-            Assert.assertEquals(advertPrimaryInfo.getGeoAbb(), advertPrimaryInfoGet.getGeoAbb());
-            List<Integer> tags = advertPrimaryInfo.getTagId();
-            List<Integer> tagsEdit = advertPrimaryInfoGet.getTagId();
-            Collections.sort(tags);
-            Collections.sort(tagsEdit);
-            Assert.assertEquals(tags, tagsEdit);
-
-            Assert.assertEquals(advertPrimaryInfo.getPricingModel(), advertPrimaryInfoGet.getPricingModel());
-            Set<Integer> categoriesId = advertPrimaryInfo.getCategoriesId();
-            Set<Integer> categoriesIdEdit = advertPrimaryInfoGet.getCategoriesId();
-            Assert.assertEquals(categoriesId, categoriesIdEdit);
-            Assert.assertEquals(advertPrimaryInfo.getUserRequestSource(), advertPrimaryInfoGet.getUserRequestSource());
-            Assert.assertEquals(advertPrimaryInfo.getNote(), advertPrimaryInfoGet.getNote());
-
-            if (advertPrimaryInfo.getAdvertId() != null) {
-                Allure.step("Сравнение значений offer count со значениями из базы");
-                advertPrimaryInfo.fillAdvertPrimaryInfoWithOffersData(advertPrimaryInfo.getAdvertId().toString());
-                Assert.assertEquals(advertPrimaryInfo.getActiveOffersCount(), advertPrimaryInfoGet.getActiveOffersCount());
-                Assert.assertEquals(advertPrimaryInfo.getInactiveOffersCount(), advertPrimaryInfoGet.getInactiveOffersCount());
-                Assert.assertEquals(advertPrimaryInfo.getTotalOffersCount(), advertPrimaryInfoGet.getTotalOffersCount());
-                Assert.assertEquals(advertPrimaryInfo.getDraftOffersCount(), advertPrimaryInfoGet.getDraftOffersCount());
-            }*/
-        }
     }
 }

@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": {
+    "admin": [
+      {
+        "id": 61,
+        "email": "Braden_Marquardt@hotmail.com",
+        "status": "enabled",
+        "firstName": "Ray",
+        "secondName": "Weber",
+        "skype": "Charlotte",
+        "telegram": "Ralph",
+        "phone": "+7852151128",
+        "workingHours": "14",
+        "createdAt": "2022-12-21 15:59:39"
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 1
+  }
+}

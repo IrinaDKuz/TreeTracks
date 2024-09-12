@@ -48,6 +48,10 @@ public class AdvertPrimaryInfoAPI {
         Allure.step(CHECK);
         primaryInfoAssert(advertPrimaryInfoEdit, primaryInfoGet(false));
 
+        Allure.step("Удаляем Адверта (чтобы не засорять базу) id=" + advertId);
+        deleteMethod("advert", String.valueOf(advertId));
+        assertDelete(String.valueOf(advertId), "advert");
+
         advertId = Integer.parseInt(getFrequentValueFromBDNotNull("advert_id", "offer"));
         Allure.step("Проверка для Адверта, к которому присоединено несколько офферов advertId=" + advertId);
         AdvertPrimaryInfo advertPrimaryInfoEdit2 = primaryInfoAddEdit(true);

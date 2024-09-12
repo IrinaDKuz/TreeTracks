@@ -6,6 +6,7 @@ import java.util.List;
 
 import static Helper.ActionsClass.*;
 import static Helper.Adverts.*;
+import static SQL.AdvertSQL.*;
 
 public class AdvertPostback {
 
@@ -14,16 +15,18 @@ public class AdvertPostback {
     List<String> disallowedSubAccount;
     Boolean forbidChangePostbackStatus;
     String securePostbackCode;
+    Integer platformId;
 
     public AdvertPostback() {
     }
 
-    public void fillAdvertPostbackWithRandomData() {
+    public void fillAdvertPostbackWithRandomData() throws Exception {
         this.allowedIp = new ArrayList<>(Arrays.asList(generateIPAddress(), generateIPAddress()));
         this.disallowedSubAccount = new ArrayList<>(Arrays.asList("Sub 1", "Sub 3", "Sub 4"));
         this.allowedSubAccount = new ArrayList<>(Arrays.asList("Sub 8", "Sub 5", "Sub 2"));
         this.forbidChangePostbackStatus = getRandomBoolean();
         this.securePostbackCode = generateRandomString(30);
+        this.platformId = Integer.valueOf(getRandomValueFromBD("id", "platform"));
     }
 
     public List<String> getAllowedIp() {
@@ -65,4 +68,11 @@ public class AdvertPostback {
         this.securePostbackCode = securePostbackCode;
     }
 
+    public Integer getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Integer platformId) {
+        this.platformId = platformId;
+    }
 }

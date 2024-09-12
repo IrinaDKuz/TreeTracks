@@ -23,15 +23,15 @@ import static io.restassured.RestAssured.given;
  Тест ищет контакты совпадающие по полям:
  person
  email
- messengers [id, value]
+ messengers [messengerId, value]
  excludeId
  TODO: messengers + тест нестабильный и иногда падает
 
 
  NB! Тест из-за особенностей мапы не умеет искать такие значения:
- Ищем по полям: messengers[][id] = 108 и messengers[][value] = Bougainvillea0815093027381
- Ищем по полям: messengers[][id] = 103 и messengers[][value] = Campanula0813170123490
- Ищем по полям: messengers[][id] = 103 и messengers[][value] = Echinacea0813181935575
+ Ищем по полям: messengers[][messengerId] = 108 и messengers[][value] = Bougainvillea0815093027381
+ Ищем по полям: messengers[][messengerId] = 103 и messengers[][value] = Campanula0813170123490
+ Ищем по полям: messengers[][messengerId] = 103 и messengers[][value] = Echinacea0813181935575
  и перезаписывает значения с одинаковым id, такие кейсы нужно прогонять вручную
 
 
@@ -130,15 +130,15 @@ public class AdvertContactsFindAPI {
 
         System.out.println("Ищем по полям: person, значение: " + person);
         System.out.println("               email, значение: " + email);
-        System.out.println("               messengers[0][id], значение: " + messengerTypeId);
+        System.out.println("               messengers[0][messengerId], значение: " + messengerTypeId);
         System.out.println("               messengers[0][value], значение: " + messengerValue);
 
         Allure.step("Ищем по совокупности полей: person = " + person +
-                ", email = " + email + ", messengers[0][id] = " + messengerTypeId +
+                ", email = " + email + ", messengers[0][messengerId] = " + messengerTypeId +
                 ", messengers[0][value] = " + messengerValue);
 
         List<Integer> personArray = findContact(Map.of("person", person, "email", email,
-                "messengers[0][id]", messengerTypeId, "messengers[0][value]", messengerValue));
+                "messengers[0][messengerId]", messengerTypeId, "messengers[0][value]", messengerValue));
         List<Integer> personArrayFromBDInt = personArrayFromBD.stream()
                 .map(Integer::parseInt)
                 .toList();
@@ -227,10 +227,10 @@ public class AdvertContactsFindAPI {
             String messengerValue = getRandomValueFromBDWhere("value", "advert_contact_messenger",
                     "messenger_id", messengerId);
 
-            System.out.println("Ищем по полям: messengers[0][id] = " + messengerId +
+            System.out.println("Ищем по полям: messengers[0][messengerId] = " + messengerId +
                     " и messengers[0][value] = " + messengerValue);
 
-            Allure.step("Ищем по полям: messengers[0][id] = " + messengerId +
+            Allure.step("Ищем по полям: messengers[0][messengerId] = " + messengerId +
                     " и messengers[0][value] = " + messengerValue);
 
             messengerMap.put(messengerId, messengerValue);
@@ -271,8 +271,8 @@ public class AdvertContactsFindAPI {
         Map<String, String> messengerMapForFind = new HashMap<>();
         int i = 0;
         for (Map.Entry<String, String> entry : messengerMap.entrySet()) {
-            System.out.println("messengers[" + String.valueOf(i) + "][id]");
-            messengerMapForFind.put("messengers[" + String.valueOf(i) + "][id]", entry.getKey());
+            System.out.println("messengers[" + String.valueOf(i) + "][messengerId]");
+            messengerMapForFind.put("messengers[" + String.valueOf(i) + "][messengerId]", entry.getKey());
             messengerMapForFind.put("messengers[" + String.valueOf(i) + "][value]", entry.getValue());
             i++;
         }

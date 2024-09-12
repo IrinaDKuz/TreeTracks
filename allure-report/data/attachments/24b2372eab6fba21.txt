@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "data": {
+    "id": 1191,
+    "status": "integration",
+    "name": "Future World International",
+    "companyLegalname": "Ultra Technologies Hyper Enterprise",
+    "siteUrl": "future-world-international-5353.com",
+    "pricingModel": [
+      "cpa"
+    ],
+    "managerId": 72,
+    "salesManager": 70,
+    "accountManager": 55,
+    "geo": [
+      "gh",
+      "nz",
+      "ir"
+    ],
+    "categories": [
+      16,
+      55
+    ],
+    "tag": [
+      7,
+      5,
+      4
+    ],
+    "offerCount": 5,
+    "userRequestSource": 72,
+    "note": "Alpha Worldwide Future Tech Group Systems Labs Bright Group Global",
+    "offer": {
+      "active": "2",
+      "inactive": "2",
+      "draft": 0,
+      "total": 4
+    }
+  }
+}

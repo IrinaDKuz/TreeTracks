@@ -1,0 +1,464 @@
+{
+  "success": true,
+  "data": {
+    "offers": [
+      {
+        "id": 45,
+        "title": "Endorsement Referral Certified",
+        "status": "active",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "endorsement-referral-certified-7285.com",
+        "categories": [
+          343,
+          365,
+          368
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1191,
+          "label": "Future World International"
+        },
+        "accountManager": {
+          "value": 55,
+          "label": "Lenora45@gmail.com"
+        },
+        "salesManager": {
+          "value": 70,
+          "label": "Leola_Weimann30@hotmail.com"
+        },
+        "note": "Powerful Advanced Sweepstake Contest Promotion Exclusive Access Promotion Limited-time User-friendly",
+        "tags": [
+          57,
+          82,
+          97
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 42,
+        "title": "Immediate Extreme Satisfaction",
+        "status": "active",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "immediate-extreme-satisfaction-5088.com",
+        "categories": [
+          38,
+          46,
+          48
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1223,
+          "label": "Advert with Accesses"
+        },
+        "note": "Free Advanced Bargain 24/7 Secret Feedback Modern Free Deal Limited-stock",
+        "tags": [
+          82,
+          86,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 25,
+        "title": "Safe Leader Sweepstake",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "safe-leader-sweepstake-892.com",
+        "categories": [
+          7,
+          22,
+          40
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 1062,
+          "label": "Solutions Network International Hyper"
+        },
+        "accountManager": {
+          "value": 19,
+          "label": "Anastasia_VonRueden87@yahoo.com"
+        },
+        "salesManager": {
+          "value": 10,
+          "label": "Hardy28@yahoo.com"
+        },
+        "note": "Limited-stock User-friendly Testimonial Risk-free Essential Trusted Supreme Secure Safe Qualified",
+        "tags": [
+          57,
+          83,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 12,
+        "title": "Qualified Huge Fast",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "qualified-huge-fast-6449.com",
+        "categories": [
+          4,
+          5,
+          49
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 38,
+          "label": "Everumpartners"
+        },
+        "accountManager": {
+          "value": 19,
+          "label": "Anastasia_VonRueden87@yahoo.com"
+        },
+        "note": "Exclusive-access Trendy Exclusive-access Expert Gift Limited Contest Proven Endorsement Unbeatable",
+        "tags": [
+          76,
+          83,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 11,
+        "title": "Leader Support Free",
+        "status": "active",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "leader-support-free-9258.com",
+        "categories": [
+          17,
+          18,
+          51
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 679,
+          "label": "Winabet365"
+        },
+        "note": "24/7 Top Sweepstake Hot Instant Best-seller Secure Membership New Review",
+        "tags": [
+          57,
+          82,
+          103
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      },
+      {
+        "id": 10,
+        "title": "Referral Package Membership",
+        "status": "paused",
+        "privacyLevel": "pre_moderation",
+        "previewUrl": "referral-package-membership-5370.com",
+        "categories": [
+          35,
+          64,
+          343
+        ],
+        "countries": [],
+        "affiliateCount": 0,
+        "advert": {
+          "value": 752,
+          "label": "biamo.bet"
+        },
+        "note": "Cashback Review Flash Secret Feedback Immediate Premium Package Unbeatable Certified",
+        "tags": [
+          76,
+          82,
+          86
+        ],
+        "permission": {
+          "offer_basic_info": {
+            "create": true,
+            "edit": true,
+            "delete": true,
+            "export": true
+          },
+          "offer_tracking": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_targeting": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_affiliate": {
+            "view": true,
+            "edit": true
+          },
+          "offer_postback": {
+            "view": true,
+            "edit": true
+          },
+          "offer_payouts": {
+            "view": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_caps": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_creative": {
+            "view": true,
+            "create": true,
+            "edit": true,
+            "delete": true
+          },
+          "offer_access": {
+            "view": true,
+            "create": true,
+            "edit": true
+          }
+        }
+      }
+    ]
+  },
+  "pagination": {
+    "page": 1,
+    "limit": 2000,
+    "totalCount": 6
+  }
+}

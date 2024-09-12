@@ -1,0 +1,5 @@
+{
+  "type": "event",
+  "location": "16",
+  "text": "Patient Charismatic Resourceful Determined Practical Ambitious Dependable Caring Caring Sincere Intelligent Empathetic Practical Open-minded Enthusiastic Optimistic Enthusiastic Reliable Versatile Forgiving"
+}
