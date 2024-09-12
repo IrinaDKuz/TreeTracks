@@ -5,36 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/6_8_MB_test-document.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOffer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/Role/RoleCloneAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertDocumentAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentTaskTagAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminContentFilterForTesting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertDocument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/API_Testing.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Advert_API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Advert_API_Testing.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/AdminGeneralAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/AdminGeneralAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAccessAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAccessAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFromListAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFromListAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPostbackAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPostbackAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertBulkCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertBulkCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertContactsFindAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentAdvertTagAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Settings/Content/ContentAdvertTagAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminContentFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminContentFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdminPackage/entity/AdminPermissionsAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPostback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
