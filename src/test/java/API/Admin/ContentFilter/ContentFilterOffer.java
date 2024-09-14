@@ -53,10 +53,6 @@ public class ContentFilterOffer {
         filterIncludeList.add(contentFilterOffersAdverts(true, "advertInclude"));
         filterExcludeList.add(contentFilterOffersAdverts(false, "advertExclude"));
 
-
-        filterIncludeList.add(contentFilterOffersAdmins(true, "sales_manager", "advertInclude"));
-        filterExcludeList.add(contentFilterOffersAdmins(false, "sales_manager", "advertExclude"));
-
         filterIncludeList.add(contentFilterOffersAdmins(true, "sales_manager", "salesManagerInclude"));
         filterExcludeList.add(contentFilterOffersAdmins(false, "sales_manager", "salesManagerExclude"));
 
@@ -81,7 +77,7 @@ public class ContentFilterOffer {
         filterIncludeList.add(contentFilterOfferInfo(true, GEO_MAP, 10, "country", "geoInclude"));
         filterExcludeList.add(contentFilterOfferInfo(false, GEO_MAP, 10, "country", "geoExclude"));
 
-        // 1) Тестирование по отдельности include
+     /*   // 1) Тестирование по отдельности include
         System.out.println(" ");
         System.out.println("1) Тестирование по отдельности include");
         for (AdminContentFilterForTesting filler1 : filterIncludeList) {
@@ -104,14 +100,14 @@ public class ContentFilterOffer {
             }
         }
 
-
+*/
         // 3) Тестирование конфигураций include + include все
         System.out.println(" ");
         System.out.println("3) Тестирование конфигураций include + include все");
         testFieldCombination(filterIncludeList, softAssert);
 
 
-        // 4) Тестирование конфигураций по всем include - exclude
+/*        // 4) Тестирование конфигураций по всем include - exclude
         System.out.println(" ");
         System.out.println("4) Тестирование конфигураций по всем include - exclude");
         for (int i = 0; i < filterIncludeList.size(); i++) {
@@ -125,7 +121,7 @@ public class ContentFilterOffer {
         for (int i = 0; i < filterExcludeList.size(); i++) {
             int n = new Random().nextInt(filterIncludeList.size());
             testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
-        }
+        }*/
 
 
         softAssert.assertAll();

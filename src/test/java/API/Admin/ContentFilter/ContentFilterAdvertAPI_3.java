@@ -4,7 +4,6 @@ import AdminPackage.entity.AdminContentFilterForTesting;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Allure;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONArray;
@@ -15,7 +14,6 @@ import org.testng.asserts.SoftAssert;
 
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static API.Helper.*;
 import static API.Helper.sortToInteger;
@@ -40,40 +38,50 @@ public class ContentFilterAdvertAPI_3 {
     static List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
 
     @Test
-    public static void testCombinations() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
+    public static void testPrepareData() throws Exception {
         System.out.println(" ");
         System.out.println("0) Заполнение массива данных для дальнейших проверок");
         prepareData();
+    }
 
-      /*  // 1) Тестирование по отдельности include
+    @Test(dependsOnMethods = "testPrepareData")
+    public void testSeparateInclude() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        //1) Тестирование по отдельности include
         System.out.println(" ");
         System.out.println("1) Тестирование по отдельности include");
         for (AdminContentFilterForTesting filler1 : filterIncludeList) {
             if (filler1.getInclude())
                 testFieldCombination(List.of(filler1), softAssert);
         }
-*/
-  /*      // 2) Тестирование по отдельности include - exclude
-        for (int i = 0; i < filterIncludeList.size(); i++) {
-            AdminContentFilterForTesting filler1 = filterIncludeList.get(i);
-            String name1 = filler1.getFilterName().replace("Include", "").replace("Exclude", "").trim();
+        softAssert.assertAll();
+    }
 
-            for (int j = i + 1; j < filterIncludeList.size(); j++) {
-                AdminContentFilterForTesting filler2 = filterIncludeList.get(j);
-                String name2 = filler2.getFilterName().replace("Include", "").replace("Exclude", "").trim();
+    @Test(dependsOnMethods = "testSeparateInclude")
+    public void testSeverale() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        // 2) Тестирование конфигураций include + exclude несколько
+        System.out.println(" ");
+        System.out.println("2) Несколько include - несколько exclude");
+        List<AdminContentFilterForTesting> list = getRandomFilter(filterIncludeList, 7);
+        list.addAll(getRandomFilter(filterExcludeList, 7));
+        testFieldCombination(list, softAssert);
+        softAssert.assertAll();
+    }
 
-                if (name1.equals(name2)) {
-                    testFieldCombination(List.of(filler1, filler2), softAssert);
-                }
-            }
-        }*/
-
-        // 3) Тестирование конфигураций include + include все
+    @Test(dependsOnMethods = "testSeverale")
+    public void testAllInclude() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+     // 3) Тестирование конфигураций include + include все
         System.out.println(" ");
         System.out.println("3) Тестирование конфигураций include + include все");
         testFieldCombination(filterIncludeList, softAssert);
+        softAssert.assertAll();
+    }
 
+    @Test(dependsOnMethods = "testAllInclude")
+    public void test1() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         // 4) Тестирование конфигураций по всем include - exclude
         System.out.println(" ");
         System.out.println("4) Тестирование конфигураций по всем include - exclude");
@@ -81,7 +89,12 @@ public class ContentFilterAdvertAPI_3 {
             int n = new Random().nextInt(filterExcludeList.size());
             testFieldCombination(List.of(filterIncludeList.get(i), filterExcludeList.get(n)), softAssert);
         }
+        softAssert.assertAll();
+    }
 
+    @Test(dependsOnMethods = "test1")
+    public void test2() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
         // 5) Тестирование конфигураций include - по всем exclude
         System.out.println(" ");
         System.out.println("5) Тестирование конфигураций include - по всем exclude");
@@ -89,10 +102,8 @@ public class ContentFilterAdvertAPI_3 {
             int n = new Random().nextInt(filterIncludeList.size());
             testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
         }
-
         softAssert.assertAll();
     }
-
 
     public static void prepareData() throws Exception {
 
@@ -111,20 +122,19 @@ public class ContentFilterAdvertAPI_3 {
         filterIncludeList.add(contentFilterAdmins(true, "user_request_source", "userRequestSourceInclude"));
         filterExcludeList.add(contentFilterAdmins(false, "user_request_source", "userRequestSourceExclude"));
 
-
-        List<String> filterValue = getSomeValuesFromBD("id", "advert_tag", new Random().nextInt(3) + 1);
+        List<String> filterValue = getSomeValuesFromBD("id", "advert_tag", new Random().nextInt(3) + 3);
         filterIncludeList.add(contentFilterOther(true, filterValue, "advert_id", "advert_tag_relation",
                 "advert_tag_id", "tagInclude"));
 
-        filterValue = getSomeValuesFromBD("id", "advert_tag", new Random().nextInt(3) + 1);
+        filterValue = getSomeValuesFromBD("id", "advert_tag", new Random().nextInt(3) + 3);
         filterExcludeList.add(contentFilterOther(false, filterValue, "advert_id", "advert_tag_relation",
                 "advert_tag_id", "tagExclude"));
 
-        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 1);
+        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 3);
         filterIncludeList.add(contentFilterOther(true, filterValue, "advert_id", "advert_category",
                 "category_id", "categoryInclude"));
 
-        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 1);
+        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 3);
         filterExcludeList.add(contentFilterOther(false, filterValue, "advert_id", "advert_category",
                 "category_id", "categoryExclude"));
 
@@ -140,14 +150,14 @@ public class ContentFilterAdvertAPI_3 {
 
 
     public static AdminContentFilterForTesting contentFilterAdverts(boolean isInclude, String filterName) throws Exception {
-        List<String> filterValue = sortToString(getSomeValuesFromBD("id", "advert", new Random().nextInt(100) + 1));
+        List<String> filterValue = sortToString(getSomeValuesFromBD("id", "advert", new Random().nextInt(100) + 3));
         List<Integer> expectedIds = sortToInteger(filterValue);
         AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
         return filter;
     }
 
     public static AdminContentFilterForTesting contentFilterAdmins(boolean isInclude, String bdName, String filterName) throws Exception {
-        List<String> filterValue = getSomeValuesFromBD("id", "admin", new Random().nextInt(10) + 1);
+        List<String> filterValue = getSomeValuesFromBD("id", "admin", new Random().nextInt(10) + 2);
         filterValue.add("null");
         filterValue.add("self");
         List<Integer> expectedIds = new ArrayList<>();
@@ -171,7 +181,7 @@ public class ContentFilterAdvertAPI_3 {
     public static AdminContentFilterForTesting contentFilterAdvertInfo(boolean isInclude, Map<String, String> map, int bound,
                                                                        String whereName, String filterName) throws Exception {
 
-        List<String> filterValue = getRandomKeys(map, new Random().nextInt(bound) + 1);
+        List<String> filterValue = getRandomKeys(map, new Random().nextInt(bound) + 2);
         List<Integer> expectedIds;
         if (filterName.contains("geo") || filterName.contains("pricingModel")) {
             expectedIds = sortToInteger(getArrayFromBDWhereLike("id", "advert", whereName, filterValue));
@@ -345,6 +355,13 @@ public class ContentFilterAdvertAPI_3 {
             }*/
         }
         return advertFromList;
+    }
+
+
+    public static List<AdminContentFilterForTesting> getRandomFilter(List<AdminContentFilterForTesting> list, int count) {
+        List<AdminContentFilterForTesting> shuffledList = new ArrayList<>(list);
+        Collections.shuffle(shuffledList);
+        return shuffledList.subList(0, new Random().nextInt(count));
     }
 }
 
