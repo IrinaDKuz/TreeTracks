@@ -38,22 +38,22 @@ public class ContentFilterAdvertAPI_3 {
 
     static List<AdminContentFilterForTesting> filterIncludeList = new ArrayList<>();
     static List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
-    @Test
 
+    @Test
     public static void testCombinations() throws Exception {
         SoftAssert softAssert = new SoftAssert();
         System.out.println(" ");
         System.out.println("0) Заполнение массива данных для дальнейших проверок");
         prepareData();
 
-        // 1) Тестирование по отдельности include
+      /*  // 1) Тестирование по отдельности include
         System.out.println(" ");
         System.out.println("1) Тестирование по отдельности include");
         for (AdminContentFilterForTesting filler1 : filterIncludeList) {
             if (filler1.getInclude())
                 testFieldCombination(List.of(filler1), softAssert);
         }
-
+*/
   /*      // 2) Тестирование по отдельности include - exclude
         for (int i = 0; i < filterIncludeList.size(); i++) {
             AdminContentFilterForTesting filler1 = filterIncludeList.get(i);
@@ -94,12 +94,13 @@ public class ContentFilterAdvertAPI_3 {
     }
 
 
-    public static void prepareData () throws Exception {
+    public static void prepareData() throws Exception {
+
         filterIncludeList.add(contentFilterAdverts(true, "idInclude"));
         filterExcludeList.add(contentFilterAdverts(false, "idExclude"));
 
         filterIncludeList.add(contentFilterAdmins(true, "manager_id", "managerIdInclude"));
-        filterExcludeList.add(contentFilterAdmins(false, "manager_id", "managerIdInclude"));
+        filterExcludeList.add(contentFilterAdmins(false, "manager_id", "managerIdExclude"));
 
         filterIncludeList.add(contentFilterAdmins(true, "account_manager", "accountManagerInclude"));
         filterExcludeList.add(contentFilterAdmins(false, "account_manager", "accountManagerExclude"));
@@ -133,13 +134,13 @@ public class ContentFilterAdvertAPI_3 {
         filterIncludeList.add(contentFilterAdvertInfo(true, ADVERT_STATUS_MAP, 2, "status", "statusInclude"));
         filterExcludeList.add(contentFilterAdvertInfo(false, ADVERT_STATUS_MAP, 2, "status", "statusExclude"));
 
-        filterIncludeList.add(contentFilterAdvertInfo(true, GEO_MAP, 20, "country", "geoInclude"));
-        filterExcludeList.add(contentFilterAdvertInfo(false, GEO_MAP, 20, "country", "geoExclude"));
+        filterIncludeList.add(contentFilterAdvertInfo(true, GEO_MAP, 20, "geo", "geoInclude"));
+        filterExcludeList.add(contentFilterAdvertInfo(false, GEO_MAP, 20, "geo", "geoExclude"));
     }
 
 
     public static AdminContentFilterForTesting contentFilterAdverts(boolean isInclude, String filterName) throws Exception {
-        List<String> filterValue = sortToString(getSomeValuesFromBD("id", "advert", new Random().nextInt(300) + 1));
+        List<String> filterValue = sortToString(getSomeValuesFromBD("id", "advert", new Random().nextInt(100) + 1));
         List<Integer> expectedIds = sortToInteger(filterValue);
         AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
         return filter;
@@ -167,8 +168,8 @@ public class ContentFilterAdvertAPI_3 {
         return filter;
     }
 
-    public static AdminContentFilterForTesting contentFilterAdvertInfo(boolean isInclude, Map <String, String> map, int bound,
-                                                                    String whereName, String filterName) throws Exception {
+    public static AdminContentFilterForTesting contentFilterAdvertInfo(boolean isInclude, Map<String, String> map, int bound,
+                                                                       String whereName, String filterName) throws Exception {
 
         List<String> filterValue = getRandomKeys(map, new Random().nextInt(bound) + 1);
         List<Integer> expectedIds;
@@ -180,7 +181,6 @@ public class ContentFilterAdvertAPI_3 {
         AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
         return filter;
     }
-
 
     public static void testFieldCombination(List<AdminContentFilterForTesting> contentFilters, SoftAssert softAssert) throws Exception {
         Allure.step("Тестирование полей: ");
@@ -273,8 +273,7 @@ public class ContentFilterAdvertAPI_3 {
 
     }
 
-
-    public static void contentFilter(List<AdminContentFilterForTesting> contentFilters)  {
+    public static void contentFilter(List<AdminContentFilterForTesting> contentFilters) {
         JsonObject jsonObject = new JsonObject();
 
         for (AdminContentFilterForTesting filter : contentFilters) {

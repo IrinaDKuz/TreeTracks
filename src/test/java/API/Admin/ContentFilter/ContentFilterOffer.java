@@ -1,3 +1,4 @@
+
 package API.Admin.ContentFilter;
 
 import AdminPackage.entity.AdminContentFilterForTesting;
@@ -13,12 +14,10 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static API.Helper.*;
+import static Helper.Adverts.MODEL_TYPES_MAP;
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
 import static Helper.GeoAndLang.GEO_MAP;
@@ -28,137 +27,59 @@ import static Helper.Offers.OFFER_STATUS_MAP;
 import static SQL.AdvertSQL.*;
 import static io.restassured.RestAssured.given;
 
+
 /***
  Тест проверяет работу API методов Админов
  - filters,
  TODO: 0% DONE
  */
 
+
 public class ContentFilterOffer {
 
+    static List<AdminContentFilterForTesting> filterIncludeList = new ArrayList<>();
+    static List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
 
     @Test
     public static void testCombinations() throws Exception {
         SoftAssert softAssert = new SoftAssert();
 
-        List<AdminContentFilterForTesting> filterIncludeList = new ArrayList<>();
-        List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
+        System.out.println(" ");
+        System.out.println("0) Заполнение массива данных для дальнейших проверок");
 
-        List<String> filterValue = sortToString(getSomeValuesFromBD("id", "offer", new Random().nextInt(10) + 1));
-        List<Integer> expectedIds = sortToInteger(filterValue);
-        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(true, "idInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
+        filterIncludeList.add(contentFilterOffers(true, "idInclude"));
+        filterExcludeList.add(contentFilterOffers(false, "idExclude"));
 
-        filterValue = getSomeValuesFromBD("id", "offer", new Random().nextInt(10) + 1);
-        expectedIds = sortToInteger(filterValue);
-        filter = new AdminContentFilterForTesting(false, "idExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
+        filterIncludeList.add(contentFilterOffersAdverts(true, "advertInclude"));
+        filterExcludeList.add(contentFilterOffersAdverts(false, "advertExclude"));
 
 
-        filterValue = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", filterValue));
-        filter = new AdminContentFilterForTesting(true, "advertInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
+        filterIncludeList.add(contentFilterOffersAdmins(true, "sales_manager", "advertInclude"));
+        filterExcludeList.add(contentFilterOffersAdmins(false, "sales_manager", "advertExclude"));
 
-        filterValue = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", filterValue));
-        filter = new AdminContentFilterForTesting(false, "advertExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
+        filterIncludeList.add(contentFilterOffersAdmins(true, "sales_manager", "salesManagerInclude"));
+        filterExcludeList.add(contentFilterOffersAdmins(false, "sales_manager", "salesManagerExclude"));
 
+        filterIncludeList.add(contentFilterOffersAdmins(true, "account_manager", "accountManagerInclude"));
+        filterExcludeList.add(contentFilterOffersAdmins(false, "account_manager", "accountManagerExclude"));
 
-        List<String> advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        filterValue = getArrayFromBDWhere("sales_manager", "advert", "id", advert_id);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
-        filter = new AdminContentFilterForTesting(true, "salesManagerInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
+        filterIncludeList.add(contentFilterOffersAdmins(true, "user_request_source", "userRequestSourceInclude"));
+        filterExcludeList.add(contentFilterOffersAdmins(false, "user_request_source", "userRequestSourceExclude"));
 
-        advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        filterValue = getArrayFromBDWhere("sales_manager", "advert", "id", advert_id);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
-        filter = new AdminContentFilterForTesting(false, "salesManagerExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
+        filterIncludeList.add(contentFilterOther( true,  "tag_id",  "tag", "offer_tag","tagInclude" ));
+        filterExcludeList.add(contentFilterOther( false,  "tag_id",  "tag", "offer_tag","tagExclude" ));
 
+        filterIncludeList.add(contentFilterOther( true,  "category_id",  "category", "offer_category","categoryInclude" ));
+        filterExcludeList.add(contentFilterOther( false,  "category_id",  "category", "offer_category","categoryExclude" ));
 
-        advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        filterValue = getArrayFromBDWhere("account_manager", "advert", "id", advert_id);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
-        filter = new AdminContentFilterForTesting(true, "accountManagerInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
+        filterIncludeList.add(contentFilterOfferInfo(true, OFFER_PRIVACY_LEVEL, 2, "privacy_level", "privacyLevelInclude"));
+        filterExcludeList.add(contentFilterOfferInfo(false, OFFER_PRIVACY_LEVEL, 2, "privacy_level", "privacyLevelExclude"));
 
-        advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        filterValue = getArrayFromBDWhere("account_manager", "advert", "id", advert_id);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
-        filter = new AdminContentFilterForTesting(false, "accountManagerExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
+        filterIncludeList.add(contentFilterOfferInfo(true, OFFER_STATUS_MAP, 2, "status", "statusInclude"));
+        filterExcludeList.add(contentFilterOfferInfo(false, OFFER_STATUS_MAP, 2, "status", "statusExclude"));
 
-
-        advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        filterValue = getArrayFromBDWhere("user_request_source", "advert", "id", advert_id);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
-        filter = new AdminContentFilterForTesting(true, "userRequestSourceInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
-
-        advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
-        filterValue = getArrayFromBDWhere("user_request_source", "advert", "id", advert_id);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
-        filter = new AdminContentFilterForTesting(false, "userRequestSourceExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
-
-
-        filterValue = getSomeValuesFromBD("id", "tag", new Random().nextInt(3) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("offer_id", "offer_tag", "tag_id", filterValue));
-        filter = new AdminContentFilterForTesting(true, "tagInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
-
-        filterValue = getSomeValuesFromBD("id", "tag", new Random().nextInt(3) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("offer_id", "offer_tag", "tag_id", filterValue));
-        filter = new AdminContentFilterForTesting(false, "tagExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
-
-
-        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("offer_id", "offer_category", "category_id", filterValue));
-        filter = new AdminContentFilterForTesting(true, "categoryInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
-
-        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("offer_id", "offer_category", "category_id", filterValue));
-        filter = new AdminContentFilterForTesting(false, "categoryExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
-
-
-        filterValue = getRandomKeys(OFFER_PRIVACY_LEVEL, new Random().nextInt(2) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhereLike("id", "offer", "privacy_level", filterValue));
-        filter = new AdminContentFilterForTesting(true, "privacyLevelInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
-
-        filterValue = getRandomKeys(OFFER_PRIVACY_LEVEL, new Random().nextInt(2) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhereLike("id", "offer", "privacy_level", filterValue));
-        filter = new AdminContentFilterForTesting(false, "privacyLevelExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
-
-
-        filterValue = getRandomKeys(OFFER_STATUS_MAP, new Random().nextInt(2) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "status", filterValue));
-        filter = new AdminContentFilterForTesting(true, "statusInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
-
-        filterValue = getRandomKeys(OFFER_STATUS_MAP, new Random().nextInt(2) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "status", filterValue));
-        filter = new AdminContentFilterForTesting(false, "statusExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
-
-
-        filterValue = getRandomKeys(GEO_MAP, new Random().nextInt(10) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhereLike("id", "offer", "country", filterValue));
-        filter = new AdminContentFilterForTesting(true, "geoInclude", filterValue, expectedIds);
-        filterIncludeList.add(filter);
-
-
-        filterValue = getRandomKeys(GEO_MAP, new Random().nextInt(10) + 1);
-        expectedIds = sortToInteger(getArrayFromBDWhereLike("id", "offer", "country", filterValue));
-        filter = new AdminContentFilterForTesting(false, "geoExclude", filterValue, expectedIds);
-        filterExcludeList.add(filter);
+        filterIncludeList.add(contentFilterOfferInfo(true, GEO_MAP, 10, "country", "geoInclude"));
+        filterExcludeList.add(contentFilterOfferInfo(false, GEO_MAP, 10, "country", "geoExclude"));
 
         // 1) Тестирование по отдельности include
         System.out.println(" ");
@@ -168,7 +89,7 @@ public class ContentFilterOffer {
                 testFieldCombination(List.of(filler1), softAssert);
         }
 
-  /*      // 2) Тестирование по отдельности include - exclude
+        // 2) Тестирование по отдельности include - exclude
         for (int i = 0; i < filterIncludeList.size(); i++) {
             AdminContentFilterForTesting filler1 = filterIncludeList.get(i);
             String name1 = filler1.getFilterName().replace("Include", "").replace("Exclude", "").trim();
@@ -181,7 +102,8 @@ public class ContentFilterOffer {
                     testFieldCombination(List.of(filler1, filler2), softAssert);
                 }
             }
-        }*/
+        }
+
 
         // 3) Тестирование конфигураций include + include все
         System.out.println(" ");
@@ -206,18 +128,65 @@ public class ContentFilterOffer {
         }
 
 
-        // 6) Тестирование работы self и null
-
-
-/*        // 2) Тестирование всех комбинаций полей
-        List<Map<String, List<?>>> combinations = getCombinations(allFields);
-        for (Map<String, List<?>> combination : combinations) {
-            testFieldCombination(combination, softAssert);
-        }*/
-
         softAssert.assertAll();
     }
 
+
+    public static AdminContentFilterForTesting contentFilterOffers(boolean isInclude, String filterName) throws Exception {
+        List<String> filterValue = sortToString(getSomeValuesFromBD("id", "offer", new Random().nextInt(10) + 1));
+        List<Integer> expectedIds = sortToInteger(filterValue);
+        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
+        return filter;
+    }
+
+
+    public static AdminContentFilterForTesting contentFilterOffersAdverts(boolean isInclude, String filterName) throws Exception {
+        List<String> filterValue = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
+        List<Integer> expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", filterValue));
+        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
+        return filter;
+    }
+
+
+    public static AdminContentFilterForTesting contentFilterOffersAdmins(boolean isInclude, String bdName, String filterName) throws Exception {
+
+        List<String> advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
+        List<String> filterValue = getArrayFromBDWhere(bdName, "advert", "id", advert_id);
+        List<Integer> expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
+        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
+        return filter;
+    }
+
+
+    public static AdminContentFilterForTesting contentFilterOfferInfo(boolean isInclude, Map<String, String> map, int bound,
+                                                                      String whereName, String filterName) throws Exception {
+
+        List<String> filterValue = getRandomKeys(map, new Random().nextInt(bound) + 1);
+        List<Integer> expectedIds;
+        if (filterName.contains("geo")) {
+            expectedIds = sortToInteger(getArrayFromBDWhereLike("id", "offer", whereName, filterValue));
+        } else
+            expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", whereName, filterValue));
+
+        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
+        return filter;
+    }
+
+
+    public static AdminContentFilterForTesting contentFilterOther(boolean isInclude, String bdName,
+                                                                  String tableName, String relationTableName, String filterName) throws Exception {
+        List<String> filterValue = new ArrayList<>();
+        if (tableName.equals("tag"))
+            filterValue = getSomeValuesFromBD("id", tableName, new Random().nextInt(3) + 1);
+        if (tableName.equals("category"))
+            filterValue = getSomeValuesFromBDWhere("id", tableName, "lang", "general", new Random().nextInt(5) + 1);
+
+        List<Integer> expectedIds = sortToInteger(getArrayFromBDWhere("offer_id", relationTableName, bdName, filterValue));
+        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
+
+
+        return filter;
+    }
 
     public static void testFieldCombination(List<AdminContentFilterForTesting> contentFilters, SoftAssert softAssert) throws Exception {
         Allure.step("Тестирование полей: ");
@@ -335,6 +304,7 @@ public class ContentFilterOffer {
                 .post(path);
 
         String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
 
         response = given()
@@ -370,7 +340,7 @@ public class ContentFilterOffer {
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
-        JSONArray offersArray = data.getJSONArray("offer");
+        JSONArray offersArray = data.getJSONArray("offers");
 
         for (int i = 0; i < count; i++) {
             JSONObject offerObject = offersArray.getJSONObject(i);
@@ -381,8 +351,5 @@ public class ContentFilterOffer {
         return offersFromList;
     }
 }
-
-
-
 
 
