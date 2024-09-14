@@ -252,15 +252,22 @@ public class ContentFilterAdvertAPI_3 {
 
                 System.out.println("Из метода: " + sortedActualIds);
                 System.out.println("Из БД: " + expectedIdsFilter);
+                Allure.step("Из метода: " + sortedActualIds);
+                Allure.step("Из БД: " + expectedIdsFilter);
+
                 Assert.assertEquals(sortedActualIds, expectedIdsFilter);
                 success = true;
 
-                if (success)
+                if (success) {
                     System.out.println("Метод выполнен успешно.");
+                    Allure.step("Метод выполнен успешно.");
+                }
 
 
             } catch (AssertionError e) {
                 System.err.println("Ошибка при выполнении метода: " + e.getMessage());
+                Allure.step("Ошибка при выполнении метода: " + e.getMessage());
+
             }
 
             attempts++; // увеличиваем количество попыток
@@ -268,6 +275,7 @@ public class ContentFilterAdvertAPI_3 {
 
         if (!success) {
             System.out.println("Метод не удалось выполнить после " + maxAttempts + " попыток.");
+            Allure.step("Метод не удалось выполнить после " + maxAttempts + " попыток.");
         }
 
 
@@ -305,7 +313,6 @@ public class ContentFilterAdvertAPI_3 {
         responseBody = response.getBody().asString();
 
         System.out.println(GET_RESPONSE + responseBody);
-        Allure.step(GET_RESPONSE + responseBody);
 
     }
 
@@ -321,7 +328,6 @@ public class ContentFilterAdvertAPI_3 {
                 .get(URL + "/advert?page=1&limit=" + count + "/");
 
         String responseBody = response.getBody().asString();
-        Allure.step("Ответ на запрос: " + responseBody);
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
