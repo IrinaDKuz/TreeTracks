@@ -95,6 +95,8 @@ public class AdvertSQL {
         List<String> list = new ArrayList<>();
         for (String whereValue : whereValues) {
             String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") = LOWER('" + escapeSql(whereValue) + "');";
+            if (whereValue == null || whereValue.equals("null"))
+                sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " IS NULL";
             list.addAll(sqlQueryList(sqlRequest, parameter));
         }
         return list;

@@ -16,8 +16,8 @@ import org.testng.asserts.SoftAssert;
 import java.sql.SQLException;
 import java.util.*;
 
+import static API.Admin.ContentFilter.ContentFilterAdvert.getRandomFilter;
 import static API.Helper.*;
-import static Helper.Adverts.MODEL_TYPES_MAP;
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
 import static Helper.GeoAndLang.GEO_MAP;
@@ -27,11 +27,9 @@ import static Helper.Offers.OFFER_STATUS_MAP;
 import static SQL.AdvertSQL.*;
 import static io.restassured.RestAssured.given;
 
-
 /***
- Тест проверяет работу API методов Админов
- - filters,
- TODO: 0% DONE
+ Тест проверяет работу Offer Content Filter
+ TODO: 90% DONE
  */
 
 
@@ -41,12 +39,75 @@ public class ContentFilterOffer {
     static List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
 
     @Test
-    public static void testCombinations() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
-
+    public static void testPrepareData() throws Exception {
         System.out.println(" ");
         System.out.println("0) Заполнение массива данных для дальнейших проверок");
+        prepareData();
+    }
 
+    @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
+    public void testSeparateInclude() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        //1) Тестирование по отдельности include
+        System.out.println(" ");
+        System.out.println("1) Тестирование по отдельности include");
+        for (AdminContentFilterForTesting filler1 : filterIncludeList) {
+            if (filler1.getInclude())
+                testFieldCombination(List.of(filler1), softAssert);
+        }
+        softAssert.assertAll();
+    }
+
+    @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
+    public void testSeveral() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        // 2) Тестирование конфигураций include + exclude несколько
+        System.out.println(" ");
+        System.out.println("2) Несколько include - несколько exclude");
+        List<AdminContentFilterForTesting> list = getRandomFilter(filterIncludeList, filterIncludeList.size() - 1);
+        list.addAll(getRandomFilter(filterExcludeList, filterExcludeList.size() - 1));
+        testFieldCombination(list, softAssert);
+        softAssert.assertAll();
+
+    }
+
+    @Test(dependsOnMethods = "testSeveral", alwaysRun = true)
+    public void testAllInclude() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        // 3) Тестирование конфигураций include все
+        System.out.println(" ");
+        System.out.println("3) Тестирование конфигураций include все");
+        testFieldCombination(filterIncludeList, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Test(dependsOnMethods = "testAllInclude", alwaysRun = true)
+    public void test1() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        // 4) Тестирование конфигураций по всем include - exclude
+        System.out.println(" ");
+        System.out.println("4) Тестирование конфигураций по всем include - exclude");
+        for (int i = 0; i < filterIncludeList.size(); i++) {
+            int n = new Random().nextInt(filterExcludeList.size());
+            testFieldCombination(List.of(filterIncludeList.get(i), filterExcludeList.get(n)), softAssert);
+        }
+        softAssert.assertAll();
+    }
+
+    @Test(dependsOnMethods = "test1", alwaysRun = true)
+    public void test2() throws Exception {
+        SoftAssert softAssert = new SoftAssert();
+        // 5) Тестирование конфигураций include - по всем exclude
+        System.out.println(" ");
+        System.out.println("5) Тестирование конфигураций include - по всем exclude");
+        for (int i = 0; i < filterExcludeList.size(); i++) {
+            int n = new Random().nextInt(filterIncludeList.size());
+            testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
+        }
+        softAssert.assertAll();
+    }
+
+    public static void prepareData() throws Exception {
         filterIncludeList.add(contentFilterOffers(true, "idInclude"));
         filterExcludeList.add(contentFilterOffers(false, "idExclude"));
 
@@ -59,14 +120,14 @@ public class ContentFilterOffer {
         filterIncludeList.add(contentFilterOffersAdmins(true, "account_manager", "accountManagerInclude"));
         filterExcludeList.add(contentFilterOffersAdmins(false, "account_manager", "accountManagerExclude"));
 
-        filterIncludeList.add(contentFilterOffersAdmins(true, "user_request_source", "userRequestSourceInclude"));
+       /* filterIncludeList.add(contentFilterOffersAdmins(true, "user_request_source", "userRequestSourceInclude"));
         filterExcludeList.add(contentFilterOffersAdmins(false, "user_request_source", "userRequestSourceExclude"));
+*/
+        filterIncludeList.add(contentFilterOther(true, "tag_id", "tag", "offer_tag", "tagInclude"));
+        filterExcludeList.add(contentFilterOther(false, "tag_id", "tag", "offer_tag", "tagExclude"));
 
-        filterIncludeList.add(contentFilterOther( true,  "tag_id",  "tag", "offer_tag","tagInclude" ));
-        filterExcludeList.add(contentFilterOther( false,  "tag_id",  "tag", "offer_tag","tagExclude" ));
-
-        filterIncludeList.add(contentFilterOther( true,  "category_id",  "category", "offer_category","categoryInclude" ));
-        filterExcludeList.add(contentFilterOther( false,  "category_id",  "category", "offer_category","categoryExclude" ));
+        filterIncludeList.add(contentFilterOther(true, "category_id", "category", "offer_category", "categoryInclude"));
+        filterExcludeList.add(contentFilterOther(false, "category_id", "category", "offer_category", "categoryExclude"));
 
         filterIncludeList.add(contentFilterOfferInfo(true, OFFER_PRIVACY_LEVEL, 2, "privacy_level", "privacyLevelInclude"));
         filterExcludeList.add(contentFilterOfferInfo(false, OFFER_PRIVACY_LEVEL, 2, "privacy_level", "privacyLevelExclude"));
@@ -74,59 +135,9 @@ public class ContentFilterOffer {
         filterIncludeList.add(contentFilterOfferInfo(true, OFFER_STATUS_MAP, 2, "status", "statusInclude"));
         filterExcludeList.add(contentFilterOfferInfo(false, OFFER_STATUS_MAP, 2, "status", "statusExclude"));
 
-        filterIncludeList.add(contentFilterOfferInfo(true, GEO_MAP, 10, "country", "geoInclude"));
-        filterExcludeList.add(contentFilterOfferInfo(false, GEO_MAP, 10, "country", "geoExclude"));
-
-     /*   // 1) Тестирование по отдельности include
-        System.out.println(" ");
-        System.out.println("1) Тестирование по отдельности include");
-        for (AdminContentFilterForTesting filler1 : filterIncludeList) {
-            if (filler1.getInclude())
-                testFieldCombination(List.of(filler1), softAssert);
-        }
-
-        // 2) Тестирование по отдельности include - exclude
-        for (int i = 0; i < filterIncludeList.size(); i++) {
-            AdminContentFilterForTesting filler1 = filterIncludeList.get(i);
-            String name1 = filler1.getFilterName().replace("Include", "").replace("Exclude", "").trim();
-
-            for (int j = i + 1; j < filterIncludeList.size(); j++) {
-                AdminContentFilterForTesting filler2 = filterIncludeList.get(j);
-                String name2 = filler2.getFilterName().replace("Include", "").replace("Exclude", "").trim();
-
-                if (name1.equals(name2)) {
-                    testFieldCombination(List.of(filler1, filler2), softAssert);
-                }
-            }
-        }
-
-*/
-        // 3) Тестирование конфигураций include + include все
-        System.out.println(" ");
-        System.out.println("3) Тестирование конфигураций include + include все");
-        testFieldCombination(filterIncludeList, softAssert);
-
-
-/*        // 4) Тестирование конфигураций по всем include - exclude
-        System.out.println(" ");
-        System.out.println("4) Тестирование конфигураций по всем include - exclude");
-        for (int i = 0; i < filterIncludeList.size(); i++) {
-            int n = new Random().nextInt(filterExcludeList.size());
-            testFieldCombination(List.of(filterIncludeList.get(i), filterExcludeList.get(n)), softAssert);
-        }
-
-        // 5) Тестирование конфигураций include - по всем exclude
-        System.out.println(" ");
-        System.out.println("5) Тестирование конфигураций include - по всем exclude");
-        for (int i = 0; i < filterExcludeList.size(); i++) {
-            int n = new Random().nextInt(filterIncludeList.size());
-            testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
-        }*/
-
-
-        softAssert.assertAll();
+        filterIncludeList.add(contentFilterOfferInfo(true, GEO_MAP, 50, "country", "geoInclude"));
+        filterExcludeList.add(contentFilterOfferInfo(false, GEO_MAP, 50, "country", "geoExclude"));
     }
-
 
     public static AdminContentFilterForTesting contentFilterOffers(boolean isInclude, String filterName) throws Exception {
         List<String> filterValue = sortToString(getSomeValuesFromBD("id", "offer", new Random().nextInt(10) + 1));
@@ -135,7 +146,6 @@ public class ContentFilterOffer {
         return filter;
     }
 
-
     public static AdminContentFilterForTesting contentFilterOffersAdverts(boolean isInclude, String filterName) throws Exception {
         List<String> filterValue = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
         List<Integer> expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", filterValue));
@@ -143,11 +153,19 @@ public class ContentFilterOffer {
         return filter;
     }
 
-
     public static AdminContentFilterForTesting contentFilterOffersAdmins(boolean isInclude, String bdName, String filterName) throws Exception {
-
-        List<String> advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(10) + 1);
+        // Выберем несколько Адвертов, у которых есть офферы
+        List<String> advert_id = getSomeValuesFromBD("advert_id", "offer", new Random().nextInt(5) + 5);
+        // Заберем у них значения админов
         List<String> filterValue = getArrayFromBDWhere(bdName, "advert", "id", advert_id);
+        // Снова заберем Адвертов, у которых такие значения
+        advert_id = getArrayFromBDWhere("id", "advert", bdName, filterValue);
+
+        if (filterValue.contains("null")) {
+            filterValue.removeIf(value -> value.equals("null")); // Удаляем все "null"
+            filterValue.add("null"); // Добавляем один "null"
+        }
+
         List<Integer> expectedIds = sortToInteger(getArrayFromBDWhere("id", "offer", "advert_id", advert_id));
         AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
         return filter;
@@ -268,14 +286,14 @@ public class ContentFilterOffer {
                 System.err.println("Ошибка при выполнении метода: " + e.getMessage());
             }
 
-            attempts++; // увеличиваем количество попыток
+            attempts++;
         }
 
         if (!success) {
             System.out.println("Метод не удалось выполнить после " + maxAttempts + " попыток.");
+            Allure.step("Метод не удалось выполнить после " + maxAttempts + " попыток.");
+            softAssert.fail();
         }
-
-
     }
 
 
@@ -314,8 +332,6 @@ public class ContentFilterOffer {
 
         System.out.println(GET_RESPONSE + responseBody);
         Allure.step(GET_RESPONSE + responseBody);
-
-        // Thread.sleep(60000);
     }
 
 

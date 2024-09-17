@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -447,32 +448,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="172" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java</url>
-          <line>310</line>
+          <line>320</line>
           <option name="timeStamp" value="176" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java</url>
-          <line>336</line>
+          <line>346</line>
           <option name="timeStamp" value="180" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java</url>
-          <line>234</line>
+          <line>244</line>
           <option name="timeStamp" value="189" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java</url>
-          <line>166</line>
+          <line>176</line>
           <option name="timeStamp" value="190" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvertAPI_3.java</url>
-          <line>163</line>
+          <line>173</line>
           <option name="timeStamp" value="191" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">

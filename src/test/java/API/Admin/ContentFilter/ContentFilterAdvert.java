@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -27,12 +26,12 @@ import static SQL.AdvertSQL.*;
 import static io.restassured.RestAssured.given;
 
 /***
- Тест проверяет работу API методов Админов
- - filters,
- TODO: 0% DONE
+ Тест проверяет работу Advert Content Filter
+
+ TODO: 90% DONE
  */
 
-public class ContentFilterAdvertAPI_3 {
+public class ContentFilterAdvert {
 
     static List<AdminContentFilterForTesting> filterIncludeList = new ArrayList<>();
     static List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
@@ -44,65 +43,55 @@ public class ContentFilterAdvertAPI_3 {
         prepareData();
     }
 
-    @Test(dependsOnMethods = "testPrepareData")
+   @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
     public void testSeparateInclude() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
         //1) Тестирование по отдельности include
         System.out.println(" ");
         System.out.println("1) Тестирование по отдельности include");
         for (AdminContentFilterForTesting filler1 : filterIncludeList) {
             if (filler1.getInclude())
-                testFieldCombination(List.of(filler1), softAssert);
+                testFieldCombination(List.of(filler1));
         }
-        softAssert.assertAll();
     }
 
-    @Test(dependsOnMethods = "testSeparateInclude")
-    public void testSeverale() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
+    @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
+    public void testSeveral() throws Exception {
         // 2) Тестирование конфигураций include + exclude несколько
         System.out.println(" ");
         System.out.println("2) Несколько include - несколько exclude");
-        List<AdminContentFilterForTesting> list = getRandomFilter(filterIncludeList, 7);
-        list.addAll(getRandomFilter(filterExcludeList, 7));
-        testFieldCombination(list, softAssert);
-        softAssert.assertAll();
+        List<AdminContentFilterForTesting> list = getRandomFilter(filterIncludeList, filterExcludeList.size() - 1);
+        list.addAll(getRandomFilter(filterExcludeList, filterExcludeList.size() - 1));
+        testFieldCombination(list);
     }
 
-    @Test(dependsOnMethods = "testSeverale")
+    @Test(dependsOnMethods = "testSeveral", alwaysRun = true)
     public void testAllInclude() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
      // 3) Тестирование конфигураций include + include все
         System.out.println(" ");
         System.out.println("3) Тестирование конфигураций include + include все");
-        testFieldCombination(filterIncludeList, softAssert);
-        softAssert.assertAll();
+        testFieldCombination(filterIncludeList);
     }
 
-    @Test(dependsOnMethods = "testAllInclude")
+    @Test(dependsOnMethods = "testAllInclude", alwaysRun = true)
     public void test1() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
         // 4) Тестирование конфигураций по всем include - exclude
         System.out.println(" ");
         System.out.println("4) Тестирование конфигураций по всем include - exclude");
         for (int i = 0; i < filterIncludeList.size(); i++) {
             int n = new Random().nextInt(filterExcludeList.size());
-            testFieldCombination(List.of(filterIncludeList.get(i), filterExcludeList.get(n)), softAssert);
+            testFieldCombination(List.of(filterIncludeList.get(i), filterExcludeList.get(n)));
         }
-        softAssert.assertAll();
     }
 
-    @Test(dependsOnMethods = "test1")
+    @Test(dependsOnMethods = "test1", alwaysRun = true)
     public void test2() throws Exception {
-        SoftAssert softAssert = new SoftAssert();
         // 5) Тестирование конфигураций include - по всем exclude
         System.out.println(" ");
         System.out.println("5) Тестирование конфигураций include - по всем exclude");
         for (int i = 0; i < filterExcludeList.size(); i++) {
             int n = new Random().nextInt(filterIncludeList.size());
-            testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
+            testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)));
         }
-        softAssert.assertAll();
     }
 
     public static void prepareData() throws Exception {
@@ -192,7 +181,7 @@ public class ContentFilterAdvertAPI_3 {
         return filter;
     }
 
-    public static void testFieldCombination(List<AdminContentFilterForTesting> contentFilters, SoftAssert softAssert) throws Exception {
+    public static void testFieldCombination(List<AdminContentFilterForTesting> contentFilters) throws Exception {
         Allure.step("Тестирование полей: ");
         System.err.println("Тестирование полей: ");
         for (AdminContentFilterForTesting filter : contentFilters) {
@@ -265,7 +254,7 @@ public class ContentFilterAdvertAPI_3 {
                 Allure.step("Из метода: " + sortedActualIds);
                 Allure.step("Из БД: " + expectedIdsFilter);
 
-                Assert.assertEquals(sortedActualIds, expectedIdsFilter);
+                Assert.assertEquals(sortedActualIds.add(99999), expectedIdsFilter);
                 success = true;
 
                 if (success) {
@@ -277,15 +266,15 @@ public class ContentFilterAdvertAPI_3 {
             } catch (AssertionError e) {
                 System.err.println("Ошибка при выполнении метода: " + e.getMessage());
                 Allure.step("Ошибка при выполнении метода: " + e.getMessage());
-
             }
 
-            attempts++; // увеличиваем количество попыток
+            attempts++;
         }
 
         if (!success) {
             System.out.println("Метод не удалось выполнить после " + maxAttempts + " попыток.");
             Allure.step("Метод не удалось выполнить после " + maxAttempts + " попыток.");
+            Assert.fail();
         }
 
 
@@ -361,7 +350,7 @@ public class ContentFilterAdvertAPI_3 {
     public static List<AdminContentFilterForTesting> getRandomFilter(List<AdminContentFilterForTesting> list, int count) {
         List<AdminContentFilterForTesting> shuffledList = new ArrayList<>(list);
         Collections.shuffle(shuffledList);
-        return shuffledList.subList(0, new Random().nextInt(count));
+        return shuffledList.subList(0, new Random().nextInt(count) + 1);
     }
 }
 
