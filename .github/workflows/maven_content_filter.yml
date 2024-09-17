@@ -34,7 +34,7 @@ jobs:
        run: mvn install -Pskip-tests
 
      - name: Run tests
-       run: mvn test -Dsurefire.suiteXmlFiles=API_Content Filter_Testing.xml -Dallure.results.directory=allure-results
+       run: mvn test -Dsurefire.suiteXmlFiles=API_Content_Filter_Testing.xml -Dallure.results.directory=allure-results
        continue-on-error: true
  
      - name: Store allure results
