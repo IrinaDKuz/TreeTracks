@@ -1,8 +1,8 @@
-name: API test (Advertisers + Admins + Offers)
+name: API Content Filter test
 
 on:
   schedule:
-    - cron: '0 7 * * *'   
+    - cron: '0 1 * * *'   
   workflow_dispatch:     
 
 permissions:
@@ -30,12 +30,11 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-
      - name: Build with Maven (skip tests)
        run: mvn install -Pskip-tests
 
      - name: Run tests
-       run: mvn test -Dsurefire.suiteXmlFiles=API_Testing.xml -Dallure.results.directory=allure-results
+       run: mvn test -Dsurefire.suiteXmlFiles=API_Content Filter_Testing.xml -Dallure.results.directory=allure-results
        continue-on-error: true
  
      - name: Store allure results
@@ -63,14 +62,12 @@ jobs:
      - name: Install Allure on macOS
        run: |
         brew install allure
-
      - name: Download all workflow run artifact
        uses: actions/download-artifact@v3
 
      - name: Generate Allure Report
        run: |
         allure generate -c allure-results --clean -o _site
-
      - name: Upload Allure Report as artifact
        uses: actions/upload-artifact@v3
        with:
