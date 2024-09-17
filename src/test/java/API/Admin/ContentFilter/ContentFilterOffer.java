@@ -18,6 +18,7 @@ import java.util.*;
 
 import static API.Admin.ContentFilter.ContentFilterAdvert.getRandomFilter;
 import static API.Helper.*;
+import static Helper.AllureHelper.DELETE;
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
 import static Helper.GeoAndLang.GEO_MAP;
@@ -105,6 +106,15 @@ public class ContentFilterOffer {
             testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
         }
         softAssert.assertAll();
+    }
+
+    @Test(dependsOnMethods = "test2", alwaysRun = true)
+    public static void testDeleteData() throws Exception {
+        Allure.step(DELETE + " content-filter/offer ");
+        String id = getValueFromBDWhere("id", "content_filter",
+                Map.of("type", "offer", "admin_id", "104"));
+        deleteMethod("admin/104/content-filter", "offer");
+        assertDelete(id, "content_filter");
     }
 
     public static void prepareData() throws Exception {

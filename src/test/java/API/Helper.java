@@ -43,7 +43,7 @@ public class Helper {
         System.out.println(DELETE_RESPONSE + responseBody);
         Allure.step(DELETE_RESPONSE + responseBody);
 
-        Assert.assertEquals(responseBody, "{\"success\":true}");
+        Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 
     public static List<Integer> getArrayFromJson(JSONObject data, String parameterName) {

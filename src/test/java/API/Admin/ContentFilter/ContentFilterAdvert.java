@@ -18,6 +18,7 @@ import static API.Helper.*;
 import static API.Helper.sortToInteger;
 import static Helper.Adverts.ADVERT_STATUS_MAP;
 import static Helper.Adverts.MODEL_TYPES_MAP;
+import static Helper.AllureHelper.DELETE;
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
 import static Helper.GeoAndLang.GEO_MAP;
@@ -43,7 +44,7 @@ public class ContentFilterAdvert {
         prepareData();
     }
 
-   @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
+    @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
     public void testSeparateInclude() throws Exception {
         //1) Тестирование по отдельности include
         System.out.println(" ");
@@ -66,7 +67,7 @@ public class ContentFilterAdvert {
 
     @Test(dependsOnMethods = "testSeveral", alwaysRun = true)
     public void testAllInclude() throws Exception {
-     // 3) Тестирование конфигураций include + include все
+        // 3) Тестирование конфигураций include + include все
         System.out.println(" ");
         System.out.println("3) Тестирование конфигураций include + include все");
         testFieldCombination(filterIncludeList);
@@ -93,6 +94,16 @@ public class ContentFilterAdvert {
             testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)));
         }
     }
+
+    @Test(dependsOnMethods = "test2", alwaysRun = true)
+    public static void testDeleteData() throws Exception {
+        Allure.step(DELETE + " content-filter/advert ");
+        String id = getValueFromBDWhere("id", "content_filter",
+                Map.of("type", "advert", "admin_id", "104"));
+        deleteMethod("admin/104/content-filter", "advert");
+        assertDelete(id, "content_filter");
+    }
+
 
     public static void prepareData() throws Exception {
 
@@ -136,7 +147,6 @@ public class ContentFilterAdvert {
         filterIncludeList.add(contentFilterAdvertInfo(true, GEO_MAP, 20, "geo", "geoInclude"));
         filterExcludeList.add(contentFilterAdvertInfo(false, GEO_MAP, 20, "geo", "geoExclude"));
     }
-
 
     public static AdminContentFilterForTesting contentFilterAdverts(boolean isInclude, String filterName) throws Exception {
         List<String> filterValue = sortToString(getSomeValuesFromBD("id", "advert", new Random().nextInt(100) + 3));
@@ -254,7 +264,7 @@ public class ContentFilterAdvert {
                 Allure.step("Из метода: " + sortedActualIds);
                 Allure.step("Из БД: " + expectedIdsFilter);
 
-                Assert.assertEquals(sortedActualIds.add(99999), expectedIdsFilter);
+                Assert.assertEquals(sortedActualIds, expectedIdsFilter);
                 success = true;
 
                 if (success) {
@@ -351,6 +361,19 @@ public class ContentFilterAdvert {
         List<AdminContentFilterForTesting> shuffledList = new ArrayList<>(list);
         Collections.shuffle(shuffledList);
         return shuffledList.subList(0, new Random().nextInt(count) + 1);
+    }
+
+
+    public static void deleteData(String filterQuantity)  {
+        Response response = given()
+                .contentType(ContentType.URLENC)
+                .header("Authorization", authKeyAdmin)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .delete(" https://api.admin.3tracks.link/admin/104/content-filter/" + filterQuantity);
+
+        String responseBody = response.getBody().asString();
+        Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 }
 

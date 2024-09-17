@@ -53,6 +53,13 @@ public class AdvertSQL {
     }
 
 
+    public static String getValueFromBDWhere(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName +
+                " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "));
+        return sqlQueryList(sqlRequest, parameter).getFirst();
+    }
+
+
     public static List<String> getArrayFromBDWhereOrderBy(String parameter, String tableName,
                                                           String where, String whereValue, String orderBy) throws Exception {
         String sqlRequest = "SELECT " + parameter + " FROM " + tableName +

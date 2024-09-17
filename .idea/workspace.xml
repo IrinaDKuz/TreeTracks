@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,10 +85,12 @@
     "TestNG.ContactsAPI.executor": "Run",
     "TestNG.ContentAdvertTagAPI.executor": "Run",
     "TestNG.ContentCategoryAPI.executor": "Run",
+    "TestNG.ContentFilterAdvert.testDeleteData.executor": "Run",
     "TestNG.ContentFilterAdvertAPI.executor": "Debug",
     "TestNG.ContentFilterAdvertAPI_2.executor": "Debug",
     "TestNG.ContentFilterAdvertAPI_3.executor": "Run",
     "TestNG.ContentFilterOffer.executor": "Run",
+    "TestNG.ContentFilterOffer.testDeleteData.executor": "Run",
     "TestNG.ContentGoalAPI.executor": "Run",
     "TestNG.ContentMessengerAPI.executor": "Run",
     "TestNG.ContentOfferTagAPI.executor": "Run",
@@ -133,7 +139,7 @@
       <recent name="AdvertPackage.entity" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="TestNG.ContentFilterOffer.testDeleteData">
     <configuration name="AdvertBulkCheck.test" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
@@ -145,24 +151,6 @@
       <option name="PACKAGE_NAME" value="AdvertPackage.autoTest" />
       <option name="MAIN_CLASS_NAME" value="API.AdvertPlus.AdvertBulkCheck" />
       <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AdvertContactsAPI.generalAdd" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="API.AdvertPlus.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="API.Settings.System" />
-      <option name="MAIN_CLASS_NAME" value="API.Advert.AdvertContactsAPI" />
-      <option name="METHOD_NAME" value="generalAdd" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -188,17 +176,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SettingsGeneralAPI.generalGet" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="ContentFilterAdvert.testDeleteData" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="API.AdvertPlus.*" />
+          <option name="PATTERN" value="API.Admin.ContentFilter.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="API.Settings.System" />
-      <option name="MAIN_CLASS_NAME" value="API.Settings.System.SettingsGeneralAPI" />
-      <option name="METHOD_NAME" value="generalGet" />
+      <option name="PACKAGE_NAME" value="API.Admin.ContentFilter" />
+      <option name="MAIN_CLASS_NAME" value="API.Admin.ContentFilter.ContentFilterAdvert" />
+      <option name="METHOD_NAME" value="testDeleteData" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ContentFilterOffer.testDeleteData" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="API.Admin.ContentFilter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="API.Admin.ContentFilter" />
+      <option name="MAIN_CLASS_NAME" value="API.Admin.ContentFilter.ContentFilterOffer" />
+      <option name="METHOD_NAME" value="testDeleteData" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -226,11 +232,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.ContentFilterOffer.testDeleteData" />
+        <item itemvalue="TestNG.ContentFilterAdvert.testDeleteData" />
         <item itemvalue="TestNG.AdvertBulkCheck.test" />
         <item itemvalue="TestNG.AdvertSQL.test" />
         <item itemvalue="TestNG.SettingsGeneralAPI.test" />
-        <item itemvalue="TestNG.SettingsGeneralAPI.generalGet" />
-        <item itemvalue="TestNG.AdvertContactsAPI.generalAdd" />
       </list>
     </recent_temporary>
   </component>
@@ -501,6 +507,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java</url>
+          <line>99</line>
+          <properties class="API.Admin.ContentFilter.ContentFilterAdvert" method="testDeleteData">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="196" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
