@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOfferRole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Advert_API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Advert_API_Testing.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterOffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +92,7 @@
     "TestNG.ContentFilterAdvertAPI_3.executor": "Run",
     "TestNG.ContentFilterOffer.executor": "Run",
     "TestNG.ContentFilterOffer.testDeleteData.executor": "Run",
+    "TestNG.ContentFilterOfferRole.executor": "Run",
     "TestNG.ContentGoalAPI.executor": "Run",
     "TestNG.ContentMessengerAPI.executor": "Run",
     "TestNG.ContentOfferTagAPI.executor": "Run",
@@ -139,7 +141,7 @@
       <recent name="AdvertPackage.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.ContentFilterOffer.testDeleteData">
+  <component name="RunManager">
     <configuration name="AdvertBulkCheck.test" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
@@ -371,17 +373,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>60</line>
+          <line>88</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>186</line>
+          <line>245</line>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
-          <line>292</line>
+          <line>369</line>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -459,6 +461,21 @@
           <line>173</line>
           <option name="timeStamp" value="191" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertContactsAPI.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="200" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
+          <line>359</line>
+          <option name="timeStamp" value="201" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/AdvertPlus/AdvertDoubleContactsAPI.java</url>
+          <line>358</line>
+          <option name="timeStamp" value="202" />
+        </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
           <option name="timeStamp" value="24" />
@@ -510,7 +527,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java</url>
-          <line>99</line>
+          <line>98</line>
           <properties class="API.Admin.ContentFilter.ContentFilterAdvert" method="testDeleteData">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

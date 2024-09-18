@@ -2,8 +2,10 @@ package API.AdvertPlus;
 
 import AdvertPackage.entity.AdvertContact;
 import AdvertPackage.entity.AdvertContactDouble;
+import io.qameta.allure.Allure;
 import org.apache.commons.lang3.builder.DiffResult;
 import org.apache.commons.lang3.builder.ReflectionDiffBuilder;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -28,47 +30,90 @@ import static SQL.DatabaseTest.sqlQueryList;
 public class AdvertDoubleContactsAPI {
 
     @Test
-    public static void test() throws Exception {
-
+    public static void testAddEmail() throws Exception {
         System.out.println("******* Добавляем email *******");
         addEditNewContact("email", false);
+    }
 
+    @Test(dependsOnMethods = "testAddEmail", alwaysRun = true)
+    public static void testEditEmail() throws Exception {
         System.out.println("******* Редактируем email *******");
         addEditNewContact("email", true);
+    }
 
+    @Test(dependsOnMethods = "testEditEmail", alwaysRun = true)
+    public static void testAddPerson() throws Exception {
         System.out.println("******* Добавляем person *******");
         addEditNewContact("person", false);
+    }
 
+    @Test(dependsOnMethods = "testAddPerson", alwaysRun = true)
+    public static void testEditPerson() throws Exception {
         System.out.println("******* Редактируем person *******");
         addEditNewContact("person", true);
+    }
 
+    @Test(dependsOnMethods = "testEditPerson", alwaysRun = true)
+    public static void testAddMessengers() throws Exception {
         System.out.println("******* Добавляем messenger *******");
         addEditNewContactMessengers(false);
+    }
 
-        System.out.println("******* Добавляем messenger 2 *******");
-        addEditNewContactMessengers(false);
-
+    @Test(dependsOnMethods = "testAddMessengers", alwaysRun = true)
+    public static void testEditMessengers() throws Exception {
         System.out.println("******* Редактируем messenger *******");
         addEditNewContactMessengers(true);
+    }
 
+    @Test(dependsOnMethods = "testEditMessengers", alwaysRun = true)
+    public static void testEditContact1() throws Exception {
         System.out.println("******* Редактируем контакт1 из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD(null, "contact_id1", "advert1", true);
+    }
+
+    @Test(dependsOnMethods = "testEditContact1", alwaysRun = true)
+    public static void testEditContact2() throws Exception {
         System.out.println("******* Редактируем контакт2 из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD(null, "contact_id2", "advert2", true);
+    }
+
+    @Test(dependsOnMethods = "testEditContact2", alwaysRun = true)
+    public static void testDeleteContact1() throws Exception {
         System.out.println("******* Удаляем контакт1 из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD(null, "contact_id1", "advert1", false);
+    }
+
+    @Test(dependsOnMethods = "testDeleteContact1", alwaysRun = true)
+    public static void testDeleteContact2() throws Exception {
         System.out.println("******* Удаляем контакт2 из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD(null, "contact_id2", "advert2", false);
+    }
 
+
+    @Test(dependsOnMethods = "testDeleteContact2", alwaysRun = true)
+    public static void testEditContact1WithMessengers() throws Exception {
         System.out.println("******* Редактируем контакт1 с мессенджером из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD("messenger_id1", "contact_id1", "advert1", true);
+    }
+
+    @Test(dependsOnMethods = "testEditContact1WithMessengers", alwaysRun = true)
+    public static void testEditContact2WithMessengers() throws Exception {
         System.out.println("******* Редактируем контакт2 с мессенджером из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD("messenger_id2", "contact_id2", "advert2", true);
+    }
+
+    @Test(dependsOnMethods = "testEditContact2WithMessengers", alwaysRun = true)
+    public static void testDeleteContact1WithMessengers() throws Exception {
         System.out.println("******* Удаляем контакт1 с мессенджером из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD("messenger_id1", "contact_id1", "advert1", false);
+    }
+
+    @Test(dependsOnMethods = "testDeleteContact1WithMessengers", alwaysRun = true)
+    public static void testDeleteContact2WithMessengers() throws Exception {
         System.out.println("******* Удаляем контакт2 с мессенджером из базы и проверяем, что удалился из базы *******");
         deleteEditContactFromBD("messenger_id2", "contact_id2", "advert2", false);
     }
+
 
     private static void addEditNewContact(String parameterName, Boolean isEdit) throws Exception {
         // Записываем список объектов из базы
@@ -76,8 +121,12 @@ public class AdvertDoubleContactsAPI {
         String value = getRandomValueFromBDWhereNotNull(parameterName, "advert_contact", parameterName);
 
         System.out.println("Было всего записей: " + advertContactDoublesFromBD.size());
+        Allure.step("Было всего записей: " + advertContactDoublesFromBD.size());
         System.out.println("ParameterName = " + parameterName);
+        Allure.step("ParameterName = " + parameterName);
         System.out.println("ParameterValue = " + value);
+        Allure.step("ParameterValue = " + value);
+
 
         List<String> contactIds = getArrayFromBDWhereOrderBy("id", "advert_contact",
                 parameterName, value, "id");
@@ -87,10 +136,6 @@ public class AdvertDoubleContactsAPI {
             contactVSAdvertMap.put(contactId, getValueFromBDWhere("advert_id", "advert_contact",
                     "id", contactId));
         }
-
-        // берем Адверта1 у которого нет контактов
-        // берем Адверта2 у которого есть 1 контакт
-        // берем Адверта3 у которого есть больше 2х контактов
 
         List<String> exceptValuesList = new ArrayList<>(contactVSAdvertMap.values());
 
@@ -127,15 +172,22 @@ public class AdvertDoubleContactsAPI {
                     duplicatorContactId + " " +
                     contactId + " " + parameterName);
 
+            Allure.step("Новая строка: " + duplicatorAdvertId1 + " " +
+                    contactVSAdvertMap.get(contactId) + " " +
+                    duplicatorContactId + " " +
+                    contactId + " " + parameterName);
+
             AdvertContactDouble advertContactDouble =
                     new AdvertContactDouble(parameterName, duplicatorAdvertId1, contactVSAdvertMap.get(contactId),
                             String.valueOf(duplicatorContactId), contactId, "null", "null");
             advertContactDoublesFromBD.add(advertContactDouble);
         }
         System.out.println("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
+        Allure.step("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
 
         List<AdvertContactDouble> advertContactDoublesFromBDAfter = fillAdvertContactsDoubleFromBD();
         System.out.println("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
+        Allure.step("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
 
         assertContactDoubleBD(advertContactDoublesFromBD, advertContactDoublesFromBDAfter);
     }
@@ -151,15 +203,22 @@ public class AdvertDoubleContactsAPI {
             String messengerType = getRandomValueFromBDWhere("messenger_id", "advert_contact_messenger",
                     "id", messengerId);
 
+
             System.out.println("Было всего записей: " + advertContactDoublesFromBD.size());
-            System.out.println("ParameterValue = " + value);
+            Allure.step("Было всего записей: " + advertContactDoublesFromBD.size());
             System.out.println("ParameterType = " + messengerType);
+            Allure.step("ParameterType = " + messengerType);
+            System.out.println("ParameterValue = " + value);
+            Allure.step("ParameterValue = " + value);
             System.out.println("MessengerId = " + messengerId);
+            Allure.step("MessengerId = " + messengerId);
+
 
             List<String> contactIds = getArrayFromBDWhereAnd("contact_id", "advert_contact_messenger",
                     Map.of("value", value, "messenger_id", messengerType));
 
             System.out.println("contactIds = " + contactIds);
+            Allure.step("contactIds = " + contactIds);
 
             Map<String, String> contactVSAdvertMap = new LinkedHashMap<>();
             try {
@@ -208,15 +267,23 @@ public class AdvertDoubleContactsAPI {
                         duplicatorContactId + " " +
                         contactId + " messenger");
 
+                Allure.step("Новая строка: " + duplicatorAdvertId1 + " " +
+                        contactVSAdvertMap.get(contactId) + " " +
+                        duplicatorContactId + " " +
+                        contactId + " messenger");
+
                 AdvertContactDouble advertContactDouble =
                         new AdvertContactDouble("messenger", duplicatorAdvertId1, contactVSAdvertMap.get(contactId),
                                 duplicatorContactId, contactId, doubleMessengerId, messengerId);
                 advertContactDoublesFromBD.add(advertContactDouble);
             }
             System.out.println("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
+            Allure.step("Стало записей в локальном массиве: " + advertContactDoublesFromBD.size());
 
             List<AdvertContactDouble> advertContactDoublesFromBDAfter = fillAdvertContactsDoubleFromBD();
             System.out.println("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
+            Allure.step("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
+
 
             assertContactDoubleBD(advertContactDoublesFromBD, advertContactDoublesFromBDAfter);
         } catch (Exception e) {
@@ -238,6 +305,8 @@ public class AdvertDoubleContactsAPI {
                 String messengerIdFromBD = getValueFromBDWhere(contactParameterName, "advert_contact_double",
                         "id", id);
                 System.out.println("ContactId = " + messengerIdFromBD);
+                Allure.step("ContactId = " + messengerIdFromBD);
+
 
             } else {
                 id = getRandomValueFromBDWhereNotNull("id", "advert_contact_double",
@@ -251,6 +320,10 @@ public class AdvertDoubleContactsAPI {
             System.out.println("Было всего записей: " + advertContactDoublesFromBD.size());
             System.out.println("AdvertID = " + advertIdFromBD);
             System.out.println("ContactId = " + contactIdFromBD);
+
+            Allure.step("Было всего записей: " + advertContactDoublesFromBD.size());
+            Allure.step("AdvertID = " + advertIdFromBD);
+            Allure.step("ContactId = " + contactIdFromBD);
 
             // Эти ids будем удалять из таблицы
             List<String> ids = getIdsWhereContactIsOrderById(contactIdFromBD);
@@ -269,6 +342,10 @@ public class AdvertDoubleContactsAPI {
             List<AdvertContactDouble> advertContactDoublesFromBDAfter = fillAdvertContactsDoubleFromBD();
             System.out.println("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
             System.out.println("Стало записей  в локальном массиве: " + advertContactDoublesFromBD.size());
+
+            Allure.step("Стало записей в базе: " + advertContactDoublesFromBDAfter.size());
+            Allure.step("Стало записей  в локальном массиве: " + advertContactDoublesFromBD.size());
+
 
             assertContactDoubleBD(advertContactDoublesFromBD, advertContactDoublesFromBDAfter);
         } catch (Exception e) {
@@ -294,8 +371,7 @@ public class AdvertDoubleContactsAPI {
                     softAssert.assertEquals(acd1.getMessenger_id2(), acd2.getMessenger_id2());
                 }
                 softAssert.assertAll();
-            } catch (
-                    AssertionError a) {
+            } catch (AssertionError a) {
                 System.err.println(a);
             }
         } else {
@@ -306,9 +382,32 @@ public class AdvertDoubleContactsAPI {
 
                 for (Object diffEntry : diff.getDiffs()) {
                     System.err.println(diffEntry.toString());
+                   Allure.step("Различия строк: " + diffEntry);
+
                 }
             }
+            // Вывод элементов, которые есть в первом списке, но отсутствуют во втором
+            for (int i = advertContactDoublesFromBD.size(); i < advertContactDoublesFromBDAfter.size(); i++) {
+                System.err.println("Запись в БД, отсутствующая в локальном массиве: " + advertContactDoublesFromBDAfter.get(i));
+                Allure.step("Запись в БД, отсутствующая в локальном массиве: " +
+                        "Адверт1: " + advertContactDoublesFromBDAfter.get(i).getAdvert1() +
+                        "Адверт2: " + advertContactDoublesFromBDAfter.get(i).getAdvert2() +
+                        "Контакт1: " + advertContactDoublesFromBDAfter.get(i).getContact_id1() +
+                        "Контакт2: " + advertContactDoublesFromBDAfter.get(i).getContact_id2());
+            }
+
+            // Вывод элементов, которые есть во втором списке, но отсутствуют в первом
+            for (int i = advertContactDoublesFromBDAfter.size(); i < advertContactDoublesFromBD.size(); i++) {
+                System.err.println("Запись в локальном массиве, отсутствующая в БД: " + advertContactDoublesFromBD.get(i).getAdvert1());
+               Allure.step("Запись в локальном массиве, отсутствующая в БД: " +
+                       "Адверт1: " + advertContactDoublesFromBD.get(i).getAdvert1() +
+                       "Адверт2: " + advertContactDoublesFromBD.get(i).getAdvert2() +
+                       "Контакт1: " + advertContactDoublesFromBD.get(i).getContact_id1() +
+                       "Контакт2: " + advertContactDoublesFromBD.get(i).getContact_id2());
+            }
+            Assert.fail();
         }
+
         System.out.println("New test____________________________");
     }
 

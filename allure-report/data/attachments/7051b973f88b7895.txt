@@ -1,4 +1,0 @@
-{
-  "type": "call",
-  "text": "Respectful Supportive Ambitious Patient Confident Optimistic Humorous Adaptable Friendly Brave Punctual Honest Intelligent Optimistic Supportive Ambitious Independent Charismatic Determined Self-disciplined"
-}

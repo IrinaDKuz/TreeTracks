@@ -1,9 +1,0 @@
-{
-  "success": true,
-  "data": {
-    "allowedIp": [],
-    "allowedSubAccount": [],
-    "forbiddenSubAccount": [],
-    "s2s": "https://office.white3snet.com/postback?clickid\u003d{clickid}"
-  }
-}

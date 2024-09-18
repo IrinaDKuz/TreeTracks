@@ -12,7 +12,9 @@ import static Helper.ActionsClass.waitAndSendKeys;
 public class Auth {
     public static String authKeyTest = "Bearer ac9894e101da82b7175f02a315399145";
     public static String authKeyAdmin = "Bearer e6945961d98e62d2d42e67faed83aba0";
-        //"Bearer 6713e66dbc25bb9265e9094cd2766405";
+    public static String authKeyRoleAdmin = "Bearer 4c47691664c253bfbda1547500fefea4";
+
+    //"Bearer 6713e66dbc25bb9265e9094cd2766405";
             // "Bearer e6945961d98e62d2d42e67faed83aba0";
             //"Bearer e99a516d40817b9840b87a7bd55ab9fc";
 

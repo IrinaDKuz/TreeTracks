@@ -21,6 +21,7 @@ import static API.Helper.*;
 import static Helper.AllureHelper.DELETE;
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.authKeyRoleAdmin;
 import static Helper.GeoAndLang.GEO_MAP;
 import static Helper.GeoAndLang.getRandomKeys;
 import static Helper.Offers.OFFER_PRIVACY_LEVEL;
@@ -39,11 +40,13 @@ public class ContentFilterOffer {
     static List<AdminContentFilterForTesting> filterIncludeList = new ArrayList<>();
     static List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
 
+
     @Test
     public static void testPrepareData() throws Exception {
         System.out.println(" ");
         System.out.println("0) Заполнение массива данных для дальнейших проверок");
-        prepareData();
+        filterIncludeList = prepareDataFilterIncludeOfferList();
+        filterExcludeList = prepareDataFilterExcludeOfferList();
     }
 
     @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
@@ -54,7 +57,7 @@ public class ContentFilterOffer {
         System.out.println("1) Тестирование по отдельности include");
         for (AdminContentFilterForTesting filler1 : filterIncludeList) {
             if (filler1.getInclude())
-                testFieldCombination(List.of(filler1), softAssert);
+                testFieldCombination(false, List.of(filler1), softAssert);
         }
         softAssert.assertAll();
     }
@@ -67,7 +70,7 @@ public class ContentFilterOffer {
         System.out.println("2) Несколько include - несколько exclude");
         List<AdminContentFilterForTesting> list = getRandomFilter(filterIncludeList, filterIncludeList.size() - 1);
         list.addAll(getRandomFilter(filterExcludeList, filterExcludeList.size() - 1));
-        testFieldCombination(list, softAssert);
+        testFieldCombination(false, list, softAssert);
         softAssert.assertAll();
 
     }
@@ -78,7 +81,7 @@ public class ContentFilterOffer {
         // 3) Тестирование конфигураций include все
         System.out.println(" ");
         System.out.println("3) Тестирование конфигураций include все");
-        testFieldCombination(filterIncludeList, softAssert);
+        testFieldCombination(false, filterIncludeList, softAssert);
         softAssert.assertAll();
     }
 
@@ -90,7 +93,7 @@ public class ContentFilterOffer {
         System.out.println("4) Тестирование конфигураций по всем include - exclude");
         for (int i = 0; i < filterIncludeList.size(); i++) {
             int n = new Random().nextInt(filterExcludeList.size());
-            testFieldCombination(List.of(filterIncludeList.get(i), filterExcludeList.get(n)), softAssert);
+            testFieldCombination(false, List.of(filterIncludeList.get(i), filterExcludeList.get(n)), softAssert);
         }
         softAssert.assertAll();
     }
@@ -103,7 +106,7 @@ public class ContentFilterOffer {
         System.out.println("5) Тестирование конфигураций include - по всем exclude");
         for (int i = 0; i < filterExcludeList.size(); i++) {
             int n = new Random().nextInt(filterIncludeList.size());
-            testFieldCombination(List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
+            testFieldCombination(false, List.of(filterExcludeList.get(i), filterIncludeList.get(n)), softAssert);
         }
         softAssert.assertAll();
     }
@@ -117,36 +120,33 @@ public class ContentFilterOffer {
         assertDelete(id, "content_filter");
     }
 
-    public static void prepareData() throws Exception {
-        filterIncludeList.add(contentFilterOffers(true, "idInclude"));
+
+    public static List<AdminContentFilterForTesting> prepareDataFilterExcludeOfferList() throws Exception {
+        List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
         filterExcludeList.add(contentFilterOffers(false, "idExclude"));
-
-        filterIncludeList.add(contentFilterOffersAdverts(true, "advertInclude"));
         filterExcludeList.add(contentFilterOffersAdverts(false, "advertExclude"));
-
-        filterIncludeList.add(contentFilterOffersAdmins(true, "sales_manager", "salesManagerInclude"));
         filterExcludeList.add(contentFilterOffersAdmins(false, "sales_manager", "salesManagerExclude"));
-
-        filterIncludeList.add(contentFilterOffersAdmins(true, "account_manager", "accountManagerInclude"));
         filterExcludeList.add(contentFilterOffersAdmins(false, "account_manager", "accountManagerExclude"));
-
-       /* filterIncludeList.add(contentFilterOffersAdmins(true, "user_request_source", "userRequestSourceInclude"));
-        filterExcludeList.add(contentFilterOffersAdmins(false, "user_request_source", "userRequestSourceExclude"));
-*/
-        filterIncludeList.add(contentFilterOther(true, "tag_id", "tag", "offer_tag", "tagInclude"));
         filterExcludeList.add(contentFilterOther(false, "tag_id", "tag", "offer_tag", "tagExclude"));
-
-        filterIncludeList.add(contentFilterOther(true, "category_id", "category", "offer_category", "categoryInclude"));
         filterExcludeList.add(contentFilterOther(false, "category_id", "category", "offer_category", "categoryExclude"));
-
-        filterIncludeList.add(contentFilterOfferInfo(true, OFFER_PRIVACY_LEVEL, 2, "privacy_level", "privacyLevelInclude"));
         filterExcludeList.add(contentFilterOfferInfo(false, OFFER_PRIVACY_LEVEL, 2, "privacy_level", "privacyLevelExclude"));
-
-        filterIncludeList.add(contentFilterOfferInfo(true, OFFER_STATUS_MAP, 2, "status", "statusInclude"));
         filterExcludeList.add(contentFilterOfferInfo(false, OFFER_STATUS_MAP, 2, "status", "statusExclude"));
-
-        filterIncludeList.add(contentFilterOfferInfo(true, GEO_MAP, 50, "country", "geoInclude"));
         filterExcludeList.add(contentFilterOfferInfo(false, GEO_MAP, 50, "country", "geoExclude"));
+        return filterExcludeList;
+    }
+
+    public static List<AdminContentFilterForTesting> prepareDataFilterIncludeOfferList() throws Exception {
+        List<AdminContentFilterForTesting> filterIncludeList = new ArrayList<>();
+        filterIncludeList.add(contentFilterOffers(true, "idInclude"));
+        filterIncludeList.add(contentFilterOffersAdverts(true, "advertInclude"));
+        filterIncludeList.add(contentFilterOffersAdmins(true, "sales_manager", "salesManagerInclude"));
+        filterIncludeList.add(contentFilterOffersAdmins(true, "account_manager", "accountManagerInclude"));
+        filterIncludeList.add(contentFilterOther(true, "tag_id", "tag", "offer_tag", "tagInclude"));
+        filterIncludeList.add(contentFilterOther(true, "category_id", "category", "offer_category", "categoryInclude"));
+        filterIncludeList.add(contentFilterOfferInfo(true, OFFER_PRIVACY_LEVEL, 2, "privacy_level", "privacyLevelInclude"));
+        filterIncludeList.add(contentFilterOfferInfo(true, OFFER_STATUS_MAP, 2, "status", "statusInclude"));
+        filterIncludeList.add(contentFilterOfferInfo(true, GEO_MAP, 50, "country", "geoInclude"));
+        return filterIncludeList;
     }
 
     public static AdminContentFilterForTesting contentFilterOffers(boolean isInclude, String filterName) throws Exception {
@@ -212,7 +212,7 @@ public class ContentFilterOffer {
         return filter;
     }
 
-    public static void testFieldCombination(List<AdminContentFilterForTesting> contentFilters, SoftAssert softAssert) throws Exception {
+    public static void testFieldCombination(boolean isRole, List<AdminContentFilterForTesting> contentFilters, SoftAssert softAssert) throws Exception {
         Allure.step("Тестирование полей: ");
         System.err.println("Тестирование полей: ");
         for (AdminContentFilterForTesting filter : contentFilters) {
@@ -222,7 +222,7 @@ public class ContentFilterOffer {
 
         }
         // Вызов метода для установки значений фильтра
-        contentFilter(contentFilters);
+        contentFilter(isRole, contentFilters);
 
         int maxAttempts = 3; // максимальное количество попыток
         int attempts = 0;
@@ -230,7 +230,6 @@ public class ContentFilterOffer {
 
         while (attempts < maxAttempts && !success) {
             try {
-                Thread.sleep(30000);
 
                 // Получение ids Адвертов в null или не null permissions
                 List<Integer> actualIds = new ArrayList<>();
@@ -270,7 +269,8 @@ public class ContentFilterOffer {
                 }
 
                 // Запросим actualIds
-                actualIds.addAll(offersListGet());
+                String key = isRole ? authKeyRoleAdmin : authKeyAdmin;
+                actualIds.addAll(offersListGet(key));
 
                 // Все отсортируем и удалим повторы
                 List<Integer> expectedIdsFilter = new ArrayList<>();
@@ -285,15 +285,21 @@ public class ContentFilterOffer {
 
                 System.out.println("Из метода: " + sortedActualIds);
                 System.out.println("Из БД: " + expectedIdsFilter);
+                Allure.step("Из метода: " + sortedActualIds);
+                Allure.step("Из БД: " + expectedIdsFilter);
+
+
                 Assert.assertEquals(sortedActualIds, expectedIdsFilter);
                 success = true;
 
-                if (success)
+                if (success) {
                     System.out.println("Метод выполнен успешно.");
-
+                    Allure.step("Метод выполнен успешно.");
+                }
 
             } catch (AssertionError e) {
                 System.err.println("Ошибка при выполнении метода: " + e.getMessage());
+                Allure.step("Ошибка при выполнении метода: " + e.getMessage());
             }
 
             attempts++;
@@ -307,7 +313,7 @@ public class ContentFilterOffer {
     }
 
 
-    public static void contentFilter(List<AdminContentFilterForTesting> contentFilters) throws
+    public static void contentFilter(boolean isRole, List<AdminContentFilterForTesting> contentFilters) throws
             InterruptedException {
         JsonObject jsonObject = new JsonObject();
 
@@ -318,12 +324,15 @@ public class ContentFilterOffer {
         }
         System.out.println(jsonObject);
 
-        String path = "https://api.admin.3tracks.link/admin/104/content-filter/offer";
+        String path = isRole ? "https://api.admin.3tracks.link/role/1/content-filter/offer"
+                : "https://api.admin.3tracks.link/admin/104/content-filter/offer";
 
         // Отправка POST запроса
+        String key = isRole ? authKeyRoleAdmin : authKeyAdmin;
+
         Response response = given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", key)
                 .body(jsonObject.toString())
                 .post(path);
 
@@ -331,32 +340,34 @@ public class ContentFilterOffer {
         System.out.println(responseBody);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
 
+
+        path = isRole ? "https://api.admin.3tracks.link/role/1/content-filter"
+                : "https://api.admin.3tracks.link/admin/104/content-filter";
+
         response = given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", key)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .get(" https://api.admin.3tracks.link/admin/104/content-filter");
+                .get(path);
 
         responseBody = response.getBody().asString();
 
         System.out.println(GET_RESPONSE + responseBody);
-        Allure.step(GET_RESPONSE + responseBody);
     }
 
 
-    public static List<Integer> offersListGet() throws SQLException {
+    public static List<Integer> offersListGet(String key) throws SQLException {
         ArrayList<Integer> offersFromList = new ArrayList<>();
 
         int count = Integer.parseInt(getCountFromBD("offer"));
 
         Response response = given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", key)
                 .get(URL + "/offer?page=1&limit=" + count + "/");
 
         String responseBody = response.getBody().asString();
-        Allure.step("Ответ на запрос: " + responseBody);
         System.out.println("Ответ на запрос: " + responseBody);
 
 

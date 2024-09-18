@@ -1,8 +1,0 @@
-{
-  "adminId": "90",
-  "code": "57486",
-  "telegramId": "1721867542",
-  "telegramUsername": "Gnat_1756420250",
-  "isAddToChat": true,
-  "isChatAdmin": false
-}
