@@ -4,22 +4,22 @@ workflow:
       when: never
     - when: manual
 
-stages:
+  stages: 
   - build
   - test
 
-image: maven:latest
+  image: maven:latest
 
-build:
+  build:
   stage: build
   script:
     - mvn compile
 
-test:
-  stage: test
-  artifacts:
-    when: always
-    paths:
+  test:
+    stage: test
+    artifacts:
+      when: always
+      paths:
       - allure-report
     expire_in: 5 day
   before_script:
