@@ -5,11 +5,16 @@ target/
 
 allure-results/
 
+.github/workflows/maven.yml
+README.md
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/workspace.xml
+
 *.iws
 *.iml
 *.ipr

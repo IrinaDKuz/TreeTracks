@@ -118,7 +118,7 @@
     "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks/src/test/java/API/Task",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/java/API/Task" />
@@ -138,7 +138,7 @@
       <recent name="API.Settings.Content" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="TestNG.AdvertBulkCheck.test">
     <configuration name="AdvertBulkCheck.test" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
