@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9900e82d-0ba5-4f13-b030-f6259f4a04aa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskFilterAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertPaymentInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Helper/Tasks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPaymentInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPaymentInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/ActionsClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
