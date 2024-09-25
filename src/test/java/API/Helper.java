@@ -20,6 +20,7 @@ import java.util.stream.StreamSupport;
 
 import static Helper.AllureHelper.DELETE_RESPONSE;
 import static Helper.Auth.authKeyAdmin;
+import static SQL.AdvertSQL.getValueFromBDWhere;
 import static SQL.AdvertSQL.isInDatabase;
 
 public class Helper {
@@ -107,6 +108,11 @@ public class Helper {
             System.out.println("id=" + id + " найден в БД " + tableName);
         }
         Assert.assertTrue(isDelete);
+    }
+
+    public static void assertSoftDelete(String id, String tableName) throws Exception {
+        String value = getValueFromBDWhere("deleted_at", tableName, "id", id);
+        Assert.assertTrue(value.isBlank());
     }
 
 

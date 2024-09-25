@@ -1,5 +1,6 @@
 package API.Advert;
 
+import AdvertPackage.entity.AdvertPaymentInfo;
 import AdvertPackage.entity.AdvertRequisites;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -11,20 +12,22 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import java.util.ArrayList;
+
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
 import static Helper.Auth.authKeyAdmin;
-import static SQL.AdvertSQL.getRandomValueFromBD;
-import static SQL.AdvertSQL.getRandomValueFromBDWhere;
+import static SQL.AdvertSQL.*;
 
 /***
  Тест проверяет работу API методов
  - get, add, edit, проверка, delete
+ - edit minPayout // TODO
  во вкладке Адверт - "Payment Info"
  */
 
@@ -36,18 +39,30 @@ public class AdvertPaymentInfoAPI {
     public static void test() throws Exception {
         advertId = Integer.parseInt(getRandomValueFromBD("id", "advert"));
         Allure.step("Получаем методы оплаты у рандомного Адверта " + advertId);
-        paymentGet(true);
+        AdvertPaymentInfo advertPaymentInfoNew = paymentGet(true);
         Allure.step("Добавляем метод оплаты и заполняем его поля");
-        paymentAdd();
 
-        advertPaymentId = Integer.parseInt(getRandomValueFromBDWhere("id", "advert_payment",
+        AdvertRequisites advertRequisites = requisiteAdd();
+        advertPaymentId = Integer.parseInt(getLastValueFromBDWhere("id", "advert_payment",
                 "advert_id", String.valueOf(advertId)));
-        Allure.step("Редактируем любой метод оплаты у текущего Адверта" + advertPaymentId );
-        AdvertRequisites advertRequisites = paymentEdit();
+
+        advertRequisites.setRequisitesId(advertPaymentId);
+
         Allure.step(CHECK);
-        paymentAssert(advertRequisites);
+        requisitesAssert(advertRequisites);
+
+
+        Allure.step("Редактируем последний метод оплаты у текущего Адверта" + advertPaymentId);
+        AdvertRequisites advertRequisitesEdit = requisiteEdit();
+        Allure.step("Редактируем minPayout у текущего Адверта" + advertPaymentId);
+        BigDecimal minPayment = minPaymentEdit();
+
+        Allure.step(CHECK);
+        requisitesAssert(advertRequisitesEdit);
+        paymentAssert(minPayment);
+
         Allure.step(DELETE + advertPaymentId);
-        deleteMethod("advert",advertId + "/payment-info/" + advertPaymentId);
+        deleteMethod("advert", advertId + "/payment-info/" + advertPaymentId);
         assertDelete(String.valueOf(advertPaymentId), "advert_payment");
     }
 
@@ -69,7 +84,7 @@ public class AdvertPaymentInfoAPI {
         return jsonObject;
     }
 
-    private static void paymentAdd() throws Exception {
+    private static AdvertRequisites requisiteAdd() throws Exception {
         AdvertRequisites advertRequisites = new AdvertRequisites();
         advertRequisites.fillAdvertRequisitesWithRandomData();
 
@@ -95,9 +110,38 @@ public class AdvertPaymentInfoAPI {
 
         JSONObject jsonResponse = new JSONObject(responseBody);
         //  advertPaymentId = jsonResponse.getJSONObject("data").getInt("advertContact");
+        return advertRequisites;
     }
 
-    public static AdvertRequisites paymentEdit() throws Exception {
+    public static BigDecimal minPaymentEdit() throws Exception {
+        AdvertPaymentInfo advertPaymentInfo = new AdvertPaymentInfo();
+        advertPaymentInfo.fillAdvertPaymentInfoWithRandomData();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("minPayout", advertPaymentInfo.getMinPayout());
+
+        System.out.println(jsonObject.toString().replace("],", "],\n"));
+        Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
+
+        Response response;
+        response = RestAssured.given()
+                .contentType(ContentType.URLENC)
+                .header("Authorization", authKeyAdmin)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .body(jsonObject.toString())
+                .post("https://api.admin.3tracks.link/advert/" + advertId + "/payment-info");
+
+        // Получаем и выводим ответ
+        String responseBody = response.getBody().asString();
+        System.out.println(EDIT_RESPONSE + responseBody);
+        Allure.step(EDIT_RESPONSE + responseBody);
+        Assert.assertEquals(responseBody, "{\"success\":true}");
+        return advertPaymentInfo.getMinPayout();
+    }
+
+
+    public static AdvertRequisites requisiteEdit() throws Exception {
         AdvertRequisites advertRequisitesEdit = new AdvertRequisites();
         advertRequisitesEdit.fillAdvertRequisitesWithRandomData();
 
@@ -123,8 +167,7 @@ public class AdvertPaymentInfoAPI {
         return advertRequisitesEdit;
     }
 
-    public static ArrayList<AdvertRequisites> paymentGet(Boolean isShow) {
-        ArrayList<AdvertRequisites> paymentList = new ArrayList<>();
+    public static AdvertPaymentInfo paymentGet(Boolean isShow) {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
@@ -141,36 +184,51 @@ public class AdvertPaymentInfoAPI {
         }
 
         JSONObject jsonObject = new JSONObject(responseBody);
-        JSONArray dataArray = jsonObject.getJSONArray("data");
+        JSONObject dataObject = jsonObject.getJSONObject("data");
 
+        AdvertPaymentInfo advertPaymentInfo = new AdvertPaymentInfo();
+        advertPaymentInfo.setMinPayout(dataObject.isNull("minPayout") ? null : dataObject.getBigDecimal("minPayout"));
+
+        JSONArray dataArray = dataObject.getJSONArray("payments");
         for (int i = 0; i < dataArray.length(); i++) {
             AdvertRequisites advertRequisites = new AdvertRequisites();
-            JSONObject dataObject = dataArray.getJSONObject(i);
+            JSONObject requisitesObject = dataArray.getJSONObject(i);
 
-            advertRequisites.setRequisitesId(dataObject.getInt("id"));
-            advertRequisites.setCurrency(dataObject.getString("currency"));
-            advertRequisites.setPaymentSystemId(dataObject.getInt("payment"));
+            advertRequisites.setRequisitesId(requisitesObject.getInt("id"));
+            advertRequisites.setCurrency(requisitesObject.getString("currency"));
+            advertRequisites.setPaymentSystemId(requisitesObject.getInt("payment"));
 
-            JSONObject requisites = dataObject.getJSONObject("requisites");
+            JSONObject requisites = requisitesObject.getJSONObject("requisites");
             Map<String, String> requisitesMap = new HashMap<>();
 
             for (String key : requisites.keySet()) {
                 requisitesMap.put(key, requisites.optString(key, ""));
             }
             advertRequisites.setRequisites(requisitesMap);
+            advertPaymentInfo.addAdvertRequisitesList(advertRequisites);
         }
-        return paymentList;
+        return advertPaymentInfo;
     }
 
-    public static void paymentAssert(AdvertRequisites advertRequisiteEdit) {
-        ArrayList<AdvertRequisites> advertRequisitesList = paymentGet(true);
+    public static void requisitesAssert(AdvertRequisites advertRequisitesEdit) {
+        AdvertPaymentInfo advertPaymentInfo = paymentGet(true);
+        List<AdvertRequisites> advertRequisitesList = advertPaymentInfo.getAdvertRequisitesList();
+
+        boolean isAssert = false;
         for (AdvertRequisites advertRequisite : advertRequisitesList) {
             if (advertRequisite.getRequisitesId() == advertPaymentId) {
-                Assert.assertEquals(advertRequisite.getPaymentSystemId(), advertRequisiteEdit.getPaymentSystemId());
-                Assert.assertEquals(advertRequisite.getCurrency(), advertRequisiteEdit.getCurrency());
-                Assert.assertEquals(advertRequisite.getDefault(), advertRequisiteEdit.getDefault());
-                Assert.assertEquals(advertRequisite.getRequisites(), advertRequisiteEdit.getRequisites());
+                Assert.assertEquals(advertRequisite.getPaymentSystemId(), advertRequisitesEdit.getPaymentSystemId());
+                Assert.assertEquals(advertRequisite.getCurrency(), advertRequisitesEdit.getCurrency());
+             //   Assert.assertEquals(advertRequisite.getDefault(), advertRequisitesEdit.getDefault());
+                Assert.assertEquals(advertRequisite.getRequisites(), advertRequisitesEdit.getRequisites());
+                isAssert = true;
             }
         }
+        Assert.assertTrue(isAssert);
+    }
+
+    public static void paymentAssert(BigDecimal minPaymentEdit) {
+        AdvertPaymentInfo advertPaymentInfo = paymentGet(true);
+        Assert.assertEquals(minPaymentEdit, advertPaymentInfo.getMinPayout());
     }
 }

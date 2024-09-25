@@ -32,9 +32,15 @@ public class ActionsClass {
         return (int) (Math.random() * 4) + 1;
     }
 
+
     public static double getRandomDouble() {
         return Math.round(Math.random() * 1000.0) / 100.0;
     }
+
+    public static double getRandomDouble82() {
+        return Math.round((Math.random() * 900000 + 100000) * 100.0) / 100.0;
+    }
+
 
     public static WebElement waitAndReturnElement(By by, WebDriver driver) {
         try {
