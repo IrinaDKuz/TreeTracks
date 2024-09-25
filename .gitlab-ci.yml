@@ -14,30 +14,25 @@ build:
   stage: build
   script:
     - mvn compile
+  retry: 2  # Параметр retry внутри задания
 
 test:
-    stage: test
-    artifacts:
-      when: always
-      paths:
+  stage: test
+  artifacts:
+    when: always
+    paths:
       - allure-report
-    expire_in: 5 day
+    expire_in: 5 days
+  script:
+    - mvn clean test -Dsurefire.suiteXmlFiles=API_Testing.xml
+  retry: 2  # Параметр retry внутри задания
 
 before_script:
-    - apt-get update && apt-get install -y gnupg wget unzip
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-    - apt-get update && apt-get install -y google-chrome-stable
-    - apt update && apt install -y openjdk-21-jdk openjdk-21-jre
-    - wget https://github.com/allure-framework/allure2/releases/download/2.30.0/allure-2.30.0.tgz && tar -zxvf allure-2.30.0.tgz -C /opt/ && ln -s /opt/allure-2.30.0/bin/allure /usr/bin/allure
-    - wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
-    - unzip chromedriver_linux64.zip -d /usr/local/bin/
-    - chmod +x /usr/local/bin/chromedriver
-    - mvn dependency:resolve
-
-script:
-    - mvn clean test -Dsurefire.suiteXmlFiles=API_Testing.xml
-
-after_script:
-    - allure generate -c allure-results -o allure-report
-retry: 2
+  - apt-get update && apt-get install -y gnupg wget unzip
+  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+  - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+  - apt-get update && apt-get install -y google-chrome-stable
+  - apt update && apt install -y openjdk-21-jdk openjdk-21-jre
+  - wget https://github.com/allure-framework/allure2/releases/download/2.30.0/allure-2.30.0.tgz && tar -zxvf allure-2.30.0.tgz -C /opt/ && ln -s /opt/allure-2.30.0/bin/allure /usr/bin/allure
+  - wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d /usr
