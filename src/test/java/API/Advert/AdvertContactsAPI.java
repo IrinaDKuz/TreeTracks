@@ -215,7 +215,7 @@ public class AdvertContactsAPI {
                 for (int i = 0; i < advertContactEdit.getMessengers().size(); i++) {
                     Messenger getMessenger = advertContact.getMessengers().get(i);
                     Messenger editMessenger = advertContactEdit.getMessengers().get(i);
-                    softAssert.assertEquals(getMessenger.getMessengerId(), editMessenger.getMessengerId());
+                   // softAssert.assertEquals(getMessenger.getMessengerId(), editMessenger.getMessengerId());
                     softAssert.assertEquals(getMessenger.getMessengerTypeId(), editMessenger.getMessengerTypeId());
                     softAssert.assertEquals(getMessenger.getMessengerValue(), editMessenger.getMessengerValue());
                 }

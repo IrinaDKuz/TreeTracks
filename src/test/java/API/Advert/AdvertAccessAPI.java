@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static API.Helper.assertDelete;
@@ -193,7 +194,7 @@ public class AdvertAccessAPI {
                 softAssert.assertEquals(advertAccess.getPassword(), advertAccessNew.getPassword());
                 softAssert.assertEquals(advertAccess.getEmail(), advertAccessNew.getEmail());
                 softAssert.assertEquals(advertAccess.getDescription(), advertAccessNew.getDescription());
-                softAssert.assertEquals(advertAccess.getOfferIds(), advertAccessNew.getOfferIds());
+                softAssert.assertEquals(new HashSet<>(advertAccess.getOfferIds()), new HashSet<>(advertAccessNew.getOfferIds()), "Offer IDs do not match");
                 softAssert.assertAll();
                 isAssert = true;
             }

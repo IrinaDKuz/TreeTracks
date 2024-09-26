@@ -1,5 +1,7 @@
 package AdvertPackage.entity;
 
+import java.nio.file.Paths;
+
 import static Helper.Adverts.*;
 import static Helper.GeoAndLang.getRandomKey;
 import static Helper.GeoAndLang.getRandomValue;
@@ -24,7 +26,7 @@ public class AdvertDocument {
         this.description = generateName(20, FLOWER_WORDS);
         this.ext = "pdf";
         this.uploader_id = "104";
-        this.filePath = "/Users/irina/IdeaProjects/TreeTracks/6_8_MB_test-document.pdf";
+        this.filePath = Paths.get(System.getProperty("user.dir"), "6_8_MB_test-document.pdf").toString();
     }
 
     public int getDocumentId() {

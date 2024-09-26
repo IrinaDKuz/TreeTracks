@@ -115,7 +115,13 @@ public class AdvertPostbackAPI {
 
         AdvertPostback advertPostback = new AdvertPostback();
         advertPostback.setSecurePostbackCode(data.isNull("securePostbackCode") ? null : data.getString("securePostbackCode"));
-        advertPostback.setPlatformId(data.isNull("platformId") ? null : data.getInt("platformId"));
+
+        if (!data.isNull("platform")) {
+            JSONObject platform = data.getJSONObject("platform");
+            advertPostback.setPlatformId(platform.isNull("value") ? null : platform.getInt("value"));
+        } else {
+            advertPostback.setPlatformId(null);
+        }
 
         advertPostback.setForbidChangePostbackStatus(data.isNull("forbidChangePostbackStatus") ? false : data.getBoolean("forbidChangePostbackStatus"));
 

@@ -27,7 +27,7 @@ import static SQL.AdvertSQL.*;
 /***
  Тест проверяет работу API методов
  - get, add, edit, проверка, delete
- - edit minPayout // TODO
+ - edit minPayout
  во вкладке Адверт - "Payment Info"
  */
 
@@ -39,7 +39,7 @@ public class AdvertPaymentInfoAPI {
     public static void test() throws Exception {
         advertId = Integer.parseInt(getRandomValueFromBD("id", "advert"));
         Allure.step("Получаем методы оплаты у рандомного Адверта " + advertId);
-        AdvertPaymentInfo advertPaymentInfoNew = paymentGet(true);
+        paymentGet(true);
         Allure.step("Добавляем метод оплаты и заполняем его поля");
 
         AdvertRequisites advertRequisites = requisiteAdd();
@@ -103,14 +103,11 @@ public class AdvertPaymentInfoAPI {
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/advert/" + advertId + "/payment-info/add");
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println(ADD_RESPONSE + responseBody);
         Allure.step(ADD_RESPONSE + responseBody);
 
-        JSONObject jsonResponse = new JSONObject(responseBody);
-        //  advertPaymentId = jsonResponse.getJSONObject("data").getInt("advertContact");
-        return advertRequisites;
+    return advertRequisites;
     }
 
     public static BigDecimal minPaymentEdit() throws Exception {
@@ -132,7 +129,6 @@ public class AdvertPaymentInfoAPI {
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/advert/" + advertId + "/payment-info");
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println(EDIT_RESPONSE + responseBody);
         Allure.step(EDIT_RESPONSE + responseBody);
@@ -159,7 +155,6 @@ public class AdvertPaymentInfoAPI {
                 .body(jsonObject.toString())
                 .post("https://api.admin.3tracks.link/advert/" + advertId + "/payment-info/" + advertPaymentId + "/edit");
 
-        // Получаем и выводим ответ
         String responseBody = response.getBody().asString();
         System.out.println(EDIT_RESPONSE + responseBody);
         Allure.step(EDIT_RESPONSE + responseBody);

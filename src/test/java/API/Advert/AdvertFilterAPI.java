@@ -108,7 +108,11 @@ public class AdvertFilterAPI {
 
     private static void filterAdverts(Map.Entry<String, String> entry, String valueString, String tableName, String idRowName, SoftAssert softAssert) throws Exception {
         Set<String> ids = new TreeSet<>();
-        ids.addAll(getArrayFromBDWhere(idRowName, tableName, entry.getKey(), valueString));
+        if (entry.getKey().equals("requisites")) {
+            ids.addAll(getArrayFromBDWhereIsLike(idRowName, tableName, entry.getKey(), valueString));
+        } else {
+            ids.addAll(getArrayFromBDWhere(idRowName, tableName, entry.getKey(), valueString));
+        }
         List<String> filterIds = filterAdvertsPost(entry.getValue(), valueString);
         filterAssert(filterIds, ids, softAssert);
     }
