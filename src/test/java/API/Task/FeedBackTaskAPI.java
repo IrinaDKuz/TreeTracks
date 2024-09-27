@@ -16,6 +16,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -146,8 +147,23 @@ public class FeedBackTaskAPI {
 
         JSONObject info = data.getJSONObject("info");
         feedBackTaskGet.setStatus(info.getString("status"));
-        feedBackTaskGet.setOfferId(info.isNull("offer") ? null : info.getInt("offer"));
-        feedBackTaskGet.setAffiliateId(info.isNull("affiliate") ? null : info.getJSONObject("affiliate").getInt("value"));
+
+        // TODO Оформить красиво!!!!!!!!!
+
+        if (!info.isNull("offer")) {
+            JSONObject offer = info.getJSONObject("offer");
+            feedBackTaskGet.setOfferId(offer.isNull("value") ? null : offer.getInt("value"));
+        } else {
+            feedBackTaskGet.setOfferId(null);
+        }
+
+        if (!info.isNull("affiliate")) {
+            JSONObject offer = info.getJSONObject("affiliate");
+            feedBackTaskGet.setAffiliateId(offer.isNull("value") ? null : offer.getInt("value"));
+        } else {
+            feedBackTaskGet.setAffiliateId(null);
+        }
+
 
         feedBackTaskGet.setRequesterId(info.getInt("requester"));
         feedBackTaskGet.setAssigneeId(info.getInt("assigner"));
@@ -166,7 +182,17 @@ public class FeedBackTaskAPI {
 
         } else feedBackTaskGet.setTaskWatchers(null);
 
+
         if (info.get("tags") instanceof JSONArray) {
+            JSONArray watcherArray = info.getJSONArray("tags");
+            List<Integer> listArray = StreamSupport.stream(watcherArray.spliterator(), false)
+                    .map(element -> Integer.parseInt(element.toString()))
+                    .toList();
+            feedBackTaskGet.setTaskTag(listArray);
+
+        } else feedBackTaskGet.setTaskTag(null);
+
+       /* if (info.get("tags") instanceof JSONArray) {
             JSONArray tagArray = info.getJSONArray("tags");
             List<Integer> tagIdList = new ArrayList<>();
             for (int i = 0; i < tagArray.length(); i++) {
@@ -177,7 +203,7 @@ public class FeedBackTaskAPI {
             feedBackTaskGet.setTaskTag(tagIdList);
         } else {
             feedBackTaskGet.setTaskTag(null);
-        }
+        }*/
 
         return feedBackTaskGet;
     }
@@ -198,15 +224,17 @@ public class FeedBackTaskAPI {
 
         List<Integer> tags = feedBackTask.getTaskTag();
         List<Integer> tagsEdit = feedBackTaskGet.getTaskTag();
-        Collections.sort(tags);
-        Collections.sort(tagsEdit);
-        softAssert.assertEquals(tags, tagsEdit);
+        // Collections.sort(tags);
+        // Collections.sort(tagsEdit);
+        // softAssert.assertEquals(tags, tagsEdit);
+        softAssert.assertEquals(new HashSet<>(tags), new HashSet<>(tagsEdit), "tags do not match");
 
         List<Integer> watchers = feedBackTask.getTaskWatchers();
         List<Integer> watchersEdit = feedBackTaskGet.getTaskWatchers();
        // Collections.sort(watchers);
        // Collections.sort(watchersEdit);
-        softAssert.assertEquals(watchers, watchersEdit);
+       // softAssert.assertEquals(watchers, watchersEdit);
+        softAssert.assertEquals(new HashSet<>(watchers), new HashSet<>(watchersEdit), "watchers do not match");
 
         softAssert.assertAll();
     }

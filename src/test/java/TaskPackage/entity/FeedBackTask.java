@@ -45,7 +45,7 @@ public class FeedBackTask {
                 .stream().map(Integer::valueOf).collect(Collectors.toList());
 
         this.offerId = Integer.valueOf(getRandomValueFromBD("id", "offer"));
-        this.advertId = Integer.valueOf(getValueFromBDWhere("advert_id", "offer", "id", this.offerId.toString()));
+       // this.advertId = Integer.valueOf(getValueFromBDWhere("advert_id", "offer", "id", this.offerId.toString()));
         this.affiliateId = Integer.valueOf(getRandomValueFromBD("id", "affiliate"));
 
         this.notes = generateName(30, TASK_WORDS);

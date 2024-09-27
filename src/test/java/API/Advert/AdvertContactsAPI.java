@@ -181,7 +181,7 @@ public class AdvertContactsAPI {
             advertContact.setContactID(dataObject.getInt("id"));
             advertContact.setPerson(dataObject.getString("person"));
             advertContact.setStatus(dataObject.getString("status"));
-            advertContact.setEmail(dataObject.getString("email"));
+            advertContact.setEmail(dataObject.isNull("email")? null : dataObject.getString("email"));
             advertContact.setPosition(dataObject.isNull("position") ? null : dataObject.getString("position"));
 
             JSONArray messengersArray = dataObject.getJSONArray("messengers");
