@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="50f94cd9-12de-4a6c-a44c-165684b41317" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AdvertPackage/entity/AdvertDocument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +23,7 @@
     "TestNG.AdvertPaymentInfoAPI.executor": "Run",
     "TestNG.AdvertPostbackAPI.executor": "Run",
     "TestNG.FeedBackTaskAPI.executor": "Run",
+    "TestNG.OfferMainBasicInfoAPI.executor": "Run",
     "git-widget-placeholder": "main"
   }
 }]]></component>

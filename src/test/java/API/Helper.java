@@ -69,6 +69,16 @@ public class Helper {
         } else return null;
     }
 
+    public static Integer getValueFromJson(JSONObject data, String parameterName) {
+        Integer value;
+        if (!data.isNull(parameterName)) {
+            JSONObject offer = data.getJSONObject(parameterName);
+            return(offer.isNull("value") ? null : offer.getInt("value"));
+        } else {
+            return null;
+        }
+    }
+
     public static OfferBasicInfo.OfferTemplate getTemplateFromJson(JSONObject data, String parameterName) {
         JSONArray array = data.getJSONArray(parameterName);
         OfferBasicInfo.OfferTemplate template = null;

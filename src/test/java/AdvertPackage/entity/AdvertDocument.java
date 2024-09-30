@@ -25,7 +25,7 @@ public class AdvertDocument {
         this.original_name = "6_8_MB_test-document.pdf";
         this.description = generateName(20, FLOWER_WORDS);
         this.ext = "pdf";
-        this.uploader_id = "104";
+        this.uploader_id = "1";
         this.filePath = Paths.get(System.getProperty("user.dir"), "6_8_MB_test-document.pdf").toString();
     }
 

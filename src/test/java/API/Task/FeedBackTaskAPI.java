@@ -14,6 +14,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -96,7 +99,7 @@ public class FeedBackTaskAPI {
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
         attachJson(String.valueOf(jsonObject), DATA);
 
-        String path = isEdit ? URL + "/task/feedback/" + feedBackTask.getTaskId() + "/edit" :
+        String path = isEdit ? URL + "/task/feedback/" + taskId + "/edit" :
                 URL + "/task/feedback/new";
 
         Response response = RestAssured.given()
@@ -142,36 +145,21 @@ public class FeedBackTaskAPI {
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
-
-        feedBackTaskGet.setType(data.getString("type"));
-
         JSONObject info = data.getJSONObject("info");
+        feedBackTaskGet.setType(info.getString("type"));
         feedBackTaskGet.setStatus(info.getString("status"));
 
-        // TODO Оформить красиво!!!!!!!!!
-
-        if (!info.isNull("offer")) {
-            JSONObject offer = info.getJSONObject("offer");
-            feedBackTaskGet.setOfferId(offer.isNull("value") ? null : offer.getInt("value"));
-        } else {
-            feedBackTaskGet.setOfferId(null);
-        }
-
-        if (!info.isNull("affiliate")) {
-            JSONObject offer = info.getJSONObject("affiliate");
-            feedBackTaskGet.setAffiliateId(offer.isNull("value") ? null : offer.getInt("value"));
-        } else {
-            feedBackTaskGet.setAffiliateId(null);
-        }
-
+        feedBackTaskGet.setOfferId(getValueFromJson(info, "offer"));
+        feedBackTaskGet.setAffiliateId(getValueFromJson(info, "affiliate"));
+        feedBackTaskGet.setAdvertId(getValueFromJson(info, "advert"));
 
         feedBackTaskGet.setRequesterId(info.getInt("requester"));
         feedBackTaskGet.setAssigneeId(info.getInt("assigner"));
 
-       // feedBackTaskGet.setAdvertId(task.isNull("advert") ? null : task.getInt("advertId"));
-
         feedBackTaskGet.setNotes(info.isNull("notes") ? null : info.getString("notes"));
-        feedBackTaskGet.setDueDate(info.getString("dueDate"));
+
+        ZonedDateTime expectedDate = ZonedDateTime.parse(info.getString("dueDate"));
+        feedBackTaskGet.setDueDate(String.valueOf(expectedDate.toLocalDateTime()));
 
         if (info.get("watcher") instanceof JSONArray) {
             JSONArray watcherArray = info.getJSONArray("watcher");
@@ -214,26 +202,24 @@ public class FeedBackTaskAPI {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(feedBackTask.getStatus(), feedBackTaskGet.getStatus());
         softAssert.assertEquals(feedBackTask.getType(), feedBackTaskGet.getType());
-        // softAssert.assertEquals(feedBackTask.getRequesterId(), feedBackTaskGet.getRequesterId());
+        System.out.println(feedBackTaskGet.getRequesterId());
+        softAssert.assertTrue(feedBackTaskGet.getRequesterId() == 1);
         softAssert.assertEquals(feedBackTask.getAssigneeId(), feedBackTaskGet.getAssigneeId());
         softAssert.assertEquals(feedBackTask.getAdvertId(), feedBackTaskGet.getAdvertId());
         softAssert.assertEquals(feedBackTask.getOfferId(), feedBackTaskGet.getOfferId());
         softAssert.assertEquals(feedBackTask.getAffiliateId(), feedBackTaskGet.getAffiliateId());
         // softAssert.assertEquals(feedBackTask.getNotes(), feedBackTaskGet.getNotes());
-        softAssert.assertEquals(feedBackTask.getDueDate(), feedBackTaskGet.getDueDate());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime actualDate = LocalDateTime.parse(feedBackTask.getDueDate(), formatter);
+        softAssert.assertEquals(actualDate.toString(), feedBackTaskGet.getDueDate());
 
         List<Integer> tags = feedBackTask.getTaskTag();
         List<Integer> tagsEdit = feedBackTaskGet.getTaskTag();
-        // Collections.sort(tags);
-        // Collections.sort(tagsEdit);
-        // softAssert.assertEquals(tags, tagsEdit);
         softAssert.assertEquals(new HashSet<>(tags), new HashSet<>(tagsEdit), "tags do not match");
 
         List<Integer> watchers = feedBackTask.getTaskWatchers();
         List<Integer> watchersEdit = feedBackTaskGet.getTaskWatchers();
-       // Collections.sort(watchers);
-       // Collections.sort(watchersEdit);
-       // softAssert.assertEquals(watchers, watchersEdit);
         softAssert.assertEquals(new HashSet<>(watchers), new HashSet<>(watchersEdit), "watchers do not match");
 
         softAssert.assertAll();
