@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import static Helper.AllureHelper.GET_RESPONSE;
 import static Helper.AllureHelper.attachJson;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.getArrayFromBDWhere;
 
 /***
@@ -25,6 +25,7 @@ public class AdminListAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         Allure.description("Проверка работы метода get adminList");
         Allure.step("Получаем список Админов");
         adminListGet();
@@ -34,7 +35,7 @@ public class AdminListAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/admin/");

@@ -192,6 +192,12 @@ public class AdvertSQL {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public static String getRandomValueFromBDWhereNull(String parameter, String tableName, String where) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " IS NULL;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
     public static String getRandomValueFromBDWhereMore(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " > " + escapeSql(whereValue) + " ;";
         List<String> list = sqlQueryList(sqlRequest, parameter);

@@ -13,16 +13,27 @@ public class Tasks {
         {
             put("draft", "Draft");
             put("new", "New");
-           // put("additional_info_required", "Additional info required");
-           // put("progress", "In progress");
-           // put("conditions_updated", "Conditions updated");
-          //  put("postponed", "Postponed");
-          //  put("past_due", "Past due");
-          //  put("resolved", "Resolved");
-          //  put("cancelled", "Cancelled");
+            // put("additional_info_required", "Additional info required");
+            // put("progress", "In progress");
+            // put("conditions_updated", "Conditions updated");
+            //  put("postponed", "Postponed");
+            //  put("past_due", "Past due");
+            //  put("resolved", "Resolved");
+            //  put("cancelled", "Cancelled");
 
         }
     };
+
+
+    public final static Map<String, String> MESSAGE_TYPE_MAP = new HashMap<>() {
+        {
+            put("message", "Message");
+            put("info", "Info");
+            put("notice", "Notice");
+            put("warning", "Warning");
+        }
+    };
+
 
     public static final String[] TASK_WORDS = {
             "Project", "Analyze", "Plan", "Task", "Develop",
@@ -47,6 +58,20 @@ public class Tasks {
             "Expand", "Focus", "Journey", "Envision", "Prioritize"
     };
 
+    public static final String[] TASK_WORDS_REASON = {
+            "Waiting for approval", "Resource unavailability", "Pending feedback", "Client request", "Technical issue",
+            "Reprioritized", "Lack of budget", "Team capacity", "Scope change", "Data dependency",
+            "Third-party delay", "Insufficient information", "Testing phase", "Review pending", "Legal clearance",
+            "Internal discussion", "Unexpected outage", "Waiting for updates", "Dependencies unresolved", "Compliance check",
+            "Market conditions", "Team restructuring", "New requirements", "Shift in priorities", "Stakeholder delay",
+            "Awaiting documentation", "Cross-team alignment", "Change request", "Prototype failure", "Incomplete assets",
+            "Pending training", "Vendor delay", "Quality assurance", "Internal conflict", "Waiting on permissions",
+            "Unexpected event", "Leadership approval", "Contract issues", "Risk assessment", "Platform instability",
+            "Regulatory review", "Software upgrade", "Pending resources", "Holiday period", "Budget constraints",
+            "System downtime", "Pending clarification", "External audit", "Awaiting legal review", "Team realignment"
+    };
+
+
     public static String generateDueDatePlusFiveMinutes() {
         // Получаем текущее время
         Calendar calendar = Calendar.getInstance();
@@ -64,6 +89,23 @@ public class Tasks {
         Calendar calendar = Calendar.getInstance();
         // Форматируем дату в нужный формат
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static String generateDueDatePlusNDays(int n) {
+        // Получаем текущее время
+        Calendar calendar = Calendar.getInstance();
+        // Добавляем 3 дня к текущей дате
+        calendar.add(Calendar.DATE, n);
+
+        // Устанавливаем время на 00:00:00
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // Форматируем дату в нужный формат
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(calendar.getTime());
     }
 

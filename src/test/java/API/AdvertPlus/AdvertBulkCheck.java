@@ -14,6 +14,7 @@ import static Helper.ActionsClass.getSomeValuesFromArray;
 import static Helper.Adverts.*;
 import static Helper.AllureHelper.CHECK;
 import static Helper.AllureHelper.DATA;
+import static Helper.Auth.authApi;
 import static Helper.GeoAndLang.getRandomValue;
 import static SQL.AdvertSQL.*;
 import static SQL.AdvertSQL.getSomeValuesFromBD;
@@ -29,6 +30,8 @@ public class AdvertBulkCheck {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
+
         for (int i = 0; i < count; i++) {
             List<Advert> advertsBeforeChangesFromBD = new ArrayList<>();
             List<Integer> advertsId = new ArrayList<>();

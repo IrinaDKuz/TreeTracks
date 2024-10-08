@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static Helper.AllureHelper.DELETE_RESPONSE;
+import static Helper.Auth.KEY;
 import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.getValueFromBDWhere;
 import static SQL.AdvertSQL.isInDatabase;
@@ -34,7 +35,7 @@ public class Helper {
     public static void deleteMethod(String url, String id) {
         Response response;
         System.out.println("https://api.admin.3tracks.link/" + url + "/" + id);
-        response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", authKeyAdmin)
+        response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .delete("https://api.admin.3tracks.link/" + url + "/" + id);
@@ -122,7 +123,7 @@ public class Helper {
 
     public static void assertSoftDelete(String id, String tableName) throws Exception {
         String value = getValueFromBDWhere("deleted_at", tableName, "id", id);
-        Assert.assertTrue(value.isBlank());
+        Assert.assertFalse(value.isBlank());
     }
 
 

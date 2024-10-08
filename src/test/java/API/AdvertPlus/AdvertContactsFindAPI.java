@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static API.Advert.AdvertFilterAPI.getUrlWithParameters;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.*;
 import static io.restassured.RestAssured.given;
 
@@ -41,13 +41,14 @@ import static io.restassured.RestAssured.given;
 public class AdvertContactsFindAPI {
 
     static Map<String, String> headers = Map.of(
-            "Authorization", authKeyAdmin,
+            "Authorization", KEY,
             "Accept", "application/json",
             "Content-Type", "application/json"
     );
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         SoftAssert softAssert = new SoftAssert();
         Allure.step("1) Проверки каждого поля отдельно");
         System.out.println("1) Проверки каждого поля отдельно");
@@ -305,7 +306,7 @@ public class AdvertContactsFindAPI {
     public static List<Integer> findContactExclude(Map<String, Object> params) {
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .when()

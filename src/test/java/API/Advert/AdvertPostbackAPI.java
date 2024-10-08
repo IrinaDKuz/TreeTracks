@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.getRandomValueFromBDWhereMore;
 import static java.util.Objects.isNull;
 
@@ -31,6 +31,7 @@ public class AdvertPostbackAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         advertId = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert", "id", "1000"));
         Allure.step("Получаем постбеки у рандомного Адверта " + advertId);
         System.out.println("Получаем постбеки у рандомного Адверта " + advertId);
@@ -81,7 +82,7 @@ public class AdvertPostbackAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -99,7 +100,7 @@ public class AdvertPostbackAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/postback");

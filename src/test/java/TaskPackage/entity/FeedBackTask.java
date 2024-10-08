@@ -32,6 +32,35 @@ public class FeedBackTask {
     public FeedBackTask() {
     }
 
+    public FeedBackTask(Integer taskId) throws Exception {
+        this.status = getValueFromBDWhere("status", "task", "id", String.valueOf(taskId));
+        this.type = getValueFromBDWhere("type", "task", "id", String.valueOf(taskId));
+
+        this.requesterId = Integer.parseInt(getValueFromBDWhere("requester_id", "task",
+                "id", String.valueOf(taskId)));
+
+        this.assigneeId = Integer.parseInt(getValueFromBDWhere("assigne_id", "task",
+                "id", String.valueOf(taskId)));
+
+        this.offerId = Integer.parseInt(getValueFromBDWhere("offer_id", "task",
+                "id", String.valueOf(taskId)));
+        this.advertId = Integer.parseInt(getValueFromBDWhere("advert_id", "task",
+                "id", String.valueOf(taskId)));
+        this.affiliateId = Integer.parseInt(getValueFromBDWhere("affiliate_id", "task",
+                "id", String.valueOf(taskId)));
+
+        this.notes = getValueFromBDWhere("notes", "task",
+                "id", String.valueOf(taskId));
+        this.dueDate = getValueFromBDWhere("due_date", "task",
+                "id", String.valueOf(taskId));
+
+        this.taskTag = getArrayFromBDWhere("tag_id", "task_tag_relation", "task_id", String.valueOf(taskId))
+                .stream().map(Integer::valueOf).collect(Collectors.toList());
+
+        this.taskWatchers = getArrayFromBDWhere("admin_id", "task_watcher", "task_id", String.valueOf(taskId))
+                .stream().map(Integer::valueOf).collect(Collectors.toList());
+    }
+
     public void fillFeedBackTaskWithRandomData() throws Exception {
         this.status = getRandomKey(TASKS_STATUS_MAP);
         this.type = "feedback";

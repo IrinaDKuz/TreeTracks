@@ -21,7 +21,7 @@ import java.util.stream.StreamSupport;
 
 import static API.Helper.*;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.getCountFromBD;
 
 /***
@@ -36,6 +36,7 @@ public class AdvertFromListAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         count = new Random().nextInt(31) + 20;
 
         Allure.step("Получаем список из " + count + " Адвертов");
@@ -53,7 +54,7 @@ public class AdvertFromListAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get(URL + "/advert?page=1&limit=" + count + "/");

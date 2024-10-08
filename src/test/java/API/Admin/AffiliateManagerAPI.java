@@ -16,7 +16,7 @@ import org.testng.asserts.SoftAssert;
 import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 
 /***
  Тест проверяет работу API методов
@@ -30,6 +30,7 @@ public class AffiliateManagerAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         Allure.step("Получаем список AffiliateManager");
         affManagerGetList();
 
@@ -77,7 +78,7 @@ public class AffiliateManagerAPI {
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -103,7 +104,7 @@ public class AffiliateManagerAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/admin/affiliate-manager/" + affiliateManagerId);
@@ -136,7 +137,7 @@ public class AffiliateManagerAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/admin/affiliate-manager/");

@@ -15,6 +15,7 @@ import static API.Advert.AdvertContactsAPI.contactsAddPost;
 import static API.Advert.AdvertContactsAPI.contactsEditPost;
 import static API.Helper.deleteMethod;
 import static AdvertPackage.entity.AdvertContactDouble.fillAdvertContactsDoubleFromBD;
+import static Helper.Auth.authApi;
 import static SQL.AdvertSQL.*;
 import static SQL.DatabaseTest.sqlQueryList;
 
@@ -31,6 +32,8 @@ public class AdvertDoubleContactsAPI {
 
     @Test
     public static void testAddEmail() throws Exception {
+        authApi(103);
+
         System.out.println("******* Добавляем email *******");
         addEditNewContact("email", false);
     }

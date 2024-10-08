@@ -1,6 +1,7 @@
 package API.Task;
 
 
+import static Helper.Auth.*;
 import static org.hamcrest.Matchers.*;
 import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
@@ -14,7 +15,6 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.*;
 
-import static Helper.Auth.authKeyAdmin;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -45,6 +45,7 @@ public class TaskFilterAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         Allure.description("Проверка работы фильтров");
         SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, String> entry : generalTaskFields.entrySet()) {
@@ -87,7 +88,7 @@ public class TaskFilterAPI {
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .when()

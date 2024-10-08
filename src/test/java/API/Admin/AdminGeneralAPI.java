@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 
 /***
  Тест проверяет работу API методов
@@ -28,6 +28,7 @@ public class AdminGeneralAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(104);
         Allure.step("Добавляем Админа");
         AdminGeneral adminGeneralNew = generalAddEdit(false);
         Allure.step(CHECK);
@@ -84,7 +85,7 @@ public class AdminGeneralAPI {
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -109,7 +110,7 @@ public class AdminGeneralAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/admin/" + adminId);

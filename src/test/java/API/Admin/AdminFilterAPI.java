@@ -14,7 +14,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.*;
 
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -37,6 +37,7 @@ public class AdminFilterAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(104);
         Allure.description("Проверка работы метода фильтрациии Админов");
         SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, String> entry : adminFields.entrySet()) {
@@ -60,7 +61,7 @@ public class AdminFilterAPI {
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .params(params)

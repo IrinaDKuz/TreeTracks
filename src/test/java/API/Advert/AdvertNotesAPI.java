@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 
 /***
@@ -32,6 +32,7 @@ public class AdvertNotesAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         advertId = Integer.parseInt(getRandomValueFromBD("id", "advert"));
         Allure.step("Получаем заметки у рандомного Адверта " + advertId);
         notesGet(true);
@@ -68,7 +69,7 @@ public class AdvertNotesAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -95,7 +96,7 @@ public class AdvertNotesAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -115,7 +116,7 @@ public class AdvertNotesAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/notes");
@@ -155,6 +156,7 @@ public class AdvertNotesAPI {
 
     public static void notesAssert(AdvertNotes advertNotesEdit) {
         ArrayList<AdvertNotes> AdvertNotesList = notesGet(true);
+        Boolean isAssert = false;
         for (AdvertNotes advertNotes : AdvertNotesList) {
             if (advertNotes.getNotesId() == advertNotesId) {
                 System.out.println(advertNotes.getNotesId());
@@ -162,7 +164,9 @@ public class AdvertNotesAPI {
                 Assert.assertEquals(advertNotes.getText(), advertNotesEdit.getText());
                 Assert.assertEquals(advertNotes.getLocationId(), advertNotesEdit.getLocationId());
                 Assert.assertEquals(advertNotes.getLocation(), advertNotesEdit.getLocation());
+                isAssert = true;
             }
         }
+        Assert.assertTrue(isAssert);
     }
 }

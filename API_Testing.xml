@@ -2,14 +2,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="API test" preserve-order="true">
 
-<!--    <test verbose="2" preserve-order="true" name="Admin API test">
+   <test verbose="2" preserve-order="true" name="Admin API test">
         <classes>
             <class name="API.Admin.AdminGeneralAPI"/>
             <class name="API.Admin.AdminFilterAPI"/>
             <class name="API.Admin.AdminListAPI"/>
             <class name="API.Admin.AffiliateManagerAPI"/>
         </classes>
-    </test>-->
+    </test>
 
     <test verbose="2" preserve-order="true" name="Adverts API test">
         <classes>
@@ -22,20 +22,21 @@
             <class name="API.Advert.AdvertAccessAPI"/>
 
             <class name="API.Advert.AdvertFilterAPI"/>
+            <class name="API.Advert.AdvertFromListAPI"/>
             <class name="API.AdvertPlus.AdvertBulkCheck"/>
             <class name="API.AdvertPlus.AdvertContactsFindAPI"/>
             <class name="API.AdvertPlus.AdvertDoubleContactsAPI"/>
         </classes>
     </test>
 
-    <!--   <test verbose="2" preserve-order="true" name="Offer Draft API test">
+  <!-- <test verbose="2" preserve-order="true" name="Offer Draft API test">
             <classes>
-                <aclass name="API.Offer.OfferDraft.OfferDraftList"/>
+                <class name="API.Offer.OfferDraft.OfferDraftList"/>
                 <class name="API.Offer.OfferDraft.OfferDraftFilter"/>
                 <class name="API.Offer.OfferDraft.OfferDraftBasicInfoAPI"/>
                 <class name="API.Offer.OfferDraft.OfferDraftTrackingAPI"/>
             </classes>
-        </test>-->
+        </test>
 
     <test verbose="2" preserve-order="true" name="Offer Main API test">
         <classes>
@@ -44,7 +45,7 @@
             <class name="API.Offer.OfferMain.OfferMainBasicInfoAPI"/>
             <class name="API.Offer.OfferMain.OfferAccessAPI"/>
 
-            <!-- <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>-->
+            &lt;!&ndash; <class name="API.Offer.OfferMain.OfferMainPageAPI_NEED_TO_DO"/>&ndash;&gt;
         </classes>
     </test>
 
@@ -59,21 +60,24 @@
         <classes>
             <class name="API.Settings.Content.ContentCategoryAPI"/>
             <class name="API.Settings.Content.ContentGoalAPI"/>
-<!--
+&lt;!&ndash;
             <class name="API.Settings.Content.ContentPaymentSystemAPI"/>
--->
+&ndash;&gt;
             <class name="API.Settings.Content.ContentTrafficSourceAPI"/>
             <class name="API.Settings.Content.ContentOfferTagAPI"/>
             <class name="API.Settings.Content.ContentAdvertTagAPI"/>
             <class name="API.Settings.Content.ContentTaskTagAPI"/>
             <class name="API.Settings.Content.ContentMessengerAPI"/>
         </classes>
-    </test>
+    </test>-->
 
     <test verbose="2" preserve-order="true" name="Task API test">
         <classes>
             <class name="API.Task.FeedBackTaskAPI"/>
             <class name="API.Task.TaskFilterAPI"/>
+            <class name="API.Task.FeedBackTaskAPIActions"/>
+            <class name="API.Task.TaskMessengerAPI"/>
+
         </classes>
     </test>
 </suite>

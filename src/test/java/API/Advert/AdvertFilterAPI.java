@@ -14,7 +14,7 @@ import java.util.*;
 
 import static API.Helper.getRandomValueFromJson;
 import static AdvertPackage.entity.AdvertPrimaryInfo.getArrayFromBDString;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -61,6 +61,7 @@ public class AdvertFilterAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         Allure.description("Проверка работы фильтров");
         SoftAssert softAssert = new SoftAssert();
         for (Map.Entry<String, String> entry : generalAdvertFields.entrySet()) {
@@ -146,7 +147,7 @@ public class AdvertFilterAPI {
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .when()

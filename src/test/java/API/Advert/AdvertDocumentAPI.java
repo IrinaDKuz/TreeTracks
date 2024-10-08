@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -33,6 +33,7 @@ public class AdvertDocumentAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         advertId = Integer.parseInt(getRandomValueFromBDWhereMore("id", "advert", "id", "1000"));
         Allure.step("Получаем Документы у рандомного Адверта " + advertId);
         documentsGet(true);
@@ -68,7 +69,7 @@ public class AdvertDocumentAPI {
         Allure.step(DATA + " path: " + advertDocument.getFilePath() + " description: " + advertDocument.getDescription());
 
         Response response = RestAssured.given()
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .multiPart("file", new java.io.File(advertDocument.getFilePath()))
                 .multiPart("description", advertDocument.getDescription())
@@ -102,7 +103,7 @@ public class AdvertDocumentAPI {
         Allure.step(DATA + " description: " + advertDocument.getDescription());
 
         Response response = RestAssured.given()
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .multiPart("description", advertDocument.getDescription())
                 .when()
@@ -126,7 +127,7 @@ public class AdvertDocumentAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/document");
@@ -158,7 +159,7 @@ public class AdvertDocumentAPI {
     private static void documentsDownLoad() {
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/document/"

@@ -21,7 +21,7 @@ import java.util.Map;
 import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -37,6 +37,7 @@ public class AdvertPaymentInfoAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         advertId = Integer.parseInt(getRandomValueFromBD("id", "advert"));
         Allure.step("Получаем методы оплаты у рандомного Адверта " + advertId);
         paymentGet(true);
@@ -97,7 +98,7 @@ public class AdvertPaymentInfoAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -123,7 +124,7 @@ public class AdvertPaymentInfoAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -149,7 +150,7 @@ public class AdvertPaymentInfoAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -166,7 +167,7 @@ public class AdvertPaymentInfoAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/payment-info");

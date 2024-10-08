@@ -21,7 +21,7 @@ import java.util.List;
 import static API.Helper.assertDelete;
 import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.*;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -36,6 +36,7 @@ public class AdvertAccessAPI {
 
     @Test
     public static void test() throws Exception {
+        authApi(103);
         advertId = Integer.parseInt(getRandomValueFromBDWhereNotNull("advert_id", "offer",
                 "advert_id"));
         System.out.println("Получаем Access у рандомного Адверта, у которого есть Оффер " + advertId);
@@ -73,7 +74,7 @@ public class AdvertAccessAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -102,7 +103,7 @@ public class AdvertAccessAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -144,7 +145,7 @@ public class AdvertAccessAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/advert/" + advertId + "/access");

@@ -18,23 +18,22 @@ import java.util.stream.StreamSupport;
 
 import static API.Helper.*;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.*;
-import static SQL.AdvertSQL.*;
+import static Helper.Auth.authKeyAdmin;
+import static SQL.AdvertSQL.getFrequentValueFromBDNotNull;
 
 /***
  Тест проверяет работу API методов
  - get, add/edit, delete, проверка
  во вкладке Адверт - "Primary Info"
- //TODO: 100% Done
+ //TODO: 0% Done
  */
 
-public class AdvertPrimaryInfoAPI {
+public class AdvertPrimaryInfoShortFormAPINEEDTODOO {
     static int advertId;
 
     @Test
     public static void test() throws Exception {
 
-        authApi(103);
         Allure.step("Добавляем Адверта");
         AdvertPrimaryInfo advertPrimaryInfoAdd = primaryInfoAddEdit(false);
         advertId = advertPrimaryInfoAdd.getAdvertId();
@@ -113,7 +112,7 @@ public class AdvertPrimaryInfoAPI {
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", KEY)
+                .header("Authorization", authKeyAdmin)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -142,7 +141,7 @@ public class AdvertPrimaryInfoAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", KEY)
+                .header("Authorization", authKeyAdmin)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get(URL + "/advert/" + advertId);
