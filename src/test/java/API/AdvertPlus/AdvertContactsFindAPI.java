@@ -40,15 +40,18 @@ import static io.restassured.RestAssured.given;
 
 public class AdvertContactsFindAPI {
 
-    static Map<String, String> headers = Map.of(
-            "Authorization", KEY,
-            "Accept", "application/json",
-            "Content-Type", "application/json"
-    );
+    static Map<String, String> headers;
 
     @Test
     public static void test() throws Exception {
         authApi(103);
+
+        headers =  Map.of(
+                "Authorization", KEY,
+                "Accept", "application/json",
+                "Content-Type", "application/json"
+        );
+
         SoftAssert softAssert = new SoftAssert();
         Allure.step("1) Проверки каждого поля отдельно");
         System.out.println("1) Проверки каждого поля отдельно");
