@@ -40,6 +40,7 @@ public class FeedBackTaskAPIActions {
     @Test
     public static void copyAction() throws Exception {
         Integer userId = getRandomUserId();
+        System.out.println(userId);
         authApi(userId);
         taskId = Integer.parseInt(getRandomValueFromBDWhereNull("id", "task", "deleted_at"));
 
@@ -63,7 +64,7 @@ public class FeedBackTaskAPIActions {
     public static void inProgressAction() throws Exception {
         // если статус таски InProgress(+), Resolved(+) ожидаем ошибку
         Integer userId = 103;
-        taskId = Integer.parseInt(getRandomValueFromBDWhere("id", "task", "assigne_id", String.valueOf(userId)));
+        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
 
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
@@ -78,7 +79,7 @@ public class FeedBackTaskAPIActions {
 
         FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, taskId);
         feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
-        //feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
+        // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
         // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
     }
 
@@ -86,7 +87,7 @@ public class FeedBackTaskAPIActions {
     public static void requestAdditionalInfoAction() throws Exception {
         // рандом если статус Additional info required (+), Resolved(+) ожидаем ошибку
         Integer userId = 103;
-        taskId = Integer.parseInt(getRandomValueFromBDWhere("id", "task", "assigne_id", String.valueOf(userId)));
+        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
 
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
@@ -109,7 +110,7 @@ public class FeedBackTaskAPIActions {
     public static void postponeAction() throws Exception {
         // рандом если статус Postpone(+), Resolved(+) ожидаем ошибку
         Integer userId = 103;
-        taskId = Integer.parseInt(getRandomValueFromBDWhere("id", "task", "assigne_id", String.valueOf(userId)));
+        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
         // Доступно только для Assignee и Requester. Доступен во всех статусах кроме Postponed, Resolved
@@ -130,7 +131,7 @@ public class FeedBackTaskAPIActions {
         // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
         // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
 
-        taskId = Integer.parseInt(getRandomValueFromBDWhere("id", "task", "requester_id", String.valueOf(userId)));
+        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "requester_id", String.valueOf(userId)));
         System.out.println(taskId);
         feedBackTaskEdited = new FeedBackTask(taskId);
         Allure.step("Меняем статус на Postpone у Task id=" + taskId);
@@ -148,8 +149,7 @@ public class FeedBackTaskAPIActions {
     public static void completeAction() throws Exception {
         // рандом если статус Resolved(+) ожидаем ошибку
         Integer userId = 103;
-        taskId = 79;
-        Integer.parseInt(getRandomValueFromBDWhere("id", "task", "requester_id", String.valueOf(userId)));
+        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "requester_id", String.valueOf(userId)));
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
         // Доступно только для Requester. Доступен во всех статусах кроме Resolved
@@ -167,7 +167,7 @@ public class FeedBackTaskAPIActions {
     @Test //(dependsOnMethods = "requestAdditionalInfoAction", alwaysRun = true)
     public static void updateAction() throws Exception {
         Integer userId = 55;
-        taskId = 85; //Integer.parseInt(getRandomValueFromBDWhere("id", "task", "assigne_id", String.valueOf(userId)));
+        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
 
@@ -177,9 +177,8 @@ public class FeedBackTaskAPIActions {
         // String notes = generateName(30, TASK_WORDS);
         // List<Integer> watchers = new ArrayList<>();
         List<Integer> watchers = getSomeValuesFromBDWhere("id", "admin", "status", "enabled", 5).stream().map(Integer::valueOf).collect(Collectors.toList());
-        List<Integer> tags = new ArrayList<>();
-
-        //List<Integer> tags = getSomeValuesFromBD("id", "task_tag", 5).stream().map(Integer::valueOf).collect(Collectors.toList());
+        // List<Integer> tags = new ArrayList<>();
+        List<Integer> tags = getSomeValuesFromBD("id", "task_tag", 5).stream().map(Integer::valueOf).collect(Collectors.toList());
 
         Allure.step("Меняем статус на Conditions updated у Task id=" + taskId);
         feedBackRequestUpdate(feedBackTaskEdited.getStatus(), notes, watchers, tags);
@@ -219,8 +218,8 @@ public class FeedBackTaskAPIActions {
         String responseBody = response.getBody().asString();
         System.out.println(responseBody);
         if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("progress")) {
-            System.out.println("Текущий статус изменить нельзя " + feedBackTaskStatus);
-            Allure.step("Текущий статус изменить нельзя " + feedBackTaskStatus);
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
@@ -259,8 +258,8 @@ public class FeedBackTaskAPIActions {
         System.out.println(responseBody);
 
         if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("additional_info_required")) {
-            System.out.println("Текущий статус изменить нельзя " + feedBackTaskStatus);
-            Allure.step("Текущий статус изменить нельзя " + feedBackTaskStatus);
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
@@ -278,8 +277,8 @@ public class FeedBackTaskAPIActions {
         String responseBody = response.getBody().asString();
         System.out.println(responseBody);
         if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("postponed")) {
-            System.out.println("Текущий статус изменить нельзя " + feedBackTaskStatus);
-            Allure.step("Текущий статус изменить нельзя " + feedBackTaskStatus);
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
@@ -293,8 +292,8 @@ public class FeedBackTaskAPIActions {
         String responseBody = response.getBody().asString();
         System.out.println(responseBody);
         if (feedBackTaskStatus.equals("resolved")) {
-            System.out.println("Текущий статус изменить нельзя " + feedBackTaskStatus);
-            Allure.step("Текущий статус изменить нельзя " + feedBackTaskStatus);
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
@@ -325,8 +324,8 @@ public class FeedBackTaskAPIActions {
         String responseBody = response.getBody().asString();
         System.out.println(responseBody);
         if (feedBackTaskStatus.equals("resolved")) {
-            System.out.println("Текущий статус изменить нельзя " + feedBackTaskStatus);
-            Allure.step("Текущий статус изменить нельзя " + feedBackTaskStatus);
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }

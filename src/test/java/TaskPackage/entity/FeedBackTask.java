@@ -1,5 +1,7 @@
 package TaskPackage.entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,8 +53,11 @@ public class FeedBackTask {
 
         this.notes = getValueFromBDWhere("notes", "task",
                 "id", String.valueOf(taskId));
-        this.dueDate = getValueFromBDWhere("due_date", "task",
+        String dateTimeString = getValueFromBDWhere("due_date", "task",
                 "id", String.valueOf(taskId));
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.dueDate  = dateTime.format(dateFormatter);
 
         this.taskTag = getArrayFromBDWhere("tag_id", "task_tag_relation", "task_id", String.valueOf(taskId))
                 .stream().map(Integer::valueOf).collect(Collectors.toList());

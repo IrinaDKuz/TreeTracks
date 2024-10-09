@@ -88,7 +88,7 @@ public class Tasks {
         // Получаем текущее время
         Calendar calendar = Calendar.getInstance();
         // Форматируем дату в нужный формат
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(calendar.getTime());
     }
 
@@ -98,14 +98,8 @@ public class Tasks {
         // Добавляем 3 дня к текущей дате
         calendar.add(Calendar.DATE, n);
 
-        // Устанавливаем время на 00:00:00
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
         // Форматируем дату в нужный формат
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(calendar.getTime());
     }
 

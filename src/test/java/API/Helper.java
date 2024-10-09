@@ -123,7 +123,7 @@ public class Helper {
 
     public static void assertSoftDelete(String id, String tableName) throws Exception {
         String value = getValueFromBDWhere("deleted_at", tableName, "id", id);
-        Assert.assertFalse(value.isBlank());
+        Assert.assertNotEquals(value, "null");
     }
 
 

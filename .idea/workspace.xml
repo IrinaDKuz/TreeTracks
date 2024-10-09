@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="50f94cd9-12de-4a6c-a44c-165684b41317" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPIActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPIActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Tasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Tasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +87,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FeedBackTaskAPIActions.inProgressAction" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="API.Task.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="API.Task" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
+      <option name="METHOD_NAME" value="inProgressAction" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FeedBackTaskAPIActions.postponeAction" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
@@ -92,6 +116,24 @@
       <option name="PACKAGE_NAME" value="API.Task" />
       <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
       <option name="METHOD_NAME" value="postponeAction" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FeedBackTaskAPIActions.requestAdditionalInfoAction" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="API.Task.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="API.Task" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
+      <option name="METHOD_NAME" value="requestAdditionalInfoAction" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -117,48 +159,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FeedBackTaskAPI.test" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="API.Task.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPI" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskMessengerAPI" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="API.Task.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.TaskMessengerAPI" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="TestNG.FeedBackTaskAPIActions.updateAction" />
         <item itemvalue="TestNG.FeedBackTaskAPIActions.completeAction" />
-        <item itemvalue="TestNG.TaskMessengerAPI" />
-        <item itemvalue="TestNG.FeedBackTaskAPI.test" />
         <item itemvalue="TestNG.FeedBackTaskAPIActions.postponeAction" />
+        <item itemvalue="TestNG.FeedBackTaskAPIActions.requestAdditionalInfoAction" />
+        <item itemvalue="TestNG.FeedBackTaskAPIActions.inProgressAction" />
       </list>
     </recent_temporary>
   </component>
@@ -174,6 +181,19 @@
     <servers />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPIActions.java</url>
+          <line>63</line>
+          <properties class="API.Task.FeedBackTaskAPIActions" method="inProgressAction">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="AdvertPackage.entity.AdvertPrimaryInfo" memberName="company" />

@@ -198,6 +198,13 @@ public class AdvertSQL {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public static String getRandomValueFromBDWhereAndNotSoftDelete(String parameter, String tableName,
+                                                                   String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = " + escapeSql(whereValue) + " AND deleted_at IS NULL;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
     public static String getRandomValueFromBDWhereMore(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " > " + escapeSql(whereValue) + " ;";
         List<String> list = sqlQueryList(sqlRequest, parameter);

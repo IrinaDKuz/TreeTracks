@@ -59,7 +59,7 @@ public class FeedBackTaskAPI {
         feedBackTaskAssert(feedBackTaskEdit, feedBackTaskGet(false, taskId));
 
         Allure.step("Выполняем soft delete FeedBack Task id=" + taskId);
-       // deleteMethod("task", String.valueOf(taskId));
+        // deleteMethod("task", String.valueOf(taskId));
         assertSoftDelete(String.valueOf(taskId), "task");
     }
 
@@ -68,7 +68,7 @@ public class FeedBackTaskAPI {
         JsonObject taskObject = new JsonObject();
         taskObject.addProperty("status", feedBackTask.getStatus());
         //  taskObject.addProperty("type", feedBackTask.getType());
-        // taskObject.addProperty("requesterId", feedBackTask.getRequesterId());
+        //  taskObject.addProperty("requesterId", feedBackTask.getRequesterId());
         taskObject.addProperty("assigner", feedBackTask.getAssigneeId());
         //   taskObject.addProperty("advertId", feedBackTask.getAdvertId());
         taskObject.addProperty("offerId", feedBackTask.getOfferId());
@@ -86,8 +86,6 @@ public class FeedBackTaskAPI {
         JsonArray tagArray = new JsonArray();
         tagList.forEach(tagArray::add);
         taskObject.add("tags", tagArray);
-
-        // jsonObject.add("advert", taskObject);
         return taskObject;
     }
 
@@ -164,12 +162,7 @@ public class FeedBackTaskAPI {
 
         feedBackTaskGet.setNotes(info.isNull("notes") ? null : info.getString("notes"));
 
-        String expectedDate = info.getString("dueDate");
-        OffsetDateTime offsetDateTime = OffsetDateTime.parse(expectedDate);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = offsetDateTime.format(formatter);
-
-        feedBackTaskGet.setDueDate(formattedDate);
+        feedBackTaskGet.setDueDate(info.getString("dueDate"));
 
         if (info.get("watcher") instanceof JSONArray) {
             JSONArray watcherArray = info.getJSONArray("watcher");
@@ -204,18 +197,7 @@ public class FeedBackTaskAPI {
         softAssert.assertEquals(feedBackTask.getAdvertId(), feedBackTaskGet.getAdvertId());
         softAssert.assertEquals(feedBackTask.getOfferId(), feedBackTaskGet.getOfferId());
         softAssert.assertEquals(feedBackTask.getAffiliateId(), feedBackTaskGet.getAffiliateId());
-
-        // softAssert.assertEquals(feedBackTask.getNotes(), feedBackTaskGet.getNotes());
-        System.out.println(feedBackTask.getDueDate());
-        System.out.println(feedBackTaskGet.getDueDate());
-        System.out.println("ПРОВЕРКА ДАТ ОТКЛЮЧЕНА!!!");
-
-/*        LocalDateTime dateTime1 = LocalDateTime.parse(feedBackTask.getDueDate());
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime2 = LocalDateTime.parse(feedBackTaskGet.getDueDate(), formatter);
-
-        softAssert.assertEquals(dateTime1, dateTime2);*/
+        softAssert.assertEquals(feedBackTask.getDueDate(), feedBackTaskGet.getDueDate());
 
         List<Integer> tags = feedBackTask.getTaskTag();
         List<Integer> tagsEdit = feedBackTaskGet.getTaskTag();
