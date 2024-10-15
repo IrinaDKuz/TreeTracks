@@ -2,6 +2,8 @@ package API;
 
 import OfferDraftPackage.entity.OfferBasicInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -28,7 +30,7 @@ public class Helper {
 
     public static final String[] LANG = {"eng", "rus"};
 
-   // public static final String URL = "https://api.newx.3tracks.online";
+    // public static final String URL = "https://api.newx.3tracks.online";
     public static final String URL = "https://api.admin.3tracks.link";
 
 
@@ -74,10 +76,15 @@ public class Helper {
         Integer value;
         if (!data.isNull(parameterName)) {
             JSONObject offer = data.getJSONObject(parameterName);
-            return(offer.isNull("value") ? null : offer.getInt("value"));
+            return (offer.isNull("value") ? null : offer.getInt("value"));
         } else {
             return null;
         }
+    }
+
+    public static String getValueFromJsonByKey(String jsonString, String keyName) {
+        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+        return jsonObject.get(keyName).getAsString();
     }
 
     public static OfferBasicInfo.OfferTemplate getTemplateFromJson(JSONObject data, String parameterName) {
@@ -113,8 +120,7 @@ public class Helper {
         if (isDelete) {
             Allure.step("id=" + id + " не найден в БД " + tableName);
             System.out.println("id=" + id + " не найден в БД " + tableName);
-        }
-        else {
+        } else {
             Allure.step("id=" + id + " найден в БД " + tableName);
             System.out.println("id=" + id + " найден в БД " + tableName);
         }

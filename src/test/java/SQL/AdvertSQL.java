@@ -84,6 +84,11 @@ public class AdvertSQL {
         return sqlQueryList(sqlRequest, parameter);
     }
 
+    public static List<String> getRandomValueFromBDWhereAnd(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "));
+        return sqlQueryList(sqlRequest, parameter);
+    }
+
     public static List<String> getArrayFromBDWhereOr(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
         String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" OR "));
         return sqlQueryList(sqlRequest, parameter);
@@ -198,9 +203,26 @@ public class AdvertSQL {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public static String getRandomTaskFromBDWhereNull(String parameter, String tableName, String type, String where) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE type = '" + type + "' AND " + where + " IS NULL;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+
     public static String getRandomValueFromBDWhereAndNotSoftDelete(String parameter, String tableName,
                                                                    String where, String whereValue) throws Exception {
-        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = " + escapeSql(whereValue) + " AND deleted_at IS NULL;";
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) + "' AND deleted_at IS NULL;";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+
+    public static String getRandomTaskFromBDWhereAndNotSoftDelete(String parameter, String tableName,
+                                                                   String type,
+                                                                   String where, String whereValue) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) +
+                "' AND type = '" + type + "' AND deleted_at IS NULL;";
         List<String> list = sqlQueryList(sqlRequest, parameter);
         return list.get(new Random().nextInt(list.size()));
     }

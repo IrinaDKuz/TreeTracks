@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+
+<suite name="Task Test Suite">
+
+<!--    <test verbose="2" preserve-order="true" name="Task general API test">
+        <parameter name="taskTypeParameter" value="general"/>
+        <classes>
+            <class name="API.Task.GeneralTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/>
+            <class name="API.Task.TaskAPIActions"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Task feedback API test">
+        <parameter name="taskTypeParameter" value="feedback"/>
+        <classes>
+            <class name="API.Task.FeedBackTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/>
+            <class name="API.Task.TaskAPIActions"/>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Task conditions_review API test">
+        <parameter name="taskTypeParameter" value="conditions_review"/>
+        <classes>
+            <class name="API.Task.ConditionsReviewTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/>
+            <class name="API.Task.TaskAPIActions"/>
+        </classes>
+    </test>-->
+
+    <test verbose="2" preserve-order="true" name="Task test_conversion API test">
+        <parameter name="taskTypeParameter" value="test_conversion"/>
+        <classes>
+            <class name="API.Task.TestConversionTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/>
+            <class name="API.Task.TaskAPIActions"/>
+        </classes>
+    </test>
+
+
+</suite>

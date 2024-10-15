@@ -2,19 +2,19 @@ package TaskPackage.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
-import static Helper.Adverts.*;
-import static Helper.GeoAndLang.getKeyFromValue;
+import static API.Helper.getValueFromJsonByKey;
+import static Helper.Adverts.generateName;
 import static Helper.GeoAndLang.getRandomKey;
-import static Helper.GeoAndLang.*;
 import static Helper.Tasks.*;
 import static SQL.AdvertSQL.*;
 
-public class FeedBackTask {
+public class GeneralTask {
 
     Integer taskId;
+    String title;
 
     String status;
     String type;
@@ -28,13 +28,15 @@ public class FeedBackTask {
     Integer offerId;
     Integer affiliateId;
 
-    String notes;
+    String description;
     String dueDate;
 
-    public FeedBackTask() {
+    public GeneralTask() {
     }
 
-    public FeedBackTask(Integer taskId) throws Exception {
+    public GeneralTask(Integer taskId) throws Exception {
+        this.title = getValueFromJsonByKey(getValueFromBDWhere("data", "task",
+                "id", String.valueOf(taskId)), "title");
         this.status = getValueFromBDWhere("status", "task", "id", String.valueOf(taskId));
         this.type = getValueFromBDWhere("type", "task", "id", String.valueOf(taskId));
 
@@ -44,14 +46,19 @@ public class FeedBackTask {
         this.assigneeId = Integer.parseInt(getValueFromBDWhere("assigne_id", "task",
                 "id", String.valueOf(taskId)));
 
-        this.offerId = Integer.parseInt(getValueFromBDWhere("offer_id", "task",
-                "id", String.valueOf(taskId)));
-        this.advertId = Integer.parseInt(getValueFromBDWhere("advert_id", "task",
-                "id", String.valueOf(taskId)));
-        this.affiliateId = Integer.parseInt(getValueFromBDWhere("affiliate_id", "task",
-                "id", String.valueOf(taskId)));
 
-        this.notes = getValueFromBDWhere("notes", "task",
+        String offerIdString = getValueFromBDWhere("offer_id", "task", "id", String.valueOf(taskId));
+        this.offerId = offerIdString.equals("null") ? null : Integer.parseInt(offerIdString);
+
+        String advertIdString = getValueFromBDWhere("advert_id", "task",
+                "id", String.valueOf(taskId));
+        this.advertId = advertIdString.equals("null") ? null : Integer.parseInt(advertIdString);
+
+        String affiliateIdString = getValueFromBDWhere("affiliate_id", "task",
+                "id", String.valueOf(taskId));
+        this.affiliateId = affiliateIdString.equals("null") ? null : Integer.parseInt(affiliateIdString);
+
+        this.description = getValueFromBDWhere("notes", "task",
                 "id", String.valueOf(taskId));
         String dateTimeString = getValueFromBDWhere("due_date", "task",
                 "id", String.valueOf(taskId));
@@ -66,10 +73,9 @@ public class FeedBackTask {
                 .stream().map(Integer::valueOf).collect(Collectors.toList());
     }
 
-
     public void fillTaskWithRandomData() throws Exception {
+        this.title = generateName(4, TASK_WORDS);
         this.status = getRandomKey(TASKS_STATUS_MAP);
-
         this.taskTag = getSomeValuesFromBD("id", "task_tag", 5)
                 .stream().map(Integer::valueOf).collect(Collectors.toList());
 
@@ -77,26 +83,25 @@ public class FeedBackTask {
         this.assigneeId = Integer.valueOf(getRandomValueFromBDWhere("id", "admin", "status", "enabled"));
         this.taskWatchers = getSomeValuesFromBDWhere("id", "admin", "status", "enabled", 5)
                 .stream().map(Integer::valueOf).collect(Collectors.toList());
-
         this.offerId = Integer.valueOf(getRandomValueFromBD("id", "offer"));
         this.advertId = Integer.valueOf(getValueFromBDWhere("advert_id", "offer", "id", this.offerId.toString()));
         this.affiliateId = Integer.valueOf(getRandomValueFromBD("id", "affiliate"));
-
-        this.notes = generateName(30, TASK_WORDS);
+        this.description = generateName(30, TASK_WORDS);
         this.dueDate = generateDueDate();
     }
 
 
-    public void fillFeedBackTaskWithRandomData() throws Exception {
-        this.type = "feedback";
+    public void fillGeneralTaskWithRandomData() throws Exception {
+        this.type = "general";
         fillTaskWithRandomData();
     }
 
 
-    public void fillConditionsReviewTaskWithRandomData() throws Exception {
-        this.type = "conditions_review";
+    public void fillTestConversionTaskWithRandomData() throws Exception {
+        this.type = "test_conversion";
         fillTaskWithRandomData();
     }
+
 
     public Integer getTaskId() {
         return taskId;
@@ -178,12 +183,20 @@ public class FeedBackTask {
         this.affiliateId = affiliateId;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setDescription(String notes) {
+        this.description = notes;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDueDate() {

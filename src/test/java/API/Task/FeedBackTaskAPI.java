@@ -1,6 +1,7 @@
 package API.Task;
 
 import TaskPackage.entity.FeedBackTask;
+import TaskPackage.entity.GeneralTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -14,10 +15,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -63,8 +60,7 @@ public class FeedBackTaskAPI {
         assertSoftDelete(String.valueOf(taskId), "task");
     }
 
-    private static JsonObject initializeJsonFeedBackTaskInfo(FeedBackTask feedBackTask) {
- 
+    public static JsonObject initializeJsonFeedBackTaskInfo(FeedBackTask feedBackTask) {
         JsonObject taskObject = new JsonObject();
         taskObject.addProperty("status", feedBackTask.getStatus());
         //  taskObject.addProperty("type", feedBackTask.getType());
@@ -198,6 +194,7 @@ public class FeedBackTaskAPI {
         softAssert.assertEquals(feedBackTask.getOfferId(), feedBackTaskGet.getOfferId());
         softAssert.assertEquals(feedBackTask.getAffiliateId(), feedBackTaskGet.getAffiliateId());
         softAssert.assertEquals(feedBackTask.getDueDate(), feedBackTaskGet.getDueDate());
+        softAssert.assertEquals(feedBackTask.getNotes(), feedBackTaskGet.getNotes());
 
         List<Integer> tags = feedBackTask.getTaskTag();
         List<Integer> tagsEdit = feedBackTaskGet.getTaskTag();

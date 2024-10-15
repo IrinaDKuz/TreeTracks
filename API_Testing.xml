@@ -75,7 +75,7 @@
         <classes>
             <class name="API.Task.FeedBackTaskAPI"/>
             <class name="API.Task.TaskFilterAPI"/>
-            <class name="API.Task.FeedBackTaskAPIActions"/>
+            <class name="API.Task.TaskAPIActions"/>
             <class name="API.Task.TaskMessengerAPI"/>
 
         </classes>

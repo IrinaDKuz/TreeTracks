@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50f94cd9-12de-4a6c-a44c-165684b41317" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Task_API_Testing.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/ConditionsReviewTaskAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/GeneralTaskAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/TestConversionTaskAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/GeneralTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/API_Testing.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Helper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPIActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPIActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Tasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Tasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPIActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/TaskFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskFilterAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/TaskMessengerAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskMessengerAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/TaskMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/TaskMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,10 +46,13 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/Task_API_Testing.xml.executor": "Run",
     "TestNG.AdvertDoubleContactsAPI.executor": "Run",
     "TestNG.AdvertFilterAPI.executor": "Run",
     "TestNG.AdvertPaymentInfoAPI.executor": "Run",
     "TestNG.AdvertPostbackAPI.executor": "Run",
+    "TestNG.ConditionsReviewTaskAPI.executor": "Run",
+    "TestNG.ConditionsReviewTaskAPI.test.executor": "Run",
     "TestNG.FeedBackTaskAPI.executor": "Run",
     "TestNG.FeedBackTaskAPI.test.executor": "Run",
     "TestNG.FeedBackTaskAPIActions.InProgressAction.executor": "Run",
@@ -52,24 +64,33 @@
     "TestNG.FeedBackTaskAPIActions.requestAdditionalInfoAction.executor": "Run",
     "TestNG.FeedBackTaskAPIActions.updateAction.executor": "Run",
     "TestNG.FeedBackTaskAPIStatus.executor": "Run",
+    "TestNG.GeneralTaskAPI.executor": "Run",
+    "TestNG.GeneralTaskAPI.test.executor": "Debug",
     "TestNG.OfferMainBasicInfoAPI.executor": "Run",
+    "TestNG.TaskAPIActions.copyAction.executor": "Run",
+    "TestNG.TaskAPIActions.inProgressAction.executor": "Run",
     "TestNG.TaskMessengerAPI.executor": "Run",
     "TestNG.TaskMessengerAPI.newMessageTest.executor": "Run",
     "TestNG.TaskMessengerAPI.newPinMessageTest.executor": "Run",
     "TestNG.TaskMessengerAPI.taskMessagePin.executor": "Run",
+    "TestNG.TestConversionTaskAPI.executor": "Run",
     "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/irina/IdeaProjects/TreeTracks"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="API.Advert" />
       <recent name="API.Task" />
       <recent name="TaskPackage.entity" />
+      <recent name="API.Advert" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.FeedBackTaskAPIActions.updateAction">
-    <configuration name="FeedBackTaskAPIActions.completeAction" type="TestNG" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="ConditionsReviewTaskAPI" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
@@ -78,8 +99,42 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
-      <option name="METHOD_NAME" value="completeAction" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.ConditionsReviewTaskAPI" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GeneralTaskAPI" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="API.Task.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="API.Task" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.GeneralTaskAPI" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GeneralTaskAPI.test" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TreeTracks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="API.Task.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="API.Task" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.GeneralTaskAPI" />
+      <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -87,7 +142,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FeedBackTaskAPIActions.inProgressAction" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="TaskMessengerAPI" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
@@ -96,16 +151,15 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
-      <option name="METHOD_NAME" value="inProgressAction" />
-      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.TaskMessengerAPI" />
+      <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FeedBackTaskAPIActions.postponeAction" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="TestConversionTaskAPI" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
@@ -114,45 +168,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
-      <option name="METHOD_NAME" value="postponeAction" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FeedBackTaskAPIActions.requestAdditionalInfoAction" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="API.Task.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
-      <option name="METHOD_NAME" value="requestAdditionalInfoAction" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FeedBackTaskAPIActions.updateAction" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TreeTracks" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="API.Task.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.FeedBackTaskAPIActions" />
-      <option name="METHOD_NAME" value="updateAction" />
-      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.TestConversionTaskAPI" />
+      <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
       <method v="2">
@@ -161,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.FeedBackTaskAPIActions.updateAction" />
-        <item itemvalue="TestNG.FeedBackTaskAPIActions.completeAction" />
-        <item itemvalue="TestNG.FeedBackTaskAPIActions.postponeAction" />
-        <item itemvalue="TestNG.FeedBackTaskAPIActions.requestAdditionalInfoAction" />
-        <item itemvalue="TestNG.FeedBackTaskAPIActions.inProgressAction" />
+        <item itemvalue="TestNG.TaskMessengerAPI" />
+        <item itemvalue="TestNG.ConditionsReviewTaskAPI" />
+        <item itemvalue="TestNG.GeneralTaskAPI" />
+        <item itemvalue="TestNG.TestConversionTaskAPI" />
+        <item itemvalue="TestNG.GeneralTaskAPI.test" />
       </list>
     </recent_temporary>
   </component>
@@ -184,13 +201,37 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPIActions.java</url>
-          <line>63</line>
-          <properties class="API.Task.FeedBackTaskAPIActions" method="inProgressAction">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
+          <line>64</line>
+          <properties class="API.Task.TaskAPIActions">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskMessengerAPI.java</url>
+          <line>127</line>
+          <properties class="API.Task.TaskMessengerAPI" method="taskMessageAdd">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/GeneralTaskAPI.java</url>
+          <line>190</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/GeneralTaskAPI.java</url>
+          <line>191</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/GeneralTaskAPI.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

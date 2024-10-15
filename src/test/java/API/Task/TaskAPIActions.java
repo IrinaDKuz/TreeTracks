@@ -1,6 +1,7 @@
 package API.Task;
 
 import TaskPackage.entity.FeedBackTask;
+import TaskPackage.entity.GeneralTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Allure;
@@ -8,12 +9,12 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 import static API.Helper.*;
 import static API.Task.FeedBackTaskAPI.feedBackTaskAssert;
 import static API.Task.FeedBackTaskAPI.feedBackTaskGet;
+import static API.Task.GeneralTaskAPI.generalTaskAssert;
+import static API.Task.GeneralTaskAPI.generalTaskGet;
 import static Helper.Adverts.generateName;
 import static Helper.Auth.*;
 import static Helper.Tasks.*;
@@ -34,60 +37,108 @@ import static SQL.AdvertSQL.*;
  //TODO: остальные actions и message
  */
 
-public class FeedBackTaskAPIActions {
+public class TaskAPIActions {
     static int taskId;
+    static String taskType;
+    // static String taskType = "conditions_review";
+    // static String taskType = "general";
+
 
     @Test
-    public static void copyAction() throws Exception {
+    @Parameters({"taskTypeParameter"})
+
+    public static void copyAction(String taskTypeParameter) throws Exception {
+        taskType = taskTypeParameter;
         Integer userId = getRandomUserId();
-        System.out.println(userId);
         authApi(userId);
-        taskId = Integer.parseInt(getRandomValueFromBDWhereNull("id", "task", "deleted_at"));
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereNull("id", "task", taskType, "deleted_at"));
 
         // Доступно для всех. Доступен во всех статусах
         Allure.step("Копируем таску Task id=" + taskId);
         copyTask();
-        FeedBackTask feedBackTaskCopy = new FeedBackTask(taskId);
-        feedBackTaskCopy.setStatus("draft");
-        feedBackTaskCopy.setRequesterId(userId);
-        feedBackTaskCopy.setDueDate(generateDueDatePlusNDays(3));
+        
+        GeneralTask generalTaskCopy = null;
+        if (taskType.equals("general")) {
+            generalTaskCopy = new GeneralTask(taskId);
+            generalTaskCopy.setStatus("draft");
+            generalTaskCopy.setRequesterId(userId);
+            generalTaskCopy.setDueDate(generateDueDatePlusNDays(3));
+        }
 
+        FeedBackTask feedBackTaskCopy = null;
+        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
+            feedBackTaskCopy = new FeedBackTask(taskId);
+            feedBackTaskCopy.setStatus("draft");
+            feedBackTaskCopy.setRequesterId(userId);
+            feedBackTaskCopy.setDueDate(generateDueDatePlusNDays(3));
+        }
+        
         Integer actualTaskId = Integer.valueOf(getLastValueFromBD("id", "task"));
         System.out.println(actualTaskId);
         Allure.step("id новой таски: " + actualTaskId);
 
-        FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, actualTaskId);
-        feedBackTaskAssert(feedBackTaskCopy, feedBackTaskCopyActual);
+        if (taskType.equals("general")) {
+            GeneralTask generalTaskCopyActual = generalTaskGet(true, actualTaskId);
+            generalTaskAssert(generalTaskCopy, generalTaskCopyActual);
+
+        }
+        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
+            FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, actualTaskId);
+            feedBackTaskAssert(feedBackTaskCopy, feedBackTaskCopyActual);
+        }
     }
 
-    @Test //(dependsOnMethods = "copyAction", alwaysRun = true)
+    @Test (dependsOnMethods = "copyAction", alwaysRun = true)
     public static void inProgressAction() throws Exception {
         // если статус таски InProgress(+), Resolved(+) ожидаем ошибку
-        Integer userId = 103;
-        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
+        Integer userId = getRandomUserId();
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "assigne_id", String.valueOf(userId)));
 
         System.out.println(taskId);
-        FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
+
+        GeneralTask generalTaskEdited = null;
+        if (taskType.equals("general")) {
+            generalTaskEdited = new GeneralTask(taskId);
+        }
+
+        FeedBackTask feedBackTaskEdited = null;
+        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
+            feedBackTaskEdited = new FeedBackTask(taskId);
+        }
 
         // Доступно только для Assignee (Assignee(+) и рандомный (+)). Доступен во всех статусах кроме InProgress, Resolved
         // Проверяем только для Assignee
         authApi(userId);
 
         Allure.step("Меняем статус на InProgress у Task id=" + taskId);
-        feedBackInProgress(feedBackTaskEdited.getStatus());
-        feedBackTaskEdited.setStatus("progress");
 
-        FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, taskId);
-        feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
+        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
+            feedBackInProgress(feedBackTaskEdited.getStatus());
+            feedBackTaskEdited.setStatus("progress");
+
+            FeedBackTask feedBackTaskActual = feedBackTaskGet(true, taskId);
+            feedBackTaskAssert(feedBackTaskEdited, feedBackTaskActual);
+        }
+
+        if (taskType.equals("general")) {
+            feedBackInProgress(generalTaskEdited.getStatus());
+            generalTaskEdited.setStatus("progress");
+
+            GeneralTask generalTaskActual = generalTaskGet(true, taskId);
+            generalTaskAssert(generalTaskEdited, generalTaskActual);
+
+        }
         // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
         // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
     }
 
-    @Test //(dependsOnMethods = "inProgressAction", alwaysRun = true)
+    @Test (dependsOnMethods = "inProgressAction", alwaysRun = true)
     public static void requestAdditionalInfoAction() throws Exception {
         // рандом если статус Additional info required (+), Resolved(+) ожидаем ошибку
-        Integer userId = 103;
-        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
+        Integer userId = getRandomUserId();
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "assigne_id", String.valueOf(userId)));
 
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
@@ -106,11 +157,12 @@ public class FeedBackTaskAPIActions {
         // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
     }
 
-    @Test //(dependsOnMethods = "requestAdditionalInfoAction", alwaysRun = true)
+    @Test (dependsOnMethods = "requestAdditionalInfoAction", alwaysRun = true)
     public static void postponeAction() throws Exception {
         // рандом если статус Postpone(+), Resolved(+) ожидаем ошибку
-        Integer userId = 103;
-        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
+        Integer userId = getRandomUserId();
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "assigne_id", String.valueOf(userId)));
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
         // Доступно только для Assignee и Requester. Доступен во всех статусах кроме Postponed, Resolved
@@ -131,7 +183,8 @@ public class FeedBackTaskAPIActions {
         // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
         // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
 
-        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "requester_id", String.valueOf(userId)));
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "requester_id", String.valueOf(userId)));
         System.out.println(taskId);
         feedBackTaskEdited = new FeedBackTask(taskId);
         Allure.step("Меняем статус на Postpone у Task id=" + taskId);
@@ -145,11 +198,12 @@ public class FeedBackTaskAPIActions {
         feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
     }
 
-    @Test //(dependsOnMethods = "postponeAction", alwaysRun = true)
+    @Test (dependsOnMethods = "postponeAction", alwaysRun = true)
     public static void completeAction() throws Exception {
         // рандом если статус Resolved(+) ожидаем ошибку
-        Integer userId = 103;
-        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "requester_id", String.valueOf(userId)));
+        Integer userId = getRandomUserId();
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "requester_id", String.valueOf(userId)));
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
         // Доступно только для Requester. Доступен во всех статусах кроме Resolved
@@ -164,10 +218,11 @@ public class FeedBackTaskAPIActions {
         feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
     }
 
-    @Test //(dependsOnMethods = "requestAdditionalInfoAction", alwaysRun = true)
+    @Test (dependsOnMethods = "requestAdditionalInfoAction", alwaysRun = true)
     public static void updateAction() throws Exception {
-        Integer userId = 55;
-        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task", "assigne_id", String.valueOf(userId)));
+        Integer userId = getRandomUserId();
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "assigne_id", String.valueOf(userId)));
         System.out.println(taskId);
         FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
 

@@ -60,16 +60,6 @@ public class Auth {
                 put("email", "petrpetrovpp2024@gmail.com");
                 put("password", "password");
             }});
-
-
-
-            put(56, new HashMap<>() {{
-                put("email", "Betsy.Veum12@hotmail.com");
-                put("password", "password");
-            }});
-
-
-
         }};
 
     @Test
@@ -108,6 +98,8 @@ public class Auth {
 
 
     public static void authApi(Integer user) {
+        System.out.println(user);
+
         RestAssured.baseURI = "https://api.admin.3tracks.link";
         String email = USERS.get(user).get("email");
         String password = USERS.get(user).get("password");

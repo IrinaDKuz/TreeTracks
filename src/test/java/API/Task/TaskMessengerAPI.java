@@ -1,8 +1,5 @@
 package API.Task;
 
-import AdvertPackage.entity.AdvertNotes;
-import AdvertPackage.entity.AdvertPaymentInfo;
-import AdvertPackage.entity.AdvertRequisites;
 import TaskPackage.entity.TaskMessage;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -13,6 +10,7 @@ import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -22,7 +20,7 @@ import java.util.List;
 import static API.Helper.URL;
 import static Helper.AllureHelper.*;
 import static Helper.Auth.*;
-import static SQL.AdvertSQL.getRandomValueFromBDWhereNull;
+import static SQL.AdvertSQL.getRandomValueFromBDWhereAndNotSoftDelete;
 
 /***
  Тест проверяет работу API методов
@@ -33,89 +31,86 @@ import static SQL.AdvertSQL.getRandomValueFromBDWhereNull;
 
 public class TaskMessengerAPI {
     static int taskId;
-    static int userId;
     static int taskMessageId;
+    static String taskType;
 
+    // static String taskType = "conditions_review";
+   // static String taskType = "feedback";
 
     @Test
-    public static void newMessageTest() throws Exception {
-        userId = getRandomUserId();
-        authApi(userId);
-
-        taskId = Integer.parseInt(getRandomValueFromBDWhereNull("id", "task", "deleted_at"));
-
-        Allure.step("Добавляем Task message isReply = false");
-        TaskMessage taskMessage = new TaskMessage();
-        taskMessage.fillTaskMessageWithRandomData(taskId, userId);
-        taskMessage.setReplyId(null);
-
-        taskMessageAdd(taskMessage);
-        taskMessage.setTaskId(taskId);
-        taskMessage.setTaskMessageId(taskMessageId);
-
-        Allure.step(CHECK);
-        taskMessageAssert(taskMessage);
-
-        Allure.step("Получаем FeedBack Task id=" + taskId);
-        taskMessageGet(true);
+    @Parameters({"taskTypeParameter"})
+    public static void newMessageTest(String taskTypeParameter) throws Exception {
+        taskType = taskTypeParameter;
+        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task",
+              "type", taskType));
+        newMessage(taskId, false);
     }
 
     @Test(dependsOnMethods = "newMessageTest", alwaysRun = true)
     public static void newReplyMessageTest() throws Exception {
-        userId = getRandomUserId();
-        authApi(userId);
-        Allure.step("Добавляем Task message isReply = true");
-        TaskMessage taskMessage2 = new TaskMessage();
-        taskMessage2.fillTaskMessageWithRandomData(taskId, userId);
-
-        taskMessageAdd(taskMessage2);
-        taskMessage2.setTaskId(taskId);
-        taskMessage2.setTaskMessageId(taskMessageId);
-
-        Allure.step(CHECK);
-        taskMessageAssert(taskMessage2);
-
-        Allure.step("Получаем FeedBack Task id=" + taskId);
-        taskMessageGet(true);
+        newMessage(taskId, true);
     }
 
     @Test(dependsOnMethods = "newReplyMessageTest", alwaysRun = true)
     public static void newPinMessageTest() throws Exception {
-        userId = getRandomUserId();
-        authApi(userId);
-        Allure.step("Добавляем Task message isReply = false и pin");
-        TaskMessage taskMessage3 = new TaskMessage();
-        taskMessage3.fillTaskMessageWithRandomData(taskId, userId);
-        taskMessage3.setReplyId(null);
-
-        taskMessageAdd(taskMessage3);
-        taskMessage3.setTaskId(taskId);
-        taskMessage3.setTaskMessageId(taskMessageId);
-        taskMessage3.setPin(true);
-        taskMessagePin(taskMessage3);
-        Allure.step(CHECK);
-        taskMessageAssert(taskMessage3);
-        Allure.step("Получаем FeedBack Task id=" + taskId);
-        taskMessageGet(true);
+        newActionMessage(taskId, "pin");
     }
 
     @Test(dependsOnMethods = "newPinMessageTest", alwaysRun = true)
     public static void newFeedBackMessageTest() throws Exception {
-        userId = getRandomUserId();
+        newActionMessage(taskId, "feedback");
+    }
+
+    @Test(dependsOnMethods = "newFeedBackMessageTest", alwaysRun = true)
+    public static void newUpdatedConditionsMessageTest() throws Exception {
+        newActionMessage(taskId, "conditions_review");
+    }
+
+    public static void newActionMessage(int taskId, String action) throws Exception {
+        int userId = getRandomUserId();
         authApi(userId);
-        Allure.step("Добавляем Task message isReply = false и feedback");
+        Thread.sleep(2000);
+
+        Allure.step("Добавляем Task message isReply = false и " + action);
         TaskMessage taskMessage = new TaskMessage();
         taskMessage.fillTaskMessageWithRandomData(taskId, userId);
         taskMessage.setReplyId(null);
 
         taskMessageAdd(taskMessage);
-        taskMessage.setTaskId(taskId);
-        taskMessage.setTaskMessageId(taskMessageId);
-        taskMessage.setFeedback(true);
 
-        taskMessageFeedBack(taskMessage);
+        if (action.equals("pin")) {
+            taskMessage.setPin(true);
+            taskMessageAction(taskMessage, "pin");
+        }
+        if (action.equals("feedback")) {
+            taskMessage.setFeedback(true);
+            taskMessageAction(taskMessage, "feedback");
+        }
+
+        if (action.equals("conditions_review")) {
+            taskMessage.setUpdatedConditions(true);
+            taskMessageAction(taskMessage, "updated-conditions");
+        }
+
         Allure.step(CHECK);
         taskMessageAssert(taskMessage);
+        Allure.step("Получаем FeedBack Task id=" + taskId);
+        taskMessageGet(true);
+    }
+
+    public static void newMessage(int taskId, Boolean isReply) throws Exception {
+        int userId = getRandomUserId();
+        authApi(userId);
+        Thread.sleep(2000);
+
+        Allure.step("Добавляем Task message isReply = " + isReply);
+        TaskMessage taskMessage = new TaskMessage();
+        taskMessage.fillTaskMessageWithRandomData(taskId, userId);
+        if (!isReply)
+            taskMessage.setReplyId(null);
+
+        taskMessageAssert(taskMessageAdd(taskMessage));
+
         Allure.step("Получаем FeedBack Task id=" + taskId);
         taskMessageGet(true);
     }
@@ -130,14 +125,14 @@ public class TaskMessengerAPI {
         return messageObject;
     }
 
-    public static void taskMessageAdd(TaskMessage taskMessage) {
+    public static TaskMessage taskMessageAdd(TaskMessage taskMessage) {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonTaskMessageInfo(taskMessage), JsonObject.class);
         System.out.println(jsonObject.toString().replace("],", "],\n"));
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
         attachJson(String.valueOf(jsonObject), DATA);
 
-        String path = URL + "/task/" + taskId + "/add-message";
+        String path = URL + "/task/" + taskMessage.getTaskId() + "/add-message";
         System.out.println(path);
 
         Response response = RestAssured.given()
@@ -157,6 +152,8 @@ public class TaskMessengerAPI {
         taskMessageId = jsonResponse.getJSONObject("data").getInt("id");
 
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
+        taskMessage.setTaskMessageId(taskMessageId);
+        return taskMessage;
     }
 
     public static List<TaskMessage> taskMessageGet(Boolean isShow) {
@@ -180,6 +177,10 @@ public class TaskMessengerAPI {
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
+        JSONObject info = data.getJSONObject("info");
+        String taskType = info.getString("type");
+
+
         JSONArray message = data.getJSONArray("message");
 
         for (int i = 0; i < message.length(); i++) {
@@ -193,7 +194,12 @@ public class TaskMessengerAPI {
             taskMessage.setReplyId(messageObject.isNull("replyId") ? null : messageObject.getInt("replyId"));
 
             taskMessage.setDate(messageObject.getString("date"));
-            taskMessage.setFeedback(messageObject.getBoolean("isFeedback"));
+
+            if (taskType.equals("feedback"))
+                taskMessage.setFeedback(messageObject.getBoolean("isFeedback"));
+            if (taskType.equals("conditions_review"))
+                taskMessage.setFeedback(messageObject.getBoolean("isUpdatedConditions"));
+
             taskMessage.setPin(messageObject.getBoolean("isPin"));
             taskMessage.setText(messageObject.isNull("text") ? null : messageObject.getString("text"));
 
@@ -203,28 +209,8 @@ public class TaskMessengerAPI {
         return taskMessageList;
     }
 
-    public static void taskMessagePin(TaskMessage taskMessage) {
-        // String path = URL + "/task/" + 12 + "/message/" + 166 + "/action/pin";
-
-        String path = URL + "/task/" + taskMessage.getTaskId() + "/message/" + taskMessage.getTaskMessageId() + "/action/pin";
-        System.out.println(path);
-
-        Response response = RestAssured.given()
-                .contentType(ContentType.URLENC)
-                .header("Authorization", KEY)
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json")
-                .post(path);
-
-        String responseBody = response.getBody().asString();
-
-        System.out.println(ADD_RESPONSE + responseBody);
-        Allure.step(ADD_RESPONSE + responseBody);
-        Assert.assertTrue(responseBody.contains("{\"success\":true"));
-    }
-
-    public static void taskMessageFeedBack(TaskMessage taskMessage) {
-        String path = URL + "/task/" + taskMessage.getTaskId() + "/message/" + taskMessage.getTaskMessageId() + "/action/feedback";
+    public static void taskMessageAction(TaskMessage taskMessage, String action) {
+        String path = URL + "/task/" + taskMessage.getTaskId() + "/message/" + taskMessage.getTaskMessageId() + "/action/" + action;
         System.out.println(path);
 
         Response response = RestAssured.given()
@@ -251,6 +237,12 @@ public class TaskMessengerAPI {
                 softAssert.assertEquals(taskMessageGet.getAuthorId(), taskMessage.getAuthorId());
                 softAssert.assertEquals(taskMessageGet.getReplyId(), taskMessage.getReplyId());
                 softAssert.assertEquals(taskMessageGet.getText(), taskMessage.getText());
+
+               /* softAssert.assertEquals(taskMessageGet.getPin(), taskMessage.getPin());
+                softAssert.assertEquals(taskMessageGet.getUpdatedConditions(), taskMessage.getUpdatedConditions());
+                softAssert.assertEquals(taskMessageGet.getFeedback(), taskMessage.getFeedback());*/
+
+
                 isAssert = true;
             }
         }

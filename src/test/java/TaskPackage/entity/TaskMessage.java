@@ -20,6 +20,8 @@ public class TaskMessage {
 
     Boolean isFeedback;
     Boolean isPin;
+    Boolean isUpdatedConditions;
+
 
 
     public static class MessageFile {
@@ -72,6 +74,7 @@ public class TaskMessage {
         /*  this.file = generateName(30, TASK_WORDS);*/
         this.text = generateName(30, TASK_WORDS);
         this.authorId = authorId;
+        this.taskId = taskId;
         try {
             String replayedId = getRandomValueFromBDWhere("id", "task_message",
                     "task_id", String.valueOf(taskId));
@@ -165,5 +168,13 @@ public class TaskMessage {
 
     public void setPin(Boolean pin) {
         isPin = pin;
+    }
+
+    public Boolean getUpdatedConditions() {
+        return isUpdatedConditions;
+    }
+
+    public void setUpdatedConditions(Boolean updatedConditions) {
+        isUpdatedConditions = updatedConditions;
     }
 }
