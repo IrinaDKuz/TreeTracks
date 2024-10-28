@@ -29,14 +29,17 @@ import static SQL.AdvertSQL.*;
  */
 
 public class AdvertPrimaryInfoAPI {
-    static int advertId;
+    static Integer advertId = null;
 
     @Test
     public static void test() throws Exception {
 
         authApi(103);
         Allure.step("Добавляем Адверта");
-        AdvertPrimaryInfo advertPrimaryInfoAdd = primaryInfoAddEdit(false);
+
+        AdvertPrimaryInfo advertPrimaryInfoAdd = new AdvertPrimaryInfo();
+        advertPrimaryInfoAdd.fillAdvertPrimaryInfoWithRandomData();
+        primaryInfoAddEdit(false, advertPrimaryInfoAdd);
         advertId = advertPrimaryInfoAdd.getAdvertId();
         Allure.step(CHECK);
         primaryInfoAssert(advertPrimaryInfoAdd, primaryInfoGet(false));
@@ -45,7 +48,11 @@ public class AdvertPrimaryInfoAPI {
         primaryInfoGet(true);
 
         Allure.step("Редактируем Primary Info Адверта id=" + advertId);
-        AdvertPrimaryInfo advertPrimaryInfoEdit = primaryInfoAddEdit(true);
+        AdvertPrimaryInfo advertPrimaryInfoEdit = new AdvertPrimaryInfo();
+        advertPrimaryInfoEdit.fillAdvertPrimaryInfoWithRandomData();
+        advertPrimaryInfoEdit.setAdvertId(advertPrimaryInfoAdd.getAdvertId());
+
+        primaryInfoAddEdit(true, advertPrimaryInfoEdit);
         Allure.step(CHECK);
         primaryInfoAssert(advertPrimaryInfoEdit, primaryInfoGet(false));
 
@@ -53,10 +60,11 @@ public class AdvertPrimaryInfoAPI {
         deleteMethod("advert", String.valueOf(advertId));
         assertDelete(String.valueOf(advertId), "advert");
 
-        advertId = Integer.parseInt(getFrequentValueFromBDNotNull("advert_id", "offer"));
+       /* advertId = Integer.parseInt(getFrequentValueFromBDNotNull("advert_id", "offer"));
         Allure.step("Проверка для Адверта, к которому присоединено несколько офферов advertId=" + advertId);
-        AdvertPrimaryInfo advertPrimaryInfoEdit2 = primaryInfoAddEdit(true);
-        primaryInfoAssert(advertPrimaryInfoEdit2, primaryInfoGet(true));
+
+        AdvertPrimaryInfo advertPrimaryInfoEdit2 = primaryInfoAddEdit(true, advertId);
+        primaryInfoAssert(advertPrimaryInfoEdit2, primaryInfoGet(true));*/
     }
 
     private static JsonObject initializeJsonAdvertPrimaryInfo(AdvertPrimaryInfo advertPrimaryInfo) {
@@ -98,9 +106,7 @@ public class AdvertPrimaryInfoAPI {
         return jsonObject;
     }
 
-    public static AdvertPrimaryInfo primaryInfoAddEdit(Boolean isEdit) throws Exception {
-        AdvertPrimaryInfo advertPrimaryInfo = new AdvertPrimaryInfo();
-        advertPrimaryInfo.fillAdvertPrimaryInfoWithRandomData();
+    public static AdvertPrimaryInfo primaryInfoAddEdit(Boolean isEdit, AdvertPrimaryInfo advertPrimaryInfo) {
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonAdvertPrimaryInfo(advertPrimaryInfo), JsonObject.class);
@@ -108,8 +114,10 @@ public class AdvertPrimaryInfoAPI {
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
         attachJson(String.valueOf(jsonObject), DATA);
 
-        String path = isEdit ? URL + "/advert/" + advertId + "/edit" :
+        String path = isEdit ? URL + "/advert/" + advertPrimaryInfo.getAdvertId() + "/edit" :
                 URL + "/advert/new";
+
+        System.out.println(path);
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)

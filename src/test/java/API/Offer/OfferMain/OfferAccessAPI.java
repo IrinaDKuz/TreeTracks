@@ -1,9 +1,7 @@
 package API.Offer.OfferMain;
 
-import AdvertPackage.entity.AdvertAccess;
 import OfferMainPackage.entity.OfferAccess;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
@@ -16,11 +14,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static API.Helper.deleteMethod;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.KEY;
 import static SQL.AdvertSQL.*;
 
 /***
@@ -41,7 +37,7 @@ public class OfferAccessAPI {
         accessGet(true);
 
         Allure.step("Добавляем Access");
-        OfferAccess newOfferAccess = accessAdd();
+        OfferAccess newOfferAccess = offerAccessAdd(offerId);
 
         Allure.step("Выполняем проверки");
         contactsAssert(newOfferAccess);
@@ -53,7 +49,7 @@ public class OfferAccessAPI {
         Allure.step("Удаление не предусмотрено");
     }
 
-    private static OfferAccess accessAdd() throws Exception {
+    public static OfferAccess offerAccessAdd(Integer offerId) throws Exception {
         OfferAccess offerAccess = new OfferAccess();
         offerAccess.fillOfferAccessWithRandomData(String.valueOf(offerId));
         contactsAddPost(String.valueOf(offerId), offerAccess);
@@ -67,7 +63,7 @@ public class OfferAccessAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -97,7 +93,7 @@ public class OfferAccessAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -131,7 +127,7 @@ public class OfferAccessAPI {
         Response response;
         response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/offer/" + offerId + "/access");

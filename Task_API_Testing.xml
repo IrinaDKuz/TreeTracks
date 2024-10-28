@@ -4,12 +4,23 @@
 
 <suite name="Task Test Suite">
 
-<!--    <test verbose="2" preserve-order="true" name="Task general API test">
+    <test verbose="2" preserve-order="true" name="Task general API test">
         <parameter name="taskTypeParameter" value="general"/>
         <classes>
             <class name="API.Task.GeneralTaskAPI"/>
             <class name="API.Task.TaskMessengerAPI"/>
-            <class name="API.Task.TaskAPIActions"/>
+            <class name="API.Task.TaskAPIActions">
+                <methods>
+                    <include name="copyAction"/>
+                    <include name="inProgressAction"/>
+                    <include name="requestAdditionalInfoAction"/>
+                    <include name="postponeAction"/>
+                    <include name="reviewAction"/>
+                    <include name="cancelAction"/>
+                    <include name="completeAction"/>
+
+                </methods>
+            </class>
         </classes>
     </test>
 
@@ -18,7 +29,18 @@
         <classes>
             <class name="API.Task.FeedBackTaskAPI"/>
             <class name="API.Task.TaskMessengerAPI"/>
-            <class name="API.Task.TaskAPIActions"/>
+            <class name="API.Task.TaskAPIActions">
+                <methods>
+                    <include name="copyAction"/>
+                    <include name="inProgressAction"/>
+                    <include name="requestAdditionalInfoAction"/>
+                    <include name="postponeAction"/>
+                    <include name="reviewAction"/>
+                    <include name="cancelAction"/>
+                    <include name="updateAction"/>
+                    <include name="completeAction"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
@@ -27,18 +49,101 @@
         <classes>
             <class name="API.Task.ConditionsReviewTaskAPI"/>
             <class name="API.Task.TaskMessengerAPI"/>
-            <class name="API.Task.TaskAPIActions"/>
+            <class name="API.Task.TaskAPIActions">
+                <methods>
+                    <include name="copyAction"/>
+                    <include name="inProgressAction"/>
+                    <include name="requestAdditionalInfoAction"/>
+                    <include name="postponeAction"/>
+                    <include name="reviewAction"/>
+                    <include name="cancelAction"/>
+                    <include name="completeAction"/>
+
+                </methods>
+            </class>
         </classes>
-    </test>-->
+    </test>
 
     <test verbose="2" preserve-order="true" name="Task test_conversion API test">
         <parameter name="taskTypeParameter" value="test_conversion"/>
         <classes>
             <class name="API.Task.TestConversionTaskAPI"/>
             <class name="API.Task.TaskMessengerAPI"/>
-            <class name="API.Task.TaskAPIActions"/>
+            <class name="API.Task.TaskAPIActions">
+                <methods>
+                    <include name="copyAction"/>
+                    <include name="inProgressAction"/>
+                    <include name="requestAdditionalInfoAction"/>
+                    <include name="postponeAction"/>
+                    <include name="reviewAction"/>
+                    <include name="cancelAction"/>
+                    <include name="completeAction"/>
+
+                </methods>
+            </class>
         </classes>
     </test>
 
+    <test verbose="2" preserve-order="true" name="Task URL request API test">
+        <parameter name="taskTypeParameter" value="url_request"/>
+        <classes>
+            <class name="API.Task.UrlRequestTaskAPI"/>
+            
+            <class name="API.Task.TaskMessengerAPI"/>
+            <class name="API.Task.TaskAPIActions">
+                <methods>
+                    <include name="copyAction"/>
+                    <include name="inProgressAction"/>
+                    <include name="requestAdditionalInfoAction"/>
+                    <include name="postponeAction"/>
+                    <include name="reviewAction"/>
+                    <include name="cancelAction"/>
+                    <include name="completeAction"/>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Integration request API test">
+        <parameter name="taskTypeParameter" value="integration"/>
+        <classes>
+            <class name="API.Task.IntegrationTaskAPI"/>
+            
+            <class name="API.Task.TaskMessengerAPI"/>
+            <class name="API.Task.TaskAPIActions">
+                <methods>
+                    <include name="copyAction"/>
+                    <include name="inProgressAction"/>
+                    <include name="requestAdditionalInfoAction"/>
+                    <include name="postponeAction"/>
+                    <include name="reviewAction"/>
+                    <include name="cancelAction"/>
+                    <include name="completeAction"/>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Task Offer Approval API test">
+        <parameter name="taskTypeParameter" value="offer_approval"/>
+        <classes>
+            <class name="API.Task.OfferApprovalTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/>
+            <class name="API.Task.TaskAPIActions">
+                <methods>
+                    <include name="copyAction"/>
+                    <include name="inProgressAction"/>
+                    <include name="requestAdditionalInfoAction"/>
+                    <include name="postponeAction"/>
+                    <include name="reviewAction"/>
+                    <include name="cancelAction"/>
+                    <include name="declineAction"/>
+                    <include name="completeAction"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 
 </suite>

@@ -1,9 +1,10 @@
 package TaskPackage.entity;
 
+import java.nio.file.Paths;
+
 import static Helper.Adverts.generateName;
-import static Helper.GeoAndLang.getRandomKey;
-import static Helper.Tasks.*;
-import static SQL.AdvertSQL.*;
+import static Helper.Tasks.TASK_WORDS;
+import static SQL.AdvertSQL.getRandomValueFromBDWhere;
 
 public class TaskMessage {
 
@@ -18,10 +19,13 @@ public class TaskMessage {
 
     String date;
 
-    Boolean isFeedback;
-    Boolean isPin;
-    Boolean isUpdatedConditions;
+    Boolean isFeedback = false;
+    Boolean isPin = false;
+    Boolean isUpdatedConditions = false;
+    Boolean isUrl = false;
+    Boolean fileExist = false;
 
+    String filePath;
 
 
     public static class MessageFile {
@@ -80,11 +84,15 @@ public class TaskMessage {
                     "task_id", String.valueOf(taskId));
             this.replyId = Integer.valueOf(replayedId);
 
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
             this.replyId = null;
         }
+    }
+
+    public void fillTaskMessageWithFile() {
+        this.filePath = Paths.get(System.getProperty("user.dir"), "6_8_MB_test-document.pdf").toString();
+        this.fileExist = true;
     }
 
 
@@ -177,4 +185,25 @@ public class TaskMessage {
     public void setUpdatedConditions(Boolean updatedConditions) {
         isUpdatedConditions = updatedConditions;
     }
+
+    public Boolean getUrl() {
+        return isUrl;
+    }
+
+    public void setUrl(Boolean url) {
+        isUrl = url;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public Boolean getFileExist() {
+        return fileExist;
+    }
+
+    public void setFileExist(Boolean fileExist) {
+        this.fileExist = fileExist;
+    }
+
 }

@@ -44,9 +44,9 @@ public class AdvertAccessAPI {
         accessGet(true);
 
         Allure.step("Добавляем Access");
-        AdvertAccess newAdvertAccess = accessAdd();
+        AdvertAccess newAdvertAccess = accessAdd(advertId);
         Allure.step("Добавляем второй Access");
-        newAdvertAccess = accessAdd();
+        newAdvertAccess = accessAdd(advertId);
 
         Allure.step("Выполняем проверки");
         contactsAssert(newAdvertAccess);
@@ -60,7 +60,7 @@ public class AdvertAccessAPI {
         assertDelete(String.valueOf(advertAccessId), "advert_access");
     }
 
-    private static AdvertAccess accessAdd() throws Exception {
+    public static AdvertAccess accessAdd(Integer advertId) throws Exception {
         AdvertAccess advertAccess = new AdvertAccess();
         advertAccess.fillAdvertAccessWithRandomData(String.valueOf(advertId));
         contactsAddPost(String.valueOf(advertId), advertAccess);

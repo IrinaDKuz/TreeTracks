@@ -1,24 +1,17 @@
 package API.Task;
 
 import TaskPackage.entity.FeedBackTask;
-import TaskPackage.entity.GeneralTask;
 import TaskPackage.entity.Task;
+import TaskPackage.entity.UrlRequestTask;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.StreamSupport;
 
 import static API.Helper.*;
 import static API.Task.FeedBackTaskAPI.*;
@@ -32,7 +25,7 @@ import static Helper.Auth.*;
  //TODO:
  */
 
-public class GeneralTaskAPI {
+public class UrlRequestTaskAPI {
     static Integer taskId;
     static Integer userId;
 
@@ -41,25 +34,25 @@ public class GeneralTaskAPI {
         userId = getRandomUserId();
         authApi(userId);
 
-        Allure.step("Добавляем General Task");
-        Task generalTask = new GeneralTask(taskId, userId);
-        taskAddEdit(false, generalTask);
-        taskId = generalTask.getTaskId();
+        Allure.step("Добавляем URL request Task");
+        Task urlRequestTask = new UrlRequestTask(taskId, userId);
+        taskAddEdit(false, urlRequestTask);
+        taskId = urlRequestTask.getTaskId();
         Allure.step(CHECK);
 
-        taskAssert(generalTask, taskGet(true, taskId));
+        taskAssert(urlRequestTask, taskGet(true, taskId));
 
-        Allure.step("Получаем General Task id=" + taskId);
+        Allure.step("Получаем URL request Task id=" + taskId);
         taskGet(true, taskId);
 
-        Allure.step("Редактируем General Task id=" + taskId);
-        Task generalTaskEdit = new GeneralTask(taskId, userId);
-        taskAddEdit(true, generalTaskEdit);
+        Allure.step("Редактируем URL request Task id=" + taskId);
+        Task urlRequestTaskEdit = new UrlRequestTask(taskId, userId);
+        taskAddEdit(true, urlRequestTaskEdit);
         Allure.step(CHECK);
-        taskAssert(generalTaskEdit, taskGet(false, taskId));
+        taskAssert(urlRequestTaskEdit, taskGet(false, taskId));
 
-        Allure.step("Выполняем soft delete General Task id=" + taskId);
-        // deleteMethod("task", String.valueOf(taskId));
+        Allure.step("Выполняем soft delete URL request Task id=" + taskId);
+     //   deleteMethod("task", String.valueOf(taskId));
         assertSoftDelete(String.valueOf(taskId), "task");
     }
 }

@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import static API.Helper.*;
 import static API.Offer.OfferDraft.OfferDraftBasicInfoAPI.*;
 import static Helper.AllureHelper.*;
-import static Helper.Auth.authKeyAdmin;
+import static Helper.Auth.KEY;
 import static SQL.AdvertSQL.getRandomValueFromBD;
 
 /***
@@ -36,15 +36,16 @@ public class OfferMainBasicInfoAPI {
         basicInfoGet(true);
 
         Allure.step("Редактируем Basic Info Offer Main id=" + offerMainId);
-        OfferBasicInfo offerBasicInfoEdit = basicInfoEdit();
+        OfferBasicInfo offerBasicInfoEdit = new OfferBasicInfo();
+        offerBasicInfoEdit.fillOfferBasicInfoWithRandomDataForAPI();
+        offerBasicInfoEdit.setOfferId(offerMainId);
+        basicInfoEdit(offerBasicInfoEdit);
 
         Allure.step(CHECK);
         basicInfoAssert(basicInfoGet(false), offerBasicInfoEdit);
     }
 
-    public static OfferBasicInfo basicInfoEdit() throws Exception {
-        OfferBasicInfo offerBasicInfo = new OfferBasicInfo();
-        offerBasicInfo.fillOfferBasicInfoWithRandomDataForAPI();
+    public static OfferBasicInfo basicInfoEdit(OfferBasicInfo offerBasicInfo) {
 
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(initializeJsonOfferBasicInfo(offerBasicInfo), JsonObject.class);
@@ -52,11 +53,12 @@ public class OfferMainBasicInfoAPI {
         Allure.step(DATA + jsonObject.toString().replace("],", "],\n"));
         attachJson(String.valueOf(jsonObject), DATA);
 
-        String path = "https://api.admin.3tracks.link/offer/" + offerMainId + "/basic-info";
+        String path = "https://api.admin.3tracks.link/offer/" + offerBasicInfo.getOfferId() + "/basic-info";
+        System.out.println(path);
 
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .body(jsonObject.toString())
@@ -72,7 +74,7 @@ public class OfferMainBasicInfoAPI {
     public static OfferBasicInfo basicInfoGet(Boolean isShow) {
         Response response = RestAssured.given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
                 .get("https://api.admin.3tracks.link/offer/" + offerMainId + "/basic-info");

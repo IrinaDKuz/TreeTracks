@@ -5,6 +5,7 @@ import AdvertPackage.entity.AdvertPrimaryInfo;
 import java.util.*;
 
 import static SQL.AdvertSQL.getRandomValueFromBDWhere;
+import static SQL.AdvertSQL.getValueFromBDWhere;
 
 public class Adverts {
 
@@ -125,7 +126,7 @@ public class Adverts {
             "Jacob's Ladder", "Lantana", "Lobelia", "Lupine", "Mallow",
             "Mimosa", "Monkshood", "Nasturtium", "Nemesia", "Nigella",
             "Passionflower", "Penstemon", "Phlox", "Plumeria", "Salvia",
-            "Scabiosa", "Sedum", "Statice", "Stephanotis", "Tithonia" };
+            "Scabiosa", "Sedum", "Statice", "Stephanotis", "Tithonia"};
 
 
     public static final String[] JOB_WORDS = {
@@ -183,7 +184,6 @@ public class Adverts {
             "Shieldtail", "WormSnake", "RatSnake", "Bullsnake", "GopherSnake",
             "RockPython", "ReticulatedPython", "Green_TreePython", "BlackMamba", "Blue_Krait"
     };
-
 
 
     public static void showAdvertPrimaryInfoInformation(AdvertPrimaryInfo advertPrimaryInfo) {
@@ -273,4 +273,24 @@ public class Adverts {
         }
         return null;
     }
+
+    public static Integer getExistManagerFromAdvert(String advertId) throws Exception {
+        String managerId = getValueFromBDWhere("account_manager", "advert",
+                "id", advertId);
+        Integer managerIntId;
+        if (managerId.equals("null")) {
+            managerId = getValueFromBDWhere("sales_manager", "advert",
+                    "id", advertId);
+            if (managerId.equals("null")) {
+                managerId = getValueFromBDWhere("manager", "advert",
+                        "id", advertId);
+                if (managerId.equals("null")) {
+                    managerIntId = 1;
+                } else managerIntId = Integer.valueOf(managerId);
+            } else managerIntId = Integer.valueOf(managerId);
+        } else managerIntId = Integer.valueOf(managerId);
+        return managerIntId;
+    }
+
+
 }

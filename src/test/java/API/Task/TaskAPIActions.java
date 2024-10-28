@@ -1,7 +1,7 @@
+
 package API.Task;
 
-import TaskPackage.entity.FeedBackTask;
-import TaskPackage.entity.GeneralTask;
+import TaskPackage.entity.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Allure;
@@ -13,22 +13,19 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import static API.Helper.*;
-import static API.Task.FeedBackTaskAPI.feedBackTaskAssert;
-import static API.Task.FeedBackTaskAPI.feedBackTaskGet;
-import static API.Task.GeneralTaskAPI.generalTaskAssert;
-import static API.Task.GeneralTaskAPI.generalTaskGet;
+
+import static API.Task.FeedBackTaskAPI.taskAssert;
+import static API.Task.FeedBackTaskAPI.taskGet;
 import static Helper.Adverts.generateName;
 import static Helper.Auth.*;
 import static Helper.Tasks.*;
 import static SQL.AdvertSQL.*;
+
 
 /***
  Тест проверяет работу API методов
@@ -37,17 +34,24 @@ import static SQL.AdvertSQL.*;
  //TODO: остальные actions и message
  */
 
+
 public class TaskAPIActions {
-    static int taskId;
+    static Integer taskId;
     static String taskType;
+    static String reason;
+    static String note;
+    static String newDate;
+
+
     // static String taskType = "conditions_review";
     // static String taskType = "general";
+    // static String taskType = "url_request";
 
 
     @Test
     @Parameters({"taskTypeParameter"})
-
     public static void copyAction(String taskTypeParameter) throws Exception {
+
         taskType = taskTypeParameter;
         Integer userId = getRandomUserId();
         authApi(userId);
@@ -56,200 +60,425 @@ public class TaskAPIActions {
         // Доступно для всех. Доступен во всех статусах
         Allure.step("Копируем таску Task id=" + taskId);
         copyTask();
-        
-        GeneralTask generalTaskCopy = null;
-        if (taskType.equals("general")) {
-            generalTaskCopy = new GeneralTask(taskId);
-            generalTaskCopy.setStatus("draft");
-            generalTaskCopy.setRequesterId(userId);
-            generalTaskCopy.setDueDate(generateDueDatePlusNDays(3));
-        }
 
-        FeedBackTask feedBackTaskCopy = null;
-        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
-            feedBackTaskCopy = new FeedBackTask(taskId);
-            feedBackTaskCopy.setStatus("draft");
-            feedBackTaskCopy.setRequesterId(userId);
-            feedBackTaskCopy.setDueDate(generateDueDatePlusNDays(3));
-        }
-        
+        Task task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
+        note = task.getNotes();
+
+        task.setStatus("draft");
+        task.setRequesterId(userId);
+        task.setDueDate(generateDueDatePlusNDays(3));
+
         Integer actualTaskId = Integer.valueOf(getLastValueFromBD("id", "task"));
         System.out.println(actualTaskId);
         Allure.step("id новой таски: " + actualTaskId);
 
-        if (taskType.equals("general")) {
-            GeneralTask generalTaskCopyActual = generalTaskGet(true, actualTaskId);
-            generalTaskAssert(generalTaskCopy, generalTaskCopyActual);
+        Task newTaskGet = taskGet(true, actualTaskId);
+        newTaskGet.setTaskId(actualTaskId);
+        taskAssert(task, newTaskGet);
 
-        }
-        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
-            FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, actualTaskId);
-            feedBackTaskAssert(feedBackTaskCopy, feedBackTaskCopyActual);
-        }
+        messageAssert(newTaskGet);
+
     }
 
-    @Test (dependsOnMethods = "copyAction", alwaysRun = true)
-    public static void inProgressAction() throws Exception {
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void inProgressAction(String taskTypeParameter) throws Exception {
         // если статус таски InProgress(+), Resolved(+) ожидаем ошибку
+        taskType = taskTypeParameter;
         Integer userId = getRandomUserId();
+        System.out.println(userId);
         taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
                 "assigne_id", String.valueOf(userId)));
 
         System.out.println(taskId);
 
-        GeneralTask generalTaskEdited = null;
-        if (taskType.equals("general")) {
-            generalTaskEdited = new GeneralTask(taskId);
-        }
-
-        FeedBackTask feedBackTaskEdited = null;
-        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
-            feedBackTaskEdited = new FeedBackTask(taskId);
-        }
+        Task task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
 
         // Доступно только для Assignee (Assignee(+) и рандомный (+)). Доступен во всех статусах кроме InProgress, Resolved
         // Проверяем только для Assignee
         authApi(userId);
 
         Allure.step("Меняем статус на InProgress у Task id=" + taskId);
+        inProgress(task.getStatus());
+        task.setStatus("progress");
 
-        if (taskType.equals("feedback") || taskType.equals("conditions_review")) {
-            feedBackInProgress(feedBackTaskEdited.getStatus());
-            feedBackTaskEdited.setStatus("progress");
+        taskAssert(task, taskGet(false, taskId));
 
-            FeedBackTask feedBackTaskActual = feedBackTaskGet(true, taskId);
-            feedBackTaskAssert(feedBackTaskEdited, feedBackTaskActual);
-        }
-
-        if (taskType.equals("general")) {
-            feedBackInProgress(generalTaskEdited.getStatus());
-            generalTaskEdited.setStatus("progress");
-
-            GeneralTask generalTaskActual = generalTaskGet(true, taskId);
-            generalTaskAssert(generalTaskEdited, generalTaskActual);
-
-        }
-        // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
-        // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
+        messageAssert(task);
     }
 
-    @Test (dependsOnMethods = "inProgressAction", alwaysRun = true)
-    public static void requestAdditionalInfoAction() throws Exception {
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void requestAdditionalInfoAction(String taskTypeParameter) throws Exception {
         // рандом если статус Additional info required (+), Resolved(+) ожидаем ошибку
+        taskType = taskTypeParameter;
         Integer userId = getRandomUserId();
+        System.out.println(userId);
         taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
                 "assigne_id", String.valueOf(userId)));
 
         System.out.println(taskId);
-        FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
+
+        Task task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
         // Доступно только для Assignee. Доступен во всех статусах кроме  Additional info required, Resolved
         authApi(userId);
 
         Allure.step("Меняем статус на Additional info required у Task id=" + taskId);
-        feedBackRequestAdditionalInfo(feedBackTaskEdited.getStatus());
-        feedBackTaskEdited.setStatus("additional_info_required");
+        requestAdditionalInfo(task.getStatus());
+        task.setStatus("additional_info_required");
 
-        FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, taskId);
-        feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
-
-        // text 2000 (+)
-        //feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
-        // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
+        taskAssert(task, taskGet(false, taskId));
+        messageAssert(task);
     }
 
-    @Test (dependsOnMethods = "requestAdditionalInfoAction", alwaysRun = true)
-    public static void postponeAction() throws Exception {
-        // рандом если статус Postpone(+), Resolved(+) ожидаем ошибку
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void postponeAction(String taskTypeParameter) throws Exception {
+
+        taskType = taskTypeParameter;
         Integer userId = getRandomUserId();
+        System.out.println(userId);
         taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
                 "assigne_id", String.valueOf(userId)));
+
         System.out.println(taskId);
-        FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
-        // Доступно только для Assignee и Requester. Доступен во всех статусах кроме Postponed, Resolved
-        // Assignee(+) Requester (+) и рандомный(+)
+
+        Task task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
+        // Доступно для Assignee и Requester. Доступен во всех статусах кроме Postponed и Resolved
+
         authApi(userId);
-
         Allure.step("Меняем статус на Postpone у Task id=" + taskId);
-        String newDueDate = generateDueDatePlusNDays(new Random().nextInt(70));
-        System.out.println(newDueDate);
-        feedBackRequestPostpone(feedBackTaskEdited.getStatus(), newDueDate);
-        feedBackTaskEdited.setStatus("postponed");
-        feedBackTaskEdited.setDueDate(newDueDate);
+        newDate = generateDueDatePlusNDays(new Random().nextInt(70));
+        postpone(task.getStatus(), newDate);
 
-        FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, taskId);
-        feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
+        task.setStatus("postponed");
+        task.setDueDate(newDate);
+
+        taskAssert(task, taskGet(false, taskId));
+        messageAssert(task);
+
         // reason - maxLength: 500 (+) null (+)
         // dueDate - некоррeктный формат (+) null (+)
         // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
         // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
 
+        // Доступно для Assignee и Requester. Доступен во всех статусах кроме Postponed и Resolved
+
         taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
                 "requester_id", String.valueOf(userId)));
-        System.out.println(taskId);
-        feedBackTaskEdited = new FeedBackTask(taskId);
-        Allure.step("Меняем статус на Postpone у Task id=" + taskId);
-        newDueDate = generateDueDatePlusNDays(new Random().nextInt(70));
-        System.out.println(newDueDate);
-        feedBackRequestPostpone(feedBackTaskEdited.getStatus(), newDueDate);
-        feedBackTaskEdited.setStatus("postponed");
-        feedBackTaskEdited.setDueDate(newDueDate);
 
-        feedBackTaskCopyActual = feedBackTaskGet(true, taskId);
-        feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
-    }
-
-    @Test (dependsOnMethods = "postponeAction", alwaysRun = true)
-    public static void completeAction() throws Exception {
-        // рандом если статус Resolved(+) ожидаем ошибку
-        Integer userId = getRandomUserId();
-        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
-                "requester_id", String.valueOf(userId)));
         System.out.println(taskId);
-        FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
-        // Доступно только для Requester. Доступен во всех статусах кроме Resolved
-        // Requester(+) и рандомный(+)
+
+        task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
         authApi(userId);
+        Allure.step("Меняем статус на Postpone у Task id=" + taskId);
+        newDate = generateDueDatePlusNDays(new Random().nextInt(70));
 
-        Allure.step("Меняем статус на Resolved у Task id=" + taskId);
-        feedBackRequestResolve(feedBackTaskEdited.getStatus());
-        feedBackTaskEdited.setStatus("resolved");
+        postpone(task.getStatus(), newDate);
 
-        FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, taskId);
-        feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
+        task.setStatus("postponed");
+        task.setDueDate(newDate);
+
+        taskAssert(task, taskGet(false, taskId));
+        messageAssert(task);
     }
 
-    @Test (dependsOnMethods = "requestAdditionalInfoAction", alwaysRun = true)
-    public static void updateAction() throws Exception {
+
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void reviewAction(String taskTypeParameter) throws Exception {
+
+        taskType = taskTypeParameter;
         Integer userId = getRandomUserId();
+        System.out.println(userId);
         taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
                 "assigne_id", String.valueOf(userId)));
-        System.out.println(taskId);
-        FeedBackTask feedBackTaskEdited = new FeedBackTask(taskId);
 
+        System.out.println(taskId);
+
+        Task task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
+
+        // Доступно только для Assignee. Доступен во всех статусах кроме ??? Review, Resolved
         authApi(userId);
 
-        String notes = "[1000] In a world increasingly driven by technology, the importance of digital literacy cannot be overstated. From communication to commerce, education to entertainment, nearly every aspect of our lives is touched by digital advancements. Being digitally literate means more than just knowing how to use a computer or smartphone; it involves understanding how technology works, how to evaluate online information critically, and how to engage safely and responsibly in digital spaces. In today's job market, digitIn a world increasingly driven by technology, the importance of digital literacy cannot be overstated. From communication to commerce, education to entertainment, nearly every aspect of our lives is touched by digital advancements. Being digitally literate means more than just knowing how to use a computer or smartphone; it involves understanding how technology works, how to evaluate online information critically, and how to engage safely and responsibly in digital spaces. In today'";
-        // String notes = generateName(30, TASK_WORDS);
-        // List<Integer> watchers = new ArrayList<>();
-        List<Integer> watchers = getSomeValuesFromBDWhere("id", "admin", "status", "enabled", 5).stream().map(Integer::valueOf).collect(Collectors.toList());
-        // List<Integer> tags = new ArrayList<>();
-        List<Integer> tags = getSomeValuesFromBD("id", "task_tag", 5).stream().map(Integer::valueOf).collect(Collectors.toList());
+        Allure.step("Меняем статус на Review у Task id=" + taskId);
+        review(task.getStatus());
+        task.setStatus("review");
 
-        Allure.step("Меняем статус на Conditions updated у Task id=" + taskId);
-        feedBackRequestUpdate(feedBackTaskEdited.getStatus(), notes, watchers, tags);
-        feedBackTaskEdited.setStatus("conditions_updated");
+        taskAssert(task, taskGet(false, taskId));
+        messageAssert(task);
 
-        feedBackTaskEdited.setNotes(notes);
-        feedBackTaskEdited.setTaskWatchers(watchers);
-        feedBackTaskEdited.setTaskTag(tags);
+    }
 
-        FeedBackTask feedBackTaskCopyActual = feedBackTaskGet(true, taskId);
-        feedBackTaskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void completeAction(String taskTypeParameter) throws Exception {
+        // рандом если статус Resolved(+) ожидаем ошибку
 
-        // notes - maxLength: 1000 (+) "" (+)
-        // dueDate - некоррeктный формат (+) null (+)
-        // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
-        // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
+        taskType = taskTypeParameter;
+        Integer userId = getRandomUserId();
+        System.out.println(userId);
+
+        // Доступно только для Requester. Доступен во всех статусах кроме Resolved
+        // Requester(+) и рандомный(+)
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "requester_id", String.valueOf(userId)));
+
+        System.out.println(taskId);
+
+        Task task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
+        authApi(userId);
+        Allure.step("Меняем статус на Resolved у Task id=" + taskId);
+
+        resolve(task.getStatus());
+        task.setStatus("resolved");
+
+        taskAssert(task, taskGet(false, taskId));
+    }
+
+
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void cancelAction(String taskTypeParameter) throws Exception {
+
+        taskType = taskTypeParameter;
+        Integer userId = getRandomUserId();
+        System.out.println(userId);
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "assigne_id", String.valueOf(userId)));
+
+        System.out.println(taskId);
+
+        Task task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
+        // Доступно для Assignee и Requester. Доступен во всех статусах кроме Postponed и Resolved
+
+        authApi(userId);
+        Allure.step("Меняем статус на Cancelled у Task id=" + taskId);
+        cancel(task.getStatus());
+
+        task.setStatus("cancelled");
+
+        taskAssert(task, taskGet(false, taskId));
+        messageAssert(task);
+
+        // reason - maxLength: 500 (+) null (+)
+        // Доступно для Assignee и Requester. Доступен во всех статусах кроме Postponed и Resolved
+
+        taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskType,
+                "requester_id", String.valueOf(userId)));
+
+        System.out.println(taskId);
+
+        task = null;
+        if (taskType.equals("general"))
+            task = new GeneralTask(taskId);
+        if (taskType.equals("test_conversion"))
+            task = new TestConversionTask(taskId);
+        if (taskType.equals("feedback"))
+            task = new FeedBackTask(taskId);
+        if (taskType.equals("conditions_review"))
+            task = new ConditionsReviewTask(taskId);
+        if (taskType.equals("url_request"))
+            task = new UrlRequestTask(taskId);
+        if (taskType.equals("integration"))
+            task = new IntegrationTask(taskId);
+        if (taskType.equals("offer_approval"))
+            task = new OfferApproveTask(taskId);
+
+        authApi(userId);
+        Allure.step("Меняем статус на Cancelled у Task id=" + taskId);
+
+        cancel(task.getStatus());
+
+        task.setStatus("cancelled");
+
+        taskAssert(task, taskGet(false, taskId));
+        messageAssert(task);
+
+    }
+
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void updateAction(String taskTypeParameter) throws Exception {
+        if (taskTypeParameter.equals("feedback")) {
+            Integer userId = getRandomUserId();
+            taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskTypeParameter,
+                    "assigne_id", String.valueOf(userId)));
+            System.out.println(taskId);
+            Task feedBackTaskEdited = new FeedBackTask(taskId);
+
+            authApi(userId);
+
+            String notes = "Update notes " + generateName(30, TASK_WORDS);
+            // String notes = generateName(30, TASK_WORDS);
+            // List<Integer> watchers = new ArrayList<>();
+            List<Integer> watchers = getSomeValuesFromBDWhere("id", "admin", "status", "enabled", 5).stream().map(Integer::valueOf).collect(Collectors.toList());
+            // List<Integer> tags = new ArrayList<>();
+            List<Integer> tags = getSomeValuesFromBD("id", "task_tag", 5).stream().map(Integer::valueOf).collect(Collectors.toList());
+
+            Allure.step("Меняем статус на Conditions updated у Task id=" + taskId);
+            feedBackRequestUpdate(feedBackTaskEdited.getStatus(), notes, watchers, tags);
+            // feedBackTaskEdited.setStatus("conditions_updated");
+
+            feedBackTaskEdited.setNotes(notes);
+            feedBackTaskEdited.setTaskWatchers(watchers);
+            feedBackTaskEdited.setTaskTag(tags);
+
+            Task feedBackTaskCopyActual = taskGet(true, taskId);
+            feedBackTaskCopyActual.setTaskId(taskId);
+            taskAssert(feedBackTaskEdited, feedBackTaskCopyActual);
+            messageAssert(feedBackTaskCopyActual);
+
+            // notes - maxLength: 1000 (+) "" (+)
+            // dueDate - некоррeктный формат (+) null (+)
+            // feedBackMassageAssert(feedBackTaskEdited, feedBackTaskCopyActual);
+            // Status: Changed to progress by Варвара -Анастасия Александровна Петрова-Васечкина Скоробейникова (+)
+        }
+    }
+
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void declineAction(String taskTypeParameter) throws Exception {
+        if (taskTypeParameter.equals("offer_upproval")) {
+            Integer userId = getRandomUserId();
+            System.out.println(userId);
+            taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", taskTypeParameter,
+                    "assigne_id", String.valueOf(userId)));
+
+            System.out.println(taskId);
+
+            Task task = new OfferApproveTask(taskId);
+
+            // Доступно для Assignee
+
+            authApi(userId);
+            Allure.step("Меняем статус на Review у Task id=" + taskId);
+            decline(task.getStatus());
+
+            task.setStatus("review");
+
+            taskAssert(task, taskGet(false, taskId));
+            messageAssert(task);
+        }
     }
 
 
@@ -264,7 +493,7 @@ public class TaskAPIActions {
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 
-    public static void feedBackInProgress(String feedBackTaskStatus) {
+    public static void inProgress(String taskStatus) {
         String path = URL + "/task/" + taskId + "/action/in_progress";
 
         System.out.println(path);
@@ -272,17 +501,18 @@ public class TaskAPIActions {
 
         String responseBody = response.getBody().asString();
         System.out.println(responseBody);
-        if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("progress")) {
-            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя");
-            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
-            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
+
+        if (taskStatus.equals("resolved") || taskStatus.equals("progress")) {
+            System.out.println("Текущий статус '" + taskStatus + "' изменить нельзя");
+            Allure.step("Текущий статус '" + taskStatus + "' изменить нельзя ");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 
-    public static void feedBackRequestAdditionalInfo(String feedBackTaskStatus) {
+    public static void requestAdditionalInfo(String feedBackTaskStatus) {
         String path = URL + "/task/" + taskId + "/action/request_additional_info";
         JsonObject jsonObject = new JsonObject();
-       /* jsonObject.addProperty("text", "[2000] In a world increasingly driven by technology, " +
+   /*     jsonObject.addProperty("text", "[2000] In a world increasingly driven by technology, " +
                 "the importance of digital literacy cannot be overstated. From communication to commerce, education " +
                 "to entertainment, nearly every aspect of our lives is touched by digital advancements. Being digitally " +
                 "literate means more than just knowing how to use a computer or smartphone; it involves understanding how" +
@@ -301,9 +531,10 @@ public class TaskAPIActions {
                 " education to entertainment, nearly every aspect of our lives is touched by digital advancements." +
                 " Being digitally literate means more than just knowing how to use a computer or smartphone; it involves" +
                 " understanding how technology works, how to evaluate online information critically, and how to engage safely " +
-                "use in our new better feature(!)");*/
+                "use in our new better feature(!)"); */
 
-        jsonObject.addProperty("text", generateName(30, TASK_WORDS));
+        reason = "I need more information about " + generateName(30, TASK_WORDS);
+        jsonObject.addProperty("text", reason);
         //  {"success":false,"error":[{"name":"text","msg":"This value is too long. It should have 2000 characters or less."}]}
 
         System.out.println(path);
@@ -315,17 +546,35 @@ public class TaskAPIActions {
         if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("additional_info_required")) {
             System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
-            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 
-    public static void feedBackRequestPostpone(String feedBackTaskStatus, String newDueDate) {
+    public static void review(String feedBackTaskStatus) {
+        String path = URL + "/task/" + taskId + "/action/review";
+        JsonObject jsonObject = new JsonObject();
+        System.out.println(path);
+        Response response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", KEY).header("Accept", "application/json").header("Content-Type", "application/json").body(jsonObject.toString()).post(path);
+
+        String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
+
+        if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("review")) {
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
+        } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
+
+    }
+
+    public static void postpone(String feedBackTaskStatus, String newDueDate) {
         String path = URL + "/task/" + taskId + "/action/postpone";
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("dueDate", newDueDate);
-        jsonObject.addProperty("reason", "[500] In a world increasingly driven by technology, the importance of digital literacy cannot be overstated. From communication to commerce, education to entertainment, nearly every aspect of our lives is touched by digital advancements. Being digitally literate means more than just knowing how to use a computer or smartphone; it involves understanding how technology works, how to evaluate online information critically, and how to engage safely and responsibly in digital spaces. In today's job m");
-        // generateName(5, TASK_WORDS_REASON)
+        reason = "The reason for the delay is the need for additional time to ensure quality" +
+                " and accuracy." + generateName(20, TASK_WORDS);
 
+        jsonObject.addProperty("reason", reason);
         System.out.println(path);
         Response response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", KEY).header("Accept", "application/json").header("Content-Type", "application/json").body(jsonObject.toString()).post(path);
 
@@ -334,11 +583,31 @@ public class TaskAPIActions {
         if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("postponed")) {
             System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
-            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 
-    public static void feedBackRequestResolve(String feedBackTaskStatus) {
+    public static void cancel(String feedBackTaskStatus) {
+        String path = URL + "/task/" + taskId + "/action/cancel";
+        JsonObject jsonObject = new JsonObject();
+
+        reason = "The reason for cancellation is a shift in priorities, making it unnecessary to proceed" +
+                " with this task at this time." + generateName(50, TASK_WORDS);
+
+        jsonObject.addProperty("reason", reason);
+        System.out.println(path);
+        Response response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", KEY).header("Accept", "application/json").header("Content-Type", "application/json").body(jsonObject.toString()).post(path);
+
+        String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
+        if (feedBackTaskStatus.equals("resolved") || feedBackTaskStatus.equals("cancelled")) {
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
+        } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
+    }
+
+    public static void resolve(String feedBackTaskStatus) {
         String path = URL + "/task/" + taskId + "/action/complete";
 
         System.out.println(path);
@@ -349,7 +618,22 @@ public class TaskAPIActions {
         if (feedBackTaskStatus.equals("resolved")) {
             System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
-            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
+        } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
+    }
+
+    public static void decline(String feedBackTaskStatus) {
+        String path = URL + "/task/" + taskId + "/action/decline";
+
+        System.out.println(path);
+        Response response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", KEY).header("Accept", "application/json").header("Content-Type", "application/json").post(path);
+
+        String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
+        if (feedBackTaskStatus.equals("resolved")) {
+            System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 
@@ -381,38 +665,71 @@ public class TaskAPIActions {
         if (feedBackTaskStatus.equals("resolved")) {
             System.out.println("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
             Allure.step("Текущий статус '" + feedBackTaskStatus + "' изменить нельзя ");
-            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not available\",\"name\":\"logic_exception\"}]}");
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Action not supported this task status\",\"name\":\"logic_exception\"}]}");
         } else Assert.assertTrue(responseBody.contains("{\"success\":true"));
     }
 
-    public static void actionAssertMessage(FeedBackTask feedBackTask, FeedBackTask feedBackTaskGet) {
-        Allure.step("Сравнение отправленных значений в полях с полученными из get");
-        // Assert.assertEquals(feedBackTask.getTaskId(), feedBackTaskGet.getTaskId());
+
+    public static void messageAssert(Task task) throws Exception {
+        Allure.step("Проверка созданного в чате сообщения");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(feedBackTask.getStatus(), feedBackTaskGet.getStatus());
-        softAssert.assertEquals(feedBackTask.getType(), feedBackTaskGet.getType());
-        System.out.println(feedBackTaskGet.getRequesterId());
-        softAssert.assertTrue(feedBackTaskGet.getRequesterId() == 103);
-        softAssert.assertEquals(feedBackTask.getAssigneeId(), feedBackTaskGet.getAssigneeId());
-        softAssert.assertEquals(feedBackTask.getAdvertId(), feedBackTaskGet.getAdvertId());
-        softAssert.assertEquals(feedBackTask.getOfferId(), feedBackTaskGet.getOfferId());
-        softAssert.assertEquals(feedBackTask.getAffiliateId(), feedBackTaskGet.getAffiliateId());
-        // softAssert.assertEquals(feedBackTask.getNotes(), feedBackTaskGet.getNotes());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime actualDate = LocalDateTime.parse(feedBackTask.getDueDate(), formatter);
-        LocalDateTime expectedDate = LocalDateTime.parse(feedBackTaskGet.getDueDate(), formatter);
+        String lastTaskMessageText = getLastValueFromBDWhere("text", "task_message",
+                "task_id", String.valueOf(task.getTaskId()));
+        String lastTaskMessageType = getLastValueFromBDWhere("type", "task_message",
+                "task_id", String.valueOf(task.getTaskId()));
 
-        softAssert.assertEquals(actualDate.toString(), expectedDate.toString());
+        if (task.getStatus().equals("draft")) {
+            softAssert.assertEquals(lastTaskMessageText, note);
+            softAssert.assertEquals(lastTaskMessageType, "notice");
+            System.out.println("Проверка созданного в чате сообщения " + note);
+        }
 
-        List<Integer> tags = feedBackTask.getTaskTag();
-        List<Integer> tagsEdit = feedBackTaskGet.getTaskTag();
-        softAssert.assertEquals(new HashSet<>(tags), new HashSet<>(tagsEdit), "tags do not match");
+        if (task.getStatus().equals("progress")) {
+            softAssert.assertTrue(lastTaskMessageText.contains("Status: Changed to progress by"));
+            softAssert.assertEquals(lastTaskMessageType, "info");
+            System.out.println("Проверка созданного в чате сообщения \"Status: Changed to progress by\"");
+        }
 
-        List<Integer> watchers = feedBackTask.getTaskWatchers();
-        List<Integer> watchersEdit = feedBackTaskGet.getTaskWatchers();
-        softAssert.assertEquals(new HashSet<>(watchers), new HashSet<>(watchersEdit), "watchers do not match");
+        if (task.getStatus().equals("additional_info_required")) {
+            softAssert.assertEquals(lastTaskMessageText, reason);
+            softAssert.assertEquals(lastTaskMessageType, "notice");
+            System.out.println("Проверка созданного в чате сообщения " + reason);
+        }
+
+        if (task.getStatus().equals("postponed")) {
+            softAssert.assertTrue(lastTaskMessageText.contains("New due date set: " + newDate + " by "));
+            softAssert.assertTrue(lastTaskMessageText.contains("Reason: " + reason));
+
+            softAssert.assertEquals(lastTaskMessageType, "warning");
+            System.out.println("Проверка созданного в чате сообщения \"New due date set: " + newDate + " by ..." + reason);
+        }
+
+        if (task.getStatus().equals("review")) {
+            softAssert.assertTrue(lastTaskMessageText.contains("The task is waiting for "));
+            softAssert.assertTrue(lastTaskMessageText.contains("review"));
+
+            softAssert.assertEquals(lastTaskMessageType, "warning");
+            System.out.println("Проверка созданного в чате сообщения \"The task is waiting for ... review");
+        }
+
+        if (task.getStatus().equals("cancelled")) {
+            softAssert.assertTrue(lastTaskMessageText.contains("The task has been cancelled by"));
+            softAssert.assertTrue(lastTaskMessageText.contains(reason));
+            System.out.println(lastTaskMessageText);
+            softAssert.assertEquals(lastTaskMessageType, "info");
+            System.out.println("Проверка созданного в чате сообщения \"The task has been cancelled by ... Reason: " + reason);
+        }
+
+        if (task.getStatus().equals("conditions_updated")) {
+            softAssert.assertTrue(lastTaskMessageText.contains("The task has been cancelled by"));
+            softAssert.assertTrue(lastTaskMessageText.contains(reason));
+            System.out.println(lastTaskMessageText);
+            softAssert.assertEquals(lastTaskMessageType, "info");
+            System.out.println("Проверка созданного в чате сообщения \"The task has been cancelled by ... Reason: " + reason);
+        }
 
         softAssert.assertAll();
     }
 }
+

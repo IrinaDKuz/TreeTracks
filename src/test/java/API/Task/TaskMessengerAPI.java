@@ -7,6 +7,7 @@ import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
@@ -35,14 +36,14 @@ public class TaskMessengerAPI {
     static String taskType;
 
     // static String taskType = "conditions_review";
-   // static String taskType = "feedback";
+    // static String taskType = "feedback";
 
     @Test
     @Parameters({"taskTypeParameter"})
     public static void newMessageTest(String taskTypeParameter) throws Exception {
-        taskType = taskTypeParameter;
-        taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task",
-              "type", taskType));
+       taskType = taskTypeParameter;
+       taskId = Integer.parseInt(getRandomValueFromBDWhereAndNotSoftDelete("id", "task",
+                "type", taskType));
         newMessage(taskId, false);
     }
 
@@ -57,14 +58,17 @@ public class TaskMessengerAPI {
     }
 
     @Test(dependsOnMethods = "newPinMessageTest", alwaysRun = true)
-    public static void newFeedBackMessageTest() throws Exception {
-        newActionMessage(taskId, "feedback");
+    @Parameters({"taskTypeParameter"})
+    public static void newSpecialActionMessageTest(String taskTypeParameter) throws Exception {
+        newActionMessage(taskId, taskTypeParameter);
     }
 
-    @Test(dependsOnMethods = "newFeedBackMessageTest", alwaysRun = true)
-    public static void newUpdatedConditionsMessageTest() throws Exception {
-        newActionMessage(taskId, "conditions_review");
+    @Test(dependsOnMethods = "newSpecialActionMessageTest", alwaysRun = true)
+    @Parameters({"taskTypeParameter"})
+    public static void newFileMessageTest() throws Exception {
+        newFileMessage(taskId);
     }
+
 
     public static void newActionMessage(int taskId, String action) throws Exception {
         int userId = getRandomUserId();
@@ -92,9 +96,14 @@ public class TaskMessengerAPI {
             taskMessageAction(taskMessage, "updated-conditions");
         }
 
+        if (action.equals("url_request")) {
+            taskMessage.setUrl(true);
+            taskMessageAction(taskMessage, "url");
+        }
+
         Allure.step(CHECK);
         taskMessageAssert(taskMessage);
-        Allure.step("Получаем FeedBack Task id=" + taskId);
+        Allure.step("Получаем Task message id=" + taskId);
         taskMessageGet(true);
     }
 
@@ -111,7 +120,47 @@ public class TaskMessengerAPI {
 
         taskMessageAssert(taskMessageAdd(taskMessage));
 
-        Allure.step("Получаем FeedBack Task id=" + taskId);
+        Allure.step("Получаем  Task message id=" + taskId);
+        taskMessageGet(true);
+    }
+
+    public static void newFileMessage(int taskId) throws Exception {
+        int userId = getRandomUserId();
+        authApi(userId);
+        Thread.sleep(2000);
+
+        Allure.step("Добавляем Task message с файлом");
+        TaskMessage taskMessage = new TaskMessage();
+        taskMessage.fillTaskMessageWithRandomData(taskId, userId);
+        taskMessage.fillTaskMessageWithFile();
+        taskMessage.setReplyId(null);
+
+        String path = URL + "/task/" + taskMessage.getTaskId() + "/add-message";
+        System.out.println(path);
+
+        RequestSpecification request = RestAssured.given()
+                .header("Authorization", KEY)
+                .header("Accept", "application/json")
+                .multiPart("file", new java.io.File(taskMessage.getFilePath()))
+                .multiPart("text", taskMessage.getText())
+                .log().all();
+
+        Response response = request
+                .when()
+                .post(path)
+                .then()
+                .extract()
+                .response();
+
+        String responseBody = response.getBody().asString();
+        System.out.println(ADD_RESPONSE + responseBody);
+        Allure.step(ADD_RESPONSE + responseBody);
+        JSONObject jsonResponse = new JSONObject(responseBody);
+        taskMessageId = jsonResponse.getJSONObject("data").getInt("id");
+        taskMessage.setTaskMessageId(taskMessageId);
+        taskMessageAssert(taskMessage);
+
+        Allure.step("Получаем Task Massage id=" + taskId);
         taskMessageGet(true);
     }
 
@@ -198,12 +247,13 @@ public class TaskMessengerAPI {
             if (taskType.equals("feedback"))
                 taskMessage.setFeedback(messageObject.getBoolean("isFeedback"));
             if (taskType.equals("conditions_review"))
-                taskMessage.setFeedback(messageObject.getBoolean("isUpdatedConditions"));
+                taskMessage.setUpdatedConditions(messageObject.getBoolean("isUpdatedConditions"));
+            if (taskType.equals("url_request"))
+                taskMessage.setUrl(messageObject.getBoolean("isUrl"));
 
             taskMessage.setPin(messageObject.getBoolean("isPin"));
             taskMessage.setText(messageObject.isNull("text") ? null : messageObject.getString("text"));
-
-            // taskMessage.setFile(messageObject.isNull("file")? null : messageObject.getString("text"));
+            taskMessage.setFileExist(!messageObject.isNull("file"));
             taskMessageList.add(taskMessage);
         }
         return taskMessageList;
@@ -228,21 +278,20 @@ public class TaskMessengerAPI {
     }
 
     public static void taskMessageAssert(TaskMessage taskMessage) {
-        List<TaskMessage> taskMessageList = taskMessageGet(false);
+        List<TaskMessage> taskMessageList = taskMessageGet(true);
         Boolean isAssert = false;
         SoftAssert softAssert = new SoftAssert();
         for (TaskMessage taskMessageGet : taskMessageList) {
             if (taskMessageGet.getTaskMessageId() == taskMessageId) {
-                softAssert.assertEquals(taskMessageGet.getType(), taskMessage.getType());
-                softAssert.assertEquals(taskMessageGet.getAuthorId(), taskMessage.getAuthorId());
-                softAssert.assertEquals(taskMessageGet.getReplyId(), taskMessage.getReplyId());
-                softAssert.assertEquals(taskMessageGet.getText(), taskMessage.getText());
+                softAssert.assertEquals(taskMessageGet.getType(), taskMessage.getType(), "Type");
+                softAssert.assertEquals(taskMessageGet.getAuthorId(), taskMessage.getAuthorId(), "AuthorId");
+                softAssert.assertEquals(taskMessageGet.getReplyId(), taskMessage.getReplyId(), "ReplyId");
+                softAssert.assertEquals(taskMessageGet.getText(), taskMessage.getText(), "Text");
 
-               /* softAssert.assertEquals(taskMessageGet.getPin(), taskMessage.getPin());
-                softAssert.assertEquals(taskMessageGet.getUpdatedConditions(), taskMessage.getUpdatedConditions());
-                softAssert.assertEquals(taskMessageGet.getFeedback(), taskMessage.getFeedback());*/
-
-
+                softAssert.assertEquals(taskMessageGet.getPin(), taskMessage.getPin(), "Pin");
+                softAssert.assertEquals(taskMessageGet.getUpdatedConditions(), taskMessage.getUpdatedConditions(), "UpdatedConditions");
+                softAssert.assertEquals(taskMessageGet.getFeedback(), taskMessage.getFeedback(), "Feedback");
+                softAssert.assertEquals(taskMessageGet.getFileExist(), taskMessage.getFileExist(), "FileExist");
                 isAssert = true;
             }
         }
