@@ -592,7 +592,7 @@ public class TaskAPIActions {
         JsonObject jsonObject = new JsonObject();
 
         reason = "The reason for cancellation is a shift in priorities, making it unnecessary to proceed" +
-                " with this task at this time." + generateName(50, TASK_WORDS);
+                " with this task at this time." + generateName(10, TASK_WORDS);
 
         jsonObject.addProperty("reason", reason);
         System.out.println(path);
