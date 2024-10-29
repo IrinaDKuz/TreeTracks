@@ -5,33 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50f94cd9-12de-4a6c-a44c-165684b41317" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/IntegrationTaskAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/OfferApprovalTaskAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/UrlRequestTaskAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/SQL/OfferSQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/ConditionsReviewTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/IntegrationTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/OfferApproveTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/Task.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/TestConversionTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/UrlRequestTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task_API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Task_API_Testing.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAccessAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertAccessAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertPrimaryInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferAccessAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferAccessAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Offer/OfferMain/OfferMainBasicInfoAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/ConditionsReviewTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/ConditionsReviewTaskAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/GeneralTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/GeneralTaskAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/TaskMessengerAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskMessengerAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/TestConversionTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TestConversionTaskAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Adverts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/FeedBackTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/GeneralTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/GeneralTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/TaskMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/TaskMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,13 +225,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
-          <line>674</line>
+          <line>676</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
-          <line>672</line>
+          <line>674</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
+          <line>576</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

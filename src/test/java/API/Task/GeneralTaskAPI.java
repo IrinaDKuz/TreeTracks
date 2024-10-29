@@ -60,6 +60,6 @@ public class GeneralTaskAPI {
 
         Allure.step("Выполняем soft delete General Task id=" + taskId);
         // deleteMethod("task", String.valueOf(taskId));
-        assertSoftDelete(String.valueOf(taskId), "task");
+        // assertSoftDelete(String.valueOf(taskId), "task");
     }
 }

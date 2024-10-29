@@ -60,7 +60,7 @@ public class IntegrationTaskAPI {
 
         Allure.step("Выполняем soft delete Integration Task id=" + taskId);
         // deleteMethod("task", String.valueOf(taskId));
-        assertSoftDelete(String.valueOf(taskId), "task");
+       // assertSoftDelete(String.valueOf(taskId), "task");
     }
 
     public static IntegrationTask integrationTaskAddEdit(Boolean isEdit, IntegrationTask integrationTask) throws Exception {

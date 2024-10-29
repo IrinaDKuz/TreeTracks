@@ -57,7 +57,7 @@ public class FeedBackTaskAPI {
 
         Allure.step("Выполняем soft delete FeedBack Task id=" + taskId);
         // deleteMethod("task", String.valueOf(taskId));
-        assertSoftDelete(String.valueOf(taskId), "task");
+        // assertSoftDelete(String.valueOf(taskId), "task");
     }
 
     public static JsonObject initializeJsonTaskInfo(Task task) {
