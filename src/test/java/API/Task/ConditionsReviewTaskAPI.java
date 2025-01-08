@@ -31,14 +31,14 @@ public class ConditionsReviewTaskAPI {
 
     @Test
     public static void test() throws Exception {
-        userId = getRandomUserId();
-        authApi(userId);
+            userId = getRandomUserId();
+            authApi(userId);
 
-        Allure.step("Добавляем Conditions Review Task");
-        Task conditionsReviewTask = new ConditionsReviewTask(taskId, userId);
-        taskAddEdit(false, conditionsReviewTask);
-        taskId = conditionsReviewTask.getTaskId();
-        Allure.step(CHECK);
+            Allure.step("Добавляем Conditions Review Task");
+            Task conditionsReviewTask = new ConditionsReviewTask(taskId, userId);
+            taskAddEdit(false, conditionsReviewTask);
+            taskId = conditionsReviewTask.getTaskId();
+            Allure.step(CHECK);
 
         taskAssert(conditionsReviewTask, taskGet(true, taskId));
 

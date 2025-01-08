@@ -26,6 +26,11 @@ public class GeoAndLang {
         return map.get(getRandomKey(map));
     }
 
+    public static List<String> getSomeRandomGeoKeys(int count) {
+        List<String> keys = new ArrayList<>(GEO_MAP.keySet());
+        Collections.shuffle(keys);
+        return keys.stream().limit(count).collect(Collectors.toList());
+    }
 
     public static <K, V> K getKeyFromValue(V value, Map<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {

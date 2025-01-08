@@ -1,8 +1,6 @@
 package API.Task;
 
-import TaskPackage.entity.GeneralTask;
-import TaskPackage.entity.Task;
-import TaskPackage.entity.TestConversionTask;
+import TaskPackage.entity.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -14,11 +12,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-import static API.Helper.*;
+import static API.Helper.URL;
+import static API.Helper.getValueFromJson;
 import static API.Task.FeedBackTaskAPI.*;
 import static Helper.AllureHelper.*;
 import static Helper.Auth.*;
@@ -27,10 +28,10 @@ import static Helper.Auth.*;
  Тест проверяет работу API методов
  - get, add/edit, soft delete, проверка
  во вкладке Task - "Primary Info"
- //TODO:
+ //TODO: сейчас нет сравнений урлов и тайтлов нужно что-то придуать
  */
 
-public class TestConversionTaskAPI {
+public class AffIntegrationTaskAPI {
     static Integer taskId;
     static Integer userId;
 
@@ -39,24 +40,24 @@ public class TestConversionTaskAPI {
         userId = getRandomUserId();
         authApi(userId);
 
-        Allure.step("Добавляем Test conversion Task");
-        Task testConversionTask = new TestConversionTask(taskId, userId);
-        taskAddEdit(false, testConversionTask);
-        taskId = testConversionTask.getTaskId();
+        Allure.step("Добавляем Aff Integration Task");
+        Task affIntegrationTask = new AffIntegrationTask(taskId, userId);
+        taskAddEdit(false, affIntegrationTask);
+        taskId = affIntegrationTask.getTaskId();
         Allure.step(CHECK);
 
-        taskAssert(testConversionTask, taskGet(true, taskId));
+        taskAssert(affIntegrationTask, taskGet(true, taskId));
 
-        Allure.step("Получаем Test conversion Task id=" + taskId);
+        Allure.step("Получаем Aff Integration Task id=" + taskId);
         taskGet(true, taskId);
 
-        Allure.step("Редактируем Test conversion Task id=" + taskId);
-        Task testConversionTaskEdit = new TestConversionTask(taskId, userId);
-        taskAddEdit(true, testConversionTaskEdit);
+        Allure.step("Редактируем Aff Integration Task id=" + taskId);
+        Task affIntegrationTaskEdit = new AffIntegrationTask(taskId, userId);
+        taskAddEdit(true, affIntegrationTaskEdit);
         Allure.step(CHECK);
-        taskAssert(testConversionTaskEdit, taskGet(false, taskId));
+        taskAssert(affIntegrationTaskEdit, taskGet(false, taskId));
 
-        Allure.step("Выполняем soft delete Test conversion Task id=" + taskId);
+        Allure.step("Выполняем soft delete Aff Integration Task id=" + taskId);
         // deleteMethod("task", String.valueOf(taskId));
         // assertSoftDelete(String.valueOf(taskId), "task");
     }

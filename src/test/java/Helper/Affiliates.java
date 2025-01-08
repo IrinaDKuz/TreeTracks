@@ -12,6 +12,30 @@ public class Affiliates {
    // public static final String affiliateKey_90 = "720481de6ec3c633e96a6fb53c3ae24d";
   //  public static final String affiliateKey_95 = "bccea111d4fb548739c8218a738740d4";
 
+    public final static Map<String, String> AFFILIATE_STATUS_MAP = new HashMap<>() {
+        {
+            put("active", "Active");
+            put("not_active", "Not Active");
+            put("banned", "Banned");
+            put("on_moderation", "On moderation");
+        }
+    };
+
+    public static final String[] ADDRESS_TERMS = {
+            "City", "Street", "Avenue", "Boulevard", "Road", "Square", "Lane", "Park", "Drive", "Circle",
+            "Terrace", "Court", "Place", "Alley", "District", "Area", "Block", "Highway", "Route", "Crescent",
+            "Mews", "Parade", "Close", "Hill", "Gardens", "Walk", "Way", "Esplanade", "Quay", "Plaza",
+            "10", "25", "36", "48", "59", "63", "72", "85", "90", "101",
+            "123", "134", "147", "159", "162", "178", "183", "195", "209", "221",
+            "234", "246", "258", "271", "283", "297", "305", "318", "329", "342",
+            "Times Square", "Hollywood", "Silicon Valley", "Oxford Street", "Bond Street", "Wall Street", "Piccadilly Circus",
+            "Fifth Avenue", "Champs-Élysées", "Broadway", "Las Ramblas", "Red Square", "Pike Place", "Abbey Road", "Fleet Street",
+            "Via Veneto", "Rue de Rivoli", "Nevsky Prospect", "Kurfürstendamm", "Copacabana", "Broad Street", "Sunset Boulevard",
+            "Michigan Avenue", "Park Avenue", "Royal Mile", "Bourbon Street", "King's Road", "Collins Street", "Ginza", "Ocean Drive"
+    };
+
+
+
 
     public static Map<Integer, String> affiliatesKeys_map = new HashMap<Integer, String>() {{
         put(3, affiliateKey_3);

@@ -15,7 +15,7 @@ public class AdvertSQL {
 
     @Test
     public static void test() throws Exception {
-       // System.out.println(isInDatabaseWhere("id", "65", "category", "lang", "'general'"));
+        // System.out.println(isInDatabaseWhere("id", "65", "category", "lang", "'general'"));
         System.out.println(getValueFromBDWhere("advert_id", "task", "id", "199"));
         // getValueFromBDWhere("title", "payment_system", "id", "57");
         //getRequisitesFromBDPaymentSystem(57);
@@ -59,6 +59,7 @@ public class AdvertSQL {
     }
 
 
+    // Несколько параметров WHERE
     public static String getValueFromBDWhere(String parameter, String tableName, Map<String, String> criteria) throws SQLException {
         String sqlRequest = "SELECT " + parameter + " FROM " + tableName +
                 " WHERE " + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "));
@@ -81,6 +82,11 @@ public class AdvertSQL {
 
     public static List<String> getArrayFromBDWhereNull(String parameter, String tableName, String where) throws Exception {
         String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") IS NULL;";
+        return sqlQueryList(sqlRequest, parameter);
+    }
+
+    public static List<String> getArrayFromBDWhereNotNull(String parameter, String tableName, String where) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE LOWER(" + where + ") IS NOT NULL;";
         return sqlQueryList(sqlRequest, parameter);
     }
 
@@ -117,6 +123,32 @@ public class AdvertSQL {
                 sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " IS NULL";
             list.addAll(sqlQueryList(sqlRequest, parameter));
         }
+        return list;
+    }
+
+    public static List<String> getArrayFromBDWhereIn(String parameter, String tableName, String where, List<String> whereValues) throws SQLException {
+        List<String> list;
+        String whereValueIn = " ( ";
+        for (String whereValue : whereValues) {
+            whereValueIn = whereValueIn + whereValue;
+        }
+        whereValueIn = whereValueIn + " )";
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " IN " + whereValueIn + ";";
+        System.out.println(sqlRequest);
+        list = sqlQueryList(sqlRequest, parameter);
+        return list;
+    }
+
+    public static List<String> getArrayFromBDWhereNotIn(String parameter, String tableName, String where, List<String> whereValues) throws SQLException {
+        List<String> list;
+        String whereValueIn = " ( ";
+        for (String whereValue : whereValues) {
+            whereValueIn = whereValueIn + whereValue;
+        }
+        whereValueIn = whereValueIn + " )";
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " NOT IN " + whereValueIn + ";";
+        System.out.println(sqlRequest);
+        list = sqlQueryList(sqlRequest, parameter);
         return list;
     }
 
@@ -180,26 +212,26 @@ public class AdvertSQL {
     }
 
     public static String getRandomValueFromBDWhereExcept(String parameter, String tableName, String where, String whereValue, String excludeValue) throws Exception {
-            String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) + "';";
-            List<String> list = sqlQueryList(sqlRequest, parameter);
+        String sqlRequest = "SELECT " + parameter + " FROM " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) + "';";
+        List<String> list = sqlQueryList(sqlRequest, parameter);
 
-            List<String> filteredList = list.stream()
-                    .filter(value -> !value.equals(excludeValue))
-                    .collect(Collectors.toList());
+        List<String> filteredList = list.stream()
+                .filter(value -> !value.equals(excludeValue))
+                .collect(Collectors.toList());
 
-            return filteredList.get(new Random().nextInt(filteredList.size()));
-        }
+        return filteredList.get(new Random().nextInt(filteredList.size()));
+    }
 
 
-        public static String getLastValueFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
+    public static String getLastValueFromBDWhere(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) + "' ORDER BY id DESC LIMIT 1;";
         List<String> list = sqlQueryList(sqlRequest, parameter);
-            System.out.println(list);
+        System.out.println(list);
         return list.getFirst();
     }
 
     public static String getLastValueFromBDWhere(String parameter, String tableName, String where, String whereValue, String orderBy) throws Exception {
-        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) + "' ORDER BY " + orderBy +" DESC LIMIT 1;";
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) + "' ORDER BY " + orderBy + " DESC LIMIT 1;";
         List<String> list = sqlQueryList(sqlRequest, parameter);
         return list.getFirst();
     }
@@ -244,14 +276,35 @@ public class AdvertSQL {
 
 
     public static String getRandomTaskFromBDWhereAndNotSoftDelete(String parameter, String tableName,
-                                                                   String type,
-                                                                   String where, String whereValue) throws Exception {
+                                                                  String type,
+                                                                  String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " = '" + escapeSql(whereValue) +
                 "' AND type = '" + type + "' AND deleted_at IS NULL;";
-        System.out.println(sqlRequest);
+       // System.out.println(sqlRequest);
         List<String> list = sqlQueryList(sqlRequest, parameter);
         return list.get(new Random().nextInt(list.size()));
     }
+
+    public static String getRandomTaskFromBDWhereAndNotSoftDelete(String parameter, String tableName,
+                                                                  Map<String, String> criteria) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE "
+                + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "))
+                + " AND deleted_at IS NULL;";
+        // System.out.println(sqlRequest);
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
+    public static String getRandomTaskFromBDWithWatcherWhereAndNotSoftDelete(String parameter, String tableName,
+                                                                  Map<String, String> criteria) throws Exception {
+        String sqlRequest = "SELECT " + parameter + " from " + tableName + " JOIN task_watcher ON task_id = task.id WHERE "
+                + criteria.entrySet().stream().map(entry -> entry.getKey() + " = '" + escapeSql(entry.getValue()) + "'").collect(Collectors.joining(" AND "))
+                + " AND deleted_at IS NULL;";
+       //  System.out.println(sqlRequest);
+        List<String> list = sqlQueryList(sqlRequest, parameter);
+        return list.get(new Random().nextInt(list.size()));
+    }
+
 
     public static String getRandomValueFromBDWhereMore(String parameter, String tableName, String where, String whereValue) throws Exception {
         String sqlRequest = "SELECT " + parameter + " from " + tableName + " WHERE " + where + " > " + escapeSql(whereValue) + " ;";

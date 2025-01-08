@@ -43,7 +43,7 @@ public class IntegrationTaskAPI {
 
         Allure.step("Добавляем Integration Task");
         Task integrationTask = new IntegrationTask(taskId, userId);
-        integrationTaskAddEdit(false, (IntegrationTask)integrationTask);
+        integrationTaskAddEdit(false, (IntegrationTask) integrationTask);
         taskId = integrationTask.getTaskId();
         Allure.step(CHECK);
 
@@ -54,13 +54,13 @@ public class IntegrationTaskAPI {
 
         Allure.step("Редактируем Integration Task id=" + taskId);
         Task integrationTaskEdit = new IntegrationTask(taskId, userId);
-        integrationTaskAddEdit(true, (IntegrationTask)integrationTaskEdit);
+        integrationTaskAddEdit(true, (IntegrationTask) integrationTaskEdit);
         Allure.step(CHECK);
         integrationTaskAssert(integrationTaskEdit, integrationTaskGet(false, taskId));
 
         Allure.step("Выполняем soft delete Integration Task id=" + taskId);
         // deleteMethod("task", String.valueOf(taskId));
-       // assertSoftDelete(String.valueOf(taskId), "task");
+        // assertSoftDelete(String.valueOf(taskId), "task");
     }
 
     public static IntegrationTask integrationTaskAddEdit(Boolean isEdit, IntegrationTask integrationTask) throws Exception {

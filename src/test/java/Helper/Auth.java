@@ -38,6 +38,16 @@ public class Auth {
     public static final String PRE_STAGE_NODE = "http://newx.3tracks.online/";
 
 
+    static Map<Integer, Map<String, String>> USERSNEWX = new HashMap<>() {
+        {
+            put(4, new HashMap<>() {{
+                put("email", "petrpetrovpp2023@gmail.com");
+                put("password", "password");
+
+            }});
+
+        }};
+
     static Map<Integer, Map<String, String>> USERS = new HashMap<>() {
         {
             put(1, new HashMap<>() {{
@@ -98,7 +108,7 @@ public class Auth {
 
 
     public static void authApi(Integer user) {
-        System.out.println(user);
+        System.out.println("Пользователь, которым зашли в систему: " + user);
 
         RestAssured.baseURI = "https://api.admin.3tracks.link";
         String email = USERS.get(user).get("email");
@@ -117,6 +127,31 @@ public class Auth {
 
         String key = response.path("data.key");
         KEY = "Bearer " + key;
+    }
+
+
+    public static void authApiNewX(Integer user) {
+        System.out.println("Пользователь, которым зашли в систему: " + user);
+
+        RestAssured.baseURI = "https://api.newx.3tracks.online";
+        String email = USERSNEWX.get(user).get("email");
+        String password = USERSNEWX.get(user).get("password");
+
+        String requestBody = "{ \"username\": \"" + email + "\"," +
+                " \"password\": \"" + password + "\" }";
+
+        Response response = given()
+                .body(requestBody)
+                .post("/auth/login") // Адрес запроса
+                .then()
+                .contentType(ContentType.JSON)
+                .extract()
+                .response();
+
+        System.out.println(response);
+        String key = response.path("data.key");
+        KEY = "Bearer " + key;
+        System.out.println(KEY);
     }
 
 

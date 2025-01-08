@@ -52,7 +52,7 @@ public class UrlRequestTaskAPI {
         taskAssert(urlRequestTaskEdit, taskGet(false, taskId));
 
         Allure.step("Выполняем soft delete URL request Task id=" + taskId);
-     //   deleteMethod("task", String.valueOf(taskId));
-      //  assertSoftDelete(String.valueOf(taskId), "task");
+        //   deleteMethod("task", String.valueOf(taskId));
+        //  assertSoftDelete(String.valueOf(taskId), "task");
     }
 }

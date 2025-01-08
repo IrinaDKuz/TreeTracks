@@ -1,0 +1,503 @@
+
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=27
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Full Advet Fie
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Jolibet
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=discussion
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=душнила, и не хочет траф с поиска
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=revshare
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=fr
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=Omega-Innovations-Solutions.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=sddg
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=1234567
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=SunflowerCamellia@mail.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Marya Dmitrievna Akhrosimova
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Deal Hot Proven
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=4
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=paused
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=private
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=18
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=56
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=5
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=5
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=admin@3tracks.online
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=New
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Ksendzova
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=petr:petrovich
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=5
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=new
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=general
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=3
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-10-14
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-10-31
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=EMPTY Inc Future Hyper
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Enterprises Eco Hyper Industries
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=Innovative Worldwide International Space Hyper Industries Dynamic Industries Solutions Inc
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=hybrid
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=ls
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=6
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=global-industries-tech-1915.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=12/34
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Andrei Bolkonsky
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=sbuttondaffodil@example.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Pierre Bezukhov
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Accredited Leader Instant-access
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=paused
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=private
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=14
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=67
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=19
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=5
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=admin@3tracks.online
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=admin
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=admin
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=@PetrPetrovich
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=7
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=progress
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=offer_approval
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-11-01
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-12-14
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=24
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Full Advet Gie
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Industries Tech
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=put_on_search
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=Innovative Worldwide International Space Hyper Industries Dynamic Industries Solutions Inc
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=hybrid
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=gw
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=3
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=https:www.jolibet.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=12098653452
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=902835927859203
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Andrei@Bolkonsky.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Natasha Rostova
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Accredited Leader Instant-access
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=4
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=disabled
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=pre_moderation
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=3
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=65
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=5
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=19
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=5
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=nk@3snet.co
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=New
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Ksendzova
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=jsmith_skype
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=new
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=feedback
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=3
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=3
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-12-14
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-12-14
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=32
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Hub Lab Worldwide Access
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Omega Innovations Solutions Inc.
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=put_on_search
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=note
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=revshare
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=ee
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=consulting-dynamic-tech-5978.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=test@test.ru
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Boris Drubetskoy
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Andrei@Bolkonsky.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Bachelor's Button Daffodil
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Deal Hot Proven
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=4
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=disabled
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=pre_moderation
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=24
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=61
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=5
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=petrpetrovpp2023@gmail.com
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=Jhon
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Admin Smith
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=petr:petrovich
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=resolved
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=url_request
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-11-18
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-12-14
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=22
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Full Advet Fie
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Industries Tech
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=put_on_search
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=Notes
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=7
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=other
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=km
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=consulting-dynamic-tech-5978.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=22
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Content Filter Advert3
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Industries Tech
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=note
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=7
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=other
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=fr
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=global-industries-tech-1915.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=sdg
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=754-9997-87-00
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Marya Dmitrievna Akhrosimova
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Deal Hot Proven
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=2
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=paused
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=pre_moderation
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=3
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=70
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=1
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=5
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=new@mailtoplus.online
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=admin
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Petrovich
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=12345678987
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=resolved
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=test_conversion
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-12-12
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-12-14
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=29
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Content Filter Advert4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=7
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Enterprises Eco Hyper Industries
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=discussion
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=Advertisers play a crucial role in marketing by promoting products, services, or ideas through various channels to target audiences.
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=7
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=other
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=ar
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=Omega-Innovations-Solutions.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=sdg
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Andrei Bolkonsky
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=bachelor_sbuttongodetia@outlook.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Вася Петров
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Deal Hot Proven
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=pre_moderation
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=18
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=72
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=5
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=admin@3tracks.online
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=Nataliia
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Andersen
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=jsmith_telegram
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=5
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=new
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=conditions_review
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-12-14
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-11-07
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=27
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Full Advet Fie
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=7
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=7
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Industries Systems Solutions full
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=in_touch
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=Notes
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=cpa
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=fi
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=3
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=https:www.jolibet.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=sddg
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=//Countess/Rostova.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=kadjaklj@snjdksaljf.co
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=12
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Content Filter Advert2
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Jolibet
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=put_on_search
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=Advertisers play a crucial role in marketing by promoting products, services, or ideas through various channels to target audiences.
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=other
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=af
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=6
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=global-industries-tech-1915.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=Petr
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=https://Carnation/3/contacts
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=bachelor_sbuttongodetia@outlook.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Andrei Bolkonsky
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=2
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Add new Offer
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=4
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=disabled
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=pre_moderation
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=18
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=65
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=1
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=on_moderation
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=2
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=disabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=test_admin@mailto.plus
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=New
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Andersen
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=jsmith_skype
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=7
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=draft
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=conditions_review
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=1
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=3
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-11-01
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-12-14
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=33
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=Full Advet Gie
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=4
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Industries Systems Solutions full
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=put_on_search
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=Advertisers play a crucial role in marketing by promoting products, services, or ideas through various channels to target audiences.
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=other
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=ls
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=6
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=consulting-dynamic-tech-5978.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=sbuttondaffodil@example.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=123-56-87
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Andrei@Bolkonsky.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Amaryllis Columbine
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=2
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Add new Offer
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=2
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=4
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=disabled
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=pre_moderation
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=24
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=66
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=19
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=5
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=test_admin@mailto.plus
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=Nataliia
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Ksendzova
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=jsmith_telegram
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=4
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=resolved
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=test_conversion
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=14
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=3
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-12-14
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-11-02
+https://api.newx.3tracks.online/advert?page=1&limit=2000
+https://api.newx.3tracks.online/advert?page=1&limit=2000&id=34
+https://api.newx.3tracks.online/advert?page=1&limit=2000&name=For payment test
+https://api.newx.3tracks.online/advert?page=1&limit=2000&managerId[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&accountManager[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&salesManager[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&companyLegalname=Enterprises Eco Hyper Industries
+https://api.newx.3tracks.online/advert?page=1&limit=2000&status[]=assigned_to_sales_manager
+https://api.newx.3tracks.online/advert?page=1&limit=2000&note=note
+https://api.newx.3tracks.online/advert?page=1&limit=2000&userRequestSource[]=1
+https://api.newx.3tracks.online/advert?page=1&limit=2000&pricingModel[]=hybrid
+https://api.newx.3tracks.online/advert?page=1&limit=2000&geo[]=ee
+https://api.newx.3tracks.online/advert?page=1&limit=2000&tag[]=5
+https://api.newx.3tracks.online/advert?page=1&limit=2000&category[]=10
+https://api.newx.3tracks.online/advert?page=1&limit=2000&siteUrl=https:www.jolibet.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentType[]=3
+https://api.newx.3tracks.online/advert?page=1&limit=2000&paymentDetails=Name
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Andrei Bolkonsky
+https://api.newx.3tracks.online/advert?page=1&limit=2000&contact=Andrei@Bolkonsky.com
+https://api.newx.3tracks.online/advert?page=1&limit=2000&person=Natasha Rostova
+https://api.newx.3tracks.online/offer?page=1&limit=2000
+https://api.newx.3tracks.online/offer?page=1&limit=2000&id=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&title=Accredited Leader Instant-access
+https://api.newx.3tracks.online/offer?page=1&limit=2000&advert[]=2
+https://api.newx.3tracks.online/offer?page=1&limit=2000&category[]=1
+https://api.newx.3tracks.online/offer?page=1&limit=2000&status[]=disabled
+https://api.newx.3tracks.online/offer?page=1&limit=2000&privacyLevel=pre_moderation
+https://api.newx.3tracks.online/offer?page=1&limit=2000&tags[]=3
+https://api.newx.3tracks.online/offer?page=1&limit=2000&trafficSources[]=14
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&id=59
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&manager[]=1
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&status[]=active
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&trafficSources[]=7
+https://api.newx.3tracks.online/affiliate?page=1&limit=2000&categories[]=2
+https://api.newx.3tracks.online/admin/?page=1&limit=2000
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&status=enabled
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&email=petrpetrovpp2023@gmail.com
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&firstName=Jhon
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&secondName=Petrovich
+https://api.newx.3tracks.online/admin/?page=1&limit=2000&messenger=123-45-67
+https://api.newx.3tracks.online/task?page=1&limit=2000
+https://api.newx.3tracks.online/task?page=1&limit=2000&assignee[]=5
+https://api.newx.3tracks.online/task?page=1&limit=2000&requester[]=8
+https://api.newx.3tracks.online/task?page=1&limit=2000&watcher[]=5
+https://api.newx.3tracks.online/task?page=1&limit=2000&status[]=draft
+https://api.newx.3tracks.online/task?page=1&limit=2000&type[]=feedback
+https://api.newx.3tracks.online/task?page=1&limit=2000&advert[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&offer[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&affiliate[]=2
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateFrom=2024-12-14
+https://api.newx.3tracks.online/task?page=1&limit=2000&dueDateTo=2024-12-20

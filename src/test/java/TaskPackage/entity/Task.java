@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import static API.Helper.getValueFromJsonByKey;
 import static Helper.Adverts.generateName;
 import static Helper.GeoAndLang.getRandomKey;
 import static Helper.Tasks.*;
@@ -30,7 +31,9 @@ public class Task {
     Integer affiliateId;
 
     String notes;
+    String postback;
     String dueDate;
+    String data;
 
     public Task() throws Exception {
         this.status = getRandomKey(TASKS_STATUS_MAP);
@@ -51,10 +54,10 @@ public class Task {
         this.advertId = Integer.valueOf(getValueFromBDWhere("advert_id", "offer", "id", this.offerId.toString()));
         this.affiliateId = Integer.valueOf(getRandomValueFromBD("id", "affiliate"));
 
+        this.postback = generateName(10, TASK_WORDS);
         this.notes = generateName(30, TASK_WORDS);
         this.dueDate = generateDueDatePlusNDays(new Random().nextInt(15) + 1);
     }
-
 
     public Task(Integer taskId) throws Exception {
         this.taskId = taskId;
@@ -76,6 +79,13 @@ public class Task {
         String affiliateIdString = getValueFromBDWhere("affiliate_id", "task", "id", String.valueOf(taskId));
         this.affiliateId = (affiliateIdString.equals("null")) ? null : Integer.parseInt(affiliateIdString);
 
+        this.data = getValueFromBDWhere("data", "task",
+                "id", String.valueOf(taskId));
+
+        if(this.type.equals("affiliate_integration")) {
+            this.postback = getValueFromJsonByKey(this.data, "postback");
+        }
+
         this.notes = getValueFromBDWhere("notes", "task",
                 "id", String.valueOf(taskId));
 
@@ -83,7 +93,7 @@ public class Task {
                 "id", String.valueOf(taskId));
         LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.dueDate  = dateTime.format(dateFormatter);
+        this.dueDate = dateTime.format(dateFormatter);
 
         this.taskTag = getArrayFromBDWhere("tag_id", "task_tag_relation", "task_id", String.valueOf(taskId))
                 .stream().map(Integer::valueOf).collect(Collectors.toList());
@@ -118,6 +128,7 @@ public class Task {
         this.advertId = Integer.valueOf(getValueFromBDWhere("advert_id", "offer", "id", this.offerId.toString()));
         this.affiliateId = Integer.valueOf(getRandomValueFromBD("id", "affiliate"));
 
+        this.postback = "PostBack " + generateName(10, TASK_WORDS);
         this.notes = "This is some information about task " + generateName(30, TASK_WORDS);
         this.dueDate = generateDueDatePlusNDays(new Random().nextInt(15) + 1);
     }
@@ -225,5 +236,13 @@ public class Task {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPostback() {
+        return postback;
+    }
+
+    public void setPostback(String postback) {
+        this.postback = postback;
     }
 }

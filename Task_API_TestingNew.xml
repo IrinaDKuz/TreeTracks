@@ -4,21 +4,21 @@
 
 <suite name="Task Test Suite">
 
-<!--    <test verbose="2" preserve-order="true" name="Task general API test">
+    <test verbose="2" preserve-order="true" name="Task general API test">
         <parameter name="taskTypeParameter" value="general"/>
         <classes>
-           &lt;!&ndash; <class name="API.Task.GeneralTaskAPI"/>
-            <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
-            <class name="API.Task.TaskAPIActions">
+           <!-- <class name="API.Task.GeneralTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/> -->
+            <class name="API.Task.TaskAPIActionsNew">
                 <methods>
-                    <include name="copyAction"/>
+                    <include name="createAction"/>
+                    <exclude name="copyAction"/>
                     <exclude name="inProgressAction"/>
                     <exclude name="requestAdditionalInfoAction"/>
                     <exclude name="postponeAction"/>
                     <exclude name="reviewAction"/>
                     <exclude name="cancelAction"/>
                     <exclude name="completeAction"/>
-
                 </methods>
             </class>
         </classes>
@@ -27,11 +27,11 @@
     <test verbose="2" preserve-order="true" name="Task feedback API test">
         <parameter name="taskTypeParameter" value="feedback"/>
         <classes>
-           &lt;!&ndash; <class name="API.Task.FeedBackTaskAPI"/>
-           <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
+           <!-- <class name="API.Task.FeedBackTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/> -->
             <class name="API.Task.TaskAPIActions">
                 <methods>
-                    <include name="copyAction"/>
+                    <exclude name="copyAction"/>
                     <exclude name="inProgressAction"/>
                     <exclude name="requestAdditionalInfoAction"/>
                     <exclude name="postponeAction"/>
@@ -44,11 +44,11 @@
         </classes>
     </test>
 
-    <test verbose="2" preserve-order="true" name="Task conditions_review API test">
+   <!-- <test verbose="2" preserve-order="true" name="Task conditions_review API test">
         <parameter name="taskTypeParameter" value="conditions_review"/>
         <classes>
-          &lt;!&ndash;  <class name="API.Task.ConditionsReviewTaskAPI"/>
-            <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
+             <class name="API.Task.ConditionsReviewTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/> 
             <class name="API.Task.TaskAPIActions">
                 <methods>
                     <include name="copyAction"/>
@@ -66,8 +66,8 @@
     <test verbose="2" preserve-order="true" name="Task test_conversion API test">
         <parameter name="taskTypeParameter" value="test_conversion"/>
         <classes>
-        &lt;!&ndash;    <class name="API.Task.TestConversionTaskAPI"/>
-            <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
+             <class name="API.Task.TestConversionTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/> 
             <class name="API.Task.TaskAPIActions">
                 <methods>
                     <include name="copyAction"/>
@@ -86,8 +86,8 @@
     <test verbose="2" preserve-order="true" name="Task URL request API test">
         <parameter name="taskTypeParameter" value="url_request"/>
         <classes>
-           &lt;!&ndash; <class name="API.Task.UrlRequestTaskAPI"/>
-            <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
+             <class name="API.Task.UrlRequestTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/> 
             <class name="API.Task.TaskAPIActions">
                 <methods>
                     <include name="copyAction"/>
@@ -106,8 +106,8 @@
     <test verbose="2" preserve-order="true" name="Integration request API test">
         <parameter name="taskTypeParameter" value="integration"/>
         <classes>
-         &lt;!&ndash;   <class name="API.Task.IntegrationTaskAPI"/>
-            <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
+             <class name="API.Task.IntegrationTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/> 
             <class name="API.Task.TaskAPIActions">
                 <methods>
                     <include name="copyAction"/>
@@ -126,8 +126,8 @@
     <test verbose="2" preserve-order="true" name="Task Offer Approval API test">
         <parameter name="taskTypeParameter" value="offer_approval"/>
         <classes>
-           &lt;!&ndash; <class name="API.Task.OfferApprovalTaskAPI"/>
-            <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
+             <class name="API.Task.OfferApprovalTaskAPI"/>
+            <class name="API.Task.TaskMessengerAPI"/> 
             <class name="API.Task.TaskAPIActions">
                 <methods>
                     <include name="copyAction"/>
@@ -141,13 +141,13 @@
                 </methods>
             </class>
         </classes>
-    </test>-->
+    </test>&ndash;&gt;
 
     <test verbose="2" preserve-order="true" name="Affiliate integration API test">
         <parameter name="taskTypeParameter" value="affiliate_integration"/>
         <classes>
-            <!--    <class name="API.Task.TestConversionTaskAPI"/>
-                <class name="API.Task.TaskMessengerAPI"/>-->
+            &lt;!&ndash;    <class name="API.Task.TestConversionTaskAPI"/>
+                <class name="API.Task.TaskMessengerAPI"/>&ndash;&gt;
             <class name="API.Task.TaskAPIActions">
                 <methods>
                     <include name="copyAction"/>
@@ -162,5 +162,5 @@
             </class>
         </classes>
     </test>
-
+-->
 </suite>

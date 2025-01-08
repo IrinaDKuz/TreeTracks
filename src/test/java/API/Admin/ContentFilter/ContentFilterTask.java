@@ -13,32 +13,36 @@ import org.testng.annotations.Test;
 
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static API.Helper.*;
-import static API.Helper.sortToInteger;
-import static Helper.Adverts.ADVERT_STATUS_MAP;
-import static Helper.Adverts.MODEL_TYPES_MAP;
 import static Helper.AllureHelper.DELETE;
 import static Helper.AllureHelper.GET_RESPONSE;
-import static Helper.Auth.authKeyAdmin;
-import static Helper.GeoAndLang.GEO_MAP;
+import static Helper.Auth.*;
 import static Helper.GeoAndLang.getRandomKeys;
 import static SQL.AdvertSQL.*;
 import static io.restassured.RestAssured.given;
 
 /***
- Тест проверяет работу Advert Content Filter
+ Тест проверяет работу Task Content Filter
+ Если пользователь является Assignee\Requester\Watcher в таске - то он видит таску в любом случае
+ Если пользователь НЕ является Assignee\Requester\Watcher в таске - то он видит таску только в случае
+ если он есть в фильтре include и его нет в фильтре exclude
 
- TODO: 10% DONE  НАДО РЕФАКТОРИТЬ ПО TASK(AFF) CONTENT-FILTER
+ TODO: 0% DONE
  */
 
-public class ContentFilterAdvert {
+public class ContentFilterTask {
 
     static List<AdminContentFilterForTesting> filterIncludeList = new ArrayList<>();
     static List<AdminContentFilterForTesting> filterExcludeList = new ArrayList<>();
+    static Integer userId;
+
 
     @Test
     public static void testPrepareData() throws Exception {
+        userId = getRandomUserId();
+        authApi(userId);
         System.out.println(" ");
         System.out.println("0) Заполнение массива данных для дальнейших проверок");
         prepareData();
@@ -46,7 +50,6 @@ public class ContentFilterAdvert {
 
     @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
     public void testSeparateInclude() throws Exception {
-        //1) Тестирование по отдельности include
         System.out.println(" ");
         System.out.println("1) Тестирование по отдельности include");
         for (AdminContentFilterForTesting filler1 : filterIncludeList) {
@@ -55,9 +58,8 @@ public class ContentFilterAdvert {
         }
     }
 
-    @Test(dependsOnMethods = "testPrepareData", alwaysRun = true)
+   @Test(dependsOnMethods = "testSeparateInclude", alwaysRun = true)
     public void testSeveral() throws Exception {
-        // 2) Тестирование конфигураций include + exclude несколько
         System.out.println(" ");
         System.out.println("2) Несколько include - несколько exclude");
         List<AdminContentFilterForTesting> list = getRandomFilter(filterIncludeList, filterExcludeList.size() - 1);
@@ -67,7 +69,6 @@ public class ContentFilterAdvert {
 
     @Test(dependsOnMethods = "testSeveral", alwaysRun = true)
     public void testAllInclude() throws Exception {
-        // 3) Тестирование конфигураций include + include все
         System.out.println(" ");
         System.out.println("3) Тестирование конфигураций include + include все");
         testFieldCombination(filterIncludeList);
@@ -75,11 +76,11 @@ public class ContentFilterAdvert {
 
     @Test(dependsOnMethods = "testAllInclude", alwaysRun = true)
     public void test1() throws Exception {
-        // 4) Тестирование конфигураций по всем include - exclude
         System.out.println(" ");
         System.out.println("4) Тестирование конфигураций по всем include - exclude");
         for (int i = 0; i < filterIncludeList.size(); i++) {
             int n = new Random().nextInt(filterExcludeList.size());
+
             testFieldCombination(List.of(filterIncludeList.get(i), filterExcludeList.get(n)));
         }
     }
@@ -97,97 +98,79 @@ public class ContentFilterAdvert {
 
     @Test(dependsOnMethods = "test2", alwaysRun = true)
     public static void testDeleteData() throws Exception {
-        Allure.step(DELETE + " content-filter/advert ");
+        Allure.step(DELETE + " content-filter/task ");
         String id = getValueFromBDWhere("id", "content_filter",
-                Map.of("type", "advert", "admin_id", "104"));
-        deleteMethod("admin/104/content-filter", "advert");
+                Map.of("type", "task", "admin_id", userId.toString()));
+        deleteMethod("admin/" + userId + "/content-filter", "task");
         assertDelete(id, "content_filter");
     }
 
 
     public static void prepareData() throws Exception {
 
-        filterIncludeList.add(contentFilterAdverts(true, "idInclude"));
-        filterExcludeList.add(contentFilterAdverts(false, "idExclude"));
+        filterIncludeList.add(contentFilterAdmins(true, "assigne_id", "assigneeInclude"));
+        filterExcludeList.add(contentFilterAdmins(false, "assigne_id", "assigneeExclude"));
 
-        filterIncludeList.add(contentFilterAdmins(true, "manager_id", "managerIdInclude"));
-        filterExcludeList.add(contentFilterAdmins(false, "manager_id", "managerIdExclude"));
+        filterIncludeList.add(contentFilterAdmins(true, "requester_id", "requesterInclude"));
+        filterExcludeList.add(contentFilterAdmins(false, "requester_id", "requesterExclude"));
 
-        filterIncludeList.add(contentFilterAdmins(true, "account_manager", "accountManagerInclude"));
-        filterExcludeList.add(contentFilterAdmins(false, "account_manager", "accountManagerExclude"));
 
-        filterIncludeList.add(contentFilterAdmins(true, "sales_manager", "salesManagerInclude"));
-        filterExcludeList.add(contentFilterAdmins(false, "sales_manager", "salesManagerExclude"));
+        List<String> filterValue = getSomeValuesFromBD("type", "task", new Random().nextInt(3) + 1);
 
-        filterIncludeList.add(contentFilterAdmins(true, "user_request_source", "userRequestSourceInclude"));
-        filterExcludeList.add(contentFilterAdmins(false, "user_request_source", "userRequestSourceExclude"));
+        filterIncludeList.add(contentFilterOther(true, filterValue, "id", "task",
+                "type", "taskTypeInclude"));
 
-        List<String> filterValue = getSomeValuesFromBD("id", "advert_tag", new Random().nextInt(3) + 3);
-        filterIncludeList.add(contentFilterOther(true, filterValue, "advert_id", "advert_tag_relation",
-                "advert_tag_id", "tagInclude"));
+        filterValue = getSomeValuesFromBD("type", "task", new Random().nextInt(3) + 2);
+        filterExcludeList.add(contentFilterOther(false, filterValue, "id", "task",
+                "type", "taskTypeExclude"));
 
-        filterValue = getSomeValuesFromBD("id", "advert_tag", new Random().nextInt(3) + 3);
-        filterExcludeList.add(contentFilterOther(false, filterValue, "advert_id", "advert_tag_relation",
-                "advert_tag_id", "tagExclude"));
+        filterValue = getSomeValuesFromBD("id", "admin", new Random().nextInt(3) + 2);
+        filterIncludeList.add(contentFilterOther(true, filterValue, "task_id", "task_watcher",
+                "admin_id", "watcherInclude"));
 
-        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 3);
-        filterIncludeList.add(contentFilterOther(true, filterValue, "advert_id", "advert_category",
-                "category_id", "categoryInclude"));
-
-        filterValue = getSomeValuesFromBDWhere("id", "category", "lang", "general", new Random().nextInt(5) + 3);
-        filterExcludeList.add(contentFilterOther(false, filterValue, "advert_id", "advert_category",
-                "category_id", "categoryExclude"));
-
-        filterIncludeList.add(contentFilterAdvertInfo(true, MODEL_TYPES_MAP, 2, "pricing_model", "pricingModelInclude"));
-        filterExcludeList.add(contentFilterAdvertInfo(false, MODEL_TYPES_MAP, 2, "pricing_model", "pricingModelExclude"));
-
-        filterIncludeList.add(contentFilterAdvertInfo(true, ADVERT_STATUS_MAP, 2, "status", "statusInclude"));
-        filterExcludeList.add(contentFilterAdvertInfo(false, ADVERT_STATUS_MAP, 2, "status", "statusExclude"));
-
-        filterIncludeList.add(contentFilterAdvertInfo(true, GEO_MAP, 20, "geo", "geoInclude"));
-        filterExcludeList.add(contentFilterAdvertInfo(false, GEO_MAP, 20, "geo", "geoExclude"));
-    }
-
-    public static AdminContentFilterForTesting contentFilterAdverts(boolean isInclude, String filterName) throws Exception {
-        List<String> filterValue = sortToString(getSomeValuesFromBD("id", "advert", new Random().nextInt(100) + 3));
-        List<Integer> expectedIds = sortToInteger(filterValue);
-        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
-        return filter;
+        filterValue = getSomeValuesFromBD("id", "admin", new Random().nextInt(3) + 1);
+        filterExcludeList.add(contentFilterOther(false, filterValue, "task_id", "task_watcher",
+                "admin_id", "watcherExclude"));
     }
 
     public static AdminContentFilterForTesting contentFilterAdmins(boolean isInclude, String bdName, String filterName) throws Exception {
-        List<String> filterValue = getSomeValuesFromBD("id", "admin", new Random().nextInt(10) + 2);
-        filterValue.add("null");
-        filterValue.add("self");
-        List<Integer> expectedIds = new ArrayList<>();
+        List<String> filterValue = getSomeValuesFromBD("id", "admin", new Random().nextInt(4) + 1);
 
-        expectedIds.addAll(sortToInteger(getArrayFromBDWhere("id", "advert", bdName, filterValue)));
-        expectedIds.addAll(sortToInteger(getArrayFromBDWhereNull("id", "advert", bdName)));
-        expectedIds.addAll(sortToInteger(getArrayFromBDWhere("id", "advert", bdName, "104")));
 
-        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
+        List<String> uniqueValues = filterValue.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        if (!isInclude){
+            // Удалить значения, которые в том же фильтре, но include
+            uniqueValues.removeAll(filterIncludeList.getLast().getFilterValue());
+        }
+
+        List<Integer> expectedIds = new ArrayList<>(sortToInteger(getArrayFromBDWhere("id", "task", bdName, uniqueValues)));
+
+        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, uniqueValues, expectedIds);
         return filter;
     }
 
     public static AdminContentFilterForTesting contentFilterOther(boolean isInclude, List<String> filterValue, String bdName,
                                                                   String tableName, String whereName, String filterName) throws Exception {
-        List<Integer> expectedIds = sortToInteger(getArrayFromBDWhere(bdName, tableName, whereName, filterValue));
 
-        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
-        return filter;
-    }
+        List<String> uniqueValues = filterValue.stream()
+                .distinct()
+                .collect(Collectors.toList());
 
-    public static AdminContentFilterForTesting contentFilterAdvertInfo(boolean isInclude, Map<String, String> map, int bound,
-                                                                       String whereName, String filterName) throws Exception {
+        if (!isInclude){
+            // Удалить значения, которые в том же фильтре, но include
+            uniqueValues.removeAll(filterIncludeList.getLast().getFilterValue());
+        }
 
-        List<String> filterValue = getRandomKeys(map, new Random().nextInt(bound) + 2);
-        List<Integer> expectedIds;
-        if (filterName.contains("geo") || filterName.contains("pricingModel")) {
-            expectedIds = sortToInteger(getArrayFromBDWhereLike("id", "advert", whereName, filterValue));
-        } else
-            expectedIds = sortToInteger(getArrayFromBDWhere("id", "advert", whereName, filterValue));
+        System.out.println("uniqueValues - " + uniqueValues);
+        List<Integer> expectedIds = sortToInteger(getArrayFromBDWhere(bdName, tableName, whereName, uniqueValues));
 
-        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, filterValue, expectedIds);
+        System.out.println("isInclude - " + isInclude);
+        System.out.println("expectedIds - " + expectedIds);
+
+        AdminContentFilterForTesting filter = new AdminContentFilterForTesting(isInclude, filterName, uniqueValues, expectedIds);
         return filter;
     }
 
@@ -198,7 +181,6 @@ public class ContentFilterAdvert {
             Allure.step(filter.getFilterName() + " " + filter.getFilterValue());
             System.err.println(filter.getFilterName());
             System.out.println(filter.getFilterValue());
-
         }
         // Вызов метода для установки значений фильтра
         contentFilter(contentFilters);
@@ -212,40 +194,97 @@ public class ContentFilterAdvert {
                 List<Integer> actualIds = new ArrayList<>();
                 List<Integer> expectedIds = new ArrayList<>();
 
-                // Сложим/вычтем expectedIds
                 List<Integer> toAdd = new ArrayList<>();
                 List<Integer> toRemove = new ArrayList<>();
 
-                List<Integer> specialToAdd = new ArrayList<>();
-                List<Integer> specialToRemove = new ArrayList<>();
-
                 for (AdminContentFilterForTesting filter : contentFilters) {
-                    List<Integer> filterIds = filterExistAdvert(filter.getExpectedIds());
+                    List<Integer> filterIds = filter.getExpectedIds().stream().distinct().toList();
 
-
-                    if (!filter.getFilterName().equals("idInclude") && !filter.getFilterName().equals("idExclude")) {
-                        if (filter.getInclude()) {
-                            toAdd.addAll(filterIds); // Отложенные добавления
-                        } else {
-                            toRemove.addAll(filterIds); // Отложенные удаления
-                        }
-                    } else {
-                        if (filter.getFilterName().equals("idInclude"))
-                            specialToAdd.addAll(filterIds);
-                        if (filter.getFilterName().equals("idExclude"))
-                            specialToRemove.addAll(filterIds);
-                    }
-
-                    // После завершения цикла выполняем добавление и удаление
-                    expectedIds.addAll(toAdd);
-                    expectedIds.removeAll(toRemove);
-
-                    expectedIds.addAll(specialToAdd);
-                    expectedIds.removeAll(specialToRemove);
+                    if (filter.getFilterName().contains("Include"))
+                        toAdd.addAll(filterIds);
+                    if (filter.getFilterName().contains("Exclude"))
+                        toRemove.addAll(filterIds);
                 }
 
+                // После завершения цикла выполняем добавление и удаление
+
+                expectedIds.addAll(toAdd);
+                Collections.sort(expectedIds);
+                System.out.println("Add filters !!!!!!!" + expectedIds);
+                expectedIds.removeAll(toRemove);
+                Collections.sort(expectedIds);
+                System.out.println("Delete filters !!!!!!!" + expectedIds);
+
+                // Таски где пользователь Assignee\Requester\Watcher
+                List<Integer> specialToAdd = new ArrayList<>();
+                specialToAdd.addAll(
+                        getArrayFromBDWhere("id", "task", "assigne_id", userId.toString())
+                                .stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList()));
+
+                Collections.sort(expectedIds);
+                System.out.println("assigne !!!!!!!" + expectedIds);
+
+
+
+
+                specialToAdd.addAll(
+                        getArrayFromBDWhere("id", "task", "requester_id", userId.toString())
+                                .stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList()));
+
+                Collections.sort(expectedIds);
+                System.out.println("requester_id !!!!!!!" + expectedIds);
+
+
+                specialToAdd.addAll(
+                        getArrayFromBDWhere("task_id", "task_watcher", "admin_id", userId.toString())
+                                .stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList()));
+
+                Collections.sort(expectedIds);
+                System.out.println("task_watcher !!!!!!!" + expectedIds);
+
+
+                expectedIds.addAll(specialToAdd);
+
+                // Удаляем те, которые были удалены
+                expectedIds.removeAll(
+                        getArrayFromBDWhereNotNull("id", "task", "deleted_at")
+                                .stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList()));
+
+
+                Collections.sort(expectedIds);
+                System.out.println("deleted_at !!!!!!!" + expectedIds);
+
+                // Удаляем те, которые со статусом Cancelled и Resolved
+                expectedIds.removeAll(
+                        getArrayFromBDWhere("id", "task", "status", "cancelled")
+                                .stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList()));
+
+
+                Collections.sort(expectedIds);
+                System.out.println("cancelled !!!!!!!" + expectedIds);
+
+
+                expectedIds.removeAll(
+                        getArrayFromBDWhere("id", "task", "status", "resolved")
+                                .stream()
+                                .map(Integer::valueOf)
+                                .collect(Collectors.toList()));
+
+                Collections.sort(expectedIds);
+                System.out.println("resolved !!!!!!!" + expectedIds);
+
                 // Запросим actualIds
-                actualIds.addAll(advertListGet());
+                actualIds.addAll(taskListGet());
 
                 // Все отсортируем и удалим повторы
                 List<Integer> expectedIdsFilter = new ArrayList<>();
@@ -261,6 +300,20 @@ public class ContentFilterAdvert {
 
                 System.out.println("Из метода: " + sortedActualIds);
                 System.out.println("Из БД: " + expectedIdsFilter);
+
+                List<Integer> differences = new ArrayList<>();
+
+                List<Integer> finalExpectedIdsFilter = expectedIdsFilter;
+                differences.addAll(sortedActualIds.stream()
+                        .filter(element -> !finalExpectedIdsFilter.contains(element))
+                        .collect(Collectors.toList()));
+
+                differences.addAll(expectedIdsFilter.stream()
+                        .filter(element -> !sortedActualIds.contains(element))
+                        .collect(Collectors.toList()));
+
+                System.out.println(differences);
+
                 Allure.step("Из метода: " + sortedActualIds);
                 Allure.step("Из БД: " + expectedIdsFilter);
 
@@ -300,12 +353,12 @@ public class ContentFilterAdvert {
         }
         System.out.println(jsonObject);
 
-        String path = "https://api.admin.3tracks.link/admin/104/content-filter/advert";
+        String path = "https://api.admin.3tracks.link/admin/" + userId + "/content-filter/task";
 
         // Отправка POST запроса
         Response response = given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .body(jsonObject.toString())
                 .post(path);
 
@@ -313,48 +366,42 @@ public class ContentFilterAdvert {
         System.out.println(responseBody);
         Assert.assertTrue(responseBody.contains("{\"success\":true"));
 
+        path = "https://api.admin.3tracks.link/admin/" + userId + "/content-filter";
         response = given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .get(" https://api.admin.3tracks.link/admin/104/content-filter");
+                .get(path);
 
         responseBody = response.getBody().asString();
-
         System.out.println(GET_RESPONSE + responseBody);
 
     }
 
 
-    public static List<Integer> advertListGet() throws SQLException {
-        ArrayList<Integer> advertFromList = new ArrayList<>();
+    public static List<Integer> taskListGet() throws SQLException {
+        ArrayList<Integer> taskFromList = new ArrayList<>();
 
-        int count = Integer.parseInt(getCountFromBD("advert"));
+        int count = Integer.parseInt(getCountFromBD("task"));
 
         Response response = given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", authKeyAdmin)
-                .get(URL + "/advert?page=1&limit=" + count + "/");
+                .header("Authorization", KEY)
+                .get(URL + "/task?page=1&limit=" + count + "/");
 
         String responseBody = response.getBody().asString();
 
         JSONObject jsonObject = new JSONObject(responseBody);
         JSONObject data = jsonObject.getJSONObject("data");
-        JSONArray advertsArray = data.getJSONArray("adverts");
-
-        for (int i = 0; i < count; i++) {
-            JSONObject advertObject = advertsArray.getJSONObject(i);
-
-            // if (isInclude) {
-            if (!advertObject.isNull("permission"))
-                advertFromList.add(advertObject.getInt("id"));
-            /*} else {
-                if (advertObject.isNull("permission"))
-                    advertFromList.add(advertObject.getInt("id"));
-            }*/
+        JSONArray taskArray = data.getJSONArray("tasks");
+        for (int i = 0; i < taskArray.length(); i++) {
+            JSONObject taskObject = taskArray.getJSONObject(i);
+            int id = taskObject.getInt("id");
+            taskFromList.add(id);
         }
-        return advertFromList;
+
+        return taskFromList;
     }
 
 
@@ -365,13 +412,13 @@ public class ContentFilterAdvert {
     }
 
 
-    public static void deleteData(String filterQuantity)  {
+    public static void deleteData(String filterQuantity) {
         Response response = given()
                 .contentType(ContentType.URLENC)
-                .header("Authorization", authKeyAdmin)
+                .header("Authorization", KEY)
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
-                .delete(" https://api.admin.3tracks.link/admin/104/content-filter/" + filterQuantity);
+                .delete(" https://api.admin.3tracks.link/admin/" + userId + "/content-filter/" + filterQuantity);
 
         String responseBody = response.getBody().asString();
         Assert.assertTrue(responseBody.contains("{\"success\":true"));

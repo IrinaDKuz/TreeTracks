@@ -73,6 +73,11 @@ public class FeedBackTaskAPI {
             taskObject.addProperty("title", generalTask.getTitle());
         }
 
+        if (task instanceof AffIntegrationTask) {
+            AffIntegrationTask affIntegrationTask = (AffIntegrationTask) task;
+            taskObject.addProperty("postback", affIntegrationTask.getPostback());
+        }
+
         taskObject.addProperty("status", task.getStatus());
         taskObject.addProperty("offerId", task.getOfferId());
         taskObject.addProperty("assigner", task.getAssigneeId());
@@ -154,6 +159,9 @@ public class FeedBackTaskAPI {
                 ((GeneralTask) task).setTitle(info.getString("url"));
         }
 
+        if (info.getString("type").equals("affiliate_integration"))
+            task.setPostback(info.getString("postback"));
+
         task.setType(info.getString("type"));
         task.setStatus(info.getString("status"));
         task.setOfferId(getValueFromJson(info, "offer"));
@@ -199,8 +207,13 @@ public class FeedBackTaskAPI {
         }
 
         if (task instanceof TestConversionTask testConversionTask && taskGet instanceof TestConversionTask testConversionTaskGet) {
-            System.out.println("Проверка TestConversionTask +");
+            System.out.println("Проверка TestConversionTask + ");
             softAssert.assertEquals(testConversionTask.getTitle(), testConversionTaskGet.getTitle(), "Url do not match");
+        }
+
+        if (task instanceof AffIntegrationTask affIntegrationTask) {
+            System.out.println("Проверка AffIntegrationTask + ");
+            softAssert.assertEquals(affIntegrationTask.getPostback(), taskGet.getPostback(), "Postback do not match");
         }
 
         softAssert.assertEquals(task.getStatus(), taskGet.getStatus(), "Status do not match");

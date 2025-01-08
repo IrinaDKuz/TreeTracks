@@ -5,7 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50f94cd9-12de-4a6c-a44c-165684b41317" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Task_API_TestingNew.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAffiliate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterTaskMany.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Affiliate/AffiliatePrimaryInfoAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/AffIntegrationTaskAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActionsNew.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/AffiliatePackage/entity/Affiliate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OtherTest/CheckFilterAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OtherTest/FilterAPI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OtherTest/FilterAPIAnalyz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/OtherTest/FilterAPIRef.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/AffIntegrationTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task_API_Testing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Task_API_Testing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterAdvert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/ConditionsReviewTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/ConditionsReviewTaskAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/IntegrationTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/IntegrationTaskAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/TestConversionTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/TestConversionTaskAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/API/Task/UrlRequestTaskAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/API/Task/UrlRequestTaskAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Affiliates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Affiliates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/Auth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Helper/GeoAndLang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/AdvertSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TaskPackage/entity/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,17 +56,27 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.FilterAPIAnalyz.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "TestNG./Users/irina/IdeaProjects/TreeTracks/Task_API_Testing.xml.executor": "Run",
+    "TestNG./Users/irina/IdeaProjects/TreeTracks/Task_API_TestingNew.xml.executor": "Run",
     "TestNG.AdvertDoubleContactsAPI.executor": "Run",
     "TestNG.AdvertFilterAPI.executor": "Run",
     "TestNG.AdvertPaymentInfoAPI.executor": "Run",
     "TestNG.AdvertPostbackAPI.executor": "Run",
     "TestNG.AdvertSQL.test.executor": "Run",
+    "TestNG.AffIntegrationTaskAPI.executor": "Run",
+    "TestNG.AffiliatePrimaryInfoAPI.executor": "Run",
+    "TestNG.Auth.executor": "Run",
+    "TestNG.CheckFilterAPI.executor": "Run",
     "TestNG.ConditionsReviewTaskAPI.executor": "Run",
     "TestNG.ConditionsReviewTaskAPI.test.executor": "Run",
-    "TestNG.FeedBackTaskAPI.executor": "Debug",
+    "TestNG.ContentFilterAdvert.executor": "Run",
+    "TestNG.ContentFilterAffiliate.executor": "Run",
+    "TestNG.ContentFilterTask.executor": "Run",
+    "TestNG.ContentFilterTaskMany.test.executor": "Run",
+    "TestNG.FeedBackTaskAPI.executor": "Run",
     "TestNG.FeedBackTaskAPI.test.executor": "Run",
     "TestNG.FeedBackTaskAPIActions.InProgressAction.executor": "Run",
     "TestNG.FeedBackTaskAPIActions.completeAction.executor": "Run",
@@ -50,6 +87,10 @@
     "TestNG.FeedBackTaskAPIActions.requestAdditionalInfoAction.executor": "Run",
     "TestNG.FeedBackTaskAPIActions.updateAction.executor": "Run",
     "TestNG.FeedBackTaskAPIStatus.executor": "Run",
+    "TestNG.FilterAPI.executor": "Debug",
+    "TestNG.FilterAPIAnalyz.executor": "Run",
+    "TestNG.FilterAPIAnalyz.test.executor": "Run",
+    "TestNG.FilterAPIRef.executor": "Run",
     "TestNG.GeneralTaskAPI.executor": "Run",
     "TestNG.GeneralTaskAPI.test.executor": "Debug",
     "TestNG.IntegrationTaskAPI.executor": "Run",
@@ -57,7 +98,10 @@
     "TestNG.OfferApprovalTaskAPI.executor": "Run",
     "TestNG.OfferMainBasicInfoAPI.executor": "Run",
     "TestNG.TaskAPIActions.copyAction.executor": "Run",
+    "TestNG.TaskAPIActions.executor": "Run",
     "TestNG.TaskAPIActions.inProgressAction.executor": "Run",
+    "TestNG.TaskAPIActionsNew.createAction.executor": "Run",
+    "TestNG.TaskAPIActionsNew.executor": "Run",
     "TestNG.TaskMessengerAPI.executor": "Run",
     "TestNG.TaskMessengerAPI.newFileMessageTest.executor": "Run",
     "TestNG.TaskMessengerAPI.newMessageTest.executor": "Debug",
@@ -76,25 +120,28 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/test/java/API/Affiliate" />
+      <recent name="$PROJECT_DIR$/src/test/java/AffiliatePackage/entity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="API.Task" />
-      <recent name="TaskPackage.entity" />
-      <recent name="SQL" />
+      <recent name="API.Admin.ContentFilter" />
+      <recent name="OtherTest" />
       <recent name="API.Advert" />
+      <recent name="TaskPackage.entity" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="AdvertSQL.test" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="ContentFilterTaskMany.test" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="SQL.*" />
+          <option name="PATTERN" value="API.Admin.ContentFilter.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="SQL" />
-      <option name="MAIN_CLASS_NAME" value="SQL.AdvertSQL" />
+      <option name="PACKAGE_NAME" value="API.Admin.ContentFilter" />
+      <option name="MAIN_CLASS_NAME" value="API.Admin.ContentFilter.ContentFilterTaskMany" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
@@ -103,16 +150,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IntegrationTaskAPI.test" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="FilterAPIAnalyz.test" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="API.Task.*" />
+          <option name="PATTERN" value="OtherTest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.IntegrationTaskAPI" />
+      <option name="PACKAGE_NAME" value="OtherTest" />
+      <option name="MAIN_CLASS_NAME" value="OtherTest.FilterAPIAnalyz" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
@@ -121,7 +168,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskAPIActions.inProgressAction" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="TaskAPIActionsNew.createAction" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="TreeTracks" />
       <extension name="coverage">
         <pattern>
@@ -130,8 +177,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="API.Task" />
-      <option name="MAIN_CLASS_NAME" value="API.Task.TaskAPIActions" />
-      <option name="METHOD_NAME" value="inProgressAction" />
+      <option name="MAIN_CLASS_NAME" value="API.Task.TaskAPIActionsNew" />
+      <option name="METHOD_NAME" value="createAction" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -177,11 +224,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.TaskAPIActionsNew.createAction" />
+        <item itemvalue="TestNG.ContentFilterTaskMany.test" />
+        <item itemvalue="TestNG.FilterAPIAnalyz.test" />
         <item itemvalue="TestNG.TaskMessengerAPI.newMessageTest" />
         <item itemvalue="TestNG.TaskMessengerAPI.newFileMessageTest" />
-        <item itemvalue="TestNG.IntegrationTaskAPI.test" />
-        <item itemvalue="TestNG.TaskAPIActions.inProgressAction" />
-        <item itemvalue="TestNG.AdvertSQL.test" />
       </list>
     </recent_temporary>
   </component>
@@ -208,6 +255,15 @@
           </properties>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterTask.java</url>
+          <line>99</line>
+          <properties class="API.Admin.ContentFilter.ContentFilterTask" method="testDeleteData">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Task/GeneralTaskAPI.java</url>
           <line>64</line>
@@ -220,23 +276,63 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
-          <line>264</line>
+          <line>273</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
-          <line>676</line>
+          <line>693</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
-          <line>674</line>
+          <line>691</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/API/Task/TaskAPIActions.java</url>
-          <line>576</line>
+          <line>593</line>
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Admin/ContentFilter/ContentFilterTask.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java</url>
+          <line>130</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java</url>
+          <line>154</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Advert/AdvertFilterAPI.java</url>
+          <line>155</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/API/Task/FeedBackTaskAPI.java</url>
+          <line>201</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/OtherTest/FilterAPI.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/OtherTest/FilterAPIRef.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

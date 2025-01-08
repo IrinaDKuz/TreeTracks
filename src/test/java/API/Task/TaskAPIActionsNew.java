@@ -8,12 +8,15 @@ import io.qameta.allure.Allure;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -28,14 +31,17 @@ import static SQL.AdvertSQL.*;
 
 
 /***
- Тест проверяет работу API методов
- для actions (copy, inProgress, requestAdditionalInfo, postpone)
- во вкладке Task
- //TODO: остальные actions и message
+ Тест проверяет доступность Quick actions и работу API методов
+ (copy, inProgress, requestAdditionalInfo, postpone)
+ - берем пользователя
+ - берем таску определенного типа, где пользователь: 1) A, 2) R, 3) W, 4) никто,
+ проверяем доступность действий
+ - NB!!! важно проверить перед тестом, что у админов Tasks Edit = false т.к. если
+ Tasks Edit = true есть доступ ко всем Actions
  */
 
 
-public class TaskAPIActions {
+public class TaskAPIActionsNew {
     static Integer taskId;
     static String taskType;
     static String reason;
@@ -46,6 +52,45 @@ public class TaskAPIActions {
     // static String taskType = "conditions_review";
     // static String taskType = "general";
     // static String taskType = "url_request";
+
+
+    @Test
+    @Parameters({"taskTypeParameter"})
+    public static void createAction(String taskTypeParameter) throws Exception {
+        {
+            taskType = taskTypeParameter;
+            Integer userId = 104;
+            authApi(userId);
+
+            Allure.step("Проверяем доступные Quick actions по Draft таску Task id=" + taskId);
+
+            taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", Map.of("type", taskType,
+                    "status", "draft", "assigne_id", String.valueOf(userId))));
+            System.err.println("assigne_id");
+            openTask(taskId);
+            // Попробуем создать таску не Requester
+            newTask(taskId,false);
+
+
+            taskId = Integer.parseInt(getRandomTaskFromBDWithWatcherWhereAndNotSoftDelete("task.id", "task", Map.of("type", taskType,
+                    "status", "draft", "task_watcher.admin_id", String.valueOf(userId))));
+            System.err.println("task_watcher");
+            openTask(taskId);
+            // Попробуем создать таску не Requester
+            newTask(taskId,false);
+
+
+            taskId = Integer.parseInt(getRandomTaskFromBDWhereAndNotSoftDelete("id", "task", Map.of("type", taskType,
+                    "status", "draft", "requester_id", String.valueOf(userId))));
+            System.err.println("requester_id");
+            openTask(taskId);
+
+            Allure.step("Создаем Draft таску Task id=" + taskId);
+            newTask(taskId, true);
+            assertStatus(taskId, "new");
+
+        }
+    }
 
 
     @Test
@@ -498,6 +543,64 @@ public class TaskAPIActions {
         }
     }
 
+
+    public static void openTask(int taskId ) {
+        String path = URL + "/task/" + taskId;
+        System.out.println(path);
+
+        Response response = RestAssured.given()
+                .contentType(ContentType.URLENC)
+                .header("Authorization", KEY)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .get(path);
+
+        String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
+
+        JSONObject jsonObject = new JSONObject(responseBody);
+        JSONObject data = jsonObject.getJSONObject("data");
+        JSONArray action = data.getJSONArray("action");
+        System.out.println(action);
+    }
+
+
+    public static void assertStatus(int taskId, String status) {
+        String path = URL + "/task/" + taskId;
+        System.out.println(path);
+
+        Response response = RestAssured.given()
+                .contentType(ContentType.URLENC)
+                .header("Authorization", KEY)
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+                .get(path);
+
+        String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
+
+        JSONObject jsonObject = new JSONObject(responseBody);
+        JSONObject data = jsonObject.getJSONObject("data");
+        JSONObject action = data.getJSONObject("info");
+        String actualStatus = action.getString("status");
+
+        Assert.assertEquals(actualStatus, status);
+    }
+
+
+    public static void newTask(int taskId, boolean isSuccess) {
+        String path = URL + "/task/" + taskId + "/action/create";
+
+        System.out.println(path);
+        Response response = RestAssured.given().contentType(ContentType.URLENC).header("Authorization", KEY).header("Accept", "application/json").header("Content-Type", "application/json").post(path);
+
+        String responseBody = response.getBody().asString();
+        System.out.println(responseBody);
+        if (isSuccess)
+            Assert.assertTrue(responseBody.contains("{\"success\":true"));
+        else
+            Assert.assertEquals(responseBody, "{\"success\":false,\"error\":[{\"msg\":\"Current user not task requester\",\"name\":\"logic_exception\"}]}");
+    }
 
     public static void copyTask() {
         String path = URL + "/task/" + taskId + "/action/copy";
